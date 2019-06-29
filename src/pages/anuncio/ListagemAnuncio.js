@@ -3,9 +3,18 @@ import api from "../../services/api";
 
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { SearchBar } from 'react-native-elements';
 
 import { navigationOptions } from "../../styles/StyleBase";
-import StyleAnuncio, { anuncioIconeAvaliacao, fontFamilyTextoComum } from "../../styles/StyleAnuncio";
+import StyleAnuncio, { 
+            anuncioIconeAvaliacao,
+            searchBarContainerStyle, 
+            searchBarSearchIcon,
+            searchBarInputStyle, 
+            searchBarInputContainerStyle,
+            searchBarleftIconContainerStyle,
+            searchBarPlaceholderTextColor
+        } from "../../styles/StyleAnuncio";
 
 export default class ListagemAnuncio extends Component {
     static navigationOptions = navigationOptions;
@@ -14,6 +23,11 @@ export default class ListagemAnuncio extends Component {
         productInfo: {},
         docs: [],
         page: 1,
+        search: '',
+    };
+  
+    updateSearch = search => {
+      this.setState({ search });
     };
 
     componentDidMount(){
@@ -82,8 +96,20 @@ export default class ListagemAnuncio extends Component {
     )
 
     render() {
+        const { search } = this.state;
         return (
             <View style={StyleAnuncio.container}>
+                <SearchBar
+                placeholder="Busque por nome, preço..."
+                onChangeText={this.updateSearch}
+                value={search}
+                searchIcon={searchBarSearchIcon}
+                containerStyle={searchBarContainerStyle}
+                inputStyle={searchBarInputStyle}
+                inputContainerStyle={searchBarInputContainerStyle}
+                leftIconContainerStyle={searchBarleftIconContainerStyle}
+                placeholderTextColor = {searchBarPlaceholderTextColor}
+                /> 
                 <FlatList
                     contentContainerStyle={StyleAnuncio.list}
                     data={this.state.docs}
