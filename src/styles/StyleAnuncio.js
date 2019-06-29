@@ -1,10 +1,19 @@
 import { StyleSheet } from "react-native";
 
+const tamanhoFonteTextoComum = 16;
+const alturaLinhaTextoComum = 22;
+export const fontFamilyTextoComum = 'Arciform';
+const corFonteTextoComum = "#999";
+const corFonteTextoAvaliacao = "#e7a74e";
+const backgroundGeral = "#fafafa";
+const backgroundAnuncio = "#FFF";
+const corBordaAnuncio = "#DDD";
+
 const StyleAnuncio = StyleSheet.create({
     //entre cabecalho e rodape
     container: {
         flex: 1,
-        backgroundColor: "#fafafa",
+        backgroundColor: backgroundGeral,
     },
     list: {
         padding: 10
@@ -13,9 +22,9 @@ const StyleAnuncio = StyleSheet.create({
     anuncioContainer: {
         flex: 1,
         flexDirection: 'row',
-        backgroundColor: "#FFF",
+        backgroundColor: backgroundAnuncio,
         borderWidth: 1,
-        borderColor: "#DDD",
+        borderColor: corBordaAnuncio,
         borderRadius: 5, //deixa a borda redonda
         padding: 0,
         marginBottom: 10
@@ -23,7 +32,7 @@ const StyleAnuncio = StyleSheet.create({
     anuncioColunaEsquerdaContainer: {
         //flex: 1,
         borderRightWidth: 1,
-        borderRightColor: "#DDD",
+        borderRightColor: corBordaAnuncio,
         borderRadius: 0,
         padding: 10,
         justifyContent: 'center',
@@ -33,11 +42,12 @@ const StyleAnuncio = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         borderRightWidth: 1,
-        borderRightColor: "#DDD",
+        borderRightColor: corBordaAnuncio,
         borderRadius: 0,
         padding: 10,
         justifyContent: 'flex-start',
         alignItems: 'stretch',
+        fontFamily: fontFamilyTextoComum,
     },
     anuncioColunaDireitaLinha: {
         flex: 1,
@@ -46,39 +56,44 @@ const StyleAnuncio = StyleSheet.create({
     
 
     anuncioNome: {
-        fontSize: 16,
-        color: "#999",
-        lineHeight: 24,
-        fontFamily: "Verdana"
+        fontFamily: fontFamilyTextoComum,
+        fontSize: tamanhoFonteTextoComum,
+        color: corFonteTextoComum,
+        lineHeight: alturaLinhaTextoComum,
     },
 
     anuncioDistancia: {
-        fontSize: 16,
-        color: "#999",
-        lineHeight: 24
+        fontFamily: fontFamilyTextoComum,
+        fontSize: tamanhoFonteTextoComum,
+        color: corFonteTextoComum,
+        lineHeight: alturaLinhaTextoComum
     },
     anuncioAvaliacao: {
-        fontSize: 16,
-        color: "#e7a74e",
-        lineHeight: 24
+        fontFamily: fontFamilyTextoComum,
+        fontSize: tamanhoFonteTextoComum,
+        color: corFonteTextoAvaliacao,
+        lineHeight: alturaLinhaTextoComum
     },
 
     anuncioSeparador: {
-        fontSize: 16,
-        color: "#999",
-        lineHeight: 24
+        fontFamily: fontFamilyTextoComum,
+        fontSize: tamanhoFonteTextoComum,
+        color: corFonteTextoComum,
+        lineHeight: alturaLinhaTextoComum
     },
 
     anuncioPerfil: {
-        fontSize: 16,
-        color: "#999",
-        lineHeight: 24
+        fontFamily: fontFamilyTextoComum,
+        fontSize: tamanhoFonteTextoComum,
+        color: corFonteTextoComum,
+        lineHeight: alturaLinhaTextoComum
     },
 
     anuncioPreco: {
-        fontSize: 16,
-        color: "#999",
-        lineHeight: 24
+        fontFamily: fontFamilyTextoComum,
+        fontSize: tamanhoFonteTextoComum,
+        color: corFonteTextoComum,
+        lineHeight: alturaLinhaTextoComum
     },
     anuncioImagemUsuario: {
         width: 60, 
@@ -88,7 +103,7 @@ const StyleAnuncio = StyleSheet.create({
 
 export const anuncioIconeAvaliacao = {
     size: 18, 
-    color: "#e7a74e"
+    color: corFonteTextoAvaliacao
 };
 
 export default StyleAnuncio;
