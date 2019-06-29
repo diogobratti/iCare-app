@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# Add by Jonathan - Firebase site rnfirebase
+# -keep class io.invertase.firebase.** { *; }
+# -dontwarn io.invertase.firebase.**

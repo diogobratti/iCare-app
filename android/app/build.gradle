@@ -138,6 +138,12 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-firebase')
+    //Add by Jonathan - Firebase
+    // implementation 'com.google.firebase:firebase-core:17.0.0' //site firebase
+     implementation "com.google.android.gms:play-services-base:16.1.0" //site rnfirebase.io
+     implementation "com.google.firebase:firebase-core:16.0.9"// site rnfirebase.io
+    //----
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-gesture-handler')
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -151,3 +157,7 @@ task copyDownloadableDepsToLibs(type: Copy) {
     from configurations.compile
     into 'libs'
 }
+
+//Add by Jonathan - firebase
+apply plugin: 'com.google.gms.google-services'
+//----
