@@ -62,4 +62,15 @@ export const navigationOptions = {
     }
 };
 
+export const definicoesBase = {
+    tamanhoFonteTextoComum : 16,
+    alturaLinhaTextoComum : 22,
+    fontFamilyTextoComum : 'Arciform',
+    corFonteTextoComum : "#212121",
+    corFonteTextoAvaliacao : "#e7a74e",
+    backgroundGeral : "#fff",
+    backgroundAnuncio : "#FFF",
+    corBordaAnuncio : "#bdbdbd",
+};
+
 export default StyleBase;
