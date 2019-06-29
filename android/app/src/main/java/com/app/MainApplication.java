@@ -1,4 +1,4 @@
-package com.app;
+ package com.app;
 
 import android.app.Application;
 
@@ -29,6 +29,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNFirebasePackage(),
             new VectorIconsPackage(),
             new RNGestureHandlerPackage()
+            //Add by Jonathan - Firebase - rnfirebase.io
+            // new RNFirebaseAuthPackage()
       );
     }
 
