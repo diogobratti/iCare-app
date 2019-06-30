@@ -6,6 +6,7 @@ const StyleAnuncio = StyleSheet.create({
     //entre cabecalho e rodape
     container: {
         flex: 1,
+        flexDirection: 'column',
         backgroundColor: definicoesBase.backgroundGeral,
     },
     list: {
@@ -91,7 +92,7 @@ const StyleAnuncio = StyleSheet.create({
     anuncioImagemUsuario: {
         width: 60, 
         height: 45
-    }
+    },
 });
 
 export const anuncioIconeAvaliacao = {
@@ -104,6 +105,7 @@ export const searchBarContainerStyle= {
 };
 export const searchBarInputStyle = {
     fontFamily: definicoesBase.fontFamilyTextoComum,
+    fontSize: 16,
     backgroundColor: definicoesBase.corBordaAnuncio,
     color: definicoesBase.corFonteTextoComum,
 };
@@ -118,5 +120,7 @@ export const searchBarPlaceholderTextColor = "#86939e";
 export const searchBarSearchIcon = {
     color: definicoesBase.corFonteTextoComum,
 };
+
+export const iconeFiltro =  definicoesBase.corFonteTextoComum;
 
 export default StyleAnuncio;
