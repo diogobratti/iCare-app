@@ -8,10 +8,44 @@ export default class SignUp extends React.Component {
     handleSignUp = () => {
         console.log('handleSignUp')
 
-        firebase.auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => this.props.navigation.navigate('Main'))
-            .catch(error => this.setState({ errorMessage: error.message }))
+        // firebase.auth()
+        // .createUserWithEmailAndPassword(this.state.email, this.state.password)
+        // .then(() => this.props.navigation.navigate('Main'))
+        // .catch(error => this.setState({ errorMessage: error.message }))
+
+        firebase.auth().
+            createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(() => {
+                //adiciona atributos "adicionais"
+
+            })
+            .catch(error => this.setState({
+                errorMessage: this.translateSignUpErrors(error)
+            }));
+
+    }
+
+    translateSignUpErrors(error) {
+
+        switch (error.code) {
+            case 'auth/email-already-in-use	':
+                message = "Endereço de email já cadastrado";
+                break;
+            case 'auth/invalid-email':
+                message = "Endereço de email inválido";
+                break;
+            case 'auth/operation-not-allowed':
+                message = "Erro Interno";
+                break;
+            case 'auth/weak-password':
+                message = "A senha digitada é muito fraca";
+                break;
+            default:
+                message: "Erro desconhecido" + error.code;
+                break;
+        }
+
+        return message;
     }
 
     render() {
