@@ -42,6 +42,15 @@ export default class Login extends React.Component {
                     value={this.state.password}
                 />
                 <Button title="Login" onPress={this.handleLogin} />
+
+                <Text>Conecte-se com</Text>
+
+                <Text>Facebook</Text>
+
+                <Text>Google</Text>
+
+                <Text>Instagram</Text>
+
                 <Button
                     title="Não tem uma conta? Cadastre-se"
                     onPress={() => this.props.navigation.navigate('SignUp')}
