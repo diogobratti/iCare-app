@@ -1,7 +1,8 @@
 // SignUp.js
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-import { CheckBox, ThemeProvider } from 'react-native-elements'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { CheckBox, Button } from 'react-native-elements'
+
 
 import firebase from 'react-native-firebase'
 
@@ -173,5 +174,8 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderWidth: 1,
         marginTop: 8
+    },
+    Button: {
+        marginTop: 10
     }
 })
