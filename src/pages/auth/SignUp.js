@@ -143,7 +143,7 @@ export default class SignUp extends React.Component {
                     // itemCheckedKey="RNchecked"
                     // iconSize={16}
                     value={this.state.serviceTermsCheckbox}
-                // checked={this.state.serviceTermsCheckbox}
+                    checked={this.state.serviceTermsCheckbox}
 
                 />
 
