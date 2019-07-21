@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import api from "../../services/api";
 
-import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Icon } from 'react-native-elements';
 
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio, { 
@@ -17,7 +17,7 @@ import StyleAnuncio, {
             iconeFiltro
         } from "../../styles/StyleAnuncio";
 
-export default class ListagemAnuncio extends Component {
+export default class ListagemAnuncioFiltro extends Component {
     static navigationOptions = navigationOptions;
 
     state = {
@@ -26,36 +26,6 @@ export default class ListagemAnuncio extends Component {
         page: 1,
         search: '',
     };
-  
-    updateSearch = search => {
-      this.setState({ search });
-    };
-
-    componentDidMount(){
-        this.loadProducts();
-    }
-
-    loadProducts = async (page = 1) => {
-        const response = await api.get(`/products?page=${page}`);
-
-        const { docs, ...productInfo } = response.data;
-
-        this.setState({ 
-            docs: [... this.state.docs, ...docs],
-            productInfo,
-            page 
-        });
-    };
-
-    loadMore = () => {
-        const { page, productInfo } = this.state;
-
-        if (page == productInfo.pages) return;
-
-        const pageNumber = page + 1;
-
-        this.loadProducts(pageNumber);
-    }
 
     renderItem = ({ item }) => (
         <View style={StyleAnuncio.anuncioContainer}>
@@ -119,20 +89,13 @@ export default class ListagemAnuncio extends Component {
                         <TouchableOpacity 
                             //style={styles.productButton} 
                             onPress={() => {
-                                this.props.navigation.navigate("ListagemAnuncioFiltro");
+                                goBack();
                             }}
                         >
-                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
+                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>aaaa</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
-                <FlatList
-                    contentContainerStyle={StyleAnuncio.list}
-                    data={this.state.docs}
-                    keyExtractor={item => item._id}
-                    renderItem={this.renderItem} 
-                    onEndReached={this.loadMore}
-                    onEndReachedThreshold={0.25} />
             </View>
         )
     }
