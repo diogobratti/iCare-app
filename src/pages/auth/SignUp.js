@@ -1,195 +1,192 @@
 // SignUp.js
-import React from 'react'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
-import { CheckBox, Button } from 'react-native-elements'
-import firebase from 'react-native-firebase'
-import apiDb from '../../services/apiDb'
+import React from 'react';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { CheckBox, Button } from 'react-native-elements';
+import firebase from 'react-native-firebase';
+import apiDb from '../../services/apiDb';
 
 export default class SignUp extends React.Component {
-    state = {
-        email: '',
-        password: '',
-        errorMessage: null,
-        cpf: '',
-        name: '',
-        birthdate: '',
-        phoneNumber: '',
-        address: '',
-        serviceTermsVersion: '',
-        serviceTermsCheckbox: false,
-        uid: ''
+  state = {
+    email: '',
+    password: '',
+    errorMessage: null,
+    cpf: '',
+    name: '',
+    birthdate: '',
+    phoneNumber: '',
+    address: '',
+    serviceTermsVersion: '',
+    serviceTermsCheckbox: false,
+    uid: '',
+  };
+
+  handleSignUp = () => {
+    console.log('handleSignUp');
+
+    //TODO: tratar se os termos de servico estao selecionados
+
+    // firebase.auth()
+    // .createUserWithEmailAndPassword(this.state.email, this.state.password)
+    // .then(() => this.props.navigation.navigate('Main'))
+    // .catch(error => this.setState({ errorMessage: error.message }))
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then((userCredentials) => {
+        //adiciona atributos "adicionais"
+        api = new apiDb('usuarios');
+        api.add({
+          id: userCredentials.user.uid,
+          cpf: this.state.cpf,
+          name: this.state.name,
+          birthdate: this.state.birthdate,
+          phoneNumaber: this.state.phoneNumber,
+          address: this.state.address,
+          serviceTermsVersion: this.state.serviceTermsVersion,
+        });
+
+        // this.props.navigation.navigate('Main');
+      })
+      .catch((error) =>
+        this.setState({
+          errorMessage: this.translateSignUpErrors(error),
+        })
+      );
+  };
+
+  translateSignUpErrors(error) {
+    message = error.message;
+
+    switch (error.code) {
+      case 'auth/email-already-in-use':
+        message = 'Endereço de email já cadastrado';
+        break;
+      case 'auth/invalid-email':
+        message = 'Endereço de email inválido';
+        break;
+      case 'auth/operation-not-allowed':
+        message = 'Erro Interno';
+        break;
+      case 'auth/weak-password':
+        message = 'A senha digitada é muito fraca';
+        break;
+      default:
+        message: 'Erro desconhecido: ' + error.code + error.message;
+        break;
     }
 
-    handleSignUp = () => {
-        console.log('handleSignUp')
+    return message;
+  }
 
-        //TODO: tratar se os termos de servico estao selecionados
+  render() {
+    return (
+      <ScrollView style={styles.container}>
+        <TextInput
+          placeholder="CPF"
+          keyboardType="numeric"
+          style={styles.textInput}
+          onChangeText={(cpf) => this.setState({ cpf })}
+          value={this.state.cpf}
+          maxLength={11}
+        />
 
-        // firebase.auth()
-        // .createUserWithEmailAndPassword(this.state.email, this.state.password)
-        // .then(() => this.props.navigation.navigate('Main'))
-        // .catch(error => this.setState({ errorMessage: error.message }))
+        <TextInput
+          placeholder="Email"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(email) => this.setState({ email })}
+          value={this.state.email}
+        />
 
-        firebase.auth().
-            createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then( (userCredentials) => {
-                //adiciona atributos "adicionais"
-                api = new apiDb('usuarios');
-                api.add({
-                    id: userCredentials.user.uid,
-                    cpf: this.state.cpf,
-                    name: this.state.name,
-                    birthdate: this.state.birthdate,
-                    phoneNumaber: this.state.phoneNumber,
-                    address: this.state.address,
-                    serviceTermsVersion: this.state.serviceTermsVersion
-                })
+        <TextInput
+          placeholder="Nome"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(name) => this.setState({ name })}
+          value={this.state.name}
+        />
 
-                // this.props.navigation.navigate('Main');
+        <TextInput
+          placeholder="Data de Nascimento"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(birthdate) => this.setState({ birthdate })}
+          value={this.state.birthdate}
+        />
 
-            })
-            .catch(error => this.setState({
-                errorMessage: this.translateSignUpErrors(error)
-            }));
+        <TextInput
+          placeholder="Telefone"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(phoneNumber) => this.setState({ phoneNumber })}
+          value={this.state.phoneNumber}
+        />
 
-    }
+        <TextInput
+          placeholder="Endereço"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(address) => this.setState({ address })}
+          value={this.state.address}
+        />
 
-    translateSignUpErrors(error) {
+        <TextInput
+          secureTextEntry
+          placeholder="Senha"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={(password) => this.setState({ password })}
+          value={this.state.password}
+        />
 
-        message = error.message;
+        <TextInput
+          secureTextEntry
+          placeholder="Confirme a Senha"
+          autoCapitalize="none"
+          style={styles.textInput}
+          // onChangeText={password => this.setState({ password })}
+          // value={this.state.password}
+        />
 
-        switch (error.code) {
-            case 'auth/email-already-in-use':
-                message = "Endereço de email já cadastrado";
-                break;
-            case 'auth/invalid-email':
-                message = "Endereço de email inválido";
-                break;
-            case 'auth/operation-not-allowed':
-                message = "Erro Interno";
-                break;
-            case 'auth/weak-password':
-                message = "A senha digitada é muito fraca";
-                break;
-            default:
-                message: "Erro desconhecido: " + error.code + error.message;
-                break;
-        }
+        <CheckBox
+          title="Concordo com os Termos de Serviço"
+          onValueChange={(serviceTermsCheckbox) =>
+            this.setState({ serviceTermsCheckbox })
+          }
+          // itemCheckedKey="RNchecked"
+          // iconSize={16}
+          value={this.state.serviceTermsCheckbox}
+          checked={this.state.serviceTermsCheckbox}
+        />
 
-        return message;
-    }
+        <Button title="Cadastre-se" onPress={this.handleSignUp} />
+        {this.state.errorMessage && (
+          <Text style={{ color: 'red' }}>{this.state.errorMessage}</Text>
+        )}
 
-    render() {
-        return (
-            <View style={styles.container}>
-
-                <TextInput
-                    placeholder="CPF"
-                    keyboardType='numeric'
-                    style={styles.textInput}
-                    onChangeText={(cpf) => this.setState({ cpf })}
-                    value={this.state.cpf}
-                    maxLength={11}
-                />
-
-                <TextInput
-                    placeholder="Email"
-                    autoCapitalize="none"
-                    style={styles.textInput}
-                    onChangeText={email => this.setState({ email })}
-                    value={this.state.email}
-                />
-
-                <TextInput
-                    placeholder="Nome"
-                    autoCapitalize="none"
-                    style={styles.textInput}
-                    onChangeText={name => this.setState({ name })}
-                    value={this.state.name}
-                />
-
-                <TextInput
-                    placeholder="Data de Nascimento"
-                    autoCapitalize="none"
-                    style={styles.textInput}
-                    onChangeText={birthdate => this.setState({ birthdate })}
-                    value={this.state.birthdate}
-                />
-
-                <TextInput
-                    placeholder="Telefone"
-                    autoCapitalize="none"
-                    style={styles.textInput}
-                    onChangeText={phoneNumber => this.setState({ phoneNumber })}
-                    value={this.state.phoneNumber}
-                />
-
-                <TextInput
-                    placeholder="Endereço"
-                    autoCapitalize="none"
-                    style={styles.textInput}
-                    onChangeText={address => this.setState({ address })}
-                    value={this.state.address}
-                />
-
-
-                <TextInput
-                    secureTextEntry
-                    placeholder="Senha"
-                    autoCapitalize="none"
-                    style={styles.textInput}
-                    onChangeText={password => this.setState({ password })}
-                    value={this.state.password}
-                />
-
-                <TextInput
-                    secureTextEntry
-                    placeholder="Confirme a Senha"
-                    autoCapitalize="none"
-                    style={styles.textInput}
-                // onChangeText={password => this.setState({ password })}
-                // value={this.state.password}
-                />
-
-                <CheckBox
-                    title="Concordo com os Termos de Serviço"
-                    onValueChange={serviceTermsCheckbox => this.setState( {serviceTermsCheckbox})}
-                    // itemCheckedKey="RNchecked"
-                    // iconSize={16}
-                    value={this.state.serviceTermsCheckbox}
-                    checked={this.state.serviceTermsCheckbox}
-
-                />
-
-                <Button title="Cadastre-se" onPress={this.handleSignUp} />
-                {this.state.errorMessage &&
-                    <Text style={{ color: 'red' }}>
-                        {this.state.errorMessage}
-                    </Text>}
-
-                <Button
-                    title="Já tem uma conta? Login"
-                    onPress={() => this.props.navigation.navigate('Login')}
-                />
-
-            </View>
-        )
-    }
+        <Button
+          title="Já tem uma conta? Login"
+          onPress={() => this.props.navigation.navigate('Login')}
+        />
+      </ScrollView>
+    );
+  }
 }
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    textInput: {
-        height: 40,
-        width: '90%',
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginTop: 8
-    },
-    Button: {
-        marginTop: 10
-    }
-})
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textInput: {
+    height: 40,
+    width: '90%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginTop: 8,
+  },
+  Button: {
+    marginTop: 10,
+  },
+});
