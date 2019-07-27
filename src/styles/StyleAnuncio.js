@@ -120,8 +120,8 @@ const StyleAnuncio = StyleSheet.create({
         lineHeight: definicoesBase.alturaLinhaTextoComum
     },
     anuncioImagemUsuario: {
-        width: 90, 
-        height: 60
+        width: 60, 
+        height: 80
     },
 });
 
