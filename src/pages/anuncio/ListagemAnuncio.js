@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import api from "../../services/api";
-import apiDb from "../../services/apiDb";
+import firebase from 'react-native-firebase';
 
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SearchBar } from 'react-native-elements';
 
 import Anuncio from "./Anuncio";
+import CollectionAnuncio from "../../collections/CollectionAnuncio";
 
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio, { 
@@ -26,23 +27,33 @@ export default class ListagemAnuncio extends Component {
     constructor() {
       super();
       this.unsubscribe = null;
-      this.db = new apiDb('anuncios');;
+      this.collection = firebase.firestore().collection('anuncios');
       this.state = {
         textInput: '',
         loading: true,
-        todos: [],
         anuncios: [],
 
         productInfo: {},
-        docs: [],
         page: 1,
         search: '',
       };
     }
 
     componentDidMount(){
-        this.unsubscribe = this.db.onSnapshot(this.onCollectionUpdate);
-        this.loadProducts();
+        // Valid options for source are 'server', 'cache', or
+        // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
+        // for more information.
+        var getOptions = {
+            source: 'cache'
+        };
+        this.unsubscribe = this.collection.
+                                   //orderBy('nome','DESC').
+                                   //where('nome', '==', 'dbratti').
+                                   //https://firebase.google.com/docs/firestore/query-data/query-cursors
+                                   //startAfter(last.data().population).
+                                   //onSnapshot(this.onCollectionUpdate);
+                                   get(getOptions).then(this.onCollectionUpdate);
+        //this.loadAnuncios();
     }
   
     componentWillUnmount() {
@@ -52,22 +63,14 @@ export default class ListagemAnuncio extends Component {
       const anuncios = [];
       querySnapshot.forEach((doc) => {
         const { 
-            nome,
-            profissao,
-            avaliacao,
-            valor_turno,
-            localidade 
+            ...CollectionAnuncio
         } = doc.data();
         
         anuncios.push({
           key: doc.id,
           doc, // DocumentSnapshot
           //dados do firestore
-          nome,
-          profissao,
-          avaliacao,
-          valor_turno,
-          localidade,
+          ...CollectionAnuncio
         });
       });
     
@@ -81,7 +84,8 @@ export default class ListagemAnuncio extends Component {
       this.setState({ search });
     };
 
-    loadProducts = async (page = 1) => {
+    loadAnuncios = async (page = 1) => {
+        /*
         const response = await api.get(`/products?page=${page}`);
 
         const { docs, ...productInfo } = response.data;
@@ -91,21 +95,20 @@ export default class ListagemAnuncio extends Component {
             productInfo,
             page 
         });
+        */
     };
 
     loadMore = () => {
+        /*
         const { page, productInfo } = this.state;
 
         if (page == productInfo.pages) return;
 
         const pageNumber = page + 1;
 
-        this.loadProducts(pageNumber);
+        this.loadAnuncios(pageNumber);
+        */
     }
-
-    renderItem = ({ item }) => (
-        <Anuncio />
-    )
 
     render() {
         const { search } = this.state;
@@ -137,8 +140,11 @@ export default class ListagemAnuncio extends Component {
                     </View>
                 </View>
                 <FlatList
+                    contentContainerStyle={StyleAnuncio.list}
                     data={this.state.anuncios}
                     renderItem={({ item }) => <Anuncio {...item} />}
+                    onEndReached={this.loadMore}
+                    onEndReachedThreshold={0.25}
                 />
             </View>
         )
