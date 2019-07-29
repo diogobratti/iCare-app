@@ -17,6 +17,7 @@ export const definicoesBase = {
     corBordaAnuncio : "#bdbdbd",
     corBarraSlider : "#bdbdbd",
     corBotaoSlider : "#0288d1",
+    backgroundCabecalho : "#0288d1",
 };
 
 

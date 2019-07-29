@@ -3,16 +3,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio, { 
-            anuncioIconeAvaliacao,
-            searchBarContainerStyle, 
-            searchBarSearchIcon,
-            searchBarInputStyle, 
-            searchBarInputContainerStyle,
-            searchBarleftIconContainerStyle,
-            searchBarPlaceholderTextColor,
-            iconeFiltro
+            anuncioIconeAvaliacao
         } from "../../styles/StyleAnuncio";
 
 export default class Anuncio extends React.PureComponent {
