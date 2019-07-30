@@ -101,12 +101,18 @@ const StyleAnuncio = StyleSheet.create({
 
     anuncioPerfil: {
         fontFamily: definicoesBase.fontFamilyTextoComum,
-        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        fontSize: 12,
         color: definicoesBase.corFonteTextoComum,
         lineHeight: definicoesBase.alturaLinhaTextoComum
     },
 
     anuncioPreco: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
+    anuncioTelefone: {
         fontFamily: definicoesBase.fontFamilyTextoComum,
         fontSize: definicoesBase.tamanhoFonteTextoComum,
         color: definicoesBase.corFonteTextoComum,
@@ -209,6 +215,11 @@ const StyleAnuncio = StyleSheet.create({
 });
 
 export const anuncioIconeAvaliacao = {
+    size: 18, 
+    color: definicoesBase.corFonteTextoAvaliacao
+};
+
+export const anuncioIconeTelefone = {
     size: 18, 
     color: definicoesBase.corFonteTextoAvaliacao
 };

@@ -39,7 +39,7 @@ class IconWithBadge extends React.Component {
       iconName = `ios-chatboxes${focused ? '' : ''}`;
       // We want to add badges to chat tab icon
       IconComponent = HomeIconWithBadge;
-    } else if (routeName === 'Anúncio') {
+    } else if (routeName === 'Anúncio' || routeName === 'Anuncie aqui' || routeName === 'Anuncie Aqui') {
       iconName = `ios-megaphone${focused ? '' : ''}`;
     } else if (routeName === 'Perfil') {
       iconName = `ios-person${focused ? '' : ''}`;

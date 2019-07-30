@@ -1,24 +1,25 @@
 import React, { Component } from "react";
-import api from "../../services/api";
+//import api from "../../services/api";
 import firebase from 'react-native-firebase';
 
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons';
+//import Ionicons from 'react-native-vector-icons/Ionicons';
 import { SearchBar } from 'react-native-elements';
 
 import Anuncio from "./Anuncio";
+import Propaganda from "./../propaganda/Propaganda";
 import CollectionAnuncio from "../../collections/CollectionAnuncio";
 
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio, { 
-            anuncioIconeAvaliacao,
+            //anuncioIconeAvaliacao,
             searchBarContainerStyle, 
             searchBarSearchIcon,
             searchBarInputStyle, 
             searchBarInputContainerStyle,
             searchBarleftIconContainerStyle,
             searchBarPlaceholderTextColor,
-            iconeFiltro
+            //iconeFiltro,
         } from "../../styles/StyleAnuncio";
 
 export default class ListagemAnuncio extends Component {
@@ -28,6 +29,9 @@ export default class ListagemAnuncio extends Component {
       super();
       this.unsubscribe = null;
       this.collection = firebase.firestore().collection('anuncios');
+      this.qtdAnuncios = 0;
+      this.propagandaAposAnuncios = 5;
+      this.temPropagandaAposAnuncios = true;
       this.state = {
         textInput: '',
         loading: true,
@@ -44,7 +48,7 @@ export default class ListagemAnuncio extends Component {
         // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
         // for more information.
         var getOptions = {
-            source: 'cache'
+            source: 'default',//'cache',
         };
         this.unsubscribe = this.collection.
                                    //orderBy('nome','DESC').
@@ -109,6 +113,23 @@ export default class ListagemAnuncio extends Component {
         this.loadAnuncios(pageNumber);
         */
     }
+    renderItem = (item) => {
+        if(this.qtdAnuncios%this.propagandaAposAnuncios == 4 && this.temPropagandaAposAnuncios){
+            this.qtdAnuncios++;
+            return (
+                <View>
+                    <Anuncio {...item} navigation={this.props.navigation} />
+                    <Propaganda navigation={this.props.navigation} />
+                </View>
+            );
+        } else {
+            this.qtdAnuncios++;
+            return (
+                <Anuncio {...item} navigation={this.props.navigation} />
+            );
+
+        }
+    }
 
     render() {
         const { search } = this.state;
@@ -142,7 +163,7 @@ export default class ListagemAnuncio extends Component {
                 <FlatList
                     contentContainerStyle={StyleAnuncio.list}
                     data={this.state.anuncios}
-                    renderItem={({ item }) => <Anuncio {...item} />}
+                    renderItem={({ item }) => this.renderItem(item)}
                     onEndReached={this.loadMore}
                     onEndReachedThreshold={0.25}
                 />

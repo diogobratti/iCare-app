@@ -108,36 +108,43 @@
 		                            title='Cuidador'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-									checked={this.state.orderByValor === 'avaliacao'}
-									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.orderByValor === 'avaliacao'}
+																onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
 		                        <CheckBox
 		                            title='Técnico em enfermagem'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-									checked={this.state.orderByValor === 'avaliacao'}
-									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.orderByValor === 'avaliacao'}
+																onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
 		                        <CheckBox
 		                            title='Enfermeiro'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-									checked={this.state.orderByValor === 'avaliacao'}
-									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.orderByValor === 'avaliacao'}
+																onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
 		                        <CheckBox
 		                            title='Terapeuta Ocupacional'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-									checked={this.state.orderByValor === 'avaliacao'}
-									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.orderByValor === 'avaliacao'}
+																onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
 		                        <CheckBox
 		                            title='Fisioterapeuta'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-									checked={this.state.orderByValor === 'avaliacao'}
-									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.orderByValor === 'avaliacao'}
+																onPress={() => this.setState({orderByValor: 'avaliacao'})}
+		                        />
+		                        <CheckBox
+		                            title='Nutricionista'
+		                            checkedIcon='dot-circle-o'
+		                            uncheckedIcon='circle-o'
+																checked={this.state.orderByValor === 'avaliacao'}
+																onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
 		                    </View>
 		                    <View style={StyleAnuncio.filtroItemContainer}>
@@ -148,8 +155,8 @@
 		                            title='Procurar somente na minha região'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-									checked={this.state.orderByValor === 'avaliacao'}
-									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.orderByValor === 'avaliacao'}
+																onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
 		                        <Text style={StyleAnuncio.filtroItemTexto}>
 		                            Ver mais cidades
