@@ -1,6 +1,5 @@
 	//ordernar menor distancia, melhor avaliacao e preco. 
 	//filtrar por profissao preco e avaliacao
-	const precoMaximo = 2000;
 	import React, { Component } from "react";
 
 	import { View, Text, ScrollView, TouchableOpacity } from "react-native";
@@ -14,13 +13,24 @@
 
 
 	export default class ListagemAnuncioFiltro extends Component {
-	    static navigationOptions = navigationOptions;constructor(props){
+			static navigationOptions = navigationOptions;
+
+		constructor(props){
 			super(props);
 
+			this.precoMaximo = this.props.navigation.getParam('precoMaximo');
+			this.orderByPadrao = this.props.navigation.getParam('orderByPadrao');
+
 			this.state = {
-				orderByValor: "localidade",    
-				precoFiltro: precoMaximo,
-				avaliacaoFiltro: 5,
+				orderByValor: this.orderByPadrao,    
+				filtroPreco: this.precoMaximo,
+				filtroAvaliacao: 5,
+				filtroProfissaoCuidador: true,
+				filtroProfissaoTecnicoEnfermagem: true,
+				filtroProfissaoEnfermeiro: true,
+				filtroProfissaoTerapeutaOcupacional: true,
+				filtroProfissaoFisioterapeuta: true,
+				filtroProfissaoNutricionista: true,
 			};
 		}
 
@@ -71,17 +81,17 @@
 		                            Preço
 		                        </Text>
 		                        <Text style={StyleAnuncio.filtroItemSliderTexto}>
-		                            Até R$ {this.state.precoFiltro},00
+		                            Até R$ {this.state.filtroPreco},00
 		                        </Text>
 		                        <Slider
-		                            maximumValue={precoMaximo}
+		                            maximumValue={this.precoMaximo}
 		                            minimumValue={0}
 		                            minimumTrackTintColor={definicoesBase.corBarraSlider}
 		                            maximumTrackTintColor={definicoesBase.corBarraSlider}
 		                            thumbTintColor={definicoesBase.corBotaoSlider}
 		                            step={1} 
-		                            value={this.state.precoFiltro}
-		                            onValueChange={(precoFiltro) => this.setState({ precoFiltro })}
+		                            value={this.state.filtroPreco}
+		                            onValueChange={(filtroPreco) => this.setState({ filtroPreco })}
 		                        />
 		                    </View>
 												{/*
@@ -90,7 +100,7 @@
 		                            Avaliação
 		                        </Text>
 		                        <Text style={StyleAnuncio.filtroItemSliderTexto}>
-		                            A partir de <Ionicons name="ios-star" size={anuncioIconeAvaliacao.size} color={anuncioIconeAvaliacao.color} /> <Text style={StyleAnuncio.anuncioAvaliacao}>{this.state.avaliacaoFiltro}</Text>
+		                            A partir de <Ionicons name="ios-star" size={anuncioIconeAvaliacao.size} color={anuncioIconeAvaliacao.color} /> <Text style={StyleAnuncio.anuncioAvaliacao}>{this.state.filtroAvaliacao}</Text>
 		                        </Text>
 		                        <Slider
 		                            maximumValue={5}
@@ -99,8 +109,8 @@
 		                            maximumTrackTintColor={definicoesBase.corBarraSlider}
 		                            thumbTintColor={definicoesBase.corBotaoSlider}
 		                            step={0.5} 
-		                            value={this.state.avaliacaoFiltro}
-		                            onValueChange={(avaliacaoFiltro) => this.setState({ avaliacaoFiltro })}
+		                            value={this.state.filtroAvaliacao}
+		                            onValueChange={(filtroAvaliacao) => this.setState({ filtroAvaliacao })}
 		                        />
 												</View>
 												*/}
@@ -112,43 +122,43 @@
 		                            title='Cuidador'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-																checked={this.state.orderByValor === 'avaliacao'}
-																onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.filtroProfissaoCuidador}
+																onPress={() => this.setState({filtroProfissaoCuidador: !this.state.filtroProfissaoCuidador})}
 		                        />
 		                        <CheckBox
 		                            title='Técnico em enfermagem'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-																checked={this.state.orderByValor === 'avaliacao'}
-																onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.filtroProfissaoTecnicoEnfermagem}
+																onPress={() => this.setState({filtroProfissaoTecnicoEnfermagem: !this.state.filtroProfissaoTecnicoEnfermagem})}
 		                        />
 		                        <CheckBox
 		                            title='Enfermeiro'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-																checked={this.state.orderByValor === 'avaliacao'}
-																onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.filtroProfissaoEnfermeiro}
+																onPress={() => this.setState({filtroProfissaoEnfermeiro: !this.state.filtroProfissaoEnfermeiro})}
 		                        />
 		                        <CheckBox
 		                            title='Terapeuta Ocupacional'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-																checked={this.state.orderByValor === 'avaliacao'}
-																onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.filtroProfissaoTerapeutaOcupacional}
+																onPress={() => this.setState({filtroProfissaoTerapeutaOcupacional: !this.state.filtroProfissaoTerapeutaOcupacional})}
 		                        />
 		                        <CheckBox
 		                            title='Fisioterapeuta'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-																checked={this.state.orderByValor === 'avaliacao'}
-																onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.filtroProfissaoFisioterapeuta}
+																onPress={() => this.setState({filtroProfissaoFisioterapeuta: !this.state.filtroProfissaoFisioterapeuta})}
 		                        />
 		                        <CheckBox
 		                            title='Nutricionista'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-																checked={this.state.orderByValor === 'avaliacao'}
-																onPress={() => this.setState({orderByValor: 'avaliacao'})}
+																checked={this.state.filtroProfissaoNutricionista}
+																onPress={() => this.setState({filtroProfissaoNutricionista: !this.state.filtroProfissaoNutricionista})}
 		                        />
 		                    </View>
 												{/* 
@@ -175,7 +185,16 @@
 		            <TouchableOpacity 
 		                    style={StyleAnuncio.aplicarFiltroButton} 
 		                    onPress={() => {
-		                        this.props.navigation.navigate("ListagemAnuncio",{ orderByValor: this.state.orderByValor });
+		                        this.props.navigation.navigate("ListagemAnuncio",{ 
+															orderByValor: this.state.orderByValor,
+															filtroPreco: this.state.filtroPreco,
+															filtroProfissaoCuidador: this.state.filtroProfissaoCuidador,
+															filtroProfissaoTecnicoEnfermagem: this.state.filtroProfissaoTecnicoEnfermagem,
+															filtroProfissaoEnfermeiro: this.state.filtroProfissaoEnfermeiro,
+															filtroProfissaoTerapeutaOcupacional: this.state.filtroProfissaoTerapeutaOcupacional,
+															filtroProfissaoFisioterapeuta: this.state.filtroProfissaoFisioterapeuta,
+															filtroProfissaoNutricionista: this.state.filtroProfissaoNutricionista,
+														});
 		                    }}
 		                >
 		                    <Text style={StyleAnuncio.aplicarFiltroText}>
