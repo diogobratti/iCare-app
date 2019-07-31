@@ -13,7 +13,7 @@ export default class Anuncio extends React.PureComponent {
 
     constructor() {
         super();
-        this.mensagem_telefone = encodeURIComponent('Olá, tudo bem? Vi seu anúncio através do iCare App. Qual a sua disponibilidade?');
+        this.mensagem_telefone = encodeURIComponent('Olá, tudo bem? Vi seu anúncio no aplicativo iCare. Você está disponível?');
         this.collection = firebase.firestore().collection('anuncios');
     }
   truncaNome(nome){

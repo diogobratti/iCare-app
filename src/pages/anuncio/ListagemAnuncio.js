@@ -1,3 +1,4 @@
+//antes pedir estado e cidade, se nao estiver logado
 import React, { Component } from "react";
 //import api from "../../services/api";
 import firebase from 'react-native-firebase';
@@ -133,6 +134,7 @@ export default class ListagemAnuncio extends Component {
 
     render() {
         const { search } = this.state;
+        const orderByValor = this.props.navigation.getParam('orderByValor', '');
         return (
             <View style={StyleAnuncio.container}>
                 <View style={StyleAnuncio.pesquisaContainer}>
@@ -156,7 +158,7 @@ export default class ListagemAnuncio extends Component {
                                 this.props.navigation.navigate("ListagemAnuncioFiltro");
                             }}
                         >
-                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
+                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar {orderByValor}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
