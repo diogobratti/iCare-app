@@ -120,43 +120,43 @@
 		                        </Text>
 		                        <CheckBox
 		                            title='Cuidador'
-		                            checkedIcon='dot-circle-o'
-		                            uncheckedIcon='circle-o'
+		                            checkedIcon='check-square-o'
+		                            uncheckedIcon='square-o'
 																checked={this.state.filtroProfissaoCuidador}
 																onPress={() => this.setState({filtroProfissaoCuidador: !this.state.filtroProfissaoCuidador})}
 		                        />
 		                        <CheckBox
 		                            title='Técnico em enfermagem'
-		                            checkedIcon='dot-circle-o'
-		                            uncheckedIcon='circle-o'
+		                            checkedIcon='check-square-o'
+		                            uncheckedIcon='square-o'
 																checked={this.state.filtroProfissaoTecnicoEnfermagem}
 																onPress={() => this.setState({filtroProfissaoTecnicoEnfermagem: !this.state.filtroProfissaoTecnicoEnfermagem})}
 		                        />
 		                        <CheckBox
 		                            title='Enfermeiro'
-		                            checkedIcon='dot-circle-o'
-		                            uncheckedIcon='circle-o'
+		                            checkedIcon='check-square-o'
+		                            uncheckedIcon='square-o'
 																checked={this.state.filtroProfissaoEnfermeiro}
 																onPress={() => this.setState({filtroProfissaoEnfermeiro: !this.state.filtroProfissaoEnfermeiro})}
 		                        />
 		                        <CheckBox
 		                            title='Terapeuta Ocupacional'
-		                            checkedIcon='dot-circle-o'
-		                            uncheckedIcon='circle-o'
+		                            checkedIcon='check-square-o'
+		                            uncheckedIcon='square-o'
 																checked={this.state.filtroProfissaoTerapeutaOcupacional}
 																onPress={() => this.setState({filtroProfissaoTerapeutaOcupacional: !this.state.filtroProfissaoTerapeutaOcupacional})}
 		                        />
 		                        <CheckBox
 		                            title='Fisioterapeuta'
-		                            checkedIcon='dot-circle-o'
-		                            uncheckedIcon='circle-o'
+		                            checkedIcon='check-square-o'
+		                            uncheckedIcon='square-o'
 																checked={this.state.filtroProfissaoFisioterapeuta}
 																onPress={() => this.setState({filtroProfissaoFisioterapeuta: !this.state.filtroProfissaoFisioterapeuta})}
 		                        />
 		                        <CheckBox
 		                            title='Nutricionista'
-		                            checkedIcon='dot-circle-o'
-		                            uncheckedIcon='circle-o'
+		                            checkedIcon='check-square-o'
+		                            uncheckedIcon='square-o'
 																checked={this.state.filtroProfissaoNutricionista}
 																onPress={() => this.setState({filtroProfissaoNutricionista: !this.state.filtroProfissaoNutricionista})}
 		                        />
@@ -168,8 +168,8 @@
 		                        </Text>
 		                        <CheckBox
 		                            title='Procurar somente na minha região'
-		                            checkedIcon='dot-circle-o'
-		                            uncheckedIcon='circle-o'
+		                            checkedIcon='check-square-o'
+		                            uncheckedIcon='square-o'
 																checked={this.state.orderByValor === 'avaliacao'}
 																onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
