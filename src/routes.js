@@ -7,6 +7,7 @@ import ListagemConversa from "./pages/chat/ListagemConversa";
 import PerfilAnuncio from "./pages/prestador/PerfilAnuncio";
 import Perfil from "./pages/cliente/Perfil";
 import IconeMenu from "./pages/IconeMenu";
+import Localidade from "./pages/Localidade";
 import Loading from "./pages/auth/Loading";
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
@@ -56,6 +57,17 @@ const MenuPrincipal = createBottomTabNavigator(
     }
 );
 
-const Routes = createAppContainer(MenuPrincipal);
+const EscolhaLocalidade = createStackNavigator({
+    Localidade,
+    MenuPrincipal,
+},
+{
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
+ });
+
+const Routes = createAppContainer(EscolhaLocalidade);
 
 export default Routes;
