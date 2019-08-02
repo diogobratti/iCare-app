@@ -1,5 +1,5 @@
 const DataLocalidade = {
-  "Unidades Federativas":[
+  "UF":[
                         "Acre",
                         "Alagoas",
                         "Amapá",
