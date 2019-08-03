@@ -26,9 +26,9 @@ class LogoTitle extends React.Component {
       return (
         <Image
             resizeMode="cover"
-            source={require('./../assets/logo/icone250x250.png')}
+            source={require('./../assets/cabecalhos/cabecalho.png')}
             style={{ 
-                width: 30, 
+                width: 90, 
                 height: 30,
                 resizeMode: 'contain',
                 alignSelf: 'center',
@@ -37,6 +37,36 @@ class LogoTitle extends React.Component {
       );
     }
   }
+
+export class Cabecalho extends React.Component {
+    render() {
+      return (
+      <View
+        style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center', 
+            justifyContent: 'center',
+            alignSelf: "center", 
+        }}
+    >
+        <LogoTitle />
+        {/*
+        <Text 
+            style={{
+                fontFamily: definicoesBase.fontFamilyTextoComum,
+                fontWeight:definicoesBase.fontWeightCabecalho,
+                color:definicoesBase.corFonteTextoCabecalho,
+                fontSize:definicoesBase.tamanhoFonteTextoCabelho,
+            }}
+        >
+            iCare
+        </Text>
+        */}
+    </View>
+        );
+      }
+    }
 
 const StyleBase = StyleSheet.create({
     headerStyle: {
@@ -47,27 +77,7 @@ const StyleBase = StyleSheet.create({
 export const navigationOptions = {
     //title: "iCare",
     //headerLeft: <View />,
-    headerTitle: <View
-                    style={{
-                        flex: 1,
-                        flexDirection: 'row',
-                        alignItems: 'center', 
-                        justifyContent: 'center',
-                        alignSelf: "center", 
-                    }}
-                >
-                    <LogoTitle />
-                    <Text 
-                        style={{
-                            fontFamily: definicoesBase.fontFamilyTextoComum,
-                            fontWeight:definicoesBase.fontWeightCabecalho,
-                            color:definicoesBase.corFonteTextoCabecalho,
-                            fontSize:definicoesBase.tamanhoFonteTextoCabelho,
-                        }}
-                    >
-                        iCare
-                    </Text>
-                </View>,
+    headerTitle: <Cabecalho />,
     //headerRight: <View />,
     headerStyle: {
       backgroundColor: '#0288d1',
