@@ -35,7 +35,7 @@ export default class ListagemAnuncio extends Component {
       this.collection = firebase.firestore().collection('anuncios');
       this.qtdAnuncios = 0;
       this.propagandaAposAnuncios = 5;
-      this.temPropagandaAposAnuncios = true;
+      this.temPropagandaAposAnuncios = false;
       this.state = {
         textInput: '',
         loading: true,
