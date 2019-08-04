@@ -27,17 +27,19 @@ export default class VisualizarAnuncio extends React.Component {
                             source={{ uri: anuncio.foto }}
                         />
                     </View>
-                    <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
-                        <TouchableOpacity
-                            //style={styles.productButton} 
-                            onPress={() => {
-                                Linking.openURL('whatsapp://send?text=' + MensagemTelefone + '&phone=+55' + anuncio.telefone);
-                            }}
-                        >
+                    <TouchableOpacity
+                        //style={styles.productButton} 
+                        onPress={() => {
+                            Linking.openURL('whatsapp://send?text=' + MensagemTelefone + '&phone=+55' + anuncio.telefone);
+                        }}
+                    >
+                        <View style={StyleAnuncio.visualizarAnuncioNomeContainer}>
                             <View style={StyleAnuncio.visualizarAnuncioLinha}>
                                 <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>Nome: </Text>
                                 <Text style={StyleAnuncio.visualizarAnuncioAtributoText}>{anuncio.nome}</Text>
                             </View>
+                        </View>
+                        <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
 
                             <View style={StyleAnuncio.visualizarAnuncioLinha}>
                                 <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>Telefone: </Text>
@@ -68,9 +70,21 @@ export default class VisualizarAnuncio extends React.Component {
                             <View style={StyleAnuncio.visualizarAnuncioLinha}>
                                 <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>* Estimado para o turno de 12 horas</Text>
                             </View>
-                        </TouchableOpacity>
-                    </View>
+                        </View>
+                    </TouchableOpacity>
                 </ScrollView>
+                <View style={StyleAnuncio.visualizarAnuncioBotaoContainer}>
+                    <TouchableOpacity
+                        style={StyleAnuncio.visualizarAnuncioBotaoButton}
+                        onPress={() => {
+                            this.props.navigation.goBack();
+                        }}
+                    >
+                        <Text style={StyleAnuncio.visualizarAnuncioBotaoText}>
+                            Voltar
+		                    </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }

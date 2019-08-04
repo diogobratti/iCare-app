@@ -230,8 +230,13 @@ const StyleAnuncio = StyleSheet.create({
         alignItems: "center",
         paddingBottom: 10,
     },
+    visualizarAnuncioNomeContainer:{
+        backgroundColor: definicoesBase.backgroundAnuncio,
+        padding: 10,
+
+    },
     visualizarAnuncioTextosContainer:{
-        flex: 4.5,
+        //flex: 3.5,
         backgroundColor: definicoesBase.backgroundAnuncio,
         borderWidth: 1,
         borderColor: definicoesBase.corBordaAnuncio,
@@ -264,6 +269,27 @@ const StyleAnuncio = StyleSheet.create({
     visualizarAnuncioImagemUsuario: {
         width: 90, 
         height: 120
+    },
+    visualizarAnuncioBotaoContainer:{
+        flex: 1,
+        justifyContent:"flex-start",
+    },
+    visualizarAnuncioBotaoButton: {
+        borderRadius: 10,
+        borderWidth: 3,
+        borderColor: definicoesBase.corFonteTextoCabecalho,
+        backgroundColor: definicoesBase.backgroundCabecalho,
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 5,
+    },
+    visualizarAnuncioBotaoText: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        fontWeight: definicoesBase.fontWeightCabecalho,
+        color: definicoesBase.corFonteTextoCabecalho,
+        lineHeight: definicoesBase.alturaLinhaTextoComum,
+        padding: 5,
     },
 });
 
