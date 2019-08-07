@@ -166,7 +166,8 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
-            signingConfig signingConfigs.debug
+	   signingConfig signingConfigs.release
+        //    signingConfig signingConfigs.debug
         }
     }
     // applicationVariants are e.g. debug, release
