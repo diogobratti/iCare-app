@@ -57,7 +57,6 @@ export default class Localidade extends Component {
 	}
 
 	renderValueChangeEstado = (value) => {
-	  console.warn(value.nome)
 	  this.setState({
 		selectedValueEstado: value
 	  })
@@ -65,7 +64,6 @@ export default class Localidade extends Component {
 
 
 	renderValueChangeCidade = (value) => {
-	  console.warn(value)
 	  this.setState({
 		selectedValueCidade: value
 	  })
