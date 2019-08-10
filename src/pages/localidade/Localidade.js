@@ -22,7 +22,7 @@ import SelectCidades from '../componentes/SelectCidades';
 export default class Localidade extends Component {
 	static navigationOptions = navigationOptions;
 
-	state = { uf: null, selectedValueEstado: null, selectedValueCidade: null }
+	state = { uf: null, selectedValueEstado: null, selectedValueCidade: null, erro: null }
 
 	componentDidMount() {
 	  this.setState({
@@ -57,7 +57,7 @@ export default class Localidade extends Component {
 	}
 
 	renderValueChangeEstado = (value) => {
-	  console.warn(value.sigla)
+	  console.warn(value.nome)
 	  this.setState({
 		selectedValueEstado: value
 	  })
@@ -86,6 +86,8 @@ export default class Localidade extends Component {
 							<SelectEstados
 								selectedValue={selectedValueEstado}
 								data={uf}
+								style={StyleLocalidade.itemCamposPicker}
+								itemStyle={StyleLocalidade.itemCamposPickerItem}
 								onValueChange={this.renderValueChangeEstado} />
 						</View>
 						<View style={StyleLocalidade.itemCamposEspacoContainer}>
@@ -97,16 +99,27 @@ export default class Localidade extends Component {
 							</Text>
 							<SelectCidades selectedValue={selectedValueCidade}
 								data={selectedValueEstado}
+								style={StyleLocalidade.itemCamposPicker}
+								itemStyle={StyleLocalidade.itemCamposPickerItem}
 								onValueChange={this.renderValueChangeCidade} />
 						</View>
+					</View>
+					<View  style={StyleLocalidade.erroContainer}>
+						<Text style={StyleLocalidade.erroTexto}>{this.state.erro}</Text>
 					</View>
 				</View>
 				<View style={StyleLocalidade.botaoContainer}>
 					<TouchableOpacity
 						style={StyleLocalidade.botaoButton}
 						onPress={() => {
-							this.props.navigation.navigate("ListagemAnuncio", {
-							});
+							var mensagem = "";
+							if(selectedValueEstado != "" && selectedValueEstado != ""){
+								this.props.navigation.navigate("ListagemAnuncio", {
+								});
+							} else {
+								mensagem = "Por favor, escolha o estado e o município.";
+								this.setState({erro: mensagem});
+							}
 						}}
 					>
 						<Text style={StyleLocalidade.botaoText}>

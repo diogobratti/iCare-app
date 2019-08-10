@@ -56,6 +56,18 @@ const StyleLocalidade = StyleSheet.create({
         fontSize: definicoesBase.tamanhoFonteTextoComum,
         alignSelf: "center",
     },
+    erroContainer: {
+
+    },
+    erroTexto: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        fontWeight: "bold",
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum,
+        alignSelf: "center",
+        color:"#f00",
+    },
     botaoContainer:{
         flex: 1,
         justifyContent:"flex-start",

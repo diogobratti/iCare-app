@@ -6,6 +6,8 @@ export default  props => (
         {
             props.data ?
                 <Picker
+                    style={props.style}
+                    itemStyle={props.itemStyle}
                     selectedValue={props.selectedValue}
                     onValueChange={props.onValueChange}
                 >
