@@ -55,7 +55,7 @@
   return handled;
 }
   
-  //  FacebookSDK Analytics
+  //  FacebookSDK Analytics - see how many people are using your application, log app activations
 - (void)applicationDidBecomeActive:(UIApplication *)application {
   [FBSDKAppEvents activateApp];
 }
