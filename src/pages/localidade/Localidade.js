@@ -4,7 +4,7 @@
 //filtrar por profissao preco e avaliacao
 import React, { Component } from "react";
 
-import { View, Text, ScrollView, TouchableOpacity, Picker } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Picker } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Slider, CheckBox } from 'react-native-elements';
 
@@ -22,70 +22,56 @@ import SelectCidades from '../componentes/SelectCidades';
 export default class Localidade extends Component {
 	static navigationOptions = navigationOptions;
 
-	state = { uf: null, selectedValueEstado: null, selectedValueCidade: null, erro: null }
+	state = { uf: null, selectedValueEstado: null, selectedValueCidade: null, erro: null, isLoading: true }
 
 	async componentDidMount() {
+		const estado = await AsyncStorage.getItem('estado');
+		const municipio = await AsyncStorage.getItem('municipio');
+		const regiao = await AsyncStorage.getItem('microrregiao');
+		if(estado != "" && municipio != "" && regiao != ""){
+			this.props.navigation.navigate("ListagemAnuncio", {});
+		}
 	  this.setState({
-		  /*
-		uf: [
-		  {
-			"sigla": "AC",
-			"nome": "Acre",
-			"cidades": [
-			  "Acrelândia",
-			  "Assis Brasil",
-			  "Brasiléia",
-			  "Bujari",
-			]
-		  }, 
-		  {
-			"sigla": "AL",
-			"nome": "Alagoas",
-			"cidades": [
-			  "Água Branca",
-			  "Anadia",
-			  "Arapiraca",
-			  "Atalaia",
-			]
-		  }
-		],
-		*/
 		uf: DataLocalidade,
 		selectedValueEstado: '',
 		selectedValueCidade: '',
-    storedNumber: '',
+		estado: estado,
+		municipio: municipio,
+		regiao: regiao,
+		isLoading: false,
 		});
-		
-    const storedNumber = await AsyncStorage.getItem('municipio');
-    if (storedNumber) {
-      this.setState({
-        storedNumber: storedNumber,
-      });
-    }
 	}
 
 	renderValueChangeEstado = (value) => {
 	  this.setState({
-		selectedValueEstado: value
+		selectedValueEstado: value,
+		estado: value.nome,
 	  })
 	}
 
 
 	renderValueChangeCidade = (value) => {
 	  this.setState({
-		selectedValueCidade: value
+		selectedValueCidade: value,
+		municipio: value.Município,
+		regiao: value.Microrregião,
 	  })
 	}
 
   guardarLocalidade = async () => {
-		const {selectedValueCidade, selectedValueEstado } = this.state;
+		const {estado, municipio, regiao } = this.state;
 
-    await AsyncStorage.setItem('estado', `${selectedValueEstado.nome}`);
-    await AsyncStorage.setItem('microrregiao', `${selectedValueCidade.Microrregião}`);
-		await AsyncStorage.setItem('municipio', `${selectedValueCidade.Município}`);
+    await AsyncStorage.setItem('estado', `${estado}`);
+    await AsyncStorage.setItem('municipio', `${municipio}`);
+		await AsyncStorage.setItem('microrregiao', `${regiao}`);
 		
   };
 	render() {
+		if (this.state.isLoading) {
+				return (
+						<ActivityIndicator />
+				)
+		}
         const { selectedValueCidade, selectedValueEstado, uf } = this.state;
 		return (
 			<View style={StyleLocalidade.container}>
@@ -96,7 +82,7 @@ export default class Localidade extends Component {
 					<View style={StyleLocalidade.camposContainer}>
 						<View style={StyleLocalidade.itemCamposContainer}>
 							<Text style={StyleLocalidade.itemCamposTexto}>
-								Escolha o estado{this.state.storedNumber}
+								Escolha o estado
 							</Text>
 							<SelectEstados
 								selectedValue={selectedValueEstado}
@@ -130,8 +116,7 @@ export default class Localidade extends Component {
 							var mensagem = "";
 							if(selectedValueEstado != "" && selectedValueEstado != ""){
 								this.guardarLocalidade();
-								this.props.navigation.navigate("ListagemAnuncio", {
-								});
+								this.props.navigation.navigate("ListagemAnuncio", {});
 							} else {
 								mensagem = "Por favor, escolha o estado e o município.";
 								this.setState({erro: mensagem});
