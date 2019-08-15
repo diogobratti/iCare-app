@@ -21,12 +21,12 @@ const StyleTermo = StyleSheet.create({
         padding: 10,
     },
     tituloContainer:{
-        flex: 6,
+        //flex: 6,
         flexDirection: 'column',
+        marginBottom: 50,
         //justifyContent: 'space-around',
         justifyContent: 'center',
         alignItems: 'stretch',
-        marginBottom: 50,
 
     },
     descricaoContainer: {
