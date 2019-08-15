@@ -18,6 +18,7 @@ const StyleTermo = StyleSheet.create({
     corpoContainer:{
         flex: 5,
         justifyContent:"flex-start",
+        padding: 10,
     },
     tituloContainer:{
         flex: 6,
@@ -25,6 +26,7 @@ const StyleTermo = StyleSheet.create({
         //justifyContent: 'space-around',
         justifyContent: 'center',
         alignItems: 'stretch',
+        marginBottom: 50,
 
     },
     descricaoContainer: {
