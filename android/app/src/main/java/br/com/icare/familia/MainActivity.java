@@ -1,4 +1,4 @@
-package com.app;
+package br.com.icare.familia;
 
 import com.facebook.react.ReactActivity;
 import android.content.Intent;
