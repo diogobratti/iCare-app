@@ -22,11 +22,11 @@ import SelectCidades from '../componentes/SelectCidades';
 export default class Localidade extends Component {
   static navigationOptions = navigationOptions;
 
-  state = { uf: null, selectedValueEstado: null, selectedValueCidade: null };
+  state = this.props.navigation.state.params.state;
 
   componentDidMount() {
     this.setState({
-      uf: [
+      ufS: [
         {
           sigla: 'AC',
           nome: 'Acre',
@@ -41,6 +41,10 @@ export default class Localidade extends Component {
       selectedValueEstado: '',
       selectedValueCidade: '',
     });
+
+    this.setState({ uf: "SC" });
+    this.setState({ cidade: "Alguma cidade" });
+    console.log(this.state);
   }
 
   renderValueChangeEstado = (value) => {
@@ -57,14 +61,14 @@ export default class Localidade extends Component {
     });
   };
   render() {
-    const { selectedValueCidade, selectedValueEstado, uf } = this.state;
-    const { destino } = this.props;
+    // const { selectedValueCidade, selectedValueEstado, ufS } = this.state;
+    // const { destino } = this.props;
     return (
       <View style={StyleLocalidade.container}>
         {/* <View style={StyleLocalidade.cabecalhoContainer}>
           <Cabecalho />
         </View> */}
-        <View style={StyleLocalidade.corpoContainer}>
+        {/* <View style={StyleLocalidade.corpoContainer}>
           <View style={StyleLocalidade.camposContainer}>
             <View style={StyleLocalidade.itemCamposContainer}>
               <Text style={StyleLocalidade.itemCamposTexto}>
@@ -72,7 +76,7 @@ export default class Localidade extends Component {
               </Text>
               <SelectEstados
                 selectedValue={selectedValueEstado}
-                data={uf}
+                data={ufS}
                 onValueChange={this.renderValueChangeEstado}
               />
             </View>
@@ -90,14 +94,15 @@ export default class Localidade extends Component {
               />
             </View>
           </View>
-        </View>
+        </View> */}
         <View style={StyleLocalidade.botaoContainer}>
           <TouchableOpacity
             style={StyleLocalidade.botaoButton}
-            onPress={() => {
-              this.props.navigation.navigate('NewUserDadosBasicos', {});
-              //   this.props.navigation.navigate(destino, {});
-            }}
+            onPress={() =>
+              this.props.navigation.navigate("NewUserAnuncio", {
+                state: this.state
+              })
+            }
           >
             <Text style={StyleLocalidade.botaoText}>Avançar</Text>
           </TouchableOpacity>

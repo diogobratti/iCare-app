@@ -10,10 +10,15 @@ import Button from './components/Button';
 export default class NewUserEmail extends Component {
   state = this.props.navigation.state.params.state;
 
+  componentDidMount() {
+    this.setState({ email: "email@provedor.com" });
+    console.log(this.state);
+  }
+
   render() {
     return (
       <ScrollView>
-        <InputEmail onChangeText={email => this.setState({ email })} />
+        <InputEmail onChangeText={email => this.setState({ email: email })} />
         <Button
           onPress={() =>
             this.props.navigation.navigate("NewUserTelefone", {
