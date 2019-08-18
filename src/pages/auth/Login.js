@@ -5,50 +5,26 @@ import firebase from 'react-native-firebase';
 import Button from './components/Button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
-import {
-   GoogleSignin
-//,
-//   GoogleSigninButton,
-//   statusCodes,
- } from 'react-native-google-signin';
+import { GoogleSignin, statusCodes } from 'react-native-google-signin';
 
 var FBLoginButton = require('./components/FBLoginButton');
 
-
-// Calling this function will open Google for login.
-export async function googleLogin() {
-  try {
-    // add any configuration settings here:
-    await GoogleSignin.configure({
-        scopes: ["https://www.googleapis.com/auth/drive.readonly"],
-        webClientId:'350947662004-ev0rn57273o1cqrpjvga3feh8h0t6fbg.apps.googleusercontent.com',
-    });
-
-    const data = await GoogleSignin.signIn();
-
-    // create a new firebase credential with the token
-    const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
-    // login with credential
-    const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
-
-    console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-
-export default class Login extends React.Component {
+export default class Login extends Component {
   state = {
     email: '',
     password: '',
     errorMessage: null,
+    cadastroCompleto: false
+  };
+
+  static navigationOptions = {
+    title: 'Autentique-se',
   };
 
   handleLogin = () => {
     console.log('handleLogin');
 
-    const { email, password } = this.state;
+    const { email, password} = this.state;
 
     firebase
       .auth()
@@ -65,103 +41,76 @@ export default class Login extends React.Component {
     console.log('handleSocialLoginInstagram');
   }
 
-  async handleSocialLoginFacebook() {
+  handleSocialLoginFacebook() {
     console.log('handleSocialLoginFacebook');
 
-    try {
-      console.log('tentando logar');
-      const result = await LoginManager.logInWithPermissions([
-        'public_profile',
-        'email',
-      ]);
-      // const result = await LoginManager.logInWithPermissions([
-      //   'public_profile',
-      //   'email',
-      // ]);
-
-      console.error('tentando logar 2 ');
-      //   if (result.isCancelled) {
-      //     // handle this however suites the flow of your app
-      //     console.error('Usuario cancelou requisicao');
-      //     throw new Error('User cancelled request');
-      //   }
-
-      //   console.log(
-      //     `Login success with permissions: ${result.grantedPermissions.toString()}`
-      //   );
-
-      //   // get the access token
-      //   const data = await AccessToken.getCurrentAccessToken();
-
-      //   if (!data) {
-      //     // handle this however suites the flow of your app
-      //     throw new Error(
-      //       'Something went wrong obtaining the users access token'
-      //     );
-      //   }
-
-      //   // create a new firebase credential with the token
-      //   const credential = firebase.auth.FacebookAuthProvider.credential(
-      //     data.accessToken
-      //   );
-
-      //   // login with credential
-      //   const firebaseUserCredential = await firebase
-      //     .auth()
-      //     .signInWithCredential(credential);
-
-      //   console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
-    } catch (e) {
-      console.error(e);
-    }
   }
 
-  handleSocialLoginFacebook2() {
-    LoginManager.logInWithPermissions(['public_profile']).then(
-      function(result) {
-        if (result.isCancelled) {
-          alert('Login was cancelled');
-        } else {
-          alert(
-            'Login was successful with permissions: ' +
-              result.grantedPermissions.toString()
-          );
-        }
-      },
-      function(error) {
-        alert('Login failed with error: ' + error);
-      }
-    );
-  }
-
-  handleSocialLoginGoogle() {
+  handleSocialLoginGoogle = async() => {
     console.log('handleSocialLoginGoogle');
 
-    googleLogin();
+    try {
+      // GoogleServices active
+      await GoogleSignin.hasPlayServices();
+  
+      // add any configuration settings here:
+      await GoogleSignin.configure();
+  
+      //sign in
+      const data = await GoogleSignin.signIn();
+  
+      // console.warn(JSON.stringify(data));
+  
+      // create a new firebase credential with the token
+      const credential = await firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
+      // login with credential
+      const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
+  
+      // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
+      // await AsyncStorage.setItem('userToken', 'data');
 
-    // GoogleSignin.configure();
+      await this.posAutenticacao(firebaseUserCredential);
+      
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // user cancelled the login flow
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation (f.e. sign in) is in progress already
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        // play services not available or outdated
+      } else {
+        // some other error happened
+        console.error(error);
+      }
+    }
+  };
 
-    // Somewhere in your code
-    // signIn = async () => {
-    //   try {
-    //     await GoogleSignin.hasPlayServices();
-    //     const userInfo = await GoogleSignin.signIn();
-    //     console.log({ userInfo });
-    //     this.setState({ userInfo });
-    //   } catch (error) {
-    //     console.log(error);
-    //     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-    //       // user cancelled the login flow
-    //     } else if (error.code === statusCodes.IN_PROGRESS) {
-    //       // operation (f.e. sign in) is in progress already
-    //     } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-    //       // play services not available or outdated
-    //     } else {
-    //       // some other error happened
-    //     }
-    //   }
-    // };
-  }
+  /**
+   * Verifica se o cadastro do usuário está completo. Se estiver, redireciona
+   * para página de anúnicio, se não estiver, redireciona para completar o
+   * cadastro
+   * @param {UserCredential} firebaseCredential Credencial do Firebase
+   */
+  posAutenticacao = async(firebaseCredential) => {
+
+    //verifica se é um novo usuário
+    if (firebaseCredential.additionalUserInfo.isNewUser) {
+      this.setState({cadastroCompleto : false});
+    } else {
+      //verifica no firestore se o cadastro está completo
+      const collectionAnuncios = await firebase.firestore().collection('anuncios');
+
+      await collectionAnuncios
+        .where('UID', "==", firebaseCredential.user.uid)
+        .get()
+        .then(data => {
+          this.setState({cadastroCompleto: !data.empty});
+          // console.log(!data.empty);
+        });
+    }
+
+    this.props.navigation.navigate(this.state.cadastroCompleto ? 'App' : 'NewUser');
+  };
 
   translateLoginErrors(error) {
     message = error.message;
@@ -192,36 +141,22 @@ export default class Login extends React.Component {
           <View style={styles.containerSocialLoginStyle}>
             <Text>Acesse com</Text>
             <View style={styles.containerSocialLoginButtonsStyle}>
-              {/* <FBLoginButton /> */}
-              {/* <GoogleSigninButton
-                style={{ width: 192, height: 48 }}
-                size={GoogleSigninButton.Size.Wide}
-                color={GoogleSigninButton.Color.Dark}
-                onPress={this.handleSocialLoginGoogle}
-                // disabled={this.state.isSigninInProgress}
-              /> */}
               <SocialIcon
-                // button
-                // style={styles.socialButton}
                 type="facebook"
                 onPress={this.handleSocialLoginFacebook}
               />
               <SocialIcon
-                // button
-                // style={styles.socialButton}
                 type="instagram"
                 onPress={this.handleSocialLoginInstagram}
               />
               <SocialIcon
-                // button
-                // style={styles.socialButton}
                 type="google-plus-official"
                 onPress={this.handleSocialLoginGoogle}
               />
             </View>
           </View>
 
-          <View style={styles.containerLoginStyle}>
+          {/* <View style={styles.containerLoginStyle}>
             <Text>Ou com seu e-mail</Text>
             <Input
               style={styles.textInput}
@@ -247,13 +182,13 @@ export default class Login extends React.Component {
 
             <Button onPress={this.handleLogin}>Login</Button>
             <Text>Esqueci minha senha</Text>
-          </View>
+          </View> */}
 
-          <View style={styles.containerActionsStyle}>
-            <Button onPress={() => this.props.navigation.navigate('SignUp')}>
+          {/* <View style={styles.containerActionsStyle}>
+            <Button onPress={() => this.props.navigation.navigate('Cadastro')}>
               Não tem uma conta? Cadastre-se
             </Button>
-          </View>
+          </View> */}
         </ScrollView>
       </View>
     );
