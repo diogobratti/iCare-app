@@ -146,9 +146,23 @@ export default class ListagemAnuncio extends Component {
         //passing the inserted text in textinput
         const newData = this.arrayholder.filter(function (item) {
             //applying filter for the inserted text in search bar
-            const itemData = item.nome ? item.nome.toUpperCase() : ''.toUpperCase();
+            const itemDataNome = item.nome ? item.nome.toUpperCase() : ''.toUpperCase();
+            const itemDataPreco = item.preco ? item.preco.toUpperCase() : ''.toUpperCase();
+            const itemDataProfissao = item.profissao ? item.profissao.toUpperCase() : ''.toUpperCase();
+            const itemDataTelefone = item.telefone ? item.telefone.toUpperCase() : ''.toUpperCase();
+            //const itemDataCidade = item.cidade ? item.cidade.toUpperCase() : ''.toUpperCase();
+            //const itemDataMicroregiao = item.microrregiao ? item.microrregiao.toUpperCase() : ''.toUpperCase();
             const textData = text.toUpperCase();
-            return itemData.indexOf(textData) > -1;
+            const apareceNoFiltro = (
+                itemDataNome.indexOf(textData) > -1 
+                || itemDataPreco.indexOf(textData) > -1 
+                || itemDataProfissao.indexOf(textData) > -1 
+                || itemDataTelefone.indexOf(textData) > -1 
+                //|| itemDataCidade.indexOf(textData) > -1 
+                //|| itemDataMicroregiao.indexOf(textData) > -1
+            );
+            //console.warn(itemDataPreco);
+            return apareceNoFiltro;
         });
         this.setState({
             //setting the filtered newData on datasource
@@ -237,7 +251,7 @@ export default class ListagemAnuncio extends Component {
                                 this.props.navigation.navigate("ListagemAnuncioFiltro", { precoMaximo: precoMaximo, orderByPadrao: orderByPadrao });
                             }}
                         >
-                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar{this.state.estado}{this.state.municipio}{this.state.microrregiao}</Text>
+                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -245,7 +259,7 @@ export default class ListagemAnuncio extends Component {
                     contentContainerStyle={StyleAnuncio.list}
                     data={this.state.anuncios}
                     renderItem={({ item }) => this.renderItem(item)}
-                    onEndReached={this.loadMore}
+                    //onEndReached={this.loadMore}
                     onEndReachedThreshold={0.25}
                     //ItemSeparatorComponent={this.ListViewItemSeparator}
                     enableEmptySections={true}
