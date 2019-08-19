@@ -33,7 +33,7 @@ export default class VisualizarAnuncio extends React.Component {
                     <TouchableOpacity
                         //style={styles.productButton} 
                         onPress={() => {
-                            MensagemTelefone(anuncio.telefone);
+                            MensagemTelefone(anuncio);
                         }}
                     >
                         <View style={StyleAnuncio.visualizarAnuncioNomeContainer}>
