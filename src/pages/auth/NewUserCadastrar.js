@@ -36,6 +36,8 @@ export default class NewUserCadastrar extends Component {
       foto: this.state.user.photoURL,
       versaoTermosServico: this.state.versaoTermosServico
     });
+
+    this.props.navigation.navigate('App');
   }
 
   // constructor(props) {
