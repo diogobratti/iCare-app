@@ -24,7 +24,7 @@ export default class NewUserNome extends Component {
   // };
 
   componentDidMount() {
-    this.setState({ nome: "nome da pessoa" });
+//    this.setState({ nome: "nome da pessoa" });
     this.setState({ user: firebase.auth().currentUser });
 
     console.log(this.state);
