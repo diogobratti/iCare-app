@@ -40,7 +40,7 @@
 	<key>FacebookAppID</key>
 	<string>487656328634940</string>
 	<key>FacebookDisplayName</key>
-	<string>Icare-prototipo</string>
+	<string>iCare-Prototipo</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
