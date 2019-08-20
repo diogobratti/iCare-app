@@ -3,6 +3,8 @@ import React from 'react';
 import { StyleSheet, Platform, Image, Text, View } from 'react-native';
 import firebase from 'react-native-firebase';
 import { Button } from 'react-native-elements';
+import Anuncio from "../componentes/Anuncio";
+
 
 export default class Main extends React.Component {
   state = { currentUser: null };
@@ -19,10 +21,18 @@ export default class Main extends React.Component {
     const { currentUser } = firebase.auth();
     this.setState({ currentUser });
 
-    // console.log(firebase.auth().currentUser);
-    // this.setState({ currentUser: firebase.auth().currentUser });
-    // console.log(this.state);
+    this.setState({
+      anuncio: {
+        foto: "a",
+        nome: "b",
+        telefone: "c",
+        profissao: "d",
+        anuncio: "e",
+        preco: "f"
+      }
+    });
 
+    console.log(this.state);
   }
 
   render() {
@@ -31,6 +41,9 @@ export default class Main extends React.Component {
       <View style={styles.container}>
         <Button title="Sair" onPress={this.handleSignOut} />
         <Text> Olá {currentUser && currentUser.email}!</Text>
+
+        <Anuncio anuncio={this.state.anuncio} />
+
         {/* <Text>Nome: {currentUser.nome}!</Text>
         <Text>Email: {currentUser.email}!</Text>
         <Text>CPF: {currentUser.cpf}!</Text>
@@ -52,5 +65,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
+  }
 });
