@@ -1,10 +1,15 @@
 import React, { Component } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, View } from "react-native";
 import InputCPF from "../componentes/InputCPF";
 import Button from "./components/Button";
+import { navigationOptions } from "../../styles/StyleBase";
 
 export default class NewUserCPF extends Component {
   state = this.props.navigation.state.params.state;
+
+  static navigationOptions = {
+    ...navigationOptions,
+  };
 
   componentDidMount() {
     console.log(this.state);
