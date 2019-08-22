@@ -45,7 +45,7 @@ public class MainApplication extends Application implements ReactApplication {
       // packages.add(new MyReactNativePackage());
        packages.add(new RNFirebaseFirestorePackage());
        packages.add(new RNFirebaseAuthPackage());
-//       packages.add(new FBSDKPackage());
+      //  packages.add(new FBSDKPackage());
       return packages;
     }
 /* return Arrays.<ReactPackage>asList(

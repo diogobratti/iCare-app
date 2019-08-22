@@ -1,22 +1,13 @@
 import React from "react";
 
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Linking,
-  ScrollView
-} from "react-native";
-//import Ionicons from 'react-native-vector-icons/Ionicons';
+import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import { Icon } from "react-native-elements";
 import MensagemTelefone from "../componentes/MensagemTelefone";
-import { navigationOptions } from "../../styles/StyleBase";
 
 import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 
 const Anuncio = props => {
-  const { anuncio } = props;
+  const { anuncio, editavel } = props;
 
   console.log(anuncio);
 

@@ -3,9 +3,14 @@ import { ScrollView } from "react-native";
 import { Input } from "react-native-elements";
 import InputAnuncio from "../componentes/InputAnuncio";
 import Button from "./components/Button";
+import { navigationOptions } from "../../styles/StyleBase";
 
 export default class NewUserEmail extends Component {
   state = this.props.navigation.state.params.state;
+
+  static navigationOptions = {
+    ...navigationOptions,
+  };
 
   componentDidMount() {
     // this.setState({ anuncio: "bla bla bla" });

@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
 import { SocialIcon, ThemeProvider, Input } from 'react-native-elements';
 import firebase from 'react-native-firebase';
-import Button from './components/Button';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import { GoogleSignin, statusCodes } from 'react-native-google-signin';
-
-var FBLoginButton = require('./components/FBLoginButton');
+import { navigationOptions } from "../../styles/StyleBase";
 
 export default class Login extends Component {
   state = {
@@ -18,8 +15,12 @@ export default class Login extends Component {
   };
 
   static navigationOptions = {
-    title: 'Autentique-se',
+    ...navigationOptions,
+    headerLeft: <View />,
   };
+  // static navigationOptions = {
+  //   title: 'Autentique-se',
+  // };
 
   handleLogin = () => {
     console.log('handleLogin');
@@ -45,7 +46,11 @@ export default class Login extends Component {
     console.log('handleSocialLoginFacebook');
 
     try {
+      console.log('entrou');
       const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      console.log(result);
+      console.log('mostrou login');
+      
   
       if (result.isCancelled) {
         // handle this however suites the flow of your app
@@ -95,12 +100,14 @@ export default class Login extends Component {
       const data = await GoogleSignin.signIn();
   
       // console.warn(JSON.stringify(data));
+      console.log(data);
   
       // create a new firebase credential with the token
       const credential = await firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
       // login with credential
       const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
   
+      console.log(firebaseUserCredential);
       // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
       // await AsyncStorage.setItem('userToken', 'data');
 
@@ -128,23 +135,24 @@ export default class Login extends Component {
    */
   posAutenticacao = async(firebaseCredential) => {
 
-    //verifica se é um novo usuário
-    if (firebaseCredential.additionalUserInfo.isNewUser) {
-      this.setState({cadastroCompleto : false});
-    } else {
-      //verifica no firestore se o cadastro está completo
-      const collectionAnuncios = await firebase.firestore().collection('anuncios');
+    // //verifica se é um novo usuário
+    // if (firebaseCredential.additionalUserInfo.isNewUser) {
+    //   this.setState({cadastroCompleto : false});
+    // } else {
+    //   //verifica no firestore se o cadastro está completo
+    //   const collectionAnuncios = await firebase.firestore().collection('anuncios');
 
-      await collectionAnuncios
-        .where("uid", "==", firebaseCredential.user.uid)
-        .get()
-        .then(data => {
-          this.setState({ cadastroCompleto: !data.empty });
-          // console.log(!data.empty);
-        });
-    }
+    //   await collectionAnuncios
+    //     .where("uid", "==", firebaseCredential.user.uid)
+    //     .get()
+    //     .then(data => {
+    //       this.setState({ cadastroCompleto: !data.empty });
+    //       // console.log(!data.empty);
+    //     });
+    // }
 
-    this.props.navigation.navigate(this.state.cadastroCompleto ? 'App' : 'NewUser');
+    // this.props.navigation.navigate(this.state.cadastroCompleto ? 'App' : 'NewUser');
+    this.props.navigation.navigate("AuthLoading");
   };
 
   translateLoginErrors(error) {
