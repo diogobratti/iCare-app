@@ -1,10 +1,3 @@
-//antes pedir estado e cidade, se nao estiver logado
-const orderByPadrao = 'preco'; //'localidade';
-const precoMaximo = 2000;
-const propagandaAposAnuncios = 5;
-const temPropagandaAposAnuncios = false;
-const qtdAnunciosCarregadosPorVezPadrao = 10;
-
 import React, { Component } from "react";
 import firebase from 'react-native-firebase';
 
@@ -14,6 +7,11 @@ import { SearchBar } from 'react-native-elements';
 import Anuncio from "./Anuncio";
 import Propaganda from "./../propaganda/Propaganda";
 import CollectionAnuncio from "../../collections/CollectionAnuncio";
+import { Provider } from 'react-redux';
+
+import store from '../../reducers/index';
+
+import * as CONSTANTES from '../../data/Constantes';
 
 //import ExemploAnuncios from '../../data/ExemploAnuncios.json';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -33,8 +31,8 @@ import StyleAnuncio, {
 export default class ListagemAnuncio extends Component {
     static navigationOptions = navigationOptions;
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.getOptions = {
             source: 'default',//'cache',
         }
@@ -46,18 +44,20 @@ export default class ListagemAnuncio extends Component {
             textInput: '',
             isLoading: true,
             anuncios: [],
-            limit: qtdAnunciosCarregadosPorVezPadrao,
             lastVisible: 0,
             refreshing: false,
             search: '',
-            orderByValor: orderByPadrao,
-            filtroPreco: precoMaximo,
-            filtroProfissaoCuidador: true,
-            filtroProfissaoTecnicoEnfermagem: true,
-            filtroProfissaoEnfermeiro: true,
-            filtroProfissaoTerapeutaOcupacional: true,
-            filtroProfissaoFisioterapeuta: true,
-            filtroProfissaoNutricionista: true,
+            limit: CONSTANTES.LISTAGEM_ANUNCIO_QTD_ANUNCIOS_CARREGADOS_POR_VEZ_PADRAO,
+            /*
+            orderByValor: CONSTANTES.LISTAGEM_ANUNCIO_ORDERBY_PADRAO,
+            filtroPreco: CONSTANTES.LISTAGEM_ANUNCIO_PRECO_MAXIMO,
+            filtroProfissaoCuidador: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_CUIDADOR,
+            filtroProfissaoTecnicoEnfermagem: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_TECNICO_ENFERMAGEM,
+            filtroProfissaoEnfermeiro: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_ENFERMEIRO,
+            filtroProfissaoTerapeutaOcupacional: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_TERAPEUTA_OCUPACIONAL,
+            filtroProfissaoFisioterapeuta: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_FISIOTERAPEUTA,
+            filtroProfissaoNutricionista: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_NUTRICIONISTA,
+            */
             estado: null,
             municipio: null,
             microrregiao: null,
@@ -70,19 +70,21 @@ export default class ListagemAnuncio extends Component {
         const microrregiao = await AsyncStorage.getItem('microrregiao');
         //this.municipio = await AsyncStorage.getItem('municipio');
         this.setState({
-            orderByValor: this.props.navigation.getParam('orderByValor', orderByPadrao),
-            filtroPreco: this.props.navigation.getParam('filtroPreco', precoMaximo),
-            filtroProfissaoCuidador: this.props.navigation.getParam('filtroProfissaoCuidador', true),
-            filtroProfissaoTecnicoEnfermagem: this.props.navigation.getParam('filtroProfissaoTecnicoEnfermagem', true),
-            filtroProfissaoEnfermeiro: this.props.navigation.getParam('filtroProfissaoEnfermeiro', true),
-            filtroProfissaoTerapeutaOcupacional: this.props.navigation.getParam('filtroProfissaoTerapeutaOcupacional', true),
-            filtroProfissaoFisioterapeuta: this.props.navigation.getParam('filtroProfissaoFisioterapeuta', true),
-            filtroProfissaoNutricionista: this.props.navigation.getParam('filtroProfissaoNutricionista', true),
+            /*
+            orderByValor: this.props.navigation.getParam('orderByValor', CONSTANTES.LISTAGEM_ANUNCIO_ORDERBY_PADRAO),
+            filtroPreco: this.props.navigation.getParam('filtroPreco', CONSTANTES.LISTAGEM_ANUNCIO_PRECO_MAXIMO),
+            filtroProfissaoCuidador: this.props.navigation.getParam('filtroProfissaoCuidador', CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_CUIDADOR),
+            filtroProfissaoTecnicoEnfermagem: this.props.navigation.getParam('filtroProfissaoTecnicoEnfermagem', CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_TECNICO_ENFERMAGEM),
+            filtroProfissaoEnfermeiro: this.props.navigation.getParam('filtroProfissaoEnfermeiro', CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_ENFERMEIRO),
+            filtroProfissaoTerapeutaOcupacional: this.props.navigation.getParam('filtroProfissaoTerapeutaOcupacional', CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_TERAPEUTA_OCUPACIONAL),
+            filtroProfissaoFisioterapeuta: this.props.navigation.getParam('filtroProfissaoFisioterapeuta', CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_FISIOTERAPEUTA),
+            filtroProfissaoNutricionista: this.props.navigation.getParam('filtroProfissaoNutricionista', CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_NUTRICIONISTA),
+            */
             estado: estado,
             municipio: municipio,
             microrregiao: microrregiao,
         });
-        const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
+        const collectionOrderBy = this.props.orderByValor == "localidade" ? "cidade" : this.props.orderByValor;
         // Valid options for source are 'server', 'cache', or
         // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
         // for more information.
@@ -97,7 +99,8 @@ export default class ListagemAnuncio extends Component {
         if(!filtroProfissaoFisioterapeuta) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Fisioterapeuta");
         if(!filtroProfissaoNutricionista) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Nutricionista");
         */
-        this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
+       console.warn(JSON.stringify(this.props));
+        //this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
         this.unsubscribe = this.unsubscribe.limit(this.state.limit);
         this.unsubscribe = this.unsubscribe.get(this.getOptions).then(this.onCollectionUpdate);
     }
@@ -118,7 +121,7 @@ export default class ListagemAnuncio extends Component {
                 ...CollectionAnuncio
             });
         });
-        var ultima = this.state.lastVisible+this.state.limit;
+        var ultima = this.state.lastVisible + this.state.limit;
         this.setState({
             anuncios: this.arrayholder,
             lastVisible: ultima,
@@ -130,13 +133,13 @@ export default class ListagemAnuncio extends Component {
         this.search.clear();
     };
     SearchFilterFunction(text) {
-        const {filtroPreco, 
-            filtroProfissaoCuidador, 
-            filtroProfissaoEnfermeiro, 
-            filtroProfissaoFisioterapeuta, 
-            filtroProfissaoNutricionista, 
-            filtroProfissaoTecnicoEnfermagem, 
-            filtroProfissaoTerapeutaOcupacional} = this.state;
+        const { filtroPreco,
+            filtroProfissaoCuidador,
+            filtroProfissaoEnfermeiro,
+            filtroProfissaoFisioterapeuta,
+            filtroProfissaoNutricionista,
+            filtroProfissaoTecnicoEnfermagem,
+            filtroProfissaoTerapeutaOcupacional } = this.props;
         //passing the inserted text in textinput
         const newData = this.arrayholder.filter(function (item) {
             //applying filter for the inserted text in search bar
@@ -147,18 +150,18 @@ export default class ListagemAnuncio extends Component {
             const itemDataTelefone = item.telefone ? item.telefone.toUpperCase() : ''.toUpperCase();
             //const itemDataCidade = item.cidade ? item.cidade.toUpperCase() : ''.toUpperCase();
             //const itemDataMicroregiao = item.microrregiao ? item.microrregiao.toUpperCase() : ''.toUpperCase();
-            if(itemDataPreco > filtroPreco) return false;
-            if(!filtroProfissaoCuidador && itemDataProfissao == "Cuidador".toUpperCase()) return false;
-            if(!filtroProfissaoTecnicoEnfermagem && itemDataProfissao == "Técnico em Enfermagem".toUpperCase()) return false;
-            if(!filtroProfissaoEnfermeiro && itemDataProfissao == "Enfermeiro".toUpperCase()) return false;
-            if(!filtroProfissaoTerapeutaOcupacional && itemDataProfissao == "Terapeuta Ocupacional".toUpperCase()) return false;
-            if(!filtroProfissaoFisioterapeuta && itemDataProfissao == "Fisioterapeuta".toUpperCase()) return false;
-            if(!filtroProfissaoNutricionista && itemDataProfissao == "Nutricionista".toUpperCase()) return false;
+            if (itemDataPreco > filtroPreco) return false;
+            if (!filtroProfissaoCuidador && (itemDataProfissao == "Cuidador".toUpperCase() || itemDataProfissao == "Cuidadora".toUpperCase())) return false;
+            if (!filtroProfissaoTecnicoEnfermagem && (itemDataProfissao == "Técnico em Enfermagem".toUpperCase() || itemDataProfissao == "Técnica em Enfermagem".toUpperCase())) return false;
+            if (!filtroProfissaoEnfermeiro && (itemDataProfissao == "Enfermeiro".toUpperCase() || itemDataProfissao == "Enfermeira".toUpperCase())) return false;
+            if (!filtroProfissaoTerapeutaOcupacional && (itemDataProfissao == "Terapeuta Ocupacional".toUpperCase() || itemDataProfissao == "Terapeuta Ocupacional".toUpperCase())) return false;
+            if (!filtroProfissaoFisioterapeuta && (itemDataProfissao == "Fisioterapeuta".toUpperCase() || itemDataProfissao == "Fisioterapeuta".toUpperCase())) return false;
+            if (!filtroProfissaoNutricionista && (itemDataProfissao == "Nutricionista".toUpperCase() || itemDataProfissao == "Nutricionista".toUpperCase())) return false;
             const apareceNoFiltro = (
-                itemDataNome.indexOf(textData) > -1 
-                || itemDataPreco.indexOf(textData) > -1 
-                || itemDataProfissao.indexOf(textData) > -1 
-                || itemDataTelefone.indexOf(textData) > -1 
+                itemDataNome.indexOf(textData) > -1
+                || itemDataPreco.indexOf(textData) > -1
+                || itemDataProfissao.indexOf(textData) > -1
+                || itemDataTelefone.indexOf(textData) > -1
                 //|| itemDataCidade.indexOf(textData) > -1 
                 //|| itemDataMicroregiao.indexOf(textData) > -1
             );
@@ -173,26 +176,27 @@ export default class ListagemAnuncio extends Component {
         });
     }
 
-    
+
     updateSearch = search => {
-      this.setState({ search });
+        this.setState({ search });
     };
 
     loadMore = () => {
         console.warn(this.state.lastVisible);
         this.unsubscribe = this.collection.
-        orderBy(this.state.orderByValor, 'ASC').
-        startAfter(this.state.lastVisible).
-        limit(this.state.limit).
-        //orderBy('nome','DESC').
-        //where('nome', '==', 'dbratti').
-        //https://firebase.google.com/docs/firestore/query-data/query-cursors
-        //startAfter(last.data().population).
-        //onSnapshot(this.onCollectionUpdate);
-        get(this.getOptions).then(this.onCollectionUpdate);
+            orderBy(this.props.orderByValor, 'ASC').
+            startAfter(this.state.lastVisible).
+            limit(this.state.limit).
+            //orderBy('nome','DESC').
+            //where('nome', '==', 'dbratti').
+            //https://firebase.google.com/docs/firestore/query-data/query-cursors
+            //startAfter(last.data().population).
+            //onSnapshot(this.onCollectionUpdate);
+            get(this.getOptions).then(this.onCollectionUpdate);
     }
     renderItem = (item) => {
-        if (this.qtdAnuncios % propagandaAposAnuncios == propagandaAposAnuncios-1 && temPropagandaAposAnuncios) {
+        if (this.qtdAnuncios % CONSTANTES.LISTAGEM_ANUNCIO_PROPAGANDA_APOS_ANUNCIO == CONSTANTES.LISTAGEM_ANUNCIO_PROPAGANDA_APOS_ANUNCIO - 1
+            && CONSTANTES.LISTAGEM_ANUNCIO_TEM_PROPAGANDA_APOS_ANUNCIO) {
             this.qtdAnuncios++;
             return (
                 <View>
@@ -228,47 +232,49 @@ export default class ListagemAnuncio extends Component {
 
     render() {
         return (
-            <View style={StyleAnuncio.container}>
-                <View style={StyleAnuncio.pesquisaContainer}>
-                    <View style={StyleAnuncio.pesquisaBarraContainer}>
-                        <SearchBar
-                            placeholder="Busque por nome, preço..."
-                            //onChangeText={this.updateSearch}
-                            value={this.state.search}
-                            searchIcon={searchBarSearchIcon}
-                            containerStyle={searchBarContainerStyle}
-                            inputStyle={searchBarInputStyle}
-                            onChangeText={text => this.SearchFilterFunction(text)}
-                            onClear={text => this.SearchFilterFunction('')}
-                            inputContainerStyle={searchBarInputContainerStyle}
-                            leftIconContainerStyle={searchBarleftIconContainerStyle}
-                            placeholderTextColor={searchBarPlaceholderTextColor}
-                        />
+            <Provider store={store}>
+                <View style={StyleAnuncio.container}>
+                    <View style={StyleAnuncio.pesquisaContainer}>
+                        <View style={StyleAnuncio.pesquisaBarraContainer}>
+                            <SearchBar
+                                placeholder="Busque por nome, preço..."
+                                //onChangeText={this.updateSearch}
+                                value={this.state.search}
+                                searchIcon={searchBarSearchIcon}
+                                containerStyle={searchBarContainerStyle}
+                                inputStyle={searchBarInputStyle}
+                                onChangeText={text => this.SearchFilterFunction(text)}
+                                onClear={text => this.SearchFilterFunction('')}
+                                inputContainerStyle={searchBarInputContainerStyle}
+                                leftIconContainerStyle={searchBarleftIconContainerStyle}
+                                placeholderTextColor={searchBarPlaceholderTextColor}
+                            />
+                        </View>
+                        <View style={StyleAnuncio.pesquisaFiltroContainer}>
+                            <TouchableOpacity
+                                //style={styles.productButton} 
+                                onPress={() => {
+                                    this.props.navigation.navigate("ListagemAnuncioFiltro");
+                                }}
+                            >
+                                <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    <View style={StyleAnuncio.pesquisaFiltroContainer}>
-                        <TouchableOpacity
-                            //style={styles.productButton} 
-                            onPress={() => {
-                                this.props.navigation.navigate("ListagemAnuncioFiltro", { precoMaximo: precoMaximo, orderByPadrao: orderByPadrao });
-                            }}
-                        >
-                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <FlatList
+                        contentContainerStyle={StyleAnuncio.list}
+                        data={this.state.anuncios}
+                        renderItem={({ item }) => this.renderItem(item)}
+                        //onEndReached={this.loadMore}
+                        onEndReachedThreshold={0.25}
+                        //ItemSeparatorComponent={this.ListViewItemSeparator}
+                        enableEmptySections={true}
+                        keyExtractor={(item, index) => index.toString()}
+                        // Footer (Activity Indicator)
+                        ListFooterComponent={this.renderFooter}
+                    />
                 </View>
-                <FlatList
-                    contentContainerStyle={StyleAnuncio.list}
-                    data={this.state.anuncios}
-                    renderItem={({ item }) => this.renderItem(item)}
-                    //onEndReached={this.loadMore}
-                    onEndReachedThreshold={0.25}
-                    //ItemSeparatorComponent={this.ListViewItemSeparator}
-                    enableEmptySections={true}
-                    keyExtractor={(item, index) => index.toString()}
-                    // Footer (Activity Indicator)
-                    ListFooterComponent={this.renderFooter}
-                />
-            </View>
+            </Provider>
         )
     }
 }
