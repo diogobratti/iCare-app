@@ -20,7 +20,7 @@ export default class Main extends React.Component {
       .auth()
       .signOut()
       .then(() => {
-        this.props.navigation.navigate("AuthLoading");
+        this.props.navigation.navigate("Loading");
       });
   };
 

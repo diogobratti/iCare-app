@@ -28,28 +28,41 @@ const MenuHome = createStackNavigator({
   VisualizarAnuncio: { screen: VisualizarAnuncio },
 });
 
-const Anuncio = createStackNavigator({
-  PerfilAnuncio
-});
+// const Anuncio = createStackNavigator({
+//   PerfilAnuncio
+// });
 
-const Cadastro = createStackNavigator({
+// const Cadastro = createStackNavigator({
+//   NewUserNome,
+//   NewUserCPF,
+//   NewUserEmail,
+//   NewUserTelefone,
+//   NewUserEstadoCidade,
+//   NewUserAnuncio,
+//   NewUserCadastrar
+// });
+
+// const LoginStack = createStackNavigator({ screen: Login });
+
+const MenuAnuncio = createStackNavigator({
+  Loading,
+  Login,
   NewUserNome,
   NewUserCPF,
   NewUserEmail,
   NewUserTelefone,
   NewUserEstadoCidade,
   NewUserAnuncio,
-  NewUserCadastrar
+  NewUserCadastrar,
+  PerfilAnuncio
 });
 
-const LoginStack = createStackNavigator({ screen: Login });
-
-const MenuAnuncio = createSwitchNavigator({
-  AuthLoading: Loading,
-  App: Anuncio,
-  NewUser: Cadastro,
-  Login: LoginStack
-});
+// const MenuAnuncio = createSwitchNavigator({
+//   AuthLoading: Loading,
+//   App: Anuncio,
+//   Cadastro,
+//   Login: LoginStack
+// });
 
 const MenuPrincipal = createBottomTabNavigator(
   {

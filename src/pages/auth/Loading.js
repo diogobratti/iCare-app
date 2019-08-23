@@ -1,12 +1,13 @@
 // Loading.js
-import React from 'react';
-import {View, Text, ActivityIndicator, StyleSheet} from 'react-native';
+import React from "react";
+import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 
-import firebase from 'react-native-firebase';
+import firebase from "react-native-firebase";
 
 export default class Loading extends React.Component {
   constructor(props) {
     super(props);
+    this.collection = firebase.firestore().collection("anuncios");
     this._bootstrapAsync();
   }
 
@@ -16,26 +17,48 @@ export default class Loading extends React.Component {
     const currentUser = firebase.auth().currentUser;
 
     if (currentUser == null) {
+      console.log("usuario nao logado, chamando Login");
       this.props.navigation.navigate("Login");
     } else {
-      await firebase
-        .firestore()
-        .collection("anuncios")
-        .where("uid", "==", currentUser.uid)
-        .get()
-        .then(data => {
-          this.setState({ cadastroCompleto: !data.empty });
-          // console.log(!data.empty);
-        });
+      // firebase
+      // .auth()
+      // .signOut();
+      console.log("usuario logado");
+      console.log("id ususario:" + currentUser.uid);
+      //verifica se já possui anuncio cadastrado, e "atuliza" dados da consulta
+
+      this.anuncio = this.props.navigation.getParam("anuncio", false);
+
+      console.log(this.anuncio);
+
+      if (this.anuncio === false) {
+        //busca no banco se nao tiver
+        console.log("buscando anuncio no banco");
+        await this.collection
+          .where("user_uid", "==", currentUser.uid)
+          .get()
+          .then(data => {
+            this.anuncio = data;
+            console.log(data);
+          });
+      }
+
+      this.cadastroCompleto =
+        this.anuncio.docs[0] != undefined &&
+        this.anuncio.docs[0].get("anuncio") != undefined
+          ? true
+          : false;
+
+      console.log(this.cadastroCompleto);
+
+      console.log(this.anuncio);
 
       this.props.navigation.navigate(
-        this.state.cadastroCompleto ? "App" : "NewUser"
+        this.cadastroCompleto ? "PerfilAnuncio" : "NewUserNome",
+        {
+          anuncio: this.anuncio.docs[0]
+        }
       );
-
-      // This will switch to the App screen or Auth screen and this loading
-      // screen will be unmounted and thrown away.
-      // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-      // this.props.navigation.navigate(currentUser ? 'App' : 'Auth');
     }
   };
 
@@ -51,7 +74,7 @@ export default class Loading extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });

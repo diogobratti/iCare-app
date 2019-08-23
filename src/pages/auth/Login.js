@@ -1,118 +1,141 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { SocialIcon, ThemeProvider, Input } from 'react-native-elements';
-import firebase from 'react-native-firebase';
-import { AccessToken, LoginManager } from 'react-native-fbsdk';
-import { GoogleSignin, statusCodes } from 'react-native-google-signin';
+import React, { Component } from "react";
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { SocialIcon, ThemeProvider, Input } from "react-native-elements";
+import firebase from "react-native-firebase";
+import { AccessToken, LoginManager } from "react-native-fbsdk";
+import { GoogleSignin, statusCodes } from "react-native-google-signin";
 import { navigationOptions } from "../../styles/StyleBase";
+import ApiDb from "../../services/ApiDb";
 
 export default class Login extends Component {
   state = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
     errorMessage: null,
     cadastroCompleto: false
   };
 
   static navigationOptions = {
     ...navigationOptions,
-    headerLeft: <View />,
+    headerLeft: <View />
   };
-  // static navigationOptions = {
-  //   title: 'Autentique-se',
-  // };
 
   handleLogin = () => {
-    console.log('handleLogin');
+    console.log("handleLogin");
 
-    const { email, password} = this.state;
+    const { email, password } = this.state;
 
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate('Main'))
-      .catch((error) =>
+      .then(() => this.props.navigation.navigate("Main"))
+      .catch(error =>
         this.setState({
-          errorMessage: this.translateLoginErrors(error),
+          errorMessage: this.translateLoginErrors(error)
         })
       );
   };
 
   handleSocialLoginInstagram() {
-    console.log('handleSocialLoginInstagram');
+    console.log("handleSocialLoginInstagram");
   }
 
   handleSocialLoginFacebook = async () => {
-    console.log('handleSocialLoginFacebook');
+    console.log("handleSocialLoginFacebook");
 
     try {
-      console.log('entrou');
-      const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+    //   LoginManager.logInWithPermissions([
+    //     "public_profile",
+    //     "email"
+    //   ])
+
+
+
+      console.log("entrou");
+      const result = await LoginManager.logInWithPermissions([
+        "public_profile",
+        "email"
+      ]);
       console.log(result);
-      console.log('mostrou login');
-      
-  
+      console.log("mostrou login");
+
       if (result.isCancelled) {
         // handle this however suites the flow of your app
-        throw new Error('User cancelled request'); 
+        throw new Error("User cancelled request");
       }
-  
-      console.log(`Login success with permissions: ${result.grantedPermissions.toString()}`);
-  
+
+      console.log(
+        `Login success with permissions: ${result.grantedPermissions.toString()}`
+      );
+
       // get the access token
       const data = await AccessToken.getCurrentAccessToken();
-  
+
       if (!data) {
         // handle this however suites the flow of your app
-        throw new Error('Something went wrong obtaining the users access token');
+        throw new Error(
+          "Something went wrong obtaining the users access token"
+        );
       }
-  
+
       // create a new firebase credential with the token
-      const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
-  
+      const credential = firebase.auth.FacebookAuthProvider.credential(
+        data.accessToken
+      );
+
       // login with credential
       const firebaseUserCredential = await firebase
         .auth()
         .signInWithCredential(credential);
-  
-      console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()))
+
+      console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
 
       await this.posAutenticacao(firebaseUserCredential);
-
     } catch (e) {
       console.error(e);
     }
-
-
-  }
+  };
 
   handleSocialLoginGoogle = async () => {
-    console.log('handleSocialLoginGoogle');
+    console.log("handleSocialLoginGoogle");
 
     try {
       // GoogleServices active
       await GoogleSignin.hasPlayServices();
-  
-      // add any configuration settings here:
-      await GoogleSignin.configure();
-  
-      //sign in
-      const data = await GoogleSignin.signIn();
-  
-      // console.warn(JSON.stringify(data));
-      console.log(data);
-  
-      // create a new firebase credential with the token
-      const credential = await firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
-      // login with credential
-      const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
-  
-      console.log(firebaseUserCredential);
-      // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
-      // await AsyncStorage.setItem('userToken', 'data');
 
-      await this.posAutenticacao(firebaseUserCredential);
-      
+      // add any configuration settings here:
+      await GoogleSignin.configure({
+        scopes: [
+          "https://www.googleapis.com/auth/userinfo.profile",
+          "https://www.googleapis.com/auth/userinfo.email"
+        ]
+      });
+
+      //sign in
+      const userData = await GoogleSignin.signIn();
+
+      const tokenData = await GoogleSignin.getTokens();
+
+      // console.warn(JSON.stringify(data));
+      console.log(tokenData);
+      console.log(userData);
+
+      // create a new firebase credential with the token
+      const credential = await firebase.auth.GoogleAuthProvider.credential(
+        tokenData.idToken,
+        tokenData.accessToken
+      );
+      // login with credential
+      const firebaseUserCredential = await firebase
+        .auth()
+        .signInWithCredential(credential);
+
+      // console.log(firebaseUserCredential);
+      // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
+
+      console.log("entrando pos autenticacao");
+
+      await this.posAutenticacao(firebaseUserCredential, userData.user.id);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -133,44 +156,59 @@ export default class Login extends Component {
    * cadastro
    * @param {UserCredential} firebaseCredential Credencial do Firebase
    */
-  posAutenticacao = async(firebaseCredential) => {
+  posAutenticacao = async (firebaseCredential, idAuthProvider) => {
+    //SE o usuário não tiver cadastro ainda, cria cadastro
+    await firebase
+      .firestore()
+      .collection("anuncios")
+      .where("user_uid", "==", firebaseCredential.user.uid)
+      .get()
+      .then(data => {
+        // this.dadosAnuncio = data;
+        // console.log("entrando atualizaCadastro");
+        this.atualizaCadastro(data, firebaseCredential, idAuthProvider);
+        this.data = data;
+        // console.log(data);
+        // console.log(this.data);
+      });
 
-    // //verifica se é um novo usuário
-    // if (firebaseCredential.additionalUserInfo.isNewUser) {
-    //   this.setState({cadastroCompleto : false});
-    // } else {
-    //   //verifica no firestore se o cadastro está completo
-    //   const collectionAnuncios = await firebase.firestore().collection('anuncios');
+    // console.log(this.data);
+    console.log("redirecionando Loading");
+    this.props.navigation.navigate("Loading", { anuncio: this.data });
+  };
 
-    //   await collectionAnuncios
-    //     .where("uid", "==", firebaseCredential.user.uid)
-    //     .get()
-    //     .then(data => {
-    //       this.setState({ cadastroCompleto: !data.empty });
-    //       // console.log(!data.empty);
-    //     });
-    // }
-
-    // this.props.navigation.navigate(this.state.cadastroCompleto ? 'App' : 'NewUser');
-    this.props.navigation.navigate("AuthLoading");
+  atualizaCadastro = (querySnapshot, firebaseCredential, idAuthProvider) => {
+    if (querySnapshot.empty) {
+      //cria anuncio com dados basicos, se já não existir
+      let api = new ApiDb("anuncios");
+      api.add({
+        id: firebaseCredential.user.uid,
+        user_uid: firebaseCredential.user.uid,
+        provider_id: idAuthProvider,
+        nome: firebaseCredential.additionalUserInfo.profile.name,
+        email: firebaseCredential.additionalUserInfo.profile.email,
+        foto: firebaseCredential.additionalUserInfo.profile.picture
+      });
+    }
+    console.log("cadastro atualizado");
   };
 
   translateLoginErrors(error) {
     message = error.message;
 
     switch (error.code) {
-      case 'auth/invalid-email':
-        message = 'Endereço de email inválido';
+      case "auth/invalid-email":
+        message = "Endereço de email inválido";
         break;
-      case 'auth/user-disabled':
-        message = 'Usuário desativado';
+      case "auth/user-disabled":
+        message = "Usuário desativado";
         break;
-      case 'auth/user-not-found':
-      case 'auth/wrong-password':
-        message = 'Usuário ou senha inválido';
+      case "auth/user-not-found":
+      case "auth/wrong-password":
+        message = "Usuário ou senha inválido";
         break;
       default:
-        message: 'Erro desconhecido: ' + error.code + error.message;
+        message: "Erro desconhecido: " + error.code + error.message;
         break;
     }
 
@@ -241,11 +279,11 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
   mainContainerStyle: {
-    flex: 5,
+    flex: 5
   },
 
   scrollContainerStyle: {
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly"
   },
 
   containerLoginStyle: {
@@ -253,43 +291,43 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     marginTop: 10,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
+    alignItems: "center",
+    justifyContent: "space-evenly"
   },
 
   containerSocialLoginStyle: {
     flex: 2,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
     paddingBottom: 20,
-    paddingTop: 20,
+    paddingTop: 20
   },
 
   containerSocialLoginButtonsStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around"
   },
 
   socialButton: {
-    width: '10%',
+    width: "10%"
   },
 
   containerActionsStyle: {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
     paddingBottom: 20,
-    paddingTop: 20,
+    paddingTop: 20
   },
 
   textInput: {
-    borderColor: 'gray',
+    borderColor: "gray",
     borderWidth: 1,
     height: 40,
-    width: '70%',
-  },
+    width: "70%"
+  }
 });
 
 // <View style={styles.container}>

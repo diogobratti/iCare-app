@@ -2,7 +2,7 @@ import React from 'react';
 import {Input, Icon} from 'react-native-elements';
 
 const InputEmail = (props) => {
-  const { onChangeText, children } = props;
+  const { onChangeText, value, children } = props;
 
   return (
     <Input
@@ -11,6 +11,7 @@ const InputEmail = (props) => {
       leftIcon={<Icon name="mail" type="antdesign" size={24} color="#007aff" />}
       errorMessage="Digite um e-mail válido"
       onChangeText={onChangeText}
+      value={value}
     />
   );
 };
