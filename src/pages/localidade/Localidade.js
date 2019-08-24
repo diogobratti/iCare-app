@@ -31,52 +31,52 @@ export default class Localidade extends Component {
 		if (estado != null && municipio != null && regiao != null) {
 			this.props.navigation.navigate("ListagemAnuncio", {});
 		}
-	  this.setState({
-		uf: DataLocalidade,
-		selectedValueEstado: '',
-		selectedValueCidade: '',
-		estado: estado,
-		municipio: municipio,
-		regiao: regiao,
-		isLoading: false,
+		this.setState({
+			uf: DataLocalidade,
+			selectedValueEstado: '',
+			selectedValueCidade: '',
+			estado: estado,
+			municipio: municipio,
+			regiao: regiao,
+			isLoading: false,
 		});
 	}
 
 	renderValueChangeEstado = (value) => {
-	  this.setState({
-		selectedValueEstado: value,
-		estado: value.nome,
-	  })
+		this.setState({
+			selectedValueEstado: value,
+			estado: value.nome,
+		})
 	}
 
 
 	renderValueChangeCidade = (value) => {
-	  this.setState({
-		selectedValueCidade: value,
-		municipio: value.Município,
-		regiao: value.Microrregião,
-	  })
+		this.setState({
+			selectedValueCidade: value,
+			municipio: value.Município,
+			regiao: value.Microrregião,
+		})
 	}
 
-  guardarLocalidade = async () => {
-		const {estado, municipio, regiao } = this.state;
+	guardarLocalidade = async () => {
+		const { estado, municipio, regiao } = this.state;
 
-    await AsyncStorage.setItem('estado', `${estado}`);
-    await AsyncStorage.setItem('municipio', `${municipio}`);
+		await AsyncStorage.setItem('estado', `${estado}`);
+		await AsyncStorage.setItem('municipio', `${municipio}`);
 		await AsyncStorage.setItem('microrregiao', `${regiao}`);
-		
-  };
+
+	};
 	render() {
 		if (this.state.isLoading) {
-				return (
-						<ActivityIndicator />
-				)
+			return (
+				<ActivityIndicator />
+			)
 		}
-        const { selectedValueCidade, selectedValueEstado, uf } = this.state;
+		const { selectedValueCidade, selectedValueEstado, uf } = this.state;
 		return (
 			<View style={StyleLocalidade.container}>
 				<View style={StyleLocalidade.cabecalhoContainer}>
-				<Cabecalho />
+					<Cabecalho />
 				</View>
 				<View style={StyleLocalidade.corpoContainer}>
 					<View style={StyleLocalidade.camposContainer}>
@@ -96,7 +96,7 @@ export default class Localidade extends Component {
 						</View>
 						<View style={StyleLocalidade.itemCamposContainer}>
 							<Text style={StyleLocalidade.itemCamposTexto}>
-								Escolha o município 
+								Escolha o município
 							</Text>
 							<SelectCidades selectedValue={selectedValueCidade}
 								data={selectedValueEstado}
@@ -105,7 +105,7 @@ export default class Localidade extends Component {
 								onValueChange={this.renderValueChangeCidade} />
 						</View>
 					</View>
-					<View  style={StyleLocalidade.erroContainer}>
+					<View style={StyleLocalidade.erroContainer}>
 						<Text style={StyleLocalidade.erroTexto}>{this.state.erro}</Text>
 					</View>
 				</View>
@@ -114,12 +114,12 @@ export default class Localidade extends Component {
 						style={StyleLocalidade.botaoButton}
 						onPress={() => {
 							var mensagem = "";
-							if(selectedValueEstado != "" && selectedValueEstado != ""){
+							if (selectedValueEstado != "" && selectedValueCidade != "") {
 								this.guardarLocalidade();
 								this.props.navigation.navigate("ListagemAnuncio", {});
 							} else {
 								mensagem = "Por favor, escolha o estado e o município.";
-								this.setState({erro: mensagem});
+								this.setState({ erro: mensagem });
 							}
 						}}
 					>
