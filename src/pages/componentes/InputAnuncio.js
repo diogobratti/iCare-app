@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import { Input, Icon } from "react-native-elements";
 
-const InputAnuncio = (props) => {
+const InputAnuncio = props => {
   const { onChangeText, children } = props;
 
   return (
@@ -11,6 +11,11 @@ const InputAnuncio = (props) => {
       leftIcon={<Icon name="user" type="antdesign" size={24} color="#007aff" />}
       errorMessage="O seu anúncio deve conter apenas texto"
       onChangeText={onChangeText}
+      multiline={true}
+      numberOfLines={5}
+      inputStyle={{
+        height: null
+      }}
     />
   );
 };

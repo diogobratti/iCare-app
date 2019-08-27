@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { ScrollView } from "react-native";
 import { Input } from "react-native-elements";
 import InputAnuncio from "../componentes/InputAnuncio";
+import InputProfissao from "../componentes/InputProfissao";
+import InputPreco from "../componentes/InputPreco";
 import Button from "./components/Button";
 import { navigationOptions } from "../../styles/StyleBase";
 
@@ -23,9 +25,10 @@ export default class NewUserEmail extends Component {
   render() {
     return (
       <ScrollView>
-        {/* <InputAnuncio onChangeText={anuncio => this.setState({ anuncio })} /> */}
-        <Input onChangeText={profissao => this.setState({ profissao })} />
-        <Input onChangeText={preco => this.setState({ preco })} />
+        <InputProfissao
+          onChangeText={profissao => this.setState({ profissao })}
+        />
+        <InputPreco onChangeText={preco => this.setState({ preco })} />
         <InputAnuncio onChangeText={anuncio => this.setState({ anuncio })} />
         <Button
           onPress={() =>

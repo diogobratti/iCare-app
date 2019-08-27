@@ -21,7 +21,7 @@ export default class NewUserNome extends Component {
   }
 
   componentDidMount() {
-    console.log("NewUSer");
+    console.log("NewUSerNome");
     console.log(this.props.navigation.state.params);
     console.log(this.props.navigation.state.params.anuncio);
     const currentUser = firebase.auth().currentUser;
@@ -32,6 +32,7 @@ export default class NewUserNome extends Component {
       anuncioOriginal: this.props.navigation.state.params.anuncio,
       nome: anuncio.nome,
       email: anuncio.email,
+      foto: anuncio.foto,
       user: currentUser
     });
 

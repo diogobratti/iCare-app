@@ -1,10 +1,9 @@
-// Loading.js
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
 
 import firebase from "react-native-firebase";
 
-export default class Loading extends React.Component {
+export default class Loading extends Component {
   constructor(props) {
     super(props);
     this.collection = firebase.firestore().collection("anuncios");
@@ -24,12 +23,15 @@ export default class Loading extends React.Component {
       // .auth()
       // .signOut();
       console.log("usuario logado");
-      console.log("id ususario:" + currentUser.uid);
+      console.log("id usuario:" + currentUser.uid);
       //verifica se já possui anuncio cadastrado, e "atuliza" dados da consulta
 
       this.anuncio = this.props.navigation.getParam("anuncio", false);
 
-      console.log(this.anuncio);
+      console.log("anuncio em cache: " + this.anuncio);
+
+      //assume que quem está logado já possui dados basicos cadastrados
+      this.cadastroBasico = true;
 
       if (this.anuncio === false) {
         //busca no banco se nao tiver
@@ -38,27 +40,42 @@ export default class Loading extends React.Component {
           .where("user_uid", "==", currentUser.uid)
           .get()
           .then(data => {
+            if (data.empty) {
+              //estado inconsistente usuario logado, e sem dados basicos?
+              //força login novamente
+              this.cadastroBasico = false;
+            }
             this.anuncio = data;
             console.log(data);
           });
       }
 
-      this.cadastroCompleto =
-        this.anuncio.docs[0] != undefined &&
-        this.anuncio.docs[0].get("anuncio") != undefined
-          ? true
-          : false;
+      console.log("cadastro basico: " + this.cadastroBasico);
 
-      console.log(this.cadastroCompleto);
+      if (this.cadastroBasico == true) {
+        this.cadastroCompleto =
+          this.anuncio.docs[0] != undefined &&
+          this.anuncio.docs[0].get("anuncio") != undefined
+            ? true
+            : false;
 
-      console.log(this.anuncio);
+        console.log("cadastro completo: " + this.cadastroCompleto);
 
-      this.props.navigation.navigate(
-        this.cadastroCompleto ? "PerfilAnuncio" : "NewUserNome",
-        {
-          anuncio: this.anuncio.docs[0]
-        }
-      );
+        console.log(this.anuncio);
+
+        console.log(firebase.auth().currentUser);
+
+        this.props.navigation.navigate(
+          this.cadastroCompleto ? "PerfilAnuncio" : "NewUserNome",
+          {
+            anuncio: this.anuncio.docs[0]
+          }
+        );
+      } else {
+        //força login, deveria ter dados básicos cadastrados já
+        firebase.auth().signOut();
+        this.props.navigation.push("Login");
+      }
     }
   };
 

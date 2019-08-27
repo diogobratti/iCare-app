@@ -1,5 +1,4 @@
-// Main.js
-import React from "react";
+import React, { Component } from "react";
 import { ActivityIndicator, View } from "react-native";
 import firebase from "react-native-firebase";
 import { Button } from "react-native-elements";
@@ -7,8 +6,15 @@ import Anuncio from "../componentes/Anuncio";
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio from "../../styles/StyleAnuncio";
 
-export default class Main extends React.Component {
-  state = { currentUser: null, anuncio: null };
+export default class Main extends Component {
+
+  constructor(props) {
+    // console.log(this.props);
+    super(props);
+    this.state = {
+      anuncio: null
+    };
+  }
 
   static navigationOptions = {
     ...navigationOptions,
@@ -20,23 +26,26 @@ export default class Main extends React.Component {
       .auth()
       .signOut()
       .then(() => {
-        this.props.navigation.navigate("Loading");
+        this.props.navigation.push("Loading");
       });
   };
 
   componentDidMount() {
+    console.log("PerfilAnuncio componentDidMount");
+    console.log(firebase.auth().currentUser);
+
     const { currentUser } = firebase.auth();
+    console.log("usuario atual:" + currentUser);
 
-    this.setState({ usuario: currentUser });
+    console.log("anuncio: " + this.props.navigation.getParam("anuncio", false));
 
-    firebase
-      .firestore()
-      .collection("anuncios")
-      .where("uid", "==", currentUser.uid)
-      .get()
-      .then(dados => {
-        this.setState({ anuncio: dados.docs[0].data() });
-      });
+    let anuncio = this.props.navigation.getParam("anuncio", false);
+    if (anuncio == false) {
+      //estado inconsistente
+      this.props.navigation.push("Loading");
+    }
+
+    this.setState({ anuncio: anuncio.data() });
   }
 
   render() {
