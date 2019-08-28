@@ -204,6 +204,9 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:17.0.0" // site rnfirebase.io
     // Firebase Firestore
     implementation "com.google.firebase:firebase-firestore:19.0.0"
+
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+
     //----
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
