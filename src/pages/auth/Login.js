@@ -118,7 +118,6 @@ export default class Login extends Component {
 
       const tokenData = await GoogleSignin.getTokens();
 
-      // console.warn(JSON.stringify(data));
       console.log(tokenData);
       console.log(userData);
 
@@ -134,20 +133,17 @@ export default class Login extends Component {
 
       console.log("usuario autenticado ");
 
-      // console.log(firebaseUserCredential);
-      // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
-
       console.log("entrando pos autenticacao");
-
-      this.setState({ isProcessing: false });
 
       await this.posAutenticacao(firebaseUserCredential, userData.user.id);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
+        this.props.navigation.push("Loading");
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (f.e. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        this.props.navigation.push("Loading");
         // play services not available or outdated
       } else {
         // some other error happened
@@ -165,58 +161,42 @@ export default class Login extends Component {
   posAutenticacao = async (firebaseCredential, idAuthProvider) => {
     let collection = firebase.firestore().collection("anuncios");
     //SE o usuário não tiver cadastro ainda, cria cadastro
-    await collection
+    let querySnapshot = await collection
       .where("user_uid", "==", firebaseCredential.user.uid)
       .get()
       .then(data => {
-        // this.dadosAnuncio = data;
-        // console.log("entrando atualizaCadastro");
-        if (data.empty) {
-          console.log("Dados vazios. criando novo cadastro");
-
-          data = collection
-            .add({
-              id: firebaseCredential.user.uid,
-              user_uid: firebaseCredential.user.uid,
-              provider_id: idAuthProvider,
-              nome: firebaseCredential.additionalUserInfo.profile.name,
-              email: firebaseCredential.additionalUserInfo.profile.email,
-              foto: firebaseCredential.additionalUserInfo.profile.picture
-            })
-            .then(newData => {
-              //atualiza referencia
-              console.log("cadastro criado " + newData);
-              // data = newData;
-            });
-        }
-
-        console.log(data);
-        console.log("redirecionando Loading");
-        this.props.navigation.push("Loading", { anuncio: data });
-
-        // data = this.atualizaCadastro(data, firebaseCredential, idAuthProvider);
-        // this.data = data;
-        // console.log(data);
-        // console.log(this.data);
+        return data;
       });
-  };
 
-  atualizaCadastro = (querySnapshot, firebaseCredential, idAuthProvider) => {
-    console.log("atualizando cadastro");
-
-    // let result = querySnapshot.ref
+    let docReference = null;
 
     if (querySnapshot.empty) {
-      firebase
-        .firestore()
-        .collection("anuncios")
-        .add({})
-        .then();
+      console.log("Dados vazios. criando novo cadastro");
+      docReference = await collection
+        .add({
+          id: firebaseCredential.user.uid,
+          user_uid: firebaseCredential.user.uid,
+          provider_id: idAuthProvider,
+          nome: firebaseCredential.additionalUserInfo.profile.name,
+          email: firebaseCredential.additionalUserInfo.profile.email,
+          foto: firebaseCredential.additionalUserInfo.profile.picture
+        })
+        .then(newData => {
+          //atualiza referencia
+          console.log("cadastro criado ");
+          console.log(newData);
+          // data = newData;
+          return newData;
+        });
+    } else {
+      docReference = querySnapshot.docs[0].ref;
     }
+    console.log(docReference);
+    console.log("redirecionando Loading");
 
-    console.log(resultado);
+    this.setState({ isProcessing: false });
 
-    return resultado;
+    this.props.navigation.push("Loading", { anuncio: docReference });
   };
 
   translateLoginErrors(error) {

@@ -7,7 +7,6 @@ import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio from "../../styles/StyleAnuncio";
 
 export default class Main extends Component {
-
   constructor(props) {
     // console.log(this.props);
     super(props);
@@ -45,7 +44,9 @@ export default class Main extends Component {
       this.props.navigation.push("Loading");
     }
 
-    this.setState({ anuncio: anuncio.data() });
+    anuncio.get().then(doc => {
+      this.setState({ anuncio: doc.data() });
+    });
   }
 
   render() {
