@@ -48,13 +48,6 @@ const MenuAnuncio = createStackNavigator(
   }
 );
 
-// const MenuAnuncio = createSwitchNavigator({
-//   AuthLoading: Loading,
-//   App: Anuncio,
-//   Cadastro,
-//   Login: LoginStack
-// });
-
 const MenuPrincipal = createBottomTabNavigator(
   {
     Home: { screen: MenuHome },
