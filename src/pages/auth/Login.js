@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView } from "react-native";
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from "react-native";
 import {
   SocialIcon,
   ThemeProvider,
@@ -103,7 +103,9 @@ export default class Login extends Component {
 
     try {
       // GoogleServices active
-      await GoogleSignin.hasPlayServices();
+      await GoogleSignin.hasPlayServices({
+        showPlayServicesUpdateDialog: true
+      });
 
       // add any configuration settings here:
       await GoogleSignin.configure({
@@ -225,8 +227,11 @@ export default class Login extends Component {
     return (
       <View style={styles.mainContainerStyle}>
         <ScrollView>
-          <Overlay isVisible={this.state.isProcessing}>
-            <Text>Efetuando autenticação... Aguarde...</Text>
+          <Overlay isVisible={this.state.isProcessing} width="70%" height="20%">
+            <View style={styles.centralize}>
+              <Text>Efetuando Autenticação... Aguarde...</Text>
+              <ActivityIndicator size="large" />
+            </View>
           </Overlay>
           <View style={styles.containerSocialLoginStyle}>
             <Text>Acesse com</Text>
@@ -236,10 +241,10 @@ export default class Login extends Component {
                 onPress={this.handleSocialLoginFacebook}
                 // onPress={facebookLogin}
               />
-              <SocialIcon
+              {/* <SocialIcon
                 type="instagram"
                 onPress={this.handleSocialLoginInstagram}
-              />
+              /> */}
               <SocialIcon
                 type="google-plus-official"
                 onPress={this.handleSocialLoginGoogle}
@@ -288,7 +293,20 @@ export default class Login extends Component {
 
 const styles = StyleSheet.create({
   mainContainerStyle: {
-    flex: 5
+    flex: 5,
+    flexDirection: "column"
+  },
+
+  centralize: {
+    alignItems: "center",
+    justifyContent: "center"
+  },
+
+  overlayStyle: {
+    alignItems: "center",
+    justifyContent: "center",
+    height: "20%",
+    width: "70%"
   },
 
   scrollContainerStyle: {

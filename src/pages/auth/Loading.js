@@ -5,10 +5,10 @@ import { navigationOptions } from "../../styles/StyleBase";
 import firebase from "react-native-firebase";
 
 export default class Loading extends Component {
-  // static navigationOptions = {
-  //   ...navigationOptions,
-  //   headerLeft: <View />
-  // };
+  static navigationOptions = {
+    ...navigationOptions,
+    headerLeft: <View />
+  };
 
   constructor(props) {
     super(props);

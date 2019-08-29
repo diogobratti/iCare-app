@@ -14,12 +14,14 @@ import AsyncStorage from "@react-native-community/async-storage";
 export default class NewUserCadastrar extends Component {
   state = this.props.navigation.state.params.state;
 
-  componentDidMount() {
+  async componentDidMount() {
     console.log(this.state);
     console.log(this.state.user.uid);
 
     try {
       let anuncioOriginal = this.state.anuncioOriginal;
+
+      let versaoTermos = await AsyncStorage.getItem("termoservico");
 
       anuncioOriginal.update({
         nome: this.state.nome,
@@ -33,7 +35,7 @@ export default class NewUserCadastrar extends Component {
         preco: this.state.preco,
         profissao: this.state.profissao,
         foto: this.state.foto,
-        versaoTermosServico: AsyncStorage.getItem("termoservico")
+        versaoTermosServico: versaoTermos
       });
 
       //TODO: tratar para mostrar mensagem de erro quando não conseguiu salavar

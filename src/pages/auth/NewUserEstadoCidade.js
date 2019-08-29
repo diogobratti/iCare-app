@@ -1,6 +1,6 @@
 //ordernar menor distancia, melhor avaliacao e preco.
 //filtrar por profissao preco e avaliacao
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 import {
   View,
@@ -8,24 +8,24 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
-  Picker
-} from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import { Slider, CheckBox } from "react-native-elements";
+  Picker,
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Slider, CheckBox } from 'react-native-elements';
 
 import {
   navigationOptions,
   definicoesBase,
-  Cabecalho
-} from "../../styles/StyleBase";
-import StyleLocalidade from "../../styles/StyleLocalidade";
+  Cabecalho,
+} from '../../styles/StyleBase';
+import StyleLocalidade from '../../styles/StyleLocalidade';
 
-import AsyncStorage from "@react-native-community/async-storage";
+import AsyncStorage from '@react-native-community/async-storage';
 
 //fazer foreach
-import DataLocalidade from "../../data/DataLocalidade.json";
-import SelectEstados from "../componentes/SelectEstados";
-import SelectCidades from "../componentes/SelectCidades";
+import DataLocalidade from '../../data/DataLocalidade.json';
+import SelectEstados from '../componentes/SelectEstados';
+import SelectCidades from '../componentes/SelectCidades';
 
 export default class Localidade extends Component {
   static navigationOptions = navigationOptions;
@@ -35,31 +35,31 @@ export default class Localidade extends Component {
     selectedValueEstado: null,
     selectedValueCidade: null,
     erro: null,
-    isLoading: true
+    isLoading: true,
   };
 
   async componentDidMount() {
-    const estado = await AsyncStorage.getItem("estado");
-    const municipio = await AsyncStorage.getItem("municipio");
-    const regiao = await AsyncStorage.getItem("microrregiao");
+    const estado = await AsyncStorage.getItem('estado');
+    const municipio = await AsyncStorage.getItem('municipio');
+    const regiao = await AsyncStorage.getItem('microrregiao');
     // if (estado != null && municipio != null && regiao != null) {
     //   this.props.navigation.navigate("ListagemAnuncio", {});
     // }
     this.setState({
       uf: DataLocalidade,
-      selectedValueEstado: "",
-      selectedValueCidade: "",
+      selectedValueEstado: '',
+      selectedValueCidade: '',
       estado: estado,
       municipio: municipio,
       regiao: regiao,
       isLoading: false,
-      ...this.props.navigation.state.params.state
+      ...this.props.navigation.state.params.state,
     });
   }
   renderValueChangeEstado = value => {
     this.setState({
       selectedValueEstado: value,
-      estado: value.nome
+      estado: value.nome,
     });
   };
 
@@ -67,7 +67,7 @@ export default class Localidade extends Component {
     this.setState({
       selectedValueCidade: value,
       municipio: value.Município,
-      regiao: value.Microrregião
+      regiao: value.Microrregião,
     });
   };
 
@@ -78,9 +78,9 @@ export default class Localidade extends Component {
     const { selectedValueCidade, selectedValueEstado, uf } = this.state;
     return (
       <View style={StyleLocalidade.container}>
-        <View style={StyleLocalidade.cabecalhoContainer}>
+        {/* <View style={StyleLocalidade.cabecalhoContainer}>
           <Cabecalho />
-        </View>
+        </View> */}
         <View style={StyleLocalidade.corpoContainer}>
           <View style={StyleLocalidade.camposContainer}>
             <View style={StyleLocalidade.itemCamposContainer}>
@@ -120,14 +120,14 @@ export default class Localidade extends Component {
           <TouchableOpacity
             style={StyleLocalidade.botaoButton}
             onPress={() => {
-              var mensagem = "";
-              if (selectedValueEstado != "" && selectedValueCidade != "") {
-                this.guardarLocalidade();
-                this.props.navigation.navigate("NewUserAnuncio", {
-                  state: this.state
+              var mensagem = '';
+              if (selectedValueEstado != '' && selectedValueCidade != '') {
+                // this.guardarLocalidade();
+                this.props.navigation.navigate('NewUserAnuncio', {
+                  state: this.state,
                 });
               } else {
-                mensagem = "Por favor, escolha o estado e o município.";
+                mensagem = 'Por favor, escolha o estado e o município.';
                 this.setState({ erro: mensagem });
               }
             }}
