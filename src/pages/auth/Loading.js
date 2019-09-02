@@ -67,7 +67,7 @@ export default class Loading extends Component {
         console.log(docSnapshot);
 
         this.cadastroCompleto =
-          docSnapshot.get("anuncio") != undefined ? true : false;
+          docSnapshot.get("telefone") != undefined ? true : false;
 
         console.log("cadastro completo: " + this.cadastroCompleto);
 
