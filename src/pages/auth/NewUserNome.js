@@ -5,6 +5,7 @@ import Button from "./components/Button";
 import firebase from "react-native-firebase";
 import { navigationOptions } from "../../styles/StyleBase";
 import { withNavigation } from "react-navigation";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class NewUserNome extends Component {
   static navigationOptions = {
@@ -42,7 +43,10 @@ export default class NewUserNome extends Component {
       nome: this.anuncio.nome,
       email: this.anuncio.email,
       foto: this.anuncio.foto,
-      user: currentUser
+      user: currentUser,
+      estado: await AsyncStorage.getItem("estado"),
+      municipio: await AsyncStorage.getItem("municipio"),
+      regiao: await AsyncStorage.getItem("microrregiao")
     });
   };
 
@@ -55,7 +59,9 @@ export default class NewUserNome extends Component {
         />
         <Button
           onPress={() =>
-            this.props.navigation.navigate("NewUserCPF", { state: this.state })
+            this.props.navigation.navigate("NewUserEmail", {
+              state: this.state
+            })
           }
         >
           Continuar

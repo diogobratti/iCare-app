@@ -90,7 +90,18 @@ export default class Login extends Component {
       // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
       console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
 
-      await this.posAutenticacao(firebaseUserCredential);
+      const nome = firebaseUserCredential.additionalUserInfo.profile.name;
+      const email = firebaseUserCredential.additionalUserInfo.profile.email;
+      const foto =
+        firebaseUserCredential.additionalUserInfo.profile.picture.data.url;
+
+      await this.posAutenticacao(
+        firebaseUserCredential,
+        data.userID,
+        nome,
+        email,
+        foto
+      );
     } catch (e) {
       console.error(e);
     }
@@ -137,7 +148,17 @@ export default class Login extends Component {
 
       console.log("entrando pos autenticacao");
 
-      await this.posAutenticacao(firebaseUserCredential, userData.user.id);
+      const nome = firebaseUserCredential.additionalUserInfo.profile.name;
+      const email = firebaseUserCredential.additionalUserInfo.profile.email;
+      const foto = firebaseUserCredential.additionalUserInfo.profile.picture;
+
+      await this.posAutenticacao(
+        firebaseUserCredential,
+        userData.user.id,
+        nome,
+        email,
+        foto
+      );
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
@@ -160,7 +181,7 @@ export default class Login extends Component {
    * cadastro
    * @param {UserCredential} firebaseCredential Credencial do Firebase
    */
-  posAutenticacao = async (firebaseCredential, idAuthProvider) => {
+  posAutenticacao = async (firebaseCredential, idAuthProvider, nome, email, foto) => {
     let collection = firebase.firestore().collection("anuncios");
     //SE o usuário não tiver cadastro ainda, cria cadastro
     let querySnapshot = await collection
@@ -179,9 +200,9 @@ export default class Login extends Component {
           id: firebaseCredential.user.uid,
           user_uid: firebaseCredential.user.uid,
           provider_id: idAuthProvider,
-          nome: firebaseCredential.additionalUserInfo.profile.name,
-          email: firebaseCredential.additionalUserInfo.profile.email,
-          foto: firebaseCredential.additionalUserInfo.profile.picture
+          nome: nome,
+          email: email,
+          foto: foto
         })
         .then(newData => {
           //atualiza referencia
