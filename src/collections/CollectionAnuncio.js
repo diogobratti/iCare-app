@@ -8,6 +8,7 @@ const CollectionAnuncio = {
 	"cidade":"",
 	"uf":"",
 	"preco":"",
+	"anuncio":"",
 	"certificados":"",
 	"cartao_visita":"",
 	"foto":"",

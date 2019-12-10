@@ -105,7 +105,12 @@ const StyleAnuncio = StyleSheet.create({
         color: definicoesBase.corFonteTextoComum,
         lineHeight: definicoesBase.alturaLinhaTextoComum
     },
-
+    anuncioDescricao:{
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
     anuncioPreco: {
         fontFamily: definicoesBase.fontFamilyTextoComum,
         fontSize: definicoesBase.tamanhoFonteTextoComum,
@@ -211,7 +216,55 @@ const StyleAnuncio = StyleSheet.create({
     aplicarFiltroContainer:{
         flex: 1,
         justifyContent:"flex-start",
-    }
+    },
+    visualizarAnuncioContainer:{
+        flex: 6,
+        flexDirection: 'column',
+        backgroundColor: definicoesBase.backgroundGeral,
+        padding: 10,
+    },
+    visualizarAnuncioFotoContainer: {
+        flex: 1.5,
+        backgroundColor: definicoesBase.backgroundAnuncio,
+        justifyContent: "center",
+        alignItems: "center",
+        paddingBottom: 10,
+    },
+    visualizarAnuncioTextosContainer:{
+        flex: 4.5,
+        backgroundColor: definicoesBase.backgroundAnuncio,
+        borderWidth: 1,
+        borderColor: definicoesBase.corBordaAnuncio,
+        borderRadius: 5, //deixa a borda redonda
+        padding: 10,
+        marginBottom: 10,
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 1,
+    },
+    visualizarAnuncioLinha:{
+        flexDirection: "row",
+    },
+    visualizarAnuncioDescricaoText:{
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum,
+    },
+    visualizarAnuncioAtributoText:{
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        fontWeight: "bold",
+        flexWrap: 'wrap',
+        flexShrink: 1,
+        lineHeight: definicoesBase.alturaLinhaTextoComum,
+    },
+    visualizarAnuncioImagemUsuario: {
+        width: 90, 
+        height: 120
+    },
 });
 
 export const anuncioIconeAvaliacao = {

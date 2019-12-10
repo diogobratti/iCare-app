@@ -3,7 +3,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, Linking } from "react-native";
 //import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements';
-import firebase from 'react-native-firebase';
+import MensagemTelefone from '../../data/MensagemTelefone';
+
 
 import StyleAnuncio, { 
             anuncioIconeTelefone
@@ -13,8 +14,6 @@ export default class Anuncio extends React.PureComponent {
 
     constructor() {
         super();
-        this.mensagem_telefone = encodeURIComponent('Olá, tudo bem? Vi seu anúncio no aplicativo iCare. Você está disponível?');
-        this.collection = firebase.firestore().collection('anuncios');
     }
   truncaNome(nome){
     const tamanhoTruncaNome = 20;
@@ -46,7 +45,7 @@ export default class Anuncio extends React.PureComponent {
               <TouchableOpacity 
                   //style={styles.productButton} 
                   onPress={() => {
-                      Linking.openURL('whatsapp://send?text=' + this.mensagem_telefone + '&phone=+55' + this.props.telefone);
+                      Linking.openURL('whatsapp://send?text=' + MensagemTelefone + '&phone=+55' + this.props.telefone);
                   }}
               >
                   <Text style={StyleAnuncio.anuncioNome}>{this.truncaNome(this.props.nome)}</Text>
