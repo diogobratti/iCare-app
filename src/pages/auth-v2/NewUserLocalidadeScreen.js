@@ -9,40 +9,33 @@ import * as CONSTANTES from '../../data/Constantes';
 import DataLocalidade from '../../data/DataLocalidade.json';
 import SelectEstados from '../componentes/SelectEstados';
 import SelectCidades from '../componentes/SelectCidades';
-//import reactotron from "reactotron-react-native";
+// import reactotron from "reactotron-react-native";
 
 export default class NewUserLocalidadeScreen extends Component {
-
-  state = {
-    uf: DataLocalidade,
-    selectedValueEstado: '',
-    selectedValueCidade: '',
-    erro: null,
-    isLoading: true
-  }
 
   static navigationOptions = {
     ...navigationOptions,
   };
 
-  componentDidMount() {
-    this._bootstrapAsync();
-  }
+  state = { uf: null, selectedValueEstado: null, selectedValueCidade: null, erro: null, isLoading: true }
 
-  _bootstrapAsync = async () => {
+  async componentDidMount() {
     this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
 
-    this.setState({
-      // uf: DataLocalidade,
-      // selectedValueEstado: '',
-      // selectedValueCidade: '',
-      estado: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_ESTADO),
-      municipio: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_MUNICIPIO),
-      regiao: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_REGIAO),
-      isLoading: false,
-    });
+		const estado = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_ESTADO)
+		const municipio = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_MUNICIPIO)
+		const regiao = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_REGIAO)
 
-  }
+		this.setState({
+			uf: DataLocalidade,
+			selectedValueEstado: '',
+			selectedValueCidade: '',
+			estado: estado,
+			municipio: municipio,
+			regiao: regiao,
+			isLoading: false,
+		});
+	}
 
   renderValueChangeEstado = (value) => {
 //    reactotron.log(value);
@@ -66,7 +59,7 @@ export default class NewUserLocalidadeScreen extends Component {
 
     let { estado, municipio, regiao } = this.state;
 
-//    reactotron.log({estado, municipio, regiao})
+  //  reactotron.log({estado, municipio, regiao})
 
     if (__DEV__) {
       estado = "Acre"
@@ -124,11 +117,11 @@ export default class NewUserLocalidadeScreen extends Component {
         <View style={StyleLocalidade.botaoContainer}>
           <TouchableOpacity
             style={StyleLocalidade.botaoButton}
-            onPress={() => {
+            onPress={async () => {
               var mensagem = "";
               if (selectedValueEstado != "" && selectedValueCidade != "") {
                 //Atualiza AsynStorage
-                this.guardarLocalidade()
+                await this.guardarLocalidade()
                 this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
               } else {
                 mensagem = "Por favor, escolha o estado e o município"

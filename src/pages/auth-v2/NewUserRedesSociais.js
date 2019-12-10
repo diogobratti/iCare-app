@@ -5,6 +5,7 @@ import Button from "./components/Button";
 import { navigationOptions } from "../../styles/StyleBase";
 import * as CONSTANTES from '../../data/Constantes';
 import LocalStorage from '../../services/LocalStorage';
+// import reactotron from "reactotron-react-native";
 
 
 export default class NewUserRedesSociaisScreen extends Component {
@@ -23,6 +24,8 @@ export default class NewUserRedesSociaisScreen extends Component {
   }
 
   _bootstrapAsync = async () => {
+
+    // reactotron.log(await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM))
 
     this.setState({
       instagram: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM),
@@ -46,7 +49,7 @@ export default class NewUserRedesSociaisScreen extends Component {
         />
         <Button
           onPress={() => {
-            if (this.state.instagram !== "" && this.validate(this.state.instagram)) {
+            if (this.state.instagram == "" || this.state.instagram == null || this.validate(this.state.instagram)) {
               //Atualiza AsynStorage
               LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM, this.state.instagram)
               //Cadastro ou alteracao?

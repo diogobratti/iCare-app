@@ -7,10 +7,10 @@ import {
 import firebase from "react-native-firebase";
 import LocalStorage from '../../services/LocalStorage';
 import AsyncStorage from '@react-native-community/async-storage';
-import Reactotron from 'reactotron-react-native';
+// import Reactotron from 'reactotron-react-native';
 import * as CONSTANTES from '../../data/Constantes';
 import SincronizadorBanco from './AsyncStorageDadosBanco'
-import reactotron from 'reactotron-react-native';
+// import reactotron from 'reactotron-react-native';
 
 
 export default class LoadingScreen extends React.Component {

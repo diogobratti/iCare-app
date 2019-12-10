@@ -4,7 +4,7 @@ import * as CONSTANTES from '../../data/Constantes';
 import { navigationOptions } from "../../styles/StyleBase";
 // import AsyncStorage from '@react-native-community/async-storage';
 import firebase from 'react-native-firebase';
-import Reactotron from 'reactotron-react-native';
+// import Reactotron from 'reactotron-react-native';
 import LocalStorage from "../../services/LocalStorage";
 
 
@@ -45,20 +45,20 @@ export default class NewUserCadastrar extends Component {
       //   return map
       // }, {})
 
-      Reactotron.log(asyncStorageValues);
+      // Reactotron.log(asyncStorageValues);
 
-      Reactotron.log(asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_UID]);
+      // Reactotron.log(asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_UID]);
 
       const getResult = await firebase.firestore()
         .collection(CONSTANTES.FIRESTORE_COLLECTION_ANUNCIOS)
         .where("user_uid", "==", asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_UID])
         .get()
 
-      Reactotron.log(getResult);
+      // Reactotron.log(getResult);
 
       const docs = getResult.docs;
 
-      Reactotron.log(docs);
+      // Reactotron.log(docs);
 
       if (docs.length === 1) {
 
