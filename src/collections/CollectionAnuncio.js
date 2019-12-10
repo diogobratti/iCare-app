@@ -6,6 +6,7 @@ const CollectionAnuncio = {
 	"profissao":"",
 	"endereco":"",
 	"cidade":"",
+	"microrregiao":"",
 	"uf":"",
 	"preco":"",
 	"anuncio":"",
