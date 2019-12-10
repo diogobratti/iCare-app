@@ -166,8 +166,8 @@ android {
             signingConfig signingConfigs.release
         }
         debug {
-	//    signingConfig signingConfigs.release
-           signingConfig signingConfigs.debug
+	    signingConfig signingConfigs.release
+    //       signingConfig signingConfigs.debug
         }
     }
     // applicationVariants are e.g. debug, release
@@ -195,7 +195,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-google-signin')
     //Add by Jonathan - Firebase
     // implementation 'com.google.firebase:firebase-core:17.0.0' //site firebase
     implementation "com.google.android.gms:play-services-base:16.1.0" //site rnfirebase.io

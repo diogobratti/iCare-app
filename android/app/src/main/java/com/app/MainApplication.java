@@ -7,7 +7,6 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import co.apptailor.googlesignin.RNGoogleSigninPackage;
 // import com.facebook.CallbackManager;
 // import com.facebook.FacebookSdk;
 // import com.facebook.appevents.AppEventsLogger;
@@ -50,7 +49,6 @@ public class MainApplication extends Application implements ReactApplication {
     }
 /* return Arrays.<ReactPackage>asList(
         new MainReactPackage(),
-            new RNGoogleSigninPackage(),
           new FBSDKPackage(mCallbackManager),
           new RNGoogleSigninPackage(),
           new RNFirebasePackage(),
