@@ -11,7 +11,7 @@ import { Slider, CheckBox } from 'react-native-elements';
 import { navigationOptions, definicoesBase, Cabecalho } from "../../styles/StyleBase";
 import StyleLocalidade from "../../styles/StyleLocalidade";
 
-//import { AsyncStorage} from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 //fazer foreach
 import DataLocalidade from '../../data/DataLocalidade.json';
@@ -24,7 +24,7 @@ export default class Localidade extends Component {
 
 	state = { uf: null, selectedValueEstado: null, selectedValueCidade: null, erro: null }
 
-	componentDidMount() {
+	async componentDidMount() {
 	  this.setState({
 		  /*
 		uf: [
@@ -52,8 +52,16 @@ export default class Localidade extends Component {
 		*/
 		uf: DataLocalidade,
 		selectedValueEstado: '',
-		selectedValueCidade: ''
-	  })
+		selectedValueCidade: '',
+    storedNumber: '',
+		});
+		
+    const storedNumber = await AsyncStorage.getItem('municipio');
+    if (storedNumber) {
+      this.setState({
+        storedNumber: storedNumber,
+      });
+    }
 	}
 
 	renderValueChangeEstado = (value) => {
@@ -68,6 +76,15 @@ export default class Localidade extends Component {
 		selectedValueCidade: value
 	  })
 	}
+
+  guardarLocalidade = async () => {
+		const {selectedValueCidade, selectedValueEstado } = this.state;
+
+    await AsyncStorage.setItem('estado', `${selectedValueEstado.nome}`);
+    await AsyncStorage.setItem('microrregiao', `${selectedValueCidade.Microrregião}`);
+		await AsyncStorage.setItem('municipio', `${selectedValueCidade.Município}`);
+		
+  };
 	render() {
         const { selectedValueCidade, selectedValueEstado, uf } = this.state;
 		return (
@@ -79,7 +96,7 @@ export default class Localidade extends Component {
 					<View style={StyleLocalidade.camposContainer}>
 						<View style={StyleLocalidade.itemCamposContainer}>
 							<Text style={StyleLocalidade.itemCamposTexto}>
-								Escolha o estado
+								Escolha o estado{this.state.storedNumber}
 							</Text>
 							<SelectEstados
 								selectedValue={selectedValueEstado}
@@ -112,6 +129,7 @@ export default class Localidade extends Component {
 						onPress={() => {
 							var mensagem = "";
 							if(selectedValueEstado != "" && selectedValueEstado != ""){
+								this.guardarLocalidade();
 								this.props.navigation.navigate("ListagemAnuncio", {
 								});
 							} else {

@@ -1,99 +1,85 @@
-//This is an example code to understand AsyncStorage// 
-import React, { Component } from 'react';
-//import react in our code. 
- 
-//For React Native >= 0.59
-import { AsyncStorage} from '@react-native-community/async-storage'
-import { StyleSheet, View, TextInput, Button, Alert, Text, TouchableOpacity } from 'react-native';
- 
-//For React Native < 0.59
-//import { StyleSheet, View, AsyncStorage, TextInput, Button, Alert, Text, TouchableOpacity } from 'react-native';
- 
-export default class Testando extends Component {
-  constructor() {
-    super();
-    this.state = {
-      textInputData: '',
-      //to get the value from the TextInput
-      getValue: '',
-      //to set the value on Text
-    };
-  }
-  saveValueFunction = () => {
-    //function to save the value in AsyncStorage
-    if(this.state.textInputData){
-      //To check the input not empty
-      AsyncStorage.setItem('any_key_here', this.state.textInputData);
-      //Setting a data to a AsyncStorage with respect to a key 
-      this.setState({ textInputData: '' })
-      //Resetting the TextInput
-      alert('Data Saved');
-      //alert to confirm
-    }else{
-      alert('Please fill data');
-      //alert for the empty InputText
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ * @flow
+ */
+
+import React, {Component} from 'react';
+import {StyleSheet, Text, View, Button} from 'react-native';
+
+import AsyncStorage from '@react-native-community/async-storage';
+
+type Props = {};
+type State = {
+  storedNumber: string,
+  needRestart: boolean,
+};
+export default class GetSet extends Component<Props, State> {
+  state = {
+    storedNumber: '',
+    needRestart: false,
+  };
+
+  async componentDidMount() {
+    const storedNumber = await AsyncStorage.getItem('estado');
+    if (storedNumber) {
+      this.setState({
+        storedNumber,
+      });
     }
+  }
+
+  increaseByTen = async () => {
+    const {storedNumber} = this.state;
+
+    const newNumber = 21321;
+
+    await AsyncStorage.setItem('estado', `${newNumber}`);
   };
-  getValueFunction = () => {
-    //function to get the value from AsyncStorage
-    AsyncStorage.getItem('any_key_here').then(value =>
-      //AsyncStorage returns a promise so adding a callback to get the value
-      this.setState({ getValue: value })
-      //Setting the value in Text 
-    );
+
+  clearItem = async () => {
+    await AsyncStorage.removeItem('estado');
+
+    this.setState({needRestart: true});
   };
+
   render() {
+    const {storedNumber, needRestart} = this.state;
     return (
-      <View style={styles.MainContainer}>
-        <TextInput
-          placeholder="Enter Some Text here"
-          value={this.state.textInputData}
-          onChangeText={data => this.setState({ textInputData: data })}
-          underlineColorAndroid="transparent"
-          style={styles.TextInputStyle}
+      <View>
+        <Text style={styles.text}>Currently stored: </Text>
+        <Text testID="storedNumber_text" style={styles.text}>
+          {storedNumber}
+        </Text>
+
+        <Button
+          testID="increaseByTen_button"
+          title="Increase by 10"
+          onPress={this.increaseByTen}
         />
-        <TouchableOpacity
-          onPress={this.saveValueFunction}
-          style={styles.button}>
-          <Text style={styles.buttonText}> SAVE VALUE </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={this.getValueFunction}
-          style={styles.button}>
-          <Text style={styles.buttonText}> GET VALUE </Text>
-        </TouchableOpacity>
-        <Text style={styles.text}> {this.state.getValue} </Text>
+
+        <Button
+          testID="clear_button"
+          title="Clear item"
+          onPress={this.clearItem}
+        />
+
+        {needRestart ? <Text>Hit restart to see effect</Text> : null}
       </View>
     );
   }
 }
+
 const styles = StyleSheet.create({
-  MainContainer: {
-    alignItems: 'center',
-    flex: 1,
-    margin: 10,
-    marginTop:60
-  },
-  TextInputStyle: {
-    textAlign: 'center',
-    height: 40,
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#808000',
-  },
-  button: {
-    width: '100%',
-    height: 40,
-    padding: 10,
-    backgroundColor: '#808000',
-    marginTop: 10,
-  },
-  buttonText: {
-    color: '#fff',
-    textAlign: 'center',
-  },
   text: {
     fontSize: 20,
     textAlign: 'center',
+    margin: 10,
   },
 });
+
+export const STORAGE_KEY = 'estado';

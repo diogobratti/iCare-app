@@ -13,6 +13,7 @@ import Propaganda from "./../propaganda/Propaganda";
 import CollectionAnuncio from "../../collections/CollectionAnuncio";
 
 //import ExemploAnuncios from '../../data/ExemploAnuncios.json';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio, {
@@ -56,10 +57,17 @@ export default class ListagemAnuncio extends Component {
             filtroProfissaoTerapeutaOcupacional: true,
             filtroProfissaoFisioterapeuta: true,
             filtroProfissaoNutricionista: true,
+            estado: null,
+            municipio: null,
+            microrregiao: null,
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const estado = await AsyncStorage.getItem('estado');
+        const municipio = await AsyncStorage.getItem('municipio');
+        const microrregiao = await AsyncStorage.getItem('microrregiao');
+        //this.municipio = await AsyncStorage.getItem('municipio');
         this.setState({
             orderByValor: this.props.navigation.getParam('orderByValor', orderByPadrao),
             filtroPreco: this.props.navigation.getParam('filtroPreco', precoMaximo),
@@ -69,6 +77,9 @@ export default class ListagemAnuncio extends Component {
             filtroProfissaoTerapeutaOcupacional: this.props.navigation.getParam('filtroProfissaoTerapeutaOcupacional', true),
             filtroProfissaoFisioterapeuta: this.props.navigation.getParam('filtroProfissaoFisioterapeuta', true),
             filtroProfissaoNutricionista: this.props.navigation.getParam('filtroProfissaoNutricionista', true),
+            estado: estado,
+            municipio: municipio,
+            microrregiao: microrregiao,
         });
         // Valid options for source are 'server', 'cache', or
         // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
@@ -226,7 +237,7 @@ export default class ListagemAnuncio extends Component {
                                 this.props.navigation.navigate("ListagemAnuncioFiltro", { precoMaximo: precoMaximo, orderByPadrao: orderByPadrao });
                             }}
                         >
-                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
+                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar{this.state.estado}{this.state.municipio}{this.state.microrregiao}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
