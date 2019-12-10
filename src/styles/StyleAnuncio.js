@@ -7,6 +7,7 @@ const StyleAnuncio = StyleSheet.create({
     container: {
         flexDirection: 'column',
         backgroundColor: definicoesBase.backgroundGeral,
+        flex: 6,
     },
     list: {
         padding: 10
@@ -70,7 +71,7 @@ const StyleAnuncio = StyleSheet.create({
         flex: 1,
         flexDirection: "row",
     },
-    
+
 
     anuncioNome: {
         fontFamily: definicoesBase.fontFamilyTextoComum,
@@ -137,7 +138,7 @@ const StyleAnuncio = StyleSheet.create({
         lineHeight: definicoesBase.alturaLinhaTextoComum
     },
     anuncioImagemUsuario: {
-        width: 60, 
+        width: 60,
         height: 80
     },
     orderByContainer:{
@@ -224,7 +225,7 @@ const StyleAnuncio = StyleSheet.create({
         justifyContent:"flex-start",
     },
     visualizarAnuncioContainer:{
-        flex: 6,
+        flex: 5,
         flexDirection: 'column',
         backgroundColor: definicoesBase.backgroundGeral,
         padding: 10,
@@ -295,7 +296,7 @@ const StyleAnuncio = StyleSheet.create({
         lineHeight: definicoesBase.alturaLinhaTextoComum,
     },
     visualizarAnuncioImagemUsuario: {
-        width: 120, 
+        width: 120,
         height: 120,
         borderRadius: 100, //deixa a borda redonda
     },
@@ -323,12 +324,12 @@ const StyleAnuncio = StyleSheet.create({
 });
 
 export const anuncioIconeAvaliacao = {
-    size: 18, 
+    size: 18,
     color: definicoesBase.corFonteTextoAvaliacao
 };
 
 export const anuncioIconeTelefone = {
-    size: 18, 
+    size: 18,
     color: definicoesBase.corFonteTextoAvaliacao
 };
 
