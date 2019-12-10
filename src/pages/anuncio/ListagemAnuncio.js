@@ -58,14 +58,12 @@ export default class ListagemAnuncio extends Component {
             isLoading: true,
             anuncios: [],
             lastVisible: {
-                orderBy: 0,
-                user_uid: 0,
                 id: 0,
-                doc: null,
+                user_uid: 0,
             },
             primeiroAnuncio: {
                 id: 0,
-                doc: null,
+                user_uid: 0,
                 deuAVolta: false,
             },
             refreshing: false,
@@ -120,33 +118,31 @@ export default class ListagemAnuncio extends Component {
             filtroProfissaoTerapeutaOcupacional: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
             filtroProfissaoFisioterapeuta: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
             filtroProfissaoNutricionista: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
-            primeiroAnuncio: {
-                id: 0,
-                doc: null,
-                deuAVolta: false,
-            },
         });
-        const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
-        // Valid options for source are 'server', 'cache', or
-        // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
-        // for more information.
-        this.unsubscribe = this.collection;
-        this.unsubscribe = this.unsubscribe.where('microrregiao', '==', this.state.microrregiao);
-        //this.unsubscribe = this.unsubscribe.where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR);
-        /*
-        this.unsubscribe = this.unsubscribe.where('preco', '<=', this.state.filtroPreco);
-        if(!filtroProfissaoCuidador) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Cuidador");
-        if(!filtroProfissaoTecnicoEnfermagem) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Técnico em Enfermagem");
-        if(!filtroProfissaoEnfermeiro) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Enfermeiro");
-        if(!filtroProfissaoTerapeutaOcupacional) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Terapeuta Ocupacional");
-        if(!filtroProfissaoFisioterapeuta) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Fisioterapeuta");
-        if(!filtroProfissaoNutricionista) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Nutricionista");
-        */
-        //console.warn(JSON.stringify(this.props));
-        this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
-        this.unsubscribe = this.unsubscribe.orderBy('id', 'ASC');
-        this.unsubscribe = this.unsubscribe.limit(this.state.limit);
-        this.unsubscribe = this.unsubscribe.get(this.getOptions).then(this.onCollectionUpdate);
+
+        if(!this.state.primeiroAnuncio.deuAVolta){
+          const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
+          // Valid options for source are 'server', 'cache', or
+          // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
+          // for more information.
+          this.unsubscribe = this.collection;
+          this.unsubscribe = this.unsubscribe.where('microrregiao', '==', this.state.microrregiao);
+          //this.unsubscribe = this.unsubscribe.where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR);
+          /*
+          this.unsubscribe = this.unsubscribe.where('preco', '<=', this.state.filtroPreco);
+          if(!filtroProfissaoCuidador) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Cuidador");
+          if(!filtroProfissaoTecnicoEnfermagem) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Técnico em Enfermagem");
+          if(!filtroProfissaoEnfermeiro) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Enfermeiro");
+          if(!filtroProfissaoTerapeutaOcupacional) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Terapeuta Ocupacional");
+          if(!filtroProfissaoFisioterapeuta) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Fisioterapeuta");
+          if(!filtroProfissaoNutricionista) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Nutricionista");
+          */
+          //console.warn(JSON.stringify(this.props));
+          this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
+          this.unsubscribe = this.unsubscribe.orderBy('id', 'ASC');
+          this.unsubscribe = this.unsubscribe.limit(this.state.limit);
+          this.unsubscribe = this.unsubscribe.get(this.getOptions).then(this.onCollectionUpdate);
+        }
     }
 
     componentWillUnmount() {
@@ -157,18 +153,20 @@ export default class ListagemAnuncio extends Component {
     }
 
     onCollectionUpdate = (querySnapshot) => {
-        var ultimo_item_pelo_orderBy = this.state.lastVisible.orderBy;
-        var ultimo_item_pelo_user_uid = this.state.lastVisible.user_uid;
         var ultimo_item_pelo_id = this.state.lastVisible.id;
-        var ultimo_item = this.state.lastVisible.doc;
+        var ultimo_item_pelo_user_uid = this.state.lastVisible.user_uid;
         var primeiro_anuncio_id = this.state.primeiroAnuncio.id;
-        var primeiro_anuncio_doc = this.state.primeiroAnuncio.doc;
+        var primeiro_anuncio_user_uid = this.state.primeiroAnuncio.user_uid;
         var primeiro_anuncio_deuAVolta = this.state.primeiroAnuncio.deuAVolta;
-        const campo_orderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         querySnapshot.forEach((doc) => {
-            if (doc.id == primeiro_anuncio_id || primeiro_anuncio_deuAVolta){
+            //console.warn("Diogo " + doc.data().user_uid + " - primeiro " + primeiro_anuncio_user_uid + " - ultimo " + ultimo_item_pelo_user_uid + " - boolean " + JSON.stringify(primeiro_anuncio_deuAVolta))
+            this.arrayholder.map((item) => {
+              //console.warn("Diogo map " + item.user_uid + " - " + doc.data().user_uid)
+              if (item.user_uid == doc.data().user_uid && primeiro_anuncio_user_uid != 0){
                 primeiro_anuncio_deuAVolta = true;
-            } else {
+              }
+            });
+            if (!primeiro_anuncio_deuAVolta) {
                 const {
                     ...CollectionAnuncio
                 } = doc.data();
@@ -179,25 +177,18 @@ export default class ListagemAnuncio extends Component {
                     //dados do firestore
                     ...CollectionAnuncio
                 });
-                if (campo_orderBy == "cidade") {
-                    ultimo_item_pelo_orderBy = doc.cidade;
-                } else {
-                    ultimo_item_pelo_orderBy = doc.preco;
-                }
-                ultimo_item_pelo_user_uid = doc.user_uid;
-                ultimo_item_pelo_id = doc.id;
-                ultimo_item = doc;
-                if(primeiro_anuncio_id == 0){
-                    primeiro_anuncio_doc = doc;
+                ultimo_item_pelo_user_uid = doc.data().user_uid;
+                if(primeiro_anuncio_user_uid == 0){
                     primeiro_anuncio_id = doc.id;
+                    primeiro_anuncio_user_uid = doc.data().user_uid;
                 }
             }
         });
-        if(primeiro_anuncio_id != 0){
+        if(primeiro_anuncio_user_uid != 0){
             this.setState({
                 primeiroAnuncio: {
                     id : primeiro_anuncio_id,
-                    doc : primeiro_anuncio_doc,
+                    user_uid : primeiro_anuncio_user_uid,
                     deuAVolta : primeiro_anuncio_deuAVolta,
                 },
             });
@@ -205,10 +196,8 @@ export default class ListagemAnuncio extends Component {
         this.setState({
             anuncios: this.arrayholder,
             lastVisible: {
-                doc: ultimo_item,
-                orderBy: ultimo_item_pelo_orderBy,
-                user_uid: ultimo_item_pelo_user_uid,
                 id: ultimo_item_pelo_id,
+                user_uid: ultimo_item_pelo_user_uid,
             },
             isLoading: false,
         });
