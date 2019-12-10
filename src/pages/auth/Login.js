@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, BackHandler } from "react-native";
 import {
   SocialIcon,
   ThemeProvider,
@@ -13,6 +13,19 @@ import { navigationOptions } from "../../styles/StyleBase";
 import ApiDb from "../../services/ApiDb";
 
 export default class Login extends Component {
+
+
+  constructor(props) {
+    super(props);
+    this.handleBackButtonClick = (() => {
+    //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+    //     this.navigator.pop();
+        return true; //avoid closing the app
+    //   }
+    //   return false; //close the app
+    }).bind(this) //don't forget bind this, you will remember anyway.
+  }
+
   state = {
     email: "",
     password: "",
@@ -25,6 +38,12 @@ export default class Login extends Component {
     ...navigationOptions,
     headerLeft: <View />
   };
+  async componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
 
   handleLogin = () => {
     console.log("handleLogin");

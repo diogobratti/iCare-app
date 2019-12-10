@@ -4,7 +4,7 @@
 //filtrar por profissao preco e avaliacao
 import React, { Component } from "react";
 
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Picker } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Picker, BackHandler } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Slider, CheckBox } from 'react-native-elements';
 
@@ -23,8 +23,19 @@ export default class Localidade extends Component {
 	static navigationOptions = navigationOptions;
 
 	state = { uf: null, selectedValueEstado: null, selectedValueCidade: null, erro: null, isLoading: true }
+  constructor(props) {
+    super(props);
+    this.handleBackButtonClick = (() => {
+    //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+    //     this.navigator.pop();
+        return true; //avoid closing the app
+    //   }
+    //   return false; //close the app
+    }).bind(this) //don't forget bind this, you will remember anyway.
+  }
 
 	async componentDidMount() {
+		BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
 		const estado = await AsyncStorage.getItem('estado');
 		const municipio = await AsyncStorage.getItem('municipio');
 		const regiao = await AsyncStorage.getItem('microrregiao');
@@ -40,6 +51,10 @@ export default class Localidade extends Component {
 			regiao: regiao,
 			isLoading: false,
 		});
+	}
+
+	componentWillUnmount() {
+			BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
 	}
 
 	renderValueChangeEstado = (value) => {

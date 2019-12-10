@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
+import {ScrollView, BackHandler} from 'react-native';
 import {Icon, Input} from 'react-native-elements';
 import InputNome from '../componentes/InputNome';
 import InputCPF from '../componentes/InputCPF';

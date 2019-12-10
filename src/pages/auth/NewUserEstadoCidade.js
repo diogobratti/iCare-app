@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Picker,
+  BackHandler,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Slider, CheckBox } from 'react-native-elements';
@@ -28,6 +29,19 @@ import SelectEstados from '../componentes/SelectEstados';
 import SelectCidades from '../componentes/SelectCidades';
 
 export default class Localidade extends Component {
+
+
+  constructor(props) {
+    super(props);
+    this.handleBackButtonClick = (() => {
+    //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+    //     this.navigator.pop();
+        return true; //avoid closing the app
+    //   }
+    //   return false; //close the app
+    }).bind(this) //don't forget bind this, you will remember anyway.
+  }
+
   static navigationOptions = navigationOptions;
 
   state = {
@@ -38,7 +52,11 @@ export default class Localidade extends Component {
     isLoading: true,
   };
 
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
   async componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     const estado = await AsyncStorage.getItem('estado');
     const municipio = await AsyncStorage.getItem('municipio');
     const regiao = await AsyncStorage.getItem('microrregiao');
