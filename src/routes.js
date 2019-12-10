@@ -8,18 +8,16 @@ import ListagemAnuncioScreen from './pages/anuncio/ListagemAnuncio';
 import VisualizarAnuncioScreen from './pages/anuncio/VisualizarAnuncio';
 import PerfilAnuncioScreen from './pages/prestador/PerfilAnuncio';
 import IconeMenu from './pages/IconeMenu';
-// import Localidade from "./pages/localidade/Localidade";
 import TermosServicoScreen from './pages/termo/TermosServicoScreen';
 import EscolhePerfilScreen from './pages/auth-v2/EscolhePerfilScreen';
-// import Loading from "./pages/auth/Loading";
 import LoginScreen from './pages/auth-v2/LoginScreen';
 import NewUserNomeScreen from './pages/auth-v2/NewUserNomeScreen';
-// // import NewUserCPF from './pages/auth/NewUserCPF';
+import NewUserLocalidadeScreen from './pages/auth-v2/NewUserLocalidadeScreen';
 import NewUserEmailScreen from './pages/auth-v2/NewUserEmailScreen';
 import NewUserTelefoneScreen from './pages/auth-v2/NewUserTelefoneScreen';
-// import NewUserAnuncio from './pages/auth/NewUserAnuncio';
-// import NewUserProfissao from './pages/auth/NewUserProfissao';
-// import NewUserCadastrar from './pages/auth/NewUserCadastrar';
+import NewUserAnuncioScreen from './pages/auth-v2/NewUserAnuncioScreen';
+import NewUserProfissaoScreen from './pages/auth-v2/NewUserProfissaoScreen';
+import NewUserCadastrar from './pages/auth-v2/NewUserCadastrar';
 import FaleConoscoScreen from './pages/faleconosco/FaleConoscoScreen';
 // //import Localidade from "./pages/localidade/Teste";
 // //import Localidade from "./pages/localidade/Testando";
@@ -120,20 +118,19 @@ const AuthStack = createStackNavigator(
 const NewUserFornecedorStack = createStackNavigator(
   {
     NewUserNome: NewUserNomeScreen,
-    //     // NewUserCPF,
     NewUserEmail: NewUserEmailScreen,
-    //     NewUserTelefone,
-    //     NewUserAnuncio,
-    //     NewUserCadastrar,
-    //     NewUserProfissao,
-    //     Localidade,
+    NewUserTelefone: NewUserTelefoneScreen,
+    NewUserAnuncio: NewUserAnuncioScreen,
+    NewUserLocalidade: NewUserLocalidadeScreen,
+    NewUserProfissao: NewUserProfissaoScreen,
+    NewUserCadastrar,
   },
 );
 
 const NewUserClienteStack = createStackNavigator(
   {
     NewUserTelefone: NewUserTelefoneScreen,
-    // NewUserCadastrar: NewUserCadastrarScreen,
+    // NewUserCadastrar,
     // NewUserLocalidade: NewUserLocalidadeScreen,
   },
 );

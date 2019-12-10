@@ -24,7 +24,7 @@ export default class NewUserNome extends Component {
 
     this.perfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
     this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
-    reactotron.log(this.isCadastro);
+    if (__DEV__) reactotron.log(this.isCadastro);
   };
   componentDidMount() {
     this._bootstrapAsync();
@@ -44,13 +44,11 @@ export default class NewUserNome extends Component {
               //Alterar
               this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
             } else {
-              reactotron.log(this.perfil)
-              reactotron.log(this.perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE)
+              if (__DEV__) reactotron.log(this.perfil)
               //Cadastro novo
               this.perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE ?
                 this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR) :
                 this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_EMAIL)
-
             }
           }}
         >

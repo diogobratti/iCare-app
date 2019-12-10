@@ -64,7 +64,7 @@ export default class LoadingScreen extends React.Component {
           myStorage[keyVal[0]] = keyVal[1]
         }
 
-        Reactotron.log(myStorage);
+        if (__DEV__) Reactotron.log(myStorage);
       })
     });
   }

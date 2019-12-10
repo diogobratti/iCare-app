@@ -4,18 +4,29 @@ import Button from "./components/Button";
 import { navigationOptions } from "../../styles/StyleBase";
 import { TextInputMask } from "react-native-masked-text";
 import styles from "../../styles/StyleCadastro";
+import * as CONSTANTES from '../../data/Constantes';
+import LocalStorage from '../../services/LocalStorage';
 
-export default class NewUserTelefoneScreen extends Component {
-  // state = this.props.navigation.state.params.state;
+export default class NewUserTelefone extends Component {
 
   state = {
-    telefone: "",
     erroTelefone: "",
-    // ...this.props.navigation.state.params.state
-  };
+  }
 
   static navigationOptions = {
     ...navigationOptions
+  }
+
+  componentDidMount() {
+    this._bootstrapAsync();
+  }
+
+  _bootstrapAsync = async () => {
+    this.setState({
+      telefone: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE),
+    })
+
+    this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
   };
 
   render() {
@@ -42,13 +53,10 @@ export default class NewUserTelefoneScreen extends Component {
                 telefone: telefone
               })
             }
-            // label="Qual é o seu telefone de contato?"
             placeholder="ex: (00) 00000-0000"
           // leftIcon={
           //   <Icon name="phone" type="antdesign" size={24} color="#007aff" />
           // }
-          // errorMessage="Digite um número de telefone válido"
-          // onChangeText={onChangeText}
           />
         </View>
         <View>
@@ -60,9 +68,12 @@ export default class NewUserTelefoneScreen extends Component {
         <Button
           onPress={() => {
             if (this.telefoneField.isValid() && this.state.telefone !== "") {
-              this.props.navigation.navigate("NewUserProfissao", {
-                state: this.state
-              });
+              //Atualiza AsynStorage
+              LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE, this.state.telefone)
+              //Cadastro ou alteracao?
+              this.isCadastro ?
+                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_PROFISSAO) :
+                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
             } else {
               this.setState({ erroTelefone: "Telefone inválido" });
             }

@@ -5,6 +5,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 Reactotron
   .setAsyncStorageHandler(AsyncStorage) // AsyncStorage
   .configure() // controls connection & communication settings
-  .use(asyncStorage()) // <--- here we go!
+  // .use(asyncStorage()) // <--- here we go!
   .useReactNative() // add all built-in react native plugins
   .connect(); // let's connect!

@@ -2,7 +2,7 @@ import React from "react";
 import { Input, Icon } from "react-native-elements";
 
 const InputAnuncio = props => {
-  const { onChangeText, children } = props;
+  const { onChangeText, children, value, erro } = props;
 
   return (
     <Input
@@ -16,6 +16,8 @@ const InputAnuncio = props => {
       inputStyle={{
         height: null
       }}
+      // errorMessage={erro}
+      value={value}
     />
   );
 };
