@@ -46,7 +46,11 @@ export default class Login extends Component {
     console.log('handleSocialLoginFacebook');
 
     try {
+      console.log('entrou');
       const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      console.log(result);
+      console.log('mostrou login');
+      
   
       if (result.isCancelled) {
         // handle this however suites the flow of your app
