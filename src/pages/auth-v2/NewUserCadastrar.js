@@ -39,11 +39,6 @@ export default class NewUserCadastrar extends Component {
       ];
 
       const asyncStorageValues = await LocalStorage.multiGet(keyArray);
-      // const result = await AsyncStorage.multiGet(keyArray)
-      // const asyncStorageValues = result.reduce((map, obj) => {
-      //   map[obj[0]] = obj[1]
-      //   return map
-      // }, {})
 
       // Reactotron.log(asyncStorageValues);
 
@@ -96,17 +91,20 @@ export default class NewUserCadastrar extends Component {
 
         await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO, 'true');
 
-        Alert.alert(
-          'Sucesso',
-          'Parabéns, seu anúncio foi cadastrado com sucesso! Ele estará disponível para todos que acessarem o ICare a partir de agora.',
-          [
-            { text: 'OK', onPress: () => { } },
-          ],
-          { cancelable: false },
-        );
-
-        //TODO: verificar se gravou corretamente
-        this.props.navigation.navigate("PerfilAnuncio");
+        const perfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL)
+        if (perfil == CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR) {
+          Alert.alert(
+            'Sucesso',
+            'Parabéns, seu anúncio foi cadastrado com sucesso! Ele estará disponível para todos que acessarem o ICare a partir de agora.',
+            [
+              { text: 'OK', onPress: () => { } },
+            ],
+            { cancelable: false },
+          );
+          this.props.navigation.navigate(CONSTANTES.ROUTES_ANUNCIO_PERFIL_ANUNCIO);
+        } else {
+          this.props.navigation.navigate(CONSTANTES.ROUTES_APP);
+        }
 
       } else {
         console.warn ("Erro interno: user_uid cadastrado em mais de um documento");
@@ -114,35 +112,6 @@ export default class NewUserCadastrar extends Component {
       }
 
 
-
-      // let anuncioOriginal = this.state.anuncioOriginal;
-
-      // const versaoTermos = await AsyncStorage.getItem("termoservico");
-      // const estado = await AsyncStorage.getItem("estado");
-      // const municipio = await AsyncStorage.getItem("municipio");
-      // const regiao = await AsyncStorage.getItem("microrregiao");
-
-      // anuncioOriginal.update({
-      //   nome: this.state.nome,
-      //   // cpf: this.state.cpf,
-      //   email: this.state.email,
-      //   telefone: this.state.telefone,
-      //   uf: this.state.estado,
-      //   cidade: this.state.municipio,
-      //   microrregiao: this.state.regiao,
-      //   anuncio: this.state.anuncio,
-      //   preco: this.state.preco,
-      //   profissao: this.state.profissao,
-      //   foto: this.state.foto,
-      //   versaoTermosServico: versaoTermos
-      // });
-
-
-      //TODO: tratar para mostrar mensagem de erro quando não conseguiu salvar
-
-      // this.props.navigation.navigate("PerfilAnuncio", {
-      //   anuncio: anuncioOriginal
-      // });
     } catch (error) {
       console.error(error);
     }

@@ -40,7 +40,8 @@ export const ROUTES_NEW_USER_CADASTRAR = 'NewUserCadastrar';
 export const ROUTES_HOME_LISTAGEM_ANUNCIO = 'ListagemAnuncio';
 export const ROUTES_HOME_VISUALIZAR_ANUNCIO = 'VisualizarAnuncio';
 export const ROUTES_FALE_CONOSCO = 'Fale Conosco';
-export const ROUTES_ANUNCIO = 'Anuncie aqui';
+export const ROUTES_ANUNCIO = 'Anúncio';
+export const ROUTES_ANUNCIO_PERFIL_ANUNCIO = 'PerfilAnuncio';
 
 // AsyncStorage Valores
 export const ASYNC_USER_PERFIL_CLIENTE = 'Cliente';

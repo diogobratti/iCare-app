@@ -27,6 +27,7 @@ import StyleAnuncio, {
     searchBarPlaceholderTextColor,
     //iconeFiltro,
 } from "../../styles/StyleAnuncio";
+import reactotron from "reactotron-react-native";
 
 export default class ListagemAnuncio extends Component {
     static navigationOptions = navigationOptions;
@@ -85,10 +86,10 @@ export default class ListagemAnuncio extends Component {
 
     async componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-        const estado = await AsyncStorage.getItem('estado');
-        const municipio = await AsyncStorage.getItem('municipio');
-        const microrregiao = await AsyncStorage.getItem('microrregiao');
-        const perfil = await AsyncStorage.getItem('perfil');
+        const estado = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_ESTADO);
+        const municipio = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_MUNICIPIO);
+        const microrregiao = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_REGIAO);
+        const perfil = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
         //this.municipio = await AsyncStorage.getItem('municipio');
         this.setState({
             /*
@@ -301,11 +302,18 @@ export default class ListagemAnuncio extends Component {
                         <View style={StyleAnuncio.FiltrarContainer}>
                             <TouchableOpacity
                                 //style={styles.productButton}
-                                onPress={() => {
-                                    this.props.navigation.navigate('Loading');
-                                }}
+                                // onPress={() => {
+                                //     this.props.navigation.navigate('Loading');
+                                // }}
                             >
-                                <Text style={StyleAnuncio.pesquisaFiltroTexto}>Sem anúncios nesta região. Seja o primeiro a se cadastrar! Anuncie aqui.</Text>
+                                <Text style={StyleAnuncio.pesquisaFiltroTexto}>Sem anúncios nesta região.
+                                  {/* {
+                                    (this.state.perfil == CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR) ?
+                                    "Seja o primeiro a se cadastrar! Anuncie aqui." :
+                                    ""
+
+                                  } */}
+                                </Text>
                             </TouchableOpacity>
                         </View>
                         )
