@@ -10,10 +10,15 @@ import Button from './components/Button';
 export default class NewUserCPF extends Component {
   state = this.props.navigation.state.params.state;
 
+  componentDidMount() {
+    this.setState({ cpf: "000000" });
+    console.log(this.state);
+  }
+
   render() {
     return (
       <ScrollView>
-        <InputCPF onChangeText={cpf => this.setState({ cpf })} />
+        <InputCPF onChangeText={cpf => this.setState({ cpf: cpf })} />
         <Button
           onPress={() =>
             this.props.navigation.navigate("NewUserEmail", {

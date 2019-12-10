@@ -1,7 +1,7 @@
 import React from 'react'
 import firebase from 'react-native-firebase'
 
-export default class apiDb extends React.Component {
+export default class ApiDb extends React.Component {
 
     constructor(collection) {
         super();

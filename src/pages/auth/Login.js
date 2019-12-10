@@ -101,10 +101,10 @@ export default class Login extends Component {
       const collectionAnuncios = await firebase.firestore().collection('anuncios');
 
       await collectionAnuncios
-        .where('UID', "==", firebaseCredential.user.uid)
+        .where("uid", "==", firebaseCredential.user.uid)
         .get()
         .then(data => {
-          this.setState({cadastroCompleto: !data.empty});
+          this.setState({ cadastroCompleto: !data.empty });
           // console.log(!data.empty);
         });
     }
