@@ -57,13 +57,13 @@ export default class PerfilAnuncio extends Component {
           <ActivityIndicator size="large" />
         )}
 
-        <View style={StyleAnuncio.visualizarAnuncioBotaoContainer}>
+        {/* <View style={StyleAnuncio.visualizarAnuncioBotaoContainer}>
           <Button
             title="Sair"
             onPress={this.handleSignOut}
             style={StyleAnuncio.visualizarAnuncioBotaoButton}
           />
-        </View>
+        </View> */}
       </View>
     );
   }
