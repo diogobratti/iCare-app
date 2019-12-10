@@ -12,7 +12,7 @@ export default props => (
                 >
                     <Picker.Item  label={'--- Escolha ---'} />
                     {
-                        props.data.cidades.map(cidade => <Picker.Item key={cidade} label={cidade} value={cidade} />)
+                        props.data.cidades.map(cidade => <Picker.Item key={cidade} label={cidade["Município"]} value={cidade} />)
                     }
                 </Picker>
                 :

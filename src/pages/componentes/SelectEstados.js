@@ -11,7 +11,7 @@ export default  props => (
                 >
                     {
                         props.data.map(estado =>
-                            <Picker.Item key={estado} label={estado.sigla} value={estado} />)
+                            <Picker.Item key={estado} label={estado.nome} value={estado} />)
                     }
                 </Picker>
                 :

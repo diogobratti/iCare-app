@@ -13,6 +13,7 @@ import StyleLocalidade from "../../styles/StyleLocalidade";
 
 //import { AsyncStorage} from '@react-native-community/async-storage';
 
+//fazer foreach
 import DataLocalidade from '../../data/DataLocalidade.json';
 import SelectEstados from '../componentes/SelectEstados';
 import SelectCidades from '../componentes/SelectCidades';
@@ -25,6 +26,7 @@ export default class Localidade extends Component {
 
 	componentDidMount() {
 	  this.setState({
+		  /*
 		uf: [
 		  {
 			"sigla": "AC",
@@ -47,6 +49,8 @@ export default class Localidade extends Component {
 			]
 		  }
 		],
+		*/
+		uf: DataLocalidade,
 		selectedValueEstado: '',
 		selectedValueCidade: ''
 	  })
