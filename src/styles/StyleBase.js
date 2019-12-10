@@ -7,7 +7,7 @@ class LogoTitle extends React.Component {
       return (
         <Image
             resizeMode="cover"
-            source={require('./../assets/logo/logo_temp.jpeg')}
+            source={require('./../assets/logo/icone250x250.png')}
             style={{ 
                 width: 30, 
                 height: 30,
@@ -27,12 +27,14 @@ const StyleBase = StyleSheet.create({
 
 export const navigationOptions = {
     //title: "iCare",
-    headerLeft: <View
+    //headerLeft: <View />,
+    headerTitle: <View
                     style={{
                         flex: 1,
                         flexDirection: 'row',
                         alignItems: 'center', 
-                        justifyContent: 'center', 
+                        justifyContent: 'center',
+                        alignSelf: "center", 
                     }}
                 >
                     <LogoTitle />
@@ -44,10 +46,10 @@ export const navigationOptions = {
                             fontSize:20
                         }}
                     >
-                        Care
+                        iCare
                     </Text>
                 </View>,
-    headerRight: <View />,
+    //headerRight: <View />,
     headerStyle: {
       backgroundColor: '#0288d1',
     },
@@ -55,6 +57,9 @@ export const navigationOptions = {
     headerTitleStyle: {
       fontWeight: 'bold',
       textAlign: 'center',
+    },
+    titleStyle: {
+        textAlign: 'center',
     },
     tabBarOptions:  {
         activeTintColor: '#0288d1',
