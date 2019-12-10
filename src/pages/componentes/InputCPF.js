@@ -2,6 +2,7 @@ import React from 'react';
 import {Input, Icon} from 'react-native-elements';
 
 const InputCPF = (props) => {
+  const { onChangeText, children } = props;
 
   return (
     <Input
@@ -11,6 +12,7 @@ const InputCPF = (props) => {
         <Icon name="idcard" type="antdesign" size={24} color="#007aff" />
       }
       errorMessage="Digite um CPF válido"
+      onChangeText={onChangeText}
     />
   );
 };

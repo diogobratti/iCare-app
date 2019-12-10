@@ -2,6 +2,8 @@ import React from 'react';
 import {Input, Icon} from 'react-native-elements';
 
 const InputTelefone = (props) => {
+  const { onChangeText, children } = props;
+
   return (
     <Input
       label="Qual é o seu telefone de contato?"
@@ -10,6 +12,7 @@ const InputTelefone = (props) => {
         <Icon name="phone" type="antdesign" size={24} color="#007aff" />
       }
       errorMessage="Digite um número de telefone válido"
+      onChangeText={onChangeText}
     />
   );
 };

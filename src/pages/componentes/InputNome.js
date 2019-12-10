@@ -2,7 +2,6 @@ import React from 'react';
 import {Input, Icon} from 'react-native-elements';
 
 const InputNome = (props) => {
-  
   const { onChangeText, children } = props;
 
   return (
