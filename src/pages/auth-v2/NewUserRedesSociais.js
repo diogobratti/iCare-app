@@ -25,7 +25,7 @@ export default class NewUserRedesSociaisScreen extends Component {
 
   _bootstrapAsync = async () => {
 
-    reactotron.log(await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM))
+    // reactotron.log(await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM))
 
     this.setState({
       instagram: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM),
