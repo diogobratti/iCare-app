@@ -122,6 +122,10 @@ export default {
               dados.push([CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO, dadosBanco[CONSTANTES.FIRESTORE_FIELD_ANUNCIO_CADASTRO_COMPLETO ]])
             }
 
+            if (this.objetoTemPropriedade(dadosBanco, CONSTANTES.FIRESTORE_FIELD_ANUNCIO_TIMESTAMP)) {
+              dados.push([CONSTANTES.ASYNC_ITEM_TIMESTAMP, dadosBanco[CONSTANTES.FIRESTORE_FIELD_ANUNCIO_TIMESTAMP ]])
+            }
+
             // reactotron.log(dados);
 
             await AsyncStorage.multiSet(dados)

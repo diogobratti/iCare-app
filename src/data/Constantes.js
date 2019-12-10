@@ -102,4 +102,5 @@ export const FIRESTORE_FIELD_ANUNCIO_USUARIO_INSTAGRAM = 'instagram';
 // export const FIRESTORE_FIELD_ANUNCIO_AUTH_PROVIDER_TOKEN = 'authProviderToken';
 // export const FIRESTORE_FIELD_ANUNCIO_AUTH_PROVIDER_NAME = 'authProviderID';
 export const FIRESTORE_FIELD_ANUNCIO_TERMO_SERVICO = 'versaoTermosServico';
+export const FIRESTORE_FIELD_ANUNCIO_TIMESTAMP = 'timestamp';
 export const FIRESTORE_FIELD_ANUNCIO_CADASTRO_COMPLETO = 'cadastroCompleto';
