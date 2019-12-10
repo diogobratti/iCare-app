@@ -22,8 +22,9 @@ import NewUserRedesSociaisScreen from './pages/auth-v2/NewUserRedesSociais';
 import FaleConoscoScreen from './pages/faleconosco/FaleConoscoScreen';
 // //import Localidade from "./pages/localidade/Teste";
 // //import Localidade from "./pages/localidade/Testando";
+import Imagem from "./pages/Imagem";
 
-import { navigationOptions } from './styles/StyleBase';
+import StyleBase, { navigationOptions } from "./styles/StyleBase";
 
 // const MenuHome = createStackNavigator({
 //   ListagemAnuncio: { screen: ListagemAnuncio },
