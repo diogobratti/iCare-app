@@ -45,7 +45,11 @@ export default class Login extends Component {
     console.log('handleSocialLoginFacebook');
 
     try {
+      console.log('entrou');
       const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+      console.log(result);
+      console.log('mostrou login');
+      
   
       if (result.isCancelled) {
         // handle this however suites the flow of your app
@@ -94,7 +98,7 @@ export default class Login extends Component {
       //sign in
       const data = await GoogleSignin.signIn();
   
-      // console.warn(JSON.stringify(data));
+      console.log(JSON.stringify(data));
   
       // create a new firebase credential with the token
       const credential = await firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
