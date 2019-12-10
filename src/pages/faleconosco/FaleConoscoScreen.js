@@ -9,6 +9,7 @@ import MensagemInstagram from "../componentes/MensagemInstagram";
 import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 
 import { definicoesBase, navigationOptions } from "../../styles/StyleBase";
+import analytics from '@react-native-firebase/analytics';
 
 export default class FaleConosco extends Component {
   static navigationOptions = {
