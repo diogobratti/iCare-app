@@ -17,6 +17,7 @@ import NewUserTelefone from './pages/auth/NewUserTelefone';
 import NewUserEstadoCidade from './pages/auth/NewUserEstadoCidade';
 import NewUserAnuncio from './pages/auth/NewUserAnuncio';
 import NewUserCadastrar from './pages/auth/NewUserCadastrar';
+import FaleConosco from './pages/auth/FaleConosco';
 // import {NewUserNome, NewUserCPF, NewUserEmail, NewUserTelefone, NewUserEstadoCidade, NewUserAnuncio, NewUserCadastrar} from "./pages/auth/";
 //import Localidade from "./pages/localidade/Teste";
 //import Localidade from "./pages/localidade/Testando";
@@ -48,11 +49,16 @@ const MenuAnuncio = createStackNavigator(
   }
 );
 
+const MenuFaleConosco = createStackNavigator({
+  FaleConosco
+});
+
 const MenuPrincipal = createBottomTabNavigator(
   {
     Home: { screen: MenuHome },
     //Chat: { screen: MenuChat },
-    "Anuncie aqui": { screen: MenuAnuncio }
+    "Anuncie aqui": { screen: MenuAnuncio },
+    "Fale Conosco": { screen: MenuFaleConosco }
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
