@@ -31,25 +31,38 @@ class Anuncio extends Component {
           />
         </View>
         <View style={StyleAnuncio.visualizarAnuncioNomeContainer}>
-          <View style={StyleAnuncio.visualizarAnuncioLinha}>
-            <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-              Nome:{" "}
-            </Text>
-            <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
-              onPress={() => {
-                if (editavel)
-                  this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
-              }}>
-              {anuncio.nome}
-            </Text>
+          <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
+            <View style={StyleAnuncio.visualizarAnuncioLinha}>
+              <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+                Nome:{" "}
+              </Text>
+              <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
+                onPress={() => {
+                  if (editavel)
+                    this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
+                }}>
+                {anuncio.nome}
+              </Text>
+            </View>
+            {editavel &&
+              <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
+                  onPress={() => {
+                    this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
+                  }}>
+                  {">"}
+                </Text>
+              </View>
+            }
           </View>
         </View>
         <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
-          <View style={StyleAnuncio.visualizarAnuncioLinha}>
-            <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-              Telefone:{" "}
-            </Text>
-            {/* <Icon
+          <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
+            <View style={StyleAnuncio.visualizarAnuncioLinha}>
+              <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+                Telefone:{" "}
+              </Text>
+              {/* <Icon
                 //raised //circulo em volta
                 name="whatsapp"
                 type="font-awesome"
@@ -58,55 +71,102 @@ class Anuncio extends Component {
                 containerStyle={StyleAnuncio.iconeFiltro}
                 //onPress={() => console.log('hello')}
               /> */}
-            <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
-              onPress={() => {
-                if (editavel)
-                  this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
-              }}>
-              {anuncio.telefone}
-            </Text>
-          </View>
-          {(anuncio.profissao != '' && anuncio.profissao != undefined && anuncio.profissao != null) ? (
-            <View style={StyleAnuncio.visualizarAnuncioLinha}>
-              <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-                Profissão:{" "}
-              </Text>
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                 onPress={() => {
                   if (editavel)
-                    this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
+                    this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
                 }}>
-                {anuncio.profissao}
+                {anuncio.telefone}
               </Text>
+            </View>
+            {editavel &&
+              <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
+                  onPress={() => {
+                    this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
+                  }}>
+                    {">"}
+                </Text>
+              </View>
+            }
+          </View>
+          {(anuncio.profissao != '' && anuncio.profissao != undefined && anuncio.profissao != null) ? (
+            <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
+              <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+                  Profissão:{" "}
+                </Text>
+                <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
+                  onPress={() => {
+                    if (editavel)
+                      this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
+                  }}>
+                  {anuncio.profissao}
+                </Text>
+              </View>
+              {editavel &&
+                <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                  <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
+                    onPress={() => {
+                      this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
+                    }}>
+                    {">"}
+                  </Text>
+                </View>
+              }
             </View>
           ) : null}
 
           {(anuncio.anuncio != '' && anuncio.anuncio != undefined && anuncio.anuncio != null) ? (
-            <View style={StyleAnuncio.visualizarAnuncioLinha}>
-              <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-                Anúncio:{" "}
-              </Text>
-              <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
-                onPress={() => {
-                  if (editavel)
-                    this.props.navigation.navigate(ROUTES_NEW_USER_ANUNCIO)
-                }}>
-                {anuncio.anuncio}
-              </Text>
+            <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
+              <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+                  Anúncio:{" "}
+                </Text>
+                <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
+                  onPress={() => {
+                    if (editavel)
+                      this.props.navigation.navigate(ROUTES_NEW_USER_ANUNCIO)
+                  }}>
+                  {anuncio.anuncio}
+                </Text>
+              </View>
+              {editavel &&
+                <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                  <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
+                    onPress={() => {
+                      this.props.navigation.navigate(ROUTES_NEW_USER_ANUNCIO)
+                    }}>
+                    {">"}
+                  </Text>
+                </View>
+              }
             </View>
           ) : null}
           {(anuncio.preco != '' && anuncio.preco != undefined && anuncio.preco != null) ? (
-            <View style={StyleAnuncio.visualizarAnuncioLinha}>
-              <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-                Preço:{" "}
+            <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
+              <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+                  Preço:{" "}
+                </Text>
+                <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
+                  onPress={() => {
+                    if (editavel)
+                      this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
+                  }}>
+                  {anuncio.preco}*
               </Text>
-              <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
-                onPress={() => {
-                  if (editavel)
-                    this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
-                }}>
-                {anuncio.preco}*
-              </Text>
+              </View>
+              {editavel &&
+                <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                  <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
+                    onPress={() => {
+                      this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
+                    }}>
+                    {">"}
+                  </Text>
+                </View>
+              }
             </View>
           ) : null}
           {(anuncio.preco != '' && anuncio.preco != undefined && anuncio.preco != null) ? (

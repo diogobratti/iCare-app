@@ -251,6 +251,10 @@ const StyleAnuncio = StyleSheet.create({
     visualizarAnuncioLinha:{
         flexDirection: "row",
     },
+    visualizarAnuncioLinhaEditavel:{
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
     visualizarAnuncioLinhaIcones:{
         flexDirection: "row",
         //alignItems: 'center',
@@ -268,6 +272,15 @@ const StyleAnuncio = StyleSheet.create({
         fontFamily: definicoesBase.fontFamilyTextoComum,
         fontSize: definicoesBase.tamanhoFonteTextoComum,
         color: definicoesBase.corFonteTextoComum,
+        fontWeight: "bold",
+        flexWrap: 'wrap',
+        flexShrink: 1,
+        lineHeight: definicoesBase.alturaLinhaTextoComum,
+    },
+    visualizarAnuncioAtributoEditarText:{
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.backgroundCabecalho,
         fontWeight: "bold",
         flexWrap: 'wrap',
         flexShrink: 1,
