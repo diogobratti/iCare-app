@@ -10,7 +10,6 @@ import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 import { ROUTES_NEW_USER_NOME, ROUTES_NEW_USER_PROFISSAO, ROUTES_NEW_USER_ANUNCIO, ROUTES_NEW_USER_TELEFONE, ROUTES_NEW_USER_REDES_SOCIAIS, ROUTES_NEW_USER_LOCALIDADE, ROUTES_NEW_USER_FOTO } from "../../data/Constantes";
 import { withNavigation } from 'react-navigation';
 import { definicoesBase } from "../../styles/StyleBase";
-import analytics from '@react-native-firebase/analytics';
 
 class Anuncio extends Component {
 
