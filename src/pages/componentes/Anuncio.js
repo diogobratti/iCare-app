@@ -23,8 +23,6 @@ class Anuncio extends Component {
   constructor(props) {
     super(props);
     this.props = props
-    this.comentario = null;
-    //this.comentario = {descricao: 'lala'};
     this.state = {
       comentario: "",
       visualizarComentario: false,
@@ -46,7 +44,7 @@ class Anuncio extends Component {
 
 
   async salvarComentario() {
-    if (this.comentario != null) {
+    if (this.state.comentario != "") {
 
       try {
 
@@ -75,13 +73,15 @@ class Anuncio extends Component {
             if (this.objetoTemPropriedade(dadosBanco, 'avaliacao')) {
               comentariosAnuncio.push(...dadosBanco['avaliacao']);
             }
-            comentariosAnuncio.push(this.comentario);
+            comentariosAnuncio.push(this.state.comentario);
             this.props.anuncio.avaliacao = comentariosAnuncio;
 
             //console.warn(JSON.stringify(dadosBanco['avaliacao']));
             //console.warn(JSON.stringify(comentariosAnuncio));
 
             const result = await docs[0].ref.update({ avaliacao: comentariosAnuncio })
+
+            this.setState({ visualizarComentario: false})
 
           } else {
             //TODO: tratar adequadamente

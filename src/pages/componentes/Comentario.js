@@ -1,6 +1,7 @@
 import React from "react"
-import { View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native"
 import { Input, Icon, Overlay } from "react-native-elements"
+import Button from "../auth-v2/components/Button"
 import PropTypes from 'prop-types'
 
 const Comentario = props => {
@@ -21,7 +22,17 @@ const Comentario = props => {
           onChangeText={onChangeText}
         />
 
-        <TouchableOpacity
+      <Button
+        onPress={onPress}
+        style={buttonStyle}
+        >Salvar</Button>
+
+      <Button
+        onPress={onPress}
+        style={buttonStyle}
+        >Cancelar</Button>
+
+        {/* <TouchableOpacity
           onPress={onPress}
         >
           <Text
@@ -29,7 +40,7 @@ const Comentario = props => {
           >
             Salvar
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </Overlay>
   )
