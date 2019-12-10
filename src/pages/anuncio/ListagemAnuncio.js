@@ -117,7 +117,7 @@ export default class ListagemAnuncio extends Component {
         // for more information.
         this.unsubscribe = this.collection;
         this.unsubscribe = this.unsubscribe.where('microrregiao', '==', this.state.microrregiao);
-        this.unsubscribe = this.unsubscribe.where('perfil', '!=', CONSTANTES.ASYNC_USER_PERFIL_CLIENTE);
+        this.unsubscribe = this.unsubscribe.where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR);
         /*
         this.unsubscribe = this.unsubscribe.where('preco', '<=', this.state.filtroPreco);
         if(!filtroProfissaoCuidador) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Cuidador");
@@ -257,7 +257,7 @@ export default class ListagemAnuncio extends Component {
         const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         this.unsubscribe = this.collection.
             where('microrregiao', '==', this.state.microrregiao).
-            where('perfil', '!=', CONSTANTES.ASYNC_USER_PERFIL_CLIENTE).
+            where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR).
             orderBy(collectionOrderBy, 'ASC').
             orderBy('id', 'ASC').
             startAfter(this.state.lastVisible.id).
