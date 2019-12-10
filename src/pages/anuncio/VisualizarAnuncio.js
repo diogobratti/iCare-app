@@ -14,7 +14,7 @@ import StyleAnuncio, {
 export default class VisualizarAnuncio extends React.Component {
     static navigationOptions = {
         ...navigationOptions,
-        headerLeft: <View />,
+        //headerLeft: <View />,
     };
 
     constructor() {
@@ -24,7 +24,9 @@ export default class VisualizarAnuncio extends React.Component {
         const anuncio = this.props.navigation.getParam('anuncio');
         return (
             <View style={StyleAnuncio.visualizarAnuncioContainer}>
+                <View style={{flex:5}}>
                 <Anuncio anuncio={anuncio}/>
+                </View>
                 {/* <ScrollView>
                     <View style={StyleAnuncio.visualizarAnuncioFotoContainer}>
                         <Image

@@ -45,7 +45,8 @@ export default class Anuncio extends React.PureComponent {
               <TouchableOpacity 
                   //style={styles.productButton} 
                   onPress={() => {
-                    MensagemTelefone(this.props);
+                    //MensagemTelefone(this.props);
+                    this.props.navigation.navigate("VisualizarAnuncio", { anuncio: this.props });
                   }}
               >
                   <Text style={StyleAnuncio.anuncioNome}>{this.truncaNome(this.props.nome)}</Text>

@@ -251,6 +251,13 @@ const StyleAnuncio = StyleSheet.create({
     visualizarAnuncioLinha:{
         flexDirection: "row",
     },
+    visualizarAnuncioLinhaIcones:{
+        flexDirection: "row",
+        //alignItems: 'center',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        //alignContent: 'space-between',
+    },
     visualizarAnuncioDescricaoText:{
         fontFamily: definicoesBase.fontFamilyTextoComum,
         fontSize: definicoesBase.tamanhoFonteTextoComum,

@@ -1,23 +1,23 @@
 import React, { Component } from "react";
 import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
-import { Icon } from "react-native-elements";
+import { Icon, SocialIcon } from "react-native-elements";
 import MensagemTelefone from "../componentes/MensagemTelefone";
 import PropTypes from 'prop-types'
+import MensagemEmail from "../componentes/MensagemEmail";
+import MensagemInstagram from "../componentes/MensagemInstagram";
 import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 import reactotron from "reactotron-react-native";
 import { ROUTES_NEW_USER_NOME, ROUTES_NEW_USER_PROFISSAO, ROUTES_NEW_USER_ANUNCIO, ROUTES_NEW_USER_TELEFONE, ROUTES_NEW_USER_REDES_SOCIAIS } from "../../data/Constantes";
 import { withNavigation } from 'react-navigation';
+import { definicoesBase } from "../../styles/StyleBase";
 
-// const Anuncio = props => {
 class Anuncio extends Component {
 
   constructor(props) {
     super(props);
     this.props = props
   }
-  // reactotron.log(anuncio);
 
-  // return (
     render() {
 
     const { anuncio, editavel } = this.props;
@@ -30,12 +30,6 @@ class Anuncio extends Component {
             source={{ uri: anuncio.foto }}
           />
         </View>
-        {/* <TouchableOpacity
-          //style={styles.productButton}
-          onPress={() => {
-            MensagemTelefone(anuncio);
-          }}
-        > */}
           <View style={StyleAnuncio.visualizarAnuncioNomeContainer}>
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
               <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
@@ -44,8 +38,7 @@ class Anuncio extends Component {
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                     onPress={ () => {
                       if (editavel)
-                      // this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
-                      this.props.navigation.navigate(ROUTES_NEW_USER_REDES_SOCIAIS)
+                      this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
                     }}>
                 {anuncio.nome}
               </Text>
@@ -56,7 +49,7 @@ class Anuncio extends Component {
               <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                 Telefone:{" "}
               </Text>
-              <Icon
+              {/* <Icon
                 //raised //circulo em volta
                 name="whatsapp"
                 type="font-awesome"
@@ -64,7 +57,7 @@ class Anuncio extends Component {
                 size={anuncioIconeTelefone.size}
                 containerStyle={StyleAnuncio.iconeFiltro}
                 //onPress={() => console.log('hello')}
-              />
+              /> */}
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                     onPress={ () => {
                       if (editavel)
@@ -115,12 +108,89 @@ class Anuncio extends Component {
                 * Estimado para o turno de 12 horas
               </Text>
             </View>
+
+            <View style={StyleAnuncio.visualizarAnuncioLinhaIcones}>
+              {(anuncio.email == null || anuncio.email == undefined || anuncio.email == '') ? (
+                <Icon
+                  raised //circulo em volta
+                  name="envelope"
+                  type="font-awesome"
+                  size={28}
+                  color="#e0e0eb"
+                />
+              ) : (
+                  <TouchableOpacity
+                    //style={styles.productButton}
+                    onPress={() => {
+                      MensagemEmail(anuncio);
+                    }}
+                  >
+                    {/* <SocialIcon
+                type='envelope'
+                iconSize={18}
+              /> */}
+                    <Icon
+                      raised //circulo em volta
+                      name="envelope"
+                      type="font-awesome"
+                      size={28}
+                      color={definicoesBase.backgroundCabecalho}
+                    />
+                  </TouchableOpacity>
+                )}
+              {(anuncio.telefone == null || anuncio.telefone == undefined || anuncio.telefone == '') ? (
+                <Icon
+                  raised //circulo em volta
+                  name="whatsapp"
+                  type="font-awesome"
+                  size={28}
+                  color="#e0e0eb"
+                />
+              ) : (
+                  <TouchableOpacity
+                    //style={styles.productButton}
+                    onPress={() => {
+                      MensagemTelefone(anuncio);
+                    }}
+                  >
+                    <Icon
+                      raised //circulo em volta
+                      name="whatsapp"
+                      type="font-awesome"
+                      size={28}
+                      color="#4AC959"
+                    />
+                  </TouchableOpacity>
+                )}
+              {(anuncio.instagram == null || anuncio.instagram == undefined || anuncio.instagram == '') ? (
+                <Icon
+                  raised //circulo em volta
+                  name="instagram"
+                  type="font-awesome"
+                  size={28}
+                  color="#e0e0eb"
+                />
+              ) : (
+                  <TouchableOpacity
+                    //style={styles.productButton}
+                    onPress={() => {
+                      MensagemInstagram(anuncio);
+                    }}
+                  >
+                    <Icon
+                      raised //circulo em volta
+                      name="instagram"
+                      type="font-awesome"
+                      size={28}
+                      color="#cc66ff"
+                    />
+                  </TouchableOpacity>
+                )}
+            </View>
           </View>
-        {/* </TouchableOpacity> */}
       </ScrollView>
     )
     }
-};
 
 export default withNavigation(Anuncio);
 
