@@ -53,17 +53,15 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
   let IconComponent = Ionicons;
   let iconName;
   if (routeName === 'Home') {
-    iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-    // We want to add badges to home tab icon
-    IconComponent = HomeIconWithBadge;
+    iconName = `ios-home${focused ? '' : ''}`;
   } else if (routeName === 'Chat') {
-    iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+    iconName = `ios-chatboxes${focused ? '' : ''}`;
+    // We want to add badges to chat tab icon
+    IconComponent = HomeIconWithBadge;
   } else if (routeName === 'Anúncio') {
-    iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+    iconName = `ios-megaphone${focused ? '' : ''}`;
   } else if (routeName === 'Perfil') {
-    iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-  } else if (routeName === 'Teste') {
-    iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+    iconName = `ios-person${focused ? '' : ''}`;
   }
 
   // You can return any component that you like here!
@@ -132,8 +130,7 @@ const MenuPrincipal = createBottomTabNavigator(
         Home: { screen: MenuHome },
         Chat: { screen: MenuChat },
         Anúncio: { screen: MenuAnuncio },
-        Perfil: { screen: MenuPerfil },
-        Teste: { screen: stack }
+        Perfil: { screen: MenuPerfil }
     },
     {
       defaultNavigationOptions: ({ navigation }) => ({
