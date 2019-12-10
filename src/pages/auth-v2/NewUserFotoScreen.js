@@ -13,7 +13,6 @@ import {
   Alert
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import uuid from 'uuid/v4'; // Import UUID to generate UUID
 import { navigationOptions, definicoesBase } from "../../styles/StyleBase";
 import * as CONSTANTES from '../../data/Constantes';
 import LocalStorage from "../../services/LocalStorage";
@@ -31,6 +30,9 @@ const options = {
     reTryTitle: 'Tentar novamente',
     okTitle: "Confirmar",
   },
+  quality: 1.0,
+  maxWidth: 200,
+  maxHeight: 200,
   storageOptions: {
     skipBackup: true,
     path: 'images'
