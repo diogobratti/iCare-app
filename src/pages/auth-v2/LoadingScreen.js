@@ -25,7 +25,7 @@ export default class LoadingScreen extends React.Component {
 
     // ============ DEBUG AREA ============
     // firebase.auth().signOut();
-    // await LocalStorage.clear();
+    // await AsyncStorage.clear();
     // await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_PERFIL, CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR)
     this.logCurrentStorage();
     // ========== FIM DEBUG AREA ==========

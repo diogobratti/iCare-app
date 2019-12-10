@@ -5,9 +5,11 @@ import firebase from "react-native-firebase";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { GoogleSignin, statusCodes } from "react-native-google-signin";
 import { navigationOptions } from "../../styles/StyleBase";
+import StyleFaleConosco from "../../styles/StyleFaleConosco";
 import Button from './components/Button';
 import LocalStorage from '../../services/LocalStorage';
 import * as CONSTANTES from '../../data/Constantes';
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class Login extends Component {
 
@@ -90,7 +92,7 @@ export default class Login extends Component {
       // this.props.navigation.push("Loading");
       console.error(e);
     }
-    this.setState({ isProcessing: false });
+    // this.setState({ isProcessing: false });
 
   };
 
@@ -174,7 +176,7 @@ export default class Login extends Component {
         console.error(error);
       }
     }
-    this.setState({ isProcessing: false });
+    // this.setState({ isProcessing: false });
 
   };
 
@@ -185,7 +187,7 @@ export default class Login extends Component {
    * @param {UserCredential} firebaseCredential Credencial do Firebase
    */
   posAutenticacao = async (firebaseCredential, idAuthProvider, nome, email, foto, token, providerName) => {
-    let collection = firebase.firestore().collection("anuncios");
+    let collection = firebase.firestore().collection(CONSTANTES.FIRESTORE_COLLECTION_ANUNCIOS);
     //SE o usuário não tiver cadastro ainda, cria cadastro
     let querySnapshot = await collection
       .where("user_uid", "==", firebaseCredential.user.uid)
@@ -227,7 +229,7 @@ export default class Login extends Component {
     // console.log(docReference);
     // console.log("redirecionando Loading");
 
-    await LocalStorage.multiSet([
+    await AsyncStorage.multiSet([
       [CONSTANTES.ASYNC_ITEM_USUARIO_TOKEN, JSON.stringify(firebaseCredential)],
       [CONSTANTES.ASYNC_ITEM_USUARIO_UID, firebaseCredential.user.uid],
       [CONSTANTES.ASYNC_ITEM_USUARIO_PROVIDER_ID, idAuthProvider],
@@ -306,9 +308,14 @@ export default class Login extends Component {
           </View>
 
           <View style={styles.containerActionsStyle}>
-            <Button onPress={() => this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO_TERMO_SERVICO)}>
-              Termos de Serviço
-            </Button>
+            <Text style={StyleFaleConosco.corpoText}>Ao entrar você confirma estar de acordo com os
+              <Text onPress={() => this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO_TERMO_SERVICO)}>
+                Termos e Condições
+              </Text>
+            </Text>
+            {/* <Button onPress={() => this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO_TERMO_SERVICO)}>
+              Termos e Condições
+            </Button> */}
           </View>
 
           {/* <View style={styles.containerLoginStyle}>

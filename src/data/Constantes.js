@@ -67,3 +67,22 @@ export const ASYNC_ITEM_TERMO_SERVICO = 'versaoTermosServico';
 
 // Firestore Collections
 export const FIRESTORE_COLLECTION_ANUNCIOS = 'anuncios';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_PERFIL = 'perfil';
+// export const FIRESTORE_FIELD_ANUNCIO_USUARIO_TOKEN = 'usuario_token';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_UID = 'user_uid';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_ID = 'id';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_PROVIDER_ID = 'provider_id';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_NOME = 'nome';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_EMAIL = 'email';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_FOTO = 'foto';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_TELEFONE = 'telefone';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_PROFISSAO = 'profissao';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_PRECO = 'preco';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_ANUNCIO = 'anuncio';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_ESTADO = 'uf';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_MUNICIPIO = 'cidade';
+export const FIRESTORE_FIELD_ANUNCIO_USUARIO_REGIAO = 'microrregiao';
+// export const FIRESTORE_FIELD_ANUNCIO_AUTH_PROVIDER_TOKEN = 'authProviderToken';
+// export const FIRESTORE_FIELD_ANUNCIO_AUTH_PROVIDER_NAME = 'authProviderID';
+export const FIRESTORE_FIELD_ANUNCIO_TERMO_SERVICO = 'versaoTermosServico';
+export const FIRESTORE_FIELD_ANUNCIO_CADASTRO_COMPLETO = 'cadastroCompleto';
