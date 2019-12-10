@@ -295,7 +295,7 @@ class Anuncio extends Component {
           ) : null}
           {(anuncio.anuncio != '' && anuncio.anuncio != undefined && anuncio.anuncio != null) ? (
             <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
-              <View style={StyleAnuncio.visualizarAnuncioLinha}>
+              <View style={{...StyleAnuncio.visualizarAnuncioLinha, wordWrap: 'break-word', width: '100%'}}>
                 <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                   Descrição:{" "}
                 </Text>

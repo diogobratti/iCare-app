@@ -260,6 +260,8 @@ const StyleAnuncio = StyleSheet.create({
     visualizarAnuncioLinhaEditavel:{
         flexDirection: "row",
         justifyContent: "space-between",
+        flexShrink: 1,
+        flexWrap: 'wrap',
     },
     visualizarAnuncioLinhaIcones:{
         flexDirection: "row",
