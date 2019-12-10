@@ -25,37 +25,28 @@ import StyleBase, { navigationOptions } from "./styles/StyleBase";
 
 const MenuHome = createStackNavigator({
   ListagemAnuncio: { screen: ListagemAnuncio },
-  VisualizarAnuncio: { screen: VisualizarAnuncio },
+  VisualizarAnuncio: { screen: VisualizarAnuncio }
 });
 
-// const Anuncio = createStackNavigator({
-//   PerfilAnuncio
-// });
-
-// const Cadastro = createStackNavigator({
-//   NewUserNome,
-//   NewUserCPF,
-//   NewUserEmail,
-//   NewUserTelefone,
-//   NewUserEstadoCidade,
-//   NewUserAnuncio,
-//   NewUserCadastrar
-// });
-
-// const LoginStack = createStackNavigator({ screen: Login });
-
-const MenuAnuncio = createStackNavigator({
-  Loading,
-  Login,
-  NewUserNome,
-  NewUserCPF,
-  NewUserEmail,
-  NewUserTelefone,
-  NewUserEstadoCidade,
-  NewUserAnuncio,
-  NewUserCadastrar,
-  PerfilAnuncio
-});
+const MenuAnuncio = createStackNavigator(
+  {
+    Loading,
+    Login,
+    NewUserNome,
+    NewUserCPF,
+    NewUserEmail,
+    NewUserTelefone,
+    NewUserEstadoCidade,
+    NewUserAnuncio,
+    NewUserCadastrar,
+    PerfilAnuncio
+  },
+  {
+    screenInterpolator: sceneProps => {
+      return null;
+    }
+  }
+);
 
 // const MenuAnuncio = createSwitchNavigator({
 //   AuthLoading: Loading,
@@ -68,7 +59,7 @@ const MenuPrincipal = createBottomTabNavigator(
   {
     Home: { screen: MenuHome },
     //Chat: { screen: MenuChat },
-    'Anuncie aqui': { screen: MenuAnuncio },
+    "Anuncie aqui": { screen: MenuAnuncio }
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

@@ -21,38 +21,30 @@ export default class NewUserNome extends Component {
   }
 
   componentDidMount() {
+    this._bootstrapAsync();
+  }
+
+  _bootstrapAsync = async () => {
     console.log("NewUSerNome");
     console.log(this.props.navigation.state.params);
     console.log(this.props.navigation.state.params.anuncio);
     const currentUser = firebase.auth().currentUser;
 
-    let anuncio = this.props.navigation.state.params.anuncio.data();
+    await this.props.navigation.state.params.anuncio.get().then(anuncio => {
+      // this.anuncio = anuncio;
+      console.log(anuncio.data());
+      this.anuncio = anuncio.data();
+      console.log(this.anuncio);
+    });
 
     this.setState({
       anuncioOriginal: this.props.navigation.state.params.anuncio,
-      nome: anuncio.nome,
-      email: anuncio.email,
-      foto: anuncio.foto,
+      nome: this.anuncio.nome,
+      email: this.anuncio.email,
+      foto: this.anuncio.foto,
       user: currentUser
     });
-
-    // firebase
-    //   .firestore()
-    //   .collection("anuncios")
-    //   .where("uid", "==", currentUser.uid)
-    //   .get()
-    //   .then(data => {
-    //     console.log(data.docs[0].data());
-    //     let anuncio = data.docs[0].data();
-    //     this.setState({
-    //       anuncioOriginal: anuncio,
-    //       nome: anuncio.nome,
-    //       email: anuncio.email,
-    //       user: currentUser
-    //     });
-    //   });
-    // console.log(this.state);
-  }
+  };
 
   render() {
     return (

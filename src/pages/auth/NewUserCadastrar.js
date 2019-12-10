@@ -21,13 +21,14 @@ export default class NewUserCadastrar extends Component {
     try {
       let anuncioOriginal = this.state.anuncioOriginal;
 
-      anuncioOriginal.ref.update({
+      anuncioOriginal.update({
         nome: this.state.nome,
         cpf: this.state.cpf,
         email: this.state.email,
         telefone: this.state.telefone,
-        uf: this.state.uf,
-        cidade: this.state.cidade,
+        uf: this.state.estado,
+        cidade: this.state.municipio,
+        microrregiao: this.state.regiao,
         anuncio: this.state.anuncio,
         preco: this.state.preco,
         profissao: this.state.profissao,
@@ -36,23 +37,6 @@ export default class NewUserCadastrar extends Component {
       });
 
       //TODO: tratar para mostrar mensagem de erro quando não conseguiu salavar
-
-      // let api = new ApiDb('anuncios');
-      // api.add({
-      //   id: this.state.user.id,
-      //   user_uid: this.state.user.uid,
-      //   nome: this.state.nome,
-      //   cpf: this.state.cpf,
-      //   email: this.state.email,
-      //   telefone: this.state.telefone,
-      //   uf: this.state.uf,
-      //   cidade: this.state.cidade,
-      //   anuncio: this.state.anuncio,
-      //   preco: this.state.preco,
-      //   profissao: this.state.profissao,
-      //   foto: this.state.foto,
-      //   versaoTermosServico: this.state.versaoTermosServico
-      // });
 
       this.props.navigation.navigate("PerfilAnuncio", {
         anuncio: anuncioOriginal
