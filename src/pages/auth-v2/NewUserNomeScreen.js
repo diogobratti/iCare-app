@@ -3,15 +3,18 @@ import { ScrollView } from "react-native";
 import InputNome from "../componentes/InputNome";
 import Button from "./components/Button";
 // import firebase from "react-native-firebase";
-// import { navigationOptions } from "../../styles/StyleBase";
+import { navigationOptions } from "../../styles/StyleBase";
 // import { withNavigation } from "react-navigation";
 // import AsyncStorage from "@react-native-community/async-storage";
 
 export default class NewUserNome extends Component {
-  // static navigationOptions = {
-  //   ...navigationOptions,
-  //   headerLeft: <View />
-  // };
+  static navigationOptions = {
+    ...navigationOptions,
+  };
+
+  state = {
+    nome: ""
+  };
 
   // constructor(props) {
   // super(props);

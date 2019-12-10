@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Picker, BackHandler } from "react-native";
-
-import { navigationOptions, definicoesBase, Cabecalho } from "../../styles/StyleBase";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
+import { navigationOptions, Cabecalho } from "../../styles/StyleBase";
 import StyleEscolhePerfil from "../../styles/StyleEscolhePerfil";
-
 import AsyncStorage from '@react-native-community/async-storage';
-
+import * as CONSTANTES from "../../data/Constantes";
 
 export default class EscolhePerfilScreen extends Component {
   static navigationOptions = navigationOptions;
@@ -15,14 +12,14 @@ export default class EscolhePerfilScreen extends Component {
 
   async componentDidMount() {
     //await AsyncStorage.clear();
-    const perfil = await AsyncStorage.getItem('userPerfil');
+    const perfil = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
     this.setState({
       isLoading: false,
     });
   }
 
   guardarPerfil = async perfil => {
-    await AsyncStorage.setItem('userPerfil', { perfil });
+    await AsyncStorage.setItem(CONSTANTES.ASYNC_ITEM_PERFIL, perfil);
   };
 
   render() {
@@ -51,8 +48,8 @@ export default class EscolhePerfilScreen extends Component {
               <TouchableOpacity
                 style={StyleEscolhePerfil.botaoButton}
                 onPress={() => {
-                  this.guardarPerfil('Fornecedor');
-                  this.props.navigation.navigate("Auth");
+                  this.guardarPerfil(CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR);
+                  this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO);
                 }}
               >
                 <Text style={StyleEscolhePerfil.botaoText}>
@@ -63,8 +60,8 @@ export default class EscolhePerfilScreen extends Component {
                 <TouchableOpacity
                   style={StyleEscolhePerfil.botaoButton}
                   onPress={() => {
-                    this.guardarPerfil('Cliente');
-                    this.props.navigation.navigate("Auth");
+                    this.guardarPerfil(CONSTANTES.ASYNC_USER_PERFIL_CLIENTE);
+                    this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO);
                   }}
                 >
                   <Text style={StyleEscolhePerfil.botaoText}>

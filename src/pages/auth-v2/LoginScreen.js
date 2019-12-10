@@ -1,46 +1,23 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Alert } from "react-native";
-import {
-  SocialIcon,
-  Overlay
-} from "react-native-elements";
+import { SocialIcon, Overlay } from "react-native-elements";
 import firebase from "react-native-firebase";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { GoogleSignin, statusCodes } from "react-native-google-signin";
 import { navigationOptions } from "../../styles/StyleBase";
 import Button from './components/Button';
+import AsyncStorage from '@react-native-community/async-storage';
+import * as CONSTANTES from '../../data/Constantes';
 
 export default class Login extends Component {
 
-
-  // constructor(props) {
-  //   // super(props);
-  //   // this.handleBackButtonClick = (() => {
-  //   //   //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
-  //   //   //     this.navigator.pop();
-  //   //   return true; //avoid closing the app
-  //   //   //   }
-  //   //   //   return false; //close the app
-  //   // }).bind(this) //don't forget bind this, you will remember anyway.
-  // }
-
   state = {
-    email: "",
-    password: "",
-    errorMessage: null,
-    cadastroCompleto: false,
     isProcessing: false
   };
 
   static navigationOptions = {
     ...navigationOptions,
   };
-  // async componentDidMount() {
-  //   BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-  // }
-  // componentWillUnmount() {
-  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-  // }
 
   handleSocialLoginFacebook = async () => {
     // console.log("handleSocialLoginFacebook");
@@ -96,15 +73,16 @@ export default class Login extends Component {
 
       const nome = firebaseUserCredential.additionalUserInfo.profile.name;
       const email = firebaseUserCredential.additionalUserInfo.profile.email;
-      const foto =
-        firebaseUserCredential.additionalUserInfo.profile.picture.data.url;
+      const foto = firebaseUserCredential.additionalUserInfo.profile.picture.data.url;
 
       await this.posAutenticacao(
         firebaseUserCredential,
         data.userID,
         nome,
         email,
-        foto
+        foto,
+        data,
+        "Facebook"
       );
     } catch (e) {
       this.setState({ isProcessing: false });
@@ -148,6 +126,7 @@ export default class Login extends Component {
         tokenData.idToken,
         tokenData.accessToken
       );
+
       // login with credential
       const firebaseUserCredential = await firebase
         .auth()
@@ -166,7 +145,9 @@ export default class Login extends Component {
         userData.user.id,
         nome,
         email,
-        foto
+        foto,
+        tokenData,
+        "Google"
       );
     } catch (error) {
       this.setState({ isProcessing: false });
@@ -203,7 +184,7 @@ export default class Login extends Component {
    * cadastro
    * @param {UserCredential} firebaseCredential Credencial do Firebase
    */
-  posAutenticacao = async (firebaseCredential, idAuthProvider, nome, email, foto) => {
+  posAutenticacao = async (firebaseCredential, idAuthProvider, nome, email, foto, token, providerName) => {
     let collection = firebase.firestore().collection("anuncios");
     //SE o usuário não tiver cadastro ainda, cria cadastro
     let querySnapshot = await collection
@@ -215,6 +196,9 @@ export default class Login extends Component {
 
     let docReference = null;
 
+    // const timestamp = new Date();
+    let termoservico = `${new Date()}`;
+
     if (querySnapshot.empty) {
       // console.log("Dados vazios. criando novo cadastro");
       docReference = await collection
@@ -224,7 +208,8 @@ export default class Login extends Component {
           provider_id: idAuthProvider,
           nome: nome,
           email: email,
-          foto: foto
+          foto: foto,
+          termoservico: termoservico
         })
         .then(newData => {
           //atualiza referencia
@@ -239,9 +224,21 @@ export default class Login extends Component {
     // console.log(docReference);
     // console.log("redirecionando Loading");
 
-    this.setState({ isProcessing: false });
+    await AsyncStorage.multiSet([
+      [CONSTANTES.ASYNC_ITEM_USUARIO_TOKEN, JSON.stringify(firebaseCredential)],
+      [CONSTANTES.ASYNC_ITEM_USUARIO_UID, firebaseCredential.user.uid],
+      [CONSTANTES.ASYNC_ITEM_USUARIO_PROVIDER_ID, idAuthProvider],
+      [CONSTANTES.ASYNC_ITEM_USUARIO_NOME, nome],
+      [CONSTANTES.ASYNC_ITEM_USUARIO_EMAIL, email],
+      [CONSTANTES.ASYNC_ITEM_USUARIO_FOTO, foto],
+      [CONSTANTES.ASYNC_ITEM_AUTH_PROVIDER_TOKEN, JSON.stringify(token)],
+      [CONSTANTES.ASYNC_ITEM_AUTH_PROVIDER_NAME, JSON.stringify(providerName)],
+      [CONSTANTES.ASYNC_ITEM_TERMO_SERVICO, termoservico]
+    ])
 
-    this.props.navigation.push("Loading", { anuncio: docReference });
+    // this.setState({ isProcessing: false });
+
+    this.props.navigation.navigate(CONSTANTES.ROUTES_LOADING);
   };
 
   translateLoginErrors(error) {
@@ -271,12 +268,6 @@ export default class Login extends Component {
       'Erro',
       errorMsg,
       [
-        //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-        // {
-        //   text: 'Cancel',
-        //   onPress: () => console.log('Cancel Pressed'),
-        //   style: 'cancel',
-        // },
         { text: 'OK', onPress: () => { } },
       ],
       { cancelable: false },
@@ -299,7 +290,6 @@ export default class Login extends Component {
               <SocialIcon
                 type="facebook"
                 onPress={this.handleSocialLoginFacebook}
-              // onPress={facebookLogin}
               />
               {/* <SocialIcon
                 type="instagram"

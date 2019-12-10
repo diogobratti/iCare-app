@@ -5,9 +5,6 @@ import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Picker, Ba
 import { navigationOptions, definicoesBase, Cabecalho } from "../../styles/StyleBase";
 import StyleTermo from "../../styles/StyleTermo";
 
-import AsyncStorage from '@react-native-community/async-storage';
-
-
 export default class TermoServico extends Component {
   static navigationOptions = navigationOptions;
 
@@ -49,12 +46,7 @@ export default class TermoServico extends Component {
   // componentWillUnmount() {
   //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   // }
-  guardarTermo = async () => {
-    const timestamp = new Date();
 
-    AsyncStorage.setItem('termoservico', `${timestamp}`);
-
-  };
   render() {
     // if (this.state.isLoading) {
     //   return (
@@ -93,13 +85,13 @@ export default class TermoServico extends Component {
           <TouchableOpacity
             style={StyleTermo.botaoButton}
             onPress={() => {
-              this.guardarTermo();
+              // this.guardarTermo();
               this.props.navigation.goBack();
               // this.props.navigation.navigate("Localidade", {});
             }}
           >
             <Text style={StyleTermo.botaoText}>
-              Concordo com os Termos de Serviço
+              Voltar
 		                    </Text>
           </TouchableOpacity>
         </View>

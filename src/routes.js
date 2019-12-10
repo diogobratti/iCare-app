@@ -16,7 +16,7 @@ import LoginScreen from './pages/auth-v2/LoginScreen';
 import NewUserNomeScreen from './pages/auth-v2/NewUserNomeScreen';
 // // import NewUserCPF from './pages/auth/NewUserCPF';
 // import NewUserEmail from './pages/auth/NewUserEmail';
-// import NewUserTelefone from './pages/auth/NewUserTelefone';
+import NewUserTelefoneScreen from './pages/auth-v2/NewUserTelefoneScreen';
 // import NewUserAnuncio from './pages/auth/NewUserAnuncio';
 // import NewUserProfissao from './pages/auth/NewUserProfissao';
 // import NewUserCadastrar from './pages/auth/NewUserCadastrar';
@@ -24,7 +24,7 @@ import FaleConoscoScreen from './pages/faleconosco/FaleConoscoScreen';
 // //import Localidade from "./pages/localidade/Teste";
 // //import Localidade from "./pages/localidade/Testando";
 
-import StyleBase, { navigationOptions } from './styles/StyleBase';
+import { navigationOptions } from './styles/StyleBase';
 
 // const MenuHome = createStackNavigator({
 //   ListagemAnuncio: { screen: ListagemAnuncio },
@@ -117,7 +117,7 @@ const AuthStack = createStackNavigator(
   },
 );
 
-const NewUserStack = createStackNavigator(
+const NewUserFornecedorStack = createStackNavigator(
   {
     NewUserNome: NewUserNomeScreen,
     //     // NewUserCPF,
@@ -126,7 +126,14 @@ const NewUserStack = createStackNavigator(
     //     NewUserAnuncio,
     //     NewUserCadastrar,
     //     NewUserProfissao,
-    //   Localidade,
+    //     Localidade,
+  },
+);
+
+const NewUserClienteStack = createStackNavigator(
+  {
+    NewUserTelefone: NewUserTelefoneScreen,
+    // NewUserCadastrar: NewUserCadastrarScreen,
   },
 );
 
@@ -135,7 +142,8 @@ const AppNavigator = createSwitchNavigator(
     AuthLoading: AuthLoadingScreen,
     App: AppTabNavigator,
     Auth: AuthStack,
-    NewUser: NewUserStack,
+    NewUserFornecedor: NewUserFornecedorStack,
+    NewUserCliente: NewUserClienteStack,
     EscolhePerfil: EscolhePerfilScreen,
   },
   {
