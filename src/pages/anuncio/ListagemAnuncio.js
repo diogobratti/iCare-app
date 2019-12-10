@@ -49,7 +49,7 @@ export default class ListagemAnuncio extends Component {
             search: '',
             mostraMenuFiltro: false,
             limit: CONSTANTES.LISTAGEM_ANUNCIO_QTD_ANUNCIOS_CARREGADOS_POR_VEZ_PADRAO,
-			filtroAvaliacao: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_AVALIACAO,
+            filtroAvaliacao: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_AVALIACAO,
             orderByValor: CONSTANTES.LISTAGEM_ANUNCIO_ORDERBY_PADRAO,
             filtroPreco: CONSTANTES.LISTAGEM_ANUNCIO_PRECO_MAXIMO,
             filtroProfissaoCuidador: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_CUIDADOR,
@@ -99,7 +99,7 @@ export default class ListagemAnuncio extends Component {
         if(!filtroProfissaoFisioterapeuta) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Fisioterapeuta");
         if(!filtroProfissaoNutricionista) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Nutricionista");
         */
-       //console.warn(JSON.stringify(this.props));
+        //console.warn(JSON.stringify(this.props));
         this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
         this.unsubscribe = this.unsubscribe.limit(this.state.limit);
         this.unsubscribe = this.unsubscribe.get(this.getOptions).then(this.onCollectionUpdate);
@@ -182,7 +182,7 @@ export default class ListagemAnuncio extends Component {
     };
 
     loadMore = () => {
-        console.warn(this.state.lastVisible);
+        //console.warn(this.state.lastVisible);
         this.unsubscribe = this.collection.
             orderBy(this.state.orderByValor, 'ASC').
             startAfter(this.state.lastVisible).
@@ -231,35 +231,36 @@ export default class ListagemAnuncio extends Component {
     };
 
     render() {
-        if(this.state.mostraMenuFiltro){
-            <View style={StyleAnuncio.FiltrarContainer}>
-                <View style={StyleAnuncio.scrollViewFiltrarContainer}>
-                    <ScrollView>
-                        <View style={StyleAnuncio.orderByContainer}>
-                            <View style={StyleAnuncio.orderByCabecalhoContainer}>
-                                <Text style={StyleAnuncio.orderByTexto}>
-                                    Ordenar por:
+        if (this.state.mostraMenuFiltro) {
+            return (
+                <View style={StyleAnuncio.FiltrarContainer}>
+                    <View style={StyleAnuncio.scrollViewFiltrarContainer}>
+                        <ScrollView>
+                            <View style={StyleAnuncio.orderByContainer}>
+                                <View style={StyleAnuncio.orderByCabecalhoContainer}>
+                                    <Text style={StyleAnuncio.orderByTexto}>
+                                        Ordenar por:
                             </Text>
-                            </View>
-                            <View style={StyleAnuncio.orderByItemContainer}>
-                                <CheckBox
-                                    title='Localidade'
-                                    checkedIcon='dot-circle-o'
-                                    uncheckedIcon='circle-o'
-                                    checked={this.state.orderByValor === 'localidade'}
-                                    onPress={() => this.setState({ orderByValor: 'localidade' })}
-                                />
-                            </View>
-                            <View style={StyleAnuncio.orderByItemContainer}>
-                                <CheckBox
-                                    title='Preço'
-                                    checkedIcon='dot-circle-o'
-                                    uncheckedIcon='circle-o'
-                                    checked={this.state.orderByValor === 'preco'}
-                                    onPress={() => this.setState({ orderByValor: 'preco' })}
-                                />
-                            </View>
-                            {/* 
+                                </View>
+                                <View style={StyleAnuncio.orderByItemContainer}>
+                                    <CheckBox
+                                        title='Localidade'
+                                        checkedIcon='dot-circle-o'
+                                        uncheckedIcon='circle-o'
+                                        checked={this.state.orderByValor === 'localidade'}
+                                        onPress={() => this.setState({ orderByValor: 'localidade' })}
+                                    />
+                                </View>
+                                <View style={StyleAnuncio.orderByItemContainer}>
+                                    <CheckBox
+                                        title='Preço'
+                                        checkedIcon='dot-circle-o'
+                                        uncheckedIcon='circle-o'
+                                        checked={this.state.orderByValor === 'preco'}
+                                        onPress={() => this.setState({ orderByValor: 'preco' })}
+                                    />
+                                </View>
+                                {/* 
                         <View style={StyleAnuncio.orderByItemContainer}>
                             <CheckBox
                                 title='Avaliação'
@@ -270,27 +271,27 @@ export default class ListagemAnuncio extends Component {
                             />
                                             </View>
                                             */}
-                        </View>
-                        <View style={StyleAnuncio.filtroContainer}>
-                            <View style={StyleAnuncio.filtroItemContainer}>
-                                <Text style={StyleAnuncio.filtroItemTexto}>
-                                    Preço
-                            </Text>
-                                <Text style={StyleAnuncio.filtroItemSliderTexto}>
-                                    Até R$ {this.state.filtroPreco},00
-                            </Text>
-                                <Slider
-                                    maximumValue={CONSTANTES.LISTAGEM_ANUNCIO_PRECO_MAXIMO}
-                                    minimumValue={0}
-                                    minimumTrackTintColor={definicoesBase.corBarraSlider}
-                                    maximumTrackTintColor={definicoesBase.corBarraSlider}
-                                    thumbTintColor={definicoesBase.corBotaoSlider}
-                                    step={1}
-                                    value={this.state.filtroPreco}
-                                    onValueChange={(filtroPreco) => this.setState({ filtroPreco })}
-                                />
                             </View>
-                            {/*
+                            <View style={StyleAnuncio.filtroContainer}>
+                                <View style={StyleAnuncio.filtroItemContainer}>
+                                    <Text style={StyleAnuncio.filtroItemTexto}>
+                                        Preço
+                            </Text>
+                                    <Text style={StyleAnuncio.filtroItemSliderTexto}>
+                                        Até R$ {this.state.filtroPreco},00
+                            </Text>
+                                    <Slider
+                                        maximumValue={CONSTANTES.LISTAGEM_ANUNCIO_PRECO_MAXIMO}
+                                        minimumValue={0}
+                                        minimumTrackTintColor={definicoesBase.corBarraSlider}
+                                        maximumTrackTintColor={definicoesBase.corBarraSlider}
+                                        thumbTintColor={definicoesBase.corBotaoSlider}
+                                        step={1}
+                                        value={this.state.filtroPreco}
+                                        onValueChange={(filtroPreco) => this.setState({ filtroPreco })}
+                                    />
+                                </View>
+                                {/*
                         <View style={StyleAnuncio.filtroItemContainer}>
                             <Text style={StyleAnuncio.filtroItemTexto}>
                                 Avaliação
@@ -310,54 +311,54 @@ export default class ListagemAnuncio extends Component {
                             />
                                             </View>
                                             */}
-                            <View style={StyleAnuncio.filtroItemContainer}>
-                                <Text style={StyleAnuncio.filtroItemTexto}>
-                                    Profissão
+                                <View style={StyleAnuncio.filtroItemContainer}>
+                                    <Text style={StyleAnuncio.filtroItemTexto}>
+                                        Profissão
                             </Text>
-                                <CheckBox
-                                    title='Cuidador'
-                                    checkedIcon='check-square-o'
-                                    uncheckedIcon='square-o'
-                                    checked={this.state.filtroProfissaoCuidador}
-                                    onPress={() => this.setState({ filtroProfissaoCuidador: !this.state.filtroProfissaoCuidador })}
-                                />
-                                <CheckBox
-                                    title='Técnico em enfermagem'
-                                    checkedIcon='check-square-o'
-                                    uncheckedIcon='square-o'
-                                    checked={this.state.filtroProfissaoTecnicoEnfermagem}
-                                    onPress={() => this.setState({ filtroProfissaoTecnicoEnfermagem: !this.state.filtroProfissaoTecnicoEnfermagem })}
-                                />
-                                <CheckBox
-                                    title='Enfermeiro'
-                                    checkedIcon='check-square-o'
-                                    uncheckedIcon='square-o'
-                                    checked={this.state.filtroProfissaoEnfermeiro}
-                                    onPress={() => this.setState({ filtroProfissaoEnfermeiro: !this.state.filtroProfissaoEnfermeiro })}
-                                />
-                                <CheckBox
-                                    title='Terapeuta Ocupacional'
-                                    checkedIcon='check-square-o'
-                                    uncheckedIcon='square-o'
-                                    checked={this.state.filtroProfissaoTerapeutaOcupacional}
-                                    onPress={() => this.setState({ filtroProfissaoTerapeutaOcupacional: !this.state.filtroProfissaoTerapeutaOcupacional })}
-                                />
-                                <CheckBox
-                                    title='Fisioterapeuta'
-                                    checkedIcon='check-square-o'
-                                    uncheckedIcon='square-o'
-                                    checked={this.state.filtroProfissaoFisioterapeuta}
-                                    onPress={() => this.setState({ filtroProfissaoFisioterapeuta: !this.state.filtroProfissaoFisioterapeuta })}
-                                />
-                                <CheckBox
-                                    title='Nutricionista'
-                                    checkedIcon='check-square-o'
-                                    uncheckedIcon='square-o'
-                                    checked={this.state.filtroProfissaoNutricionista}
-                                    onPress={() => this.setState({ filtroProfissaoNutricionista: !this.state.filtroProfissaoNutricionista })}
-                                />
-                            </View>
-                            {/* 
+                                    <CheckBox
+                                        title='Cuidador'
+                                        checkedIcon='check-square-o'
+                                        uncheckedIcon='square-o'
+                                        checked={this.state.filtroProfissaoCuidador}
+                                        onPress={() => this.setState({ filtroProfissaoCuidador: !this.state.filtroProfissaoCuidador })}
+                                    />
+                                    <CheckBox
+                                        title='Técnico em enfermagem'
+                                        checkedIcon='check-square-o'
+                                        uncheckedIcon='square-o'
+                                        checked={this.state.filtroProfissaoTecnicoEnfermagem}
+                                        onPress={() => this.setState({ filtroProfissaoTecnicoEnfermagem: !this.state.filtroProfissaoTecnicoEnfermagem })}
+                                    />
+                                    <CheckBox
+                                        title='Enfermeiro'
+                                        checkedIcon='check-square-o'
+                                        uncheckedIcon='square-o'
+                                        checked={this.state.filtroProfissaoEnfermeiro}
+                                        onPress={() => this.setState({ filtroProfissaoEnfermeiro: !this.state.filtroProfissaoEnfermeiro })}
+                                    />
+                                    <CheckBox
+                                        title='Terapeuta Ocupacional'
+                                        checkedIcon='check-square-o'
+                                        uncheckedIcon='square-o'
+                                        checked={this.state.filtroProfissaoTerapeutaOcupacional}
+                                        onPress={() => this.setState({ filtroProfissaoTerapeutaOcupacional: !this.state.filtroProfissaoTerapeutaOcupacional })}
+                                    />
+                                    <CheckBox
+                                        title='Fisioterapeuta'
+                                        checkedIcon='check-square-o'
+                                        uncheckedIcon='square-o'
+                                        checked={this.state.filtroProfissaoFisioterapeuta}
+                                        onPress={() => this.setState({ filtroProfissaoFisioterapeuta: !this.state.filtroProfissaoFisioterapeuta })}
+                                    />
+                                    <CheckBox
+                                        title='Nutricionista'
+                                        checkedIcon='check-square-o'
+                                        uncheckedIcon='square-o'
+                                        checked={this.state.filtroProfissaoNutricionista}
+                                        onPress={() => this.setState({ filtroProfissaoNutricionista: !this.state.filtroProfissaoNutricionista })}
+                                    />
+                                </View>
+                                {/* 
                         <View style={StyleAnuncio.filtroItemContainer}>
                             <Text style={StyleAnuncio.filtroItemTexto}>
                                 Localidade
@@ -374,25 +375,26 @@ export default class ListagemAnuncio extends Component {
                             </Text>
                                             </View>
                                             */}
-                        </View>
-                    </ScrollView>
-                </View>
-                <View style={StyleAnuncio.aplicarFiltroContainer}>
-                    <TouchableOpacity
-                        style={StyleAnuncio.aplicarFiltroButton}
-                        onPress={() => {
-                            this.setState({mostraMenuFiltro: false});
-                        }}
-                    >
-                        <Text style={StyleAnuncio.aplicarFiltroText}>
-                            Aplicar
+                            </View>
+                        </ScrollView>
+                    </View>
+                    <View style={StyleAnuncio.aplicarFiltroContainer}>
+                        <TouchableOpacity
+                            style={StyleAnuncio.aplicarFiltroButton}
+                            onPress={() => {
+                                this.setState({ mostraMenuFiltro: false });
+                                this.SearchFilterFunction(this.state.search)
+                            }}
+                        >
+                            <Text style={StyleAnuncio.aplicarFiltroText}>
+                                Aplicar
                         </Text>
-                    </TouchableOpacity>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            );
         }
         return (
-            <Provider store={store}>
                 <View style={StyleAnuncio.container}>
                     <View style={StyleAnuncio.pesquisaContainer}>
                         <View style={StyleAnuncio.pesquisaBarraContainer}>
@@ -414,7 +416,7 @@ export default class ListagemAnuncio extends Component {
                             <TouchableOpacity
                                 //style={styles.productButton} 
                                 onPress={() => {
-                                    this.setState({mostraMenuFiltro: true});
+                                    this.setState({ mostraMenuFiltro: true });
                                 }}
                             >
                                 <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
@@ -434,7 +436,6 @@ export default class ListagemAnuncio extends Component {
                         ListFooterComponent={this.renderFooter}
                     />
                 </View>
-            </Provider>
         )
     }
 }
