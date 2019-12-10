@@ -64,6 +64,7 @@
 		AB4DED6022CCE38500E89951 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB4DED5F22CCE38400E89951 /* SystemConfiguration.framework */; };
 		AB4DED6222CCE39200E89951 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = AB4DED6122CCE39200E89951 /* libz.tbd */; };
 		AB5CD54022C7A8CC00419CBE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AB5CD53F22C7A8CC00419CBE /* GoogleService-Info.plist */; };
+		AB939BF922D8C4F6006DD7DC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B20B2334AE8E41D39E9775DE /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3876FA8C291F4020A9E58EEB /* MaterialIcons.ttf */; };
 		BC5144FB21E447EDAD7DB5E9 /* Helvetica.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3981BE06F324FEF883CD1AB /* Helvetica.ttf */; };
@@ -941,7 +942,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 6YQGVSD3G5;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 6YQGVSD3G5;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1350,6 +1355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB939BF922D8C4F6006DD7DC /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1638,6 +1644,7 @@
 			baseConfigurationReference = 2284087B88EC8EE74FCF730B /* Pods-appTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 6YQGVSD3G5;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1669,6 +1676,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 6YQGVSD3G5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1697,6 +1705,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = 6YQGVSD3G5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1705,7 +1714,7 @@
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin",
 				);
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1714,6 +1723,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.icare.app.prototipo;
 				PRODUCT_NAME = app;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -1724,6 +1734,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6YQGVSD3G5;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-gesture-handler/ios/**",
@@ -1732,7 +1743,7 @@
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/RNGoogleSignin",
 				);
 				INFOPLIST_FILE = app/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1741,6 +1752,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.icare.app.prototipo;
 				PRODUCT_NAME = app;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
