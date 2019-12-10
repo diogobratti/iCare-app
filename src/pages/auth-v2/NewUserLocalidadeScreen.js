@@ -9,7 +9,7 @@ import * as CONSTANTES from '../../data/Constantes';
 import DataLocalidade from '../../data/DataLocalidade.json';
 import SelectEstados from '../componentes/SelectEstados';
 import SelectCidades from '../componentes/SelectCidades';
-import reactotron from "reactotron-react-native";
+//import reactotron from "reactotron-react-native";
 
 export default class NewUserLocalidadeScreen extends Component {
 
@@ -45,7 +45,7 @@ export default class NewUserLocalidadeScreen extends Component {
   }
 
   renderValueChangeEstado = (value) => {
-    reactotron.log(value);
+//    reactotron.log(value);
     this.setState({
       selectedValueEstado: value,
       estado: value.nome,
@@ -53,7 +53,7 @@ export default class NewUserLocalidadeScreen extends Component {
   }
 
   renderValueChangeCidade = (value) => {
-    reactotron.log(value);
+//    reactotron.log(value);
 
     this.setState({
       selectedValueCidade: value,
@@ -65,6 +65,8 @@ export default class NewUserLocalidadeScreen extends Component {
   guardarLocalidade = async () => {
 
     let { estado, municipio, regiao } = this.state;
+
+//    reactotron.log({estado, municipio, regiao})
 
     if (__DEV__) {
       estado = "Acre"
@@ -97,8 +99,8 @@ export default class NewUserLocalidadeScreen extends Component {
               <SelectEstados
                 selectedValue={selectedValueEstado}
                 data={uf}
-                // style={StyleLocalidade.itemCamposPicker}
-                // itemStyle={StyleLocalidade.itemCamposPickerItem}
+                style={StyleLocalidade.itemCamposPicker}
+                itemStyle={StyleLocalidade.itemCamposPickerItem}
                 onValueChange={this.renderValueChangeEstado} />
             </View>
             <View style={StyleLocalidade.itemCamposEspacoContainer}>
@@ -110,8 +112,8 @@ export default class NewUserLocalidadeScreen extends Component {
 							</Text>
               <SelectCidades selectedValue={selectedValueCidade}
                 data={selectedValueEstado}
-                // style={StyleLocalidade.itemCamposPicker}
-                // itemStyle={StyleLocalidade.itemCamposPickerItem}
+                style={StyleLocalidade.itemCamposPicker}
+                itemStyle={StyleLocalidade.itemCamposPickerItem}
                 onValueChange={this.renderValueChangeCidade} />
             </View>
           </View>
