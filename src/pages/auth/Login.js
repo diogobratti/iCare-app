@@ -5,13 +5,38 @@ import firebase from 'react-native-firebase';
 import Button from './components/Button';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
-// import {
-//   GoogleSignin,
+import {
+   GoogleSignin
+//,
 //   GoogleSigninButton,
 //   statusCodes,
-// } from 'react-native-google-signin';
+ } from 'react-native-google-signin';
 
 var FBLoginButton = require('./components/FBLoginButton');
+
+
+// Calling this function will open Google for login.
+export async function googleLogin() {
+  try {
+    // add any configuration settings here:
+    await GoogleSignin.configure({
+        scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+        webClientId:'350947662004-ev0rn57273o1cqrpjvga3feh8h0t6fbg.apps.googleusercontent.com',
+    });
+
+    const data = await GoogleSignin.signIn();
+
+    // create a new firebase credential with the token
+    const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken)
+    // login with credential
+    const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
+
+    console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 
 export default class Login extends React.Component {
   state = {
@@ -111,6 +136,8 @@ export default class Login extends React.Component {
 
   handleSocialLoginGoogle() {
     console.log('handleSocialLoginGoogle');
+
+    googleLogin();
 
     // GoogleSignin.configure();
 
