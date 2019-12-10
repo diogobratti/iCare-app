@@ -11,7 +11,10 @@ import StyleAnuncio, {
 } from "../../styles/StyleAnuncio";
 
 export default class VisualizarAnuncio extends React.Component {
-    static navigationOptions = navigationOptions;
+    static navigationOptions = {
+        ...navigationOptions,
+        headerLeft: <View />,
+    };
 
     constructor() {
         super();

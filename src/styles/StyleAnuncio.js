@@ -267,8 +267,9 @@ const StyleAnuncio = StyleSheet.create({
         lineHeight: definicoesBase.alturaLinhaTextoComum,
     },
     visualizarAnuncioImagemUsuario: {
-        width: 90, 
-        height: 120
+        width: 120, 
+        height: 120,
+        borderRadius: 100, //deixa a borda redonda
     },
     visualizarAnuncioBotaoContainer:{
         flex: 1,
