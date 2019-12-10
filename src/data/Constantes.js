@@ -68,6 +68,7 @@ export const ASYNC_ITEM_USUARIO_REGIAO = 'microrregiao';
 export const ASYNC_ITEM_AUTH_PROVIDER_TOKEN = 'userAuthProviderToken';
 export const ASYNC_ITEM_AUTH_PROVIDER_NAME = 'userAuthProviderName';
 export const ASYNC_ITEM_TERMO_SERVICO = 'versaoTermosServico';
+export const ASYNC_ITEM_TIMESTAMP = 'timestamp';
 
 export const ASYNC_GRUPO_ITENS_ANUNCIO_COMPLETO = [
   ASYNC_ITEM_USUARIO_FOTO,

@@ -8,7 +8,9 @@ const mensagemPadrao =  encodeURIComponent('Olá, tudo bem? Vi seu anúncio no a
 
 const MensagemTelefone = (data) => {
   firestore().collection('transacoes').add({
-    UID: data.UID,
+    destino_user_uid: data.user_uid,
+    destino_uid: data.uid,
+    origem_uid: currentUser.uid,
     telefone: data.telefone,
     timestamp: Date.now(),
     horario: `${new Date()}`,

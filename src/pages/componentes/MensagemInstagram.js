@@ -7,7 +7,9 @@ import firestore from '@react-native-firebase/firestore';
 
 const MensagemInstagram = (data) => {
   firestore().collection('transacoes').add({
-    UID: data.UID,
+    destino_user_uid: data.user_uid,
+    destino_uid: data.uid,
+    origem_uid: currentUser.uid,
     instagram: data.telefone,
     timestamp: Date.now(),
     horario: `${new Date()}`,

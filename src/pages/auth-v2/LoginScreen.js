@@ -203,6 +203,7 @@ export default class Login extends Component {
 
     // const timestamp = new Date();
     let termoservico = `${new Date()}`;
+    let timestamp = new Date();
 
     const perfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
 
@@ -217,6 +218,7 @@ export default class Login extends Component {
           email: email,
           foto: foto,
           versaoTermosServico: termoservico,
+          timestamp: timestamp,
           perfil: perfil
         })
         .then(newData => {
@@ -245,7 +247,8 @@ export default class Login extends Component {
       [CONSTANTES.ASYNC_ITEM_USUARIO_FOTO, foto],
       [CONSTANTES.ASYNC_ITEM_AUTH_PROVIDER_TOKEN, JSON.stringify(token)],
       [CONSTANTES.ASYNC_ITEM_AUTH_PROVIDER_NAME, JSON.stringify(providerName)],
-      [CONSTANTES.ASYNC_ITEM_TERMO_SERVICO, termoservico]
+      [CONSTANTES.ASYNC_ITEM_TERMO_SERVICO, termoservico],
+      [CONSTANTES.ASYNC_ITEM_TIMESTAMP, timestamp]
     ])
 
     // this.setState({ isProcessing: false });
