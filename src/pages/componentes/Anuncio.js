@@ -7,8 +7,10 @@ import MensagemEmail from "../componentes/MensagemEmail";
 import MensagemInstagram from "../componentes/MensagemInstagram";
 import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 // import reactotron from "reactotron-react-native";
-import { ROUTES_NEW_USER_NOME, ROUTES_NEW_USER_PROFISSAO, ROUTES_NEW_USER_ANUNCIO, ROUTES_NEW_USER_TELEFONE, ROUTES_NEW_USER_REDES_SOCIAIS, ROUTES_NEW_USER_LOCALIDADE, ROUTES_NEW_USER_FOTO,
-          ASYNC_ITEM_PERFIL, ASYNC_USER_PERFIL_CLIENTE, ASYNC_USER_PERFIL_FORNECEDOR } from "../../data/Constantes";
+import {
+  ROUTES_NEW_USER_NOME, ROUTES_NEW_USER_PROFISSAO, ROUTES_NEW_USER_ANUNCIO, ROUTES_NEW_USER_TELEFONE, ROUTES_NEW_USER_REDES_SOCIAIS, ROUTES_NEW_USER_LOCALIDADE, ROUTES_NEW_USER_FOTO,
+  ASYNC_ITEM_PERFIL, ASYNC_USER_PERFIL_CLIENTE, ASYNC_USER_PERFIL_FORNECEDOR
+} from "../../data/Constantes";
 import { withNavigation } from 'react-navigation';
 import { definicoesBase } from "../../styles/StyleBase";
 import AsyncStorage from '@react-native-community/async-storage';
@@ -468,6 +470,22 @@ class Anuncio extends Component {
             </TouchableOpacity>
           </View>
         }
+        {(anuncio.preco != '' && anuncio.preco != undefined && anuncio.preco != null) ? (
+          <View>
+            <View style={StyleAnuncio.visualizarAnuncioLinha}>
+              <Text style={StyleAnuncio.visualizarAnuncioAtributoText}>
+                Avaliações
+            </Text>
+            </View>
+            <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
+              <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+                  xyz
+                </Text>
+              </View>
+            </View>
+          </View>
+        ) : null}
       </ScrollView>
     )
   }
