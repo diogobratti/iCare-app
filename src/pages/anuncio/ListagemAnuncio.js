@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import firebase from 'react-native-firebase';
 
-import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, Platform, Image, ScrollView, } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, Platform, Image, ScrollView, BackHandler } from "react-native";
 import { SearchBar, Slider, CheckBox } from 'react-native-elements';
 
 import Anuncio from "./Anuncio";
@@ -33,6 +33,15 @@ export default class ListagemAnuncio extends Component {
 
     constructor(props) {
         super(props);
+        this.handleBackButtonClick = (() => {
+        //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+        //     this.navigator.pop();
+            return true; //avoid closing the app
+        //   }
+        //   return false; //close the app
+        }).bind(this) //don't forget bind this, you will remember anyway.
+        
+
         this.getOptions = {
             source: 'default',//'cache',
         }
@@ -68,6 +77,7 @@ export default class ListagemAnuncio extends Component {
     }
 
     async componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
         const estado = await AsyncStorage.getItem('estado');
         const municipio = await AsyncStorage.getItem('municipio');
         const microrregiao = await AsyncStorage.getItem('microrregiao');
@@ -111,7 +121,9 @@ export default class ListagemAnuncio extends Component {
 
     componentWillUnmount() {
         this.unsubscribe();
+        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
+
     onCollectionUpdate = (querySnapshot) => {
         var ultimo_item_pelo_orderBy = null;
         var ultimo_item_pelo_user_uid = null;
@@ -242,7 +254,9 @@ export default class ListagemAnuncio extends Component {
                     <ActivityIndicator />
                 )
             }
-            else {
+            else if(this.state.anuncios === []){
+                return ( <View><Text>Sem anúncios nesta região. Cadastre o seu clicando em "Anuncie aqui".</Text></View> )
+            } else {
                 return null;
             }
         }

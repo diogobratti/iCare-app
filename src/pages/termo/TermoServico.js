@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Picker } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Picker, BackHandler } from "react-native";
 
 import { navigationOptions, definicoesBase, Cabecalho } from "../../styles/StyleBase";
 import StyleTermo from "../../styles/StyleTermo";
@@ -12,8 +12,19 @@ export default class TermoServico extends Component {
 	static navigationOptions = navigationOptions;
 
 	state = { erro: null, isLoading: true }
+  constructor(props) {
+    super(props);
+    this.handleBackButtonClick = (() => {
+    //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+    //     this.navigator.pop();
+        return true; //avoid closing the app
+    //   }
+    //   return false; //close the app
+    }).bind(this) //don't forget bind this, you will remember anyway.
+  }
 
 	async componentDidMount() {
+		BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
 		//await AsyncStorage.clear();
 		const termoservico = await AsyncStorage.getItem('termoservico');
 		const estado = await AsyncStorage.getItem('estado');
@@ -30,6 +41,9 @@ export default class TermoServico extends Component {
 			isLoading: false,
 		});
 	}
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
 	guardarTermo = async () => {
 		const timestamp = new Date();
 
