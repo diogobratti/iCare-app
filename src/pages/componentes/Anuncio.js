@@ -32,8 +32,8 @@ class Anuncio extends Component {
                 _SCREEN: 'Anuncio',
                 _CLASS: 'Anuncio',
                 _BUTTON: 'Editar_Foto',
-                _ANUNCIO: anuncio.id,
-                
+                //_ANUNCIO: anuncio.id,
+
               });
               if (editavel)
                 this.props.navigation.navigate(ROUTES_NEW_USER_FOTO)
@@ -56,8 +56,8 @@ class Anuncio extends Component {
                     _SCREEN: 'Anuncio',
                     _CLASS: 'Anuncio',
                     _BUTTON: 'Editar_Nome',
-                    _ANUNCIO: anuncio.id,
-                    
+                    //_ANUNCIO: anuncio.id,
+
                   });
                   if (editavel)
                     this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
@@ -73,8 +73,8 @@ class Anuncio extends Component {
                       _SCREEN: 'Anuncio',
                       _CLASS: 'Anuncio',
                       _BUTTON: 'Editar_Nome',
-                      _ANUNCIO: anuncio.id,
-                      
+                      //_ANUNCIO: anuncio.id,
+
                     });
                     this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
                   }}>
@@ -103,8 +103,8 @@ class Anuncio extends Component {
                     _SCREEN: 'Anuncio',
                     _CLASS: 'Anuncio',
                     _BUTTON: 'Mandar_Email',
-                    _ANUNCIO: anuncio.id,
-                    
+                    //_ANUNCIO: anuncio.id,
+
                   });
                   MensagemEmail(anuncio);
                 }}
@@ -138,8 +138,8 @@ class Anuncio extends Component {
                     _SCREEN: 'Anuncio',
                     _CLASS: 'Anuncio',
                     _BUTTON: 'Mandar_WhatsApp',
-                    _ANUNCIO: anuncio.id,
-                    
+                    //_ANUNCIO: anuncio.id,
+
                   });
                   MensagemTelefone(anuncio);
                 }}
@@ -169,8 +169,8 @@ class Anuncio extends Component {
                     _SCREEN: 'Anuncio',
                     _CLASS: 'Anuncio',
                     _BUTTON: 'Mandar_Instagram',
-                    _ANUNCIO: anuncio.id,
-                    
+                    //_ANUNCIO: anuncio.id,
+
                   });
                   MensagemInstagram(anuncio);
                 }}
@@ -198,8 +198,8 @@ class Anuncio extends Component {
                     _SCREEN: 'Anuncio',
                     _CLASS: 'Anuncio',
                     _BUTTON: 'Editar_Localidade',
-                    _ANUNCIO: anuncio.id,
-                    
+                    //_ANUNCIO: anuncio.id,
+
                   });
                   if (editavel)
                     this.props.navigation.navigate(ROUTES_NEW_USER_LOCALIDADE)
@@ -215,8 +215,8 @@ class Anuncio extends Component {
                       _SCREEN: 'Anuncio',
                       _CLASS: 'Anuncio',
                       _BUTTON: 'Editar_Localidade',
-                      _ANUNCIO: anuncio.id,
-                      
+                      //_ANUNCIO: anuncio.id,
+
                     });
                     this.props.navigation.navigate(ROUTES_NEW_USER_LOCALIDADE)
                   }}>
@@ -246,8 +246,8 @@ class Anuncio extends Component {
                     _SCREEN: 'Anuncio',
                     _CLASS: 'Anuncio',
                     _BUTTON: 'Editar_Telefone',
-                    _ANUNCIO: anuncio.id,
-                    
+                    //_ANUNCIO: anuncio.id,
+
                   });
                   if (editavel)
                     this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
@@ -263,8 +263,8 @@ class Anuncio extends Component {
                       _SCREEN: 'Anuncio',
                       _CLASS: 'Anuncio',
                       _BUTTON: 'Editar_Telefone',
-                      _ANUNCIO: anuncio.id,
-                      
+                      //_ANUNCIO: anuncio.id,
+
                     });
                     this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
                   }}>
@@ -285,8 +285,8 @@ class Anuncio extends Component {
                       _SCREEN: 'Anuncio',
                       _CLASS: 'Anuncio',
                       _BUTTON: 'Editar_Profissao',
-                      _ANUNCIO: anuncio.id,
-                      
+                      //_ANUNCIO: anuncio.id,
+
                     });
                     if (editavel)
                       this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
@@ -302,8 +302,8 @@ class Anuncio extends Component {
                         _SCREEN: 'Anuncio',
                         _CLASS: 'Anuncio',
                         _BUTTON: 'Editar_Profissao',
-                        _ANUNCIO: anuncio.id,
-                        
+                        //_ANUNCIO: anuncio.id,
+
                       });
                       this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
                     }}>
@@ -359,8 +359,8 @@ class Anuncio extends Component {
                       _SCREEN: 'Anuncio',
                       _CLASS: 'Anuncio',
                       _BUTTON: 'Editar_Preco',
-                      _ANUNCIO: anuncio.id,
-                      
+                      //_ANUNCIO: anuncio.id,
+
                     });
                     if (editavel)
                       this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
@@ -376,8 +376,8 @@ class Anuncio extends Component {
                         _SCREEN: 'Anuncio',
                         _CLASS: 'Anuncio',
                         _BUTTON: 'Editar_Preco',
-                        _ANUNCIO: anuncio.id,
-                        
+                        //_ANUNCIO: anuncio.id,
+
                       });
                       this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
                     }}>
@@ -406,8 +406,8 @@ class Anuncio extends Component {
                       _SCREEN: 'Anuncio',
                       _CLASS: 'Anuncio',
                       _BUTTON: 'Editar_Descricao',
-                      _ANUNCIO: anuncio.id,
-                      
+                      //_ANUNCIO: anuncio.id,
+
                     });
                     if (editavel)
                       this.props.navigation.navigate(ROUTES_NEW_USER_ANUNCIO)
@@ -423,8 +423,8 @@ class Anuncio extends Component {
                         _SCREEN: 'Anuncio',
                         _CLASS: 'Anuncio',
                         _BUTTON: 'Editar_Descricao',
-                        _ANUNCIO: anuncio.id,
-                        
+                        //_ANUNCIO: anuncio.id,
+
                       });
                       this.props.navigation.navigate(ROUTES_NEW_USER_ANUNCIO)
                     }}>
