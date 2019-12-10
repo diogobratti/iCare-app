@@ -2,7 +2,7 @@ import React from 'react';
 import {Input, Icon} from 'react-native-elements';
 
 const InputNome = (props) => {
-  const { onChangeText, children } = props;
+  const { onChangeText, value, children } = props;
 
   return (
     <Input
@@ -11,6 +11,7 @@ const InputNome = (props) => {
       leftIcon={<Icon name="user" type="antdesign" size={24} color="#007aff" />}
       errorMessage="Digite o nome completo"
       onChangeText={onChangeText}
+      value={value}
     />
   );
 };

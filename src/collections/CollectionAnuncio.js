@@ -19,6 +19,7 @@ const CollectionAnuncio = {
 	"observacoes":"",
 	"avaliacao":"",
 	"termo_acordo":"",
+	"provider_id":"",
 };
 
 export default CollectionAnuncio;

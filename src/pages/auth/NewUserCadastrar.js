@@ -20,10 +20,12 @@ export default class NewUserCadastrar extends Component {
     console.log(this.state.user.uid);
     console.log(this.state.user.photoURL);
 
+    //TODO: atualizar ao invés de adicionar... utilizar DocumentRef
+
     let api = new ApiDb('anuncios');
     api.add({
-      id: this.state.user.uid,
-      uid: this.state.user.uid,
+      id: this.state.user.id,
+      user_uid: this.state.user.uid,
       nome: this.state.nome,
       cpf: this.state.cpf,
       email: this.state.email,
@@ -33,23 +35,12 @@ export default class NewUserCadastrar extends Component {
       anuncio: this.state.anuncio,
       preco: this.state.preco,
       profissao: this.state.profissao,
-      foto: this.state.user.photoURL,
+      foto: this.state.anuncioOriginal.foto,
       versaoTermosServico: this.state.versaoTermosServico
     });
 
     this.props.navigation.navigate('App');
   }
-
-  // constructor(props) {
-  //   super(props);
-  //   this._bootstrapAsync();
-  // }
-
-  // // Fetch the token from storage then navigate to our appropriate place
-  // _bootstrapAsync = async () => {
-  //   // const userToken = await AsyncStorage.getItem('userToken');
-  //   // const currentUser = firebase.auth().currentUser;
-  // };
 
   render() {
     return (
