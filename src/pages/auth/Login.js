@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator, BackHandler } from "react-native";
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, BackHandler, Alert } from "react-native";
 import {
   SocialIcon,
   ThemeProvider,
@@ -68,6 +68,8 @@ export default class Login extends Component {
   handleSocialLoginFacebook = async () => {
     // console.log("handleSocialLoginFacebook");
 
+    this.setState({ isProcessing: true });
+
     try {
       // console.log("entrou");
       const result = await LoginManager.logInWithPermissions([
@@ -79,6 +81,9 @@ export default class Login extends Component {
 
       if (result.isCancelled) {
         // handle this however suites the flow of your app
+        this.setState({ isProcessing: false });
+        this._alertErro("Autorização Cancelada");
+        // this.props.navigation.push("Loading");
         throw new Error("User cancelled request");
       }
 
@@ -91,6 +96,9 @@ export default class Login extends Component {
 
       if (!data) {
         // handle this however suites the flow of your app
+        this.setState({ isProcessing: false });
+        this._alertErro("Erro acessando os dados do token do usuário");
+        // this.props.navigation.push("Loading");
         throw new Error(
           "Something went wrong obtaining the users access token"
         );
@@ -122,8 +130,13 @@ export default class Login extends Component {
         foto
       );
     } catch (e) {
-      console.error(e);
+      this.setState({ isProcessing: false });
+      // this._alertErro("Erro Interno:" + e);
+      // this.props.navigation.push("Loading");
+      // console.error(e);
     }
+    this.setState({ isProcessing: false });
+
   };
 
   handleSocialLoginGoogle = async () => {
@@ -138,7 +151,7 @@ export default class Login extends Component {
       });
 
       // add any configuration settings here:
-      await GoogleSignin.configure({
+      GoogleSignin.configure({
         scopes: [
           "https://www.googleapis.com/auth/userinfo.profile",
           "https://www.googleapis.com/auth/userinfo.email"
@@ -179,19 +192,32 @@ export default class Login extends Component {
         foto
       );
     } catch (error) {
+      this.setState({ isProcessing: false });
+
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
-        this.props.navigation.push("Loading");
+        this._alertErro("Autorização Cancelada");
+        // this.props.navigation.push("Loading");
+
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (f.e. sign in) is in progress already
+        this._alertErro("Já existe uma solicitação de autenticação em andamento");
+        // this.props.navigation.push("Loading");
+
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        this.props.navigation.push("Loading");
+        this._alertErro("Google Play Services não instalado ou desatualizado. Não é possível efetuar login com o Google sem o Play Services instalado.");
+        // this.props.navigation.push("Loading");
         // play services not available or outdated
+
       } else {
         // some other error happened
+        this._alertErro("Erro Interno: " + error)
+
         console.error(error);
       }
     }
+    this.setState({ isProcessing: false });
+
   };
 
   /**
@@ -261,6 +287,23 @@ export default class Login extends Component {
     }
 
     return message;
+  }
+
+  _alertErro(errorMsg) {
+    Alert.alert(
+      'Erro',
+      errorMsg,
+      [
+        //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+        // {
+        //   text: 'Cancel',
+        //   onPress: () => console.log('Cancel Pressed'),
+        //   style: 'cancel',
+        // },
+        {text: 'OK', onPress: () => {}},
+      ],
+      {cancelable: false},
+      );
   }
 
   render() {

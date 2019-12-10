@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ActivityIndicator, StyleSheet, BackHandler } from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet, BackHandler, Alert } from "react-native";
 import { navigationOptions } from "../../styles/StyleBase";
 import { withNavigationFocus } from 'react-navigation';
 
@@ -45,7 +45,7 @@ class Loading extends Component {
 
     if (currentUser == null) {
       console.log("usuario nao logado, chamando Login");
-      this.props.navigation.navigate("Login");
+      this.props.navigation.push("Login");
     } else {
       console.log("usuario logado");
       console.log("id usuario:" + currentUser.uid);
@@ -98,7 +98,7 @@ class Loading extends Component {
 
         console.log(firebase.auth().currentUser);
 
-        this.props.navigation.navigate(
+        this.props.navigation.push(
           this.cadastroCompleto ? "PerfilAnuncio" : "NewUserNome",
           {
             anuncio: this.anuncio
