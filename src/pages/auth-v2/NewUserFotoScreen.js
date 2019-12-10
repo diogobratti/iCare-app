@@ -13,10 +13,7 @@ import {
   Alert
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import firestore from '@react-native-firebase/firestore';
 import uuid from 'uuid/v4'; // Import UUID to generate UUID
-import ImagePickerFoto from "../componentes/ImagePickerFoto";
-import Button from "./components/Button";
 import { navigationOptions, definicoesBase } from "../../styles/StyleBase";
 import * as CONSTANTES from '../../data/Constantes';
 import LocalStorage from "../../services/LocalStorage";
@@ -95,10 +92,12 @@ export default class NewUserFoto extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.containerImagem}>
-          <Image
-            style={styles.image}
-            source={{ uri: this.state.source64 }}
-          />
+          {this.state.imgSource64 !== "" &&
+            <Image
+              style={styles.image}
+              source={{ uri: this.state.imgSource64 }}
+            />
+          }
         </View>
         <View
           style={styles.btn}>
