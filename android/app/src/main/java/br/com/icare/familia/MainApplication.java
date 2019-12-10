@@ -1,4 +1,4 @@
- package com.app;
+ package br.com.icare.familia;
 
 import android.app.Application;
 import android.util.Log;

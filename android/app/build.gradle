@@ -126,7 +126,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.app"
+        applicationId "br.com.icare.familia"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -199,6 +199,7 @@ dependencies {
     // implementation 'com.google.firebase:firebase-core:17.0.0' //site firebase
     implementation "com.google.android.gms:play-services-base:16.1.0" //site rnfirebase.io
     implementation "com.google.firebase:firebase-core:16.0.9"// site rnfirebase.io
+    //implementation 'com.google.firebase:firebase-core:17.0.0'// site https://console.firebase.google.com/u/3/project/icare-10b26/settings/general/android:com.app
     // Firebase Auth
     implementation "com.google.firebase:firebase-auth:17.0.0" // site rnfirebase.io
     // Firebase Firestore
