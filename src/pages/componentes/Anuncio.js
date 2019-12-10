@@ -576,7 +576,7 @@ class Anuncio extends Component {
             </Text>
             </View>
             {this.state.avaliacao.map((avaliacao, index) =>
-              <View style={StyleAnuncio.visualizarAnuncioTextosContainer} key={index}>
+              <View style={StyleAnuncio.visualizarAvaliacoesTextosContainer} key={index}>
                 <View style={StyleAnuncio.visualizarAnuncioLinha}>
                   <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                     {avaliacao.descricao}
