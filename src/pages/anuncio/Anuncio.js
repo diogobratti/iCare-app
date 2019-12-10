@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, Linking } from "react-native";
 //import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Icon } from 'react-native-elements';
-import MensagemTelefone from '../../data/MensagemTelefone';
+import MensagemTelefone from '../componentes/MensagemTelefone';
 
 
 import StyleAnuncio, { 
@@ -45,7 +45,7 @@ export default class Anuncio extends React.PureComponent {
               <TouchableOpacity 
                   //style={styles.productButton} 
                   onPress={() => {
-                      Linking.openURL('whatsapp://send?text=' + MensagemTelefone + '&phone=+55' + this.props.telefone);
+                    MensagemTelefone(this.props.telefone);
                   }}
               >
                   <Text style={StyleAnuncio.anuncioNome}>{this.truncaNome(this.props.nome)}</Text>

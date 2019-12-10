@@ -11,7 +11,6 @@
 		    anuncioIconeAvaliacao,
 		} from "../../styles/StyleAnuncio";
 
-
 	export default class ListagemAnuncioFiltro extends Component {
 			static navigationOptions = navigationOptions;
 
