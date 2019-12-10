@@ -313,29 +313,10 @@ class Anuncio extends Component {
                     //_ANUNCIO: anuncio.id,
 
                   });
-                  if (editavel)
-                    this.props.navigation.navigate(ROUTES_NEW_USER_LOCALIDADE)
                 }}>
                 {anuncio.cidade}
               </Text>
             </View>
-            {editavel &&
-              <View style={StyleAnuncio.visualizarAnuncioLinha}>
-                <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
-                  onPress={() => {
-                    analytics().logEvent('button_press', {
-                      _SCREEN: 'Anuncio',
-                      _CLASS: 'Anuncio',
-                      _BUTTON: 'Editar_Localidade',
-                      //_ANUNCIO: anuncio.id,
-
-                    });
-                    this.props.navigation.navigate(ROUTES_NEW_USER_LOCALIDADE)
-                  }}>
-                  {">"}
-                </Text>
-              </View>
-            }
           </View>
           <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
