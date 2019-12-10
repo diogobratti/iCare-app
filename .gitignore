@@ -70,3 +70,8 @@ buck-out/
 #
 # Add this line if you want to avoid checking in source code from Carthage dependencies.
 # Carthage/Checkouts
+android/.project
+android/.settings/org.eclipse.buildship.core.prefs
+android/app/.classpath
+android/app/.settings/org.eclipse.buildship.core.prefs
+android/app/.project

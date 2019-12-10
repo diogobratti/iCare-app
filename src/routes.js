@@ -29,7 +29,7 @@ const MenuPerfil = createStackNavigator({
     Perfil,
 });
 
-const MenuTeste = createSwitchNavigator({
+const MenuTeste = createStackNavigator({
     Loading,
     SignUp,
     Login,
