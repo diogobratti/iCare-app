@@ -75,7 +75,7 @@ export default class ListagemAnuncio extends Component {
             filtroAvaliacao: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_AVALIACAO,
             orderByValor: CONSTANTES.LISTAGEM_ANUNCIO_ORDERBY_PADRAO,
             filtroPreco: CONSTANTES.LISTAGEM_ANUNCIO_PRECO_MAXIMO,
-            filtroPerfil: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_FORNECEDOR, // LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE
+            filtroPerfilCliente: false,
             filtroProfissaoCuidador: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_CUIDADOR,
             filtroProfissaoTecnicoEnfermagem: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_TECNICO_ENFERMAGEM,
             filtroProfissaoEnfermeiro: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_ENFERMEIRO,
@@ -113,7 +113,13 @@ export default class ListagemAnuncio extends Component {
             municipio: municipio,
             microrregiao: microrregiao,
             perfil: perfil,
-            filtroPerfil: (perfil == CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR ? CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_FORNECEDOR : CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE),
+            filtroPerfilCliente: (perfil == CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
+            filtroProfissaoCuidador: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
+            filtroProfissaoTecnicoEnfermagem: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
+            filtroProfissaoEnfermeiro: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
+            filtroProfissaoTerapeutaOcupacional: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
+            filtroProfissaoFisioterapeuta: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
+            filtroProfissaoNutricionista: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
             primeiroAnuncio: {
                 id: 0,
                 doc: null,
@@ -219,7 +225,7 @@ export default class ListagemAnuncio extends Component {
             filtroProfissaoNutricionista,
             filtroProfissaoTecnicoEnfermagem,
             filtroProfissaoTerapeutaOcupacional,
-            filtroPerfil } = this.state;
+            filtroPerfilCliente } = this.state;
         //passing the inserted text in textinput
         const newData = this.arrayholder.filter(function (item) {
             //applying filter for the inserted text in search bar
@@ -232,7 +238,7 @@ export default class ListagemAnuncio extends Component {
             //const itemDataCidade = item.cidade ? item.cidade.toUpperCase() : ''.toUpperCase();
             //const itemDataMicroregiao = item.microrregiao ? item.microrregiao.toUpperCase() : ''.toUpperCase();
             if (itemDataPreco > filtroPreco) return false;
-            if (filtroPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE && itemDataPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE.toUpperCase()) return false;
+            if (!filtroPerfilCliente && itemDataPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE.toUpperCase()) return false;
             if (!filtroProfissaoCuidador && (itemDataProfissao == "Cuidador".toUpperCase() || itemDataProfissao == "Cuidadora".toUpperCase())) return false;
             if (!filtroProfissaoTecnicoEnfermagem && (itemDataProfissao == "Técnico em Enfermagem".toUpperCase() || itemDataProfissao == "Técnica em Enfermagem".toUpperCase())) return false;
             if (!filtroProfissaoEnfermeiro && (itemDataProfissao == "Enfermeiro".toUpperCase() || itemDataProfissao == "Enfermeira".toUpperCase())) return false;
@@ -438,8 +444,8 @@ export default class ListagemAnuncio extends Component {
                                         title='Cliente'
                                         checkedIcon='check-square-o'
                                         uncheckedIcon='square-o'
-                                        checked={this.state.filtroPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE}
-                                        onPress={() => this.setState({ filtroPerfil: (this.state.filtroPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE ? CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_FORNECEDOR : CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE) })}
+                                        checked={this.state.filtroPerfilCliente }
+                                        onPress={() => this.setState({ filtroPerfilCliente: !this.state.filtroPerfilCliente })}
                                     />
                                 </View>
                                 <View style={StyleAnuncio.filtroItemContainer}>
