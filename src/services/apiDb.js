@@ -19,6 +19,11 @@ export default class apiDb extends React.Component {
             
     }
 
+    onSnapshot(action) {
+        this.ref.onSnapshot(action);
+            
+    }
+
 
 
 

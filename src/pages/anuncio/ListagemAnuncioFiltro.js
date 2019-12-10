@@ -1,3 +1,6 @@
+//ordernar menor distancia, melhor avaliacao e preco. 
+//filtrar por profissao preco e avaliacao
+
 import React, { Component } from "react";
 import api from "../../services/api";
 
@@ -51,7 +54,7 @@ export default class ListagemAnuncioFiltro extends Component {
                         this.props.navigation.navigate("Chat");
                     }}
                 >
-                    <Text style={StyleAnuncio.anuncioNome}>Qdo trazer do banco truncar</Text>
+                    <Text style={StyleAnuncio.anuncioNome}></Text>
                     <View style={StyleAnuncio.anuncioColunaDireitaLinha}>
                         <Ionicons name="ios-star" size={anuncioIconeAvaliacao.size} color={anuncioIconeAvaliacao.color} />
                         <Text style={StyleAnuncio.anuncioAvaliacao}>0,5</Text>
