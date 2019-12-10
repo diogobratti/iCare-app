@@ -30,26 +30,26 @@ class Anuncio extends Component {
             source={{ uri: anuncio.foto }}
           />
         </View>
-          <View style={StyleAnuncio.visualizarAnuncioNomeContainer}>
-            <View style={StyleAnuncio.visualizarAnuncioLinha}>
-              <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-                Nome:{" "}
-              </Text>
-              <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
-                    onPress={ () => {
-                      if (editavel)
-                      this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
-                    }}>
-                {anuncio.nome}
-              </Text>
-            </View>
+        <View style={StyleAnuncio.visualizarAnuncioNomeContainer}>
+          <View style={StyleAnuncio.visualizarAnuncioLinha}>
+            <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+              Nome:{" "}
+            </Text>
+            <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
+              onPress={() => {
+                if (editavel)
+                  this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
+              }}>
+              {anuncio.nome}
+            </Text>
           </View>
-          <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
-            <View style={StyleAnuncio.visualizarAnuncioLinha}>
-              <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-                Telefone:{" "}
-              </Text>
-              {/* <Icon
+        </View>
+        <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
+          <View style={StyleAnuncio.visualizarAnuncioLinha}>
+            <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+              Telefone:{" "}
+            </Text>
+            {/* <Icon
                 //raised //circulo em volta
                 name="whatsapp"
                 type="font-awesome"
@@ -58,136 +58,144 @@ class Anuncio extends Component {
                 containerStyle={StyleAnuncio.iconeFiltro}
                 //onPress={() => console.log('hello')}
               /> */}
-              <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
-                    onPress={ () => {
-                      if (editavel)
-                      this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
-                    }}>
-                {anuncio.telefone}
-              </Text>
-            </View>
+            <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
+              onPress={() => {
+                if (editavel)
+                  this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
+              }}>
+              {anuncio.telefone}
+            </Text>
+          </View>
+          {(anuncio.profissao != '' && anuncio.profissao != undefined && anuncio.profissao != null) ? (
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
               <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                 Profissão:{" "}
               </Text>
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
-                    onPress={ () => {
-                      if (editavel)
-                      this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
-                    }}>
+                onPress={() => {
+                  if (editavel)
+                    this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
+                }}>
                 {anuncio.profissao}
               </Text>
             </View>
+          ) : null}
 
+          {(anuncio.anuncio != '' && anuncio.anuncio != undefined && anuncio.anuncio != null) ? (
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
               <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                 Anúncio:{" "}
               </Text>
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
-                    onPress={ () => {
-                      if (editavel)
-                      this.props.navigation.navigate(ROUTES_NEW_USER_ANUNCIO)
-                    }}>
+                onPress={() => {
+                  if (editavel)
+                    this.props.navigation.navigate(ROUTES_NEW_USER_ANUNCIO)
+                }}>
                 {anuncio.anuncio}
               </Text>
             </View>
+          ) : null}
+          {(anuncio.preco != '' && anuncio.preco != undefined && anuncio.preco != null) ? (
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
               <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                 Preço:{" "}
               </Text>
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
-                    onPress={ () => {
-                      if (editavel)
-                      this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
-                    }}>
+                onPress={() => {
+                  if (editavel)
+                    this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
+                }}>
                 {anuncio.preco}*
               </Text>
             </View>
+          ) : null}
+          {(anuncio.preco != '' && anuncio.preco != undefined && anuncio.preco != null) ? (
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
               <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                 * Estimado para o turno de 12 horas
               </Text>
             </View>
+          ) : null}
 
-            <View style={StyleAnuncio.visualizarAnuncioLinhaIcones}>
-              {(anuncio.email == null || anuncio.email == undefined || anuncio.email == '') ? (
-                <Icon
-                  raised //circulo em volta
-                  name="envelope"
-                  type="font-awesome"
-                  size={28}
-                  color="#e0e0eb"
-                />
-              ) : (
-                  <TouchableOpacity
-                    //style={styles.productButton}
-                    onPress={() => {
-                      MensagemEmail(anuncio);
-                    }}
-                  >
-                    {/* <SocialIcon
+          <View style={StyleAnuncio.visualizarAnuncioLinhaIcones}>
+            {(anuncio.email == null || anuncio.email == undefined || anuncio.email == '') ? (
+              <Icon
+                raised //circulo em volta
+                name="envelope"
+                type="font-awesome"
+                size={28}
+                color="#e0e0eb"
+              />
+            ) : (
+                <TouchableOpacity
+                  //style={styles.productButton}
+                  onPress={() => {
+                    MensagemEmail(anuncio);
+                  }}
+                >
+                  {/* <SocialIcon
                 type='envelope'
                 iconSize={18}
               /> */}
-                    <Icon
-                      raised //circulo em volta
-                      name="envelope"
-                      type="font-awesome"
-                      size={28}
-                      color={definicoesBase.backgroundCabecalho}
-                    />
-                  </TouchableOpacity>
-                )}
-              {(anuncio.telefone == null || anuncio.telefone == undefined || anuncio.telefone == '') ? (
-                <Icon
-                  raised //circulo em volta
-                  name="whatsapp"
-                  type="font-awesome"
-                  size={28}
-                  color="#e0e0eb"
-                />
-              ) : (
-                  <TouchableOpacity
-                    //style={styles.productButton}
-                    onPress={() => {
-                      MensagemTelefone(anuncio);
-                    }}
-                  >
-                    <Icon
-                      raised //circulo em volta
-                      name="whatsapp"
-                      type="font-awesome"
-                      size={28}
-                      color="#4AC959"
-                    />
-                  </TouchableOpacity>
-                )}
-              {(anuncio.instagram == null || anuncio.instagram == undefined || anuncio.instagram == '') ? (
-                <Icon
-                  raised //circulo em volta
-                  name="instagram"
-                  type="font-awesome"
-                  size={28}
-                  color="#e0e0eb"
-                />
-              ) : (
-                  <TouchableOpacity
-                    //style={styles.productButton}
-                    onPress={() => {
-                      MensagemInstagram(anuncio);
-                    }}
-                  >
-                    <Icon
-                      raised //circulo em volta
-                      name="instagram"
-                      type="font-awesome"
-                      size={28}
-                      color="#cc66ff"
-                    />
-                  </TouchableOpacity>
-                )}
-            </View>
+                  <Icon
+                    raised //circulo em volta
+                    name="envelope"
+                    type="font-awesome"
+                    size={28}
+                    color={definicoesBase.backgroundCabecalho}
+                  />
+                </TouchableOpacity>
+              )}
+            {(anuncio.telefone == null || anuncio.telefone == undefined || anuncio.telefone == '') ? (
+              <Icon
+                raised //circulo em volta
+                name="whatsapp"
+                type="font-awesome"
+                size={28}
+                color="#e0e0eb"
+              />
+            ) : (
+                <TouchableOpacity
+                  //style={styles.productButton}
+                  onPress={() => {
+                    MensagemTelefone(anuncio);
+                  }}
+                >
+                  <Icon
+                    raised //circulo em volta
+                    name="whatsapp"
+                    type="font-awesome"
+                    size={28}
+                    color="#4AC959"
+                  />
+                </TouchableOpacity>
+              )}
+            {(anuncio.instagram == null || anuncio.instagram == undefined || anuncio.instagram == '') ? (
+              <Icon
+                raised //circulo em volta
+                name="instagram"
+                type="font-awesome"
+                size={28}
+                color="#e0e0eb"
+              />
+            ) : (
+                <TouchableOpacity
+                  //style={styles.productButton}
+                  onPress={() => {
+                    MensagemInstagram(anuncio);
+                  }}
+                >
+                  <Icon
+                    raised //circulo em volta
+                    name="instagram"
+                    type="font-awesome"
+                    size={28}
+                    color="#cc66ff"
+                  />
+                </TouchableOpacity>
+              )}
           </View>
+        </View>
       </ScrollView>
     )
   }
