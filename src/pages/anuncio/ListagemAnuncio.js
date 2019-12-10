@@ -262,14 +262,6 @@ export default class ListagemAnuncio extends Component {
             anuncios: newData,
             search: text,
         });
-
-
-        analytics().logEvent('search', {
-            _SEARCH_TERM: text,
-            _SCREEN: 'ListagemAnuncio',
-            _CLASS: 'ListagemAnuncio',
-            _STATE: this.state,
-        })
     }
 
 
@@ -354,7 +346,6 @@ export default class ListagemAnuncio extends Component {
     };
 
     render() {
-        analytics().setCurrentScreen('ListagemAnuncioFiltro', 'ListagemAnuncio')
         if (this.state.mostraMenuFiltro) {
             return (
                 <View style={StyleAnuncio.FiltrarContainer}>
@@ -540,7 +531,6 @@ export default class ListagemAnuncio extends Component {
                 </View>
             );
         }
-        analytics().setCurrentScreen('ListagemAnuncio', 'ListagemAnuncio')
         return (
             <View style={StyleAnuncio.container}>
                 <View style={StyleAnuncio.pesquisaContainer}>
@@ -564,13 +554,6 @@ export default class ListagemAnuncio extends Component {
                             //style={styles.productButton}
                             onPress={() => {
                                 this.setState({ mostraMenuFiltro: true });
-
-                                analytics().logEvent('button_press', {
-                                    _SCREEN: 'ListagemAnuncio',
-                                    _CLASS: 'ListagemAnuncio',
-                                    _BUTTON: 'Filtrar',
-                                    _STATE: this.state,
-                                })
                             }}
                         >
                             <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>

@@ -27,13 +27,6 @@ class Anuncio extends Component {
         <View style={StyleAnuncio.visualizarAnuncioFotoContainer}>
           <TouchableOpacity
             onPress={() => {
-              analytics().logEvent('button_press', {
-                _SCREEN: 'Anuncio',
-                _CLASS: 'Anuncio',
-                _BUTTON: 'Editar_Foto',
-                _ANUNCIO: anuncio,
-                _STATE: this.state,
-              });
               if (editavel)
                 this.props.navigation.navigate(ROUTES_NEW_USER_FOTO)
             }}>
@@ -51,13 +44,6 @@ class Anuncio extends Component {
               </Text>
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                 onPress={() => {
-                  analytics().logEvent('button_press', {
-                    _SCREEN: 'Anuncio',
-                    _CLASS: 'Anuncio',
-                    _BUTTON: 'Editar_Nome',
-                    _ANUNCIO: anuncio,
-                    _STATE: this.state,
-                  });
                   if (editavel)
                     this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
                 }}>
@@ -68,13 +54,6 @@ class Anuncio extends Component {
               <View style={StyleAnuncio.visualizarAnuncioLinha}>
                 <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
                   onPress={() => {
-                    analytics().logEvent('button_press', {
-                      _SCREEN: 'Anuncio',
-                      _CLASS: 'Anuncio',
-                      _BUTTON: 'Editar_Nome',
-                      _ANUNCIO: anuncio,
-                      _STATE: this.state,
-                    });
                     this.props.navigation.navigate(ROUTES_NEW_USER_NOME)
                   }}>
                   {">"}
@@ -86,120 +65,91 @@ class Anuncio extends Component {
 
 
         <View style={StyleAnuncio.visualizarAnuncioLinhaIcones}>
-          {(anuncio.email == null || anuncio.email == undefined || anuncio.email == '') ? (
-            <Icon
-              raised //circulo em volta
-              name="envelope"
-              type="font-awesome"
-              size={28}
-              color="#e0e0eb"
-            />
-          ) : (
-              <TouchableOpacity
-                //style={styles.productButton}
-                onPress={() => {
-                  analytics().logEvent('button_press', {
-                    _SCREEN: 'Anuncio',
-                    _CLASS: 'Anuncio',
-                    _BUTTON: 'Mandar_Email',
-                    _ANUNCIO: anuncio,
-                    _STATE: this.state,
-                  });
-                  MensagemEmail(anuncio);
-                }}
-              >
-                {/* <SocialIcon
+            {(anuncio.email == null || anuncio.email == undefined || anuncio.email == '') ? (
+              <Icon
+                raised //circulo em volta
+                name="envelope"
+                type="font-awesome"
+                size={28}
+                color="#e0e0eb"
+              />
+            ) : (
+                <TouchableOpacity
+                  //style={styles.productButton}
+                  onPress={() => {
+                    MensagemEmail(anuncio);
+                  }}
+                >
+                  {/* <SocialIcon
                 type='envelope'
                 iconSize={18}
               /> */}
-                <Icon
-                  raised //circulo em volta
-                  name="envelope"
-                  type="font-awesome"
-                  size={28}
-                  color={definicoesBase.backgroundCabecalho}
-                />
-              </TouchableOpacity>
-            )}
-          {(anuncio.telefone == null || anuncio.telefone == undefined || anuncio.telefone == '') ? (
-            <Icon
-              raised //circulo em volta
-              name="whatsapp"
-              type="font-awesome"
-              size={28}
-              color="#e0e0eb"
-            />
-          ) : (
-              <TouchableOpacity
-                //style={styles.productButton}
-                onPress={() => {
-                  analytics().logEvent('button_press', {
-                    _SCREEN: 'Anuncio',
-                    _CLASS: 'Anuncio',
-                    _BUTTON: 'Mandar_WhatsApp',
-                    _ANUNCIO: anuncio,
-                    _STATE: this.state,
-                  });
-                  MensagemTelefone(anuncio);
-                }}
-              >
-                <Icon
-                  raised //circulo em volta
-                  name="whatsapp"
-                  type="font-awesome"
-                  size={28}
-                  color="#4AC959"
-                />
-              </TouchableOpacity>
-            )}
-          {(anuncio.instagram == null || anuncio.instagram == undefined || anuncio.instagram == '') ? (
-            <Icon
-              raised //circulo em volta
-              name="instagram"
-              type="font-awesome"
-              size={28}
-              color="#e0e0eb"
-            />
-          ) : (
-              <TouchableOpacity
-                //style={styles.productButton}
-                onPress={() => {
-                  analytics().logEvent('button_press', {
-                    _SCREEN: 'Anuncio',
-                    _CLASS: 'Anuncio',
-                    _BUTTON: 'Mandar_Instagram',
-                    _ANUNCIO: anuncio,
-                    _STATE: this.state,
-                  });
-                  MensagemInstagram(anuncio);
-                }}
-              >
-                <Icon
-                  raised //circulo em volta
-                  name="instagram"
-                  type="font-awesome"
-                  size={28}
-                  color="#cc66ff"
-                />
-              </TouchableOpacity>
-            )}
-        </View>
+                  <Icon
+                    raised //circulo em volta
+                    name="envelope"
+                    type="font-awesome"
+                    size={28}
+                    color={definicoesBase.backgroundCabecalho}
+                  />
+                </TouchableOpacity>
+              )}
+            {(anuncio.telefone == null || anuncio.telefone == undefined || anuncio.telefone == '') ? (
+              <Icon
+                raised //circulo em volta
+                name="whatsapp"
+                type="font-awesome"
+                size={28}
+                color="#e0e0eb"
+              />
+            ) : (
+                <TouchableOpacity
+                  //style={styles.productButton}
+                  onPress={() => {
+                    MensagemTelefone(anuncio);
+                  }}
+                >
+                  <Icon
+                    raised //circulo em volta
+                    name="whatsapp"
+                    type="font-awesome"
+                    size={28}
+                    color="#4AC959"
+                  />
+                </TouchableOpacity>
+              )}
+            {(anuncio.instagram == null || anuncio.instagram == undefined || anuncio.instagram == '') ? (
+              <Icon
+                raised //circulo em volta
+                name="instagram"
+                type="font-awesome"
+                size={28}
+                color="#e0e0eb"
+              />
+            ) : (
+                <TouchableOpacity
+                  //style={styles.productButton}
+                  onPress={() => {
+                    MensagemInstagram(anuncio);
+                  }}
+                >
+                  <Icon
+                    raised //circulo em volta
+                    name="instagram"
+                    type="font-awesome"
+                    size={28}
+                    color="#cc66ff"
+                  />
+                </TouchableOpacity>
+              )}
+          </View>
         <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
-          <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
+        <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
               <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                 Cidade:{" "}
               </Text>
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                 onPress={() => {
-
-                  analytics().logEvent('button_press', {
-                    _SCREEN: 'Anuncio',
-                    _CLASS: 'Anuncio',
-                    _BUTTON: 'Editar_Localidade',
-                    _ANUNCIO: anuncio,
-                    _STATE: this.state,
-                  });
                   if (editavel)
                     this.props.navigation.navigate(ROUTES_NEW_USER_LOCALIDADE)
                 }}>
@@ -210,13 +160,6 @@ class Anuncio extends Component {
               <View style={StyleAnuncio.visualizarAnuncioLinha}>
                 <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
                   onPress={() => {
-                    analytics().logEvent('button_press', {
-                      _SCREEN: 'Anuncio',
-                      _CLASS: 'Anuncio',
-                      _BUTTON: 'Editar_Localidade',
-                      _ANUNCIO: anuncio,
-                      _STATE: this.state,
-                    });
                     this.props.navigation.navigate(ROUTES_NEW_USER_LOCALIDADE)
                   }}>
                   {">"}
@@ -240,14 +183,6 @@ class Anuncio extends Component {
               /> */}
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                 onPress={() => {
-
-                  analytics().logEvent('button_press', {
-                    _SCREEN: 'Anuncio',
-                    _CLASS: 'Anuncio',
-                    _BUTTON: 'Editar_Telefone',
-                    _ANUNCIO: anuncio,
-                    _STATE: this.state,
-                  });
                   if (editavel)
                     this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
                 }}>
@@ -258,13 +193,6 @@ class Anuncio extends Component {
               <View style={StyleAnuncio.visualizarAnuncioLinha}>
                 <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
                   onPress={() => {
-                    analytics().logEvent('button_press', {
-                      _SCREEN: 'Anuncio',
-                      _CLASS: 'Anuncio',
-                      _BUTTON: 'Editar_Telefone',
-                      _ANUNCIO: anuncio,
-                      _STATE: this.state,
-                    });
                     this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
                   }}>
                   {">"}
@@ -280,13 +208,6 @@ class Anuncio extends Component {
                 </Text>
                 <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                   onPress={() => {
-                    analytics().logEvent('button_press', {
-                      _SCREEN: 'Anuncio',
-                      _CLASS: 'Anuncio',
-                      _BUTTON: 'Editar_Profissao',
-                      _ANUNCIO: anuncio,
-                      _STATE: this.state,
-                    });
                     if (editavel)
                       this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
                   }}>
@@ -297,13 +218,6 @@ class Anuncio extends Component {
                 <View style={StyleAnuncio.visualizarAnuncioLinha}>
                   <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
                     onPress={() => {
-                      analytics().logEvent('button_press', {
-                        _SCREEN: 'Anuncio',
-                        _CLASS: 'Anuncio',
-                        _BUTTON: 'Editar_Profissao',
-                        _ANUNCIO: anuncio,
-                        _STATE: this.state,
-                      });
                       this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
                     }}>
                     {">"}
@@ -311,15 +225,15 @@ class Anuncio extends Component {
                 </View>
               }
             </View>
-          ) :
-            <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
-              <View style={StyleAnuncio.visualizarAnuncioLinha}>
-                <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-                  Perfil: Cliente
+          ) : 
+          <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
+            <View style={StyleAnuncio.visualizarAnuncioLinha}>
+              <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+                Perfil: Cliente
               </Text>
-              </View>
             </View>
-          }
+          </View>
+        }
 
           {/* <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
@@ -354,13 +268,6 @@ class Anuncio extends Component {
                 </Text>
                 <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                   onPress={() => {
-                    analytics().logEvent('button_press', {
-                      _SCREEN: 'Anuncio',
-                      _CLASS: 'Anuncio',
-                      _BUTTON: 'Editar_Preco',
-                      _ANUNCIO: anuncio,
-                      _STATE: this.state,
-                    });
                     if (editavel)
                       this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
                   }}>
@@ -371,13 +278,6 @@ class Anuncio extends Component {
                 <View style={StyleAnuncio.visualizarAnuncioLinha}>
                   <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
                     onPress={() => {
-                      analytics().logEvent('button_press', {
-                        _SCREEN: 'Anuncio',
-                        _CLASS: 'Anuncio',
-                        _BUTTON: 'Editar_Preco',
-                        _ANUNCIO: anuncio,
-                        _STATE: this.state,
-                      });
                       this.props.navigation.navigate(ROUTES_NEW_USER_PROFISSAO)
                     }}>
                     {">"}
@@ -395,19 +295,12 @@ class Anuncio extends Component {
           ) : null}
           {(anuncio.anuncio != '' && anuncio.anuncio != undefined && anuncio.anuncio != null) ? (
             <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
-              <View style={{ ...StyleAnuncio.visualizarAnuncioLinha, wordWrap: 'break-word', width: '90%' }}>
+              <View style={{...StyleAnuncio.visualizarAnuncioLinha, wordWrap: 'break-word', width: '100%'}}>
                 <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                   Descrição:{" "}
                 </Text>
                 <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                   onPress={() => {
-                    analytics().logEvent('button_press', {
-                      _SCREEN: 'Anuncio',
-                      _CLASS: 'Anuncio',
-                      _BUTTON: 'Editar_Descricao',
-                      _ANUNCIO: anuncio,
-                      _STATE: this.state,
-                    });
                     if (editavel)
                       this.props.navigation.navigate(ROUTES_NEW_USER_ANUNCIO)
                   }}>
@@ -418,13 +311,6 @@ class Anuncio extends Component {
                 <View style={StyleAnuncio.visualizarAnuncioLinha}>
                   <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
                     onPress={() => {
-                      analytics().logEvent('button_press', {
-                        _SCREEN: 'Anuncio',
-                        _CLASS: 'Anuncio',
-                        _BUTTON: 'Editar_Descricao',
-                        _ANUNCIO: anuncio,
-                        _STATE: this.state,
-                      });
                       this.props.navigation.navigate(ROUTES_NEW_USER_ANUNCIO)
                     }}>
                     {">"}

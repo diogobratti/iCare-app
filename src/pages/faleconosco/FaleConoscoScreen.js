@@ -99,12 +99,6 @@ export default class FaleConosco extends Component {
                   <TouchableOpacity
                     //style={styles.productButton}
                     onPress={() => {
-                      analytics().logEvent('button_press', {
-                        _SCREEN: 'FaleConosco',
-                        _CLASS: 'FaleConosco',
-                        _BUTTON: 'Mandar_Email',
-                        _STATE: this.state,
-                      });
                       MensagemEmail(anuncio);
                     }}
                   >
@@ -133,12 +127,6 @@ export default class FaleConosco extends Component {
                   <TouchableOpacity
                     //style={styles.productButton}
                     onPress={() => {
-                      analytics().logEvent('button_press', {
-                        _SCREEN: 'FaleConosco',
-                        _CLASS: 'FaleConosco',
-                        _BUTTON: 'Mandar_WhatsApp',
-                        _STATE: this.state,
-                      });
                       MensagemTelefone(anuncio);
                     }}
                   >
@@ -163,12 +151,6 @@ export default class FaleConosco extends Component {
                   <TouchableOpacity
                     //style={styles.productButton}
                     onPress={() => {
-                      analytics().logEvent('button_press', {
-                        _SCREEN: 'FaleConosco',
-                        _CLASS: 'FaleConosco',
-                        _BUTTON: 'Mandar_Instagram',
-                        _STATE: this.state,
-                      });
                       MensagemInstagram(anuncio);
                     }}
                   >
