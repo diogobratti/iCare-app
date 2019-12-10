@@ -112,6 +112,13 @@ class Anuncio extends Component {
 
   }
 
+  cancelaComentario() {
+    this.setState({
+      visualizarComentario: false,
+      comentario: '',
+    })
+  }
+
 
   render() {
 
@@ -122,7 +129,8 @@ class Anuncio extends Component {
 
         <Comentario
           isVisible={this.state.visualizarComentario}
-          onPress={() => {this.salvarComentario()}}
+          onPressSalvar={() => {this.salvarComentario()}}
+          onPressCancelar={() => {this.cancelaComentario()}}
           value={this.state.comentario}
           onChangeText={text => this.setState({ comentario: text })}
           buttonStyle={StyleAnuncio.aplicarFiltroButton}

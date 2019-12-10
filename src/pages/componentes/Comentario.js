@@ -5,7 +5,7 @@ import Button from "../auth-v2/components/Button"
 import PropTypes from 'prop-types'
 
 const Comentario = props => {
-  const { isVisible, onPress, value, errorMessage, onChangeText, width, height, buttonStyle, textButtonStyle, inputStyle } = props;
+  const { isVisible, onPressSalvar, onPressCancelar, value, errorMessage, onChangeText, width, height, buttonStyle, textButtonStyle, inputStyle } = props;
 
   return (
     <Overlay isVisible={isVisible} width={width} height={height}>
@@ -25,7 +25,7 @@ const Comentario = props => {
 
         <TouchableOpacity
           style={buttonStyle}
-          onPress={onPress}
+          onPress={onPressSalvar}
         >
           <Text style={textButtonStyle}>
             Salvar
@@ -35,7 +35,7 @@ const Comentario = props => {
 
         <TouchableOpacity
           style={buttonStyle}
-          onPress={onPress}
+          onPress={onPressCancelar}
         >
           <Text style={textButtonStyle}>
             Cancelar
@@ -49,7 +49,8 @@ const Comentario = props => {
 
 Comentario.propTypes = {
   isVisible: PropTypes.bool.isRequired,
-  onPress: PropTypes.func.isRequired,
+  onPressSalvar: PropTypes.func.isRequired,
+  onPressCancelar: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
   errorMessage: PropTypes.string,
   onChangeText: PropTypes.func.isRequired,
