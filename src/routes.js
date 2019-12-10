@@ -8,6 +8,7 @@ import PerfilAnuncio from "./pages/prestador/PerfilAnuncio";
 import Perfil from "./pages/cliente/Perfil";
 import IconeMenu from "./pages/IconeMenu";
 import Localidade from "./pages/localidade/Localidade";
+import TermoServico from "./pages/termo/TermoServico";
 import Loading from "./pages/auth/Loading";
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
@@ -18,9 +19,9 @@ import Main from "./pages/auth/Main";
 import StyleBase, { navigationOptions } from "./styles/StyleBase";
 
 const MenuHome = createStackNavigator({
-    ListagemAnuncio: { screen: ListagemAnuncio },
-    ListagemAnuncioFiltro: { screen: ListagemAnuncioFiltro },
-    VisualizarAnuncio: { screen: VisualizarAnuncio },
+  ListagemAnuncio: { screen: ListagemAnuncio },
+  ListagemAnuncioFiltro: { screen: ListagemAnuncioFiltro },
+  VisualizarAnuncio: { screen: VisualizarAnuncio },
 });
 
 // const MenuChat = createStackNavigator({
@@ -28,39 +29,40 @@ const MenuHome = createStackNavigator({
 // });
 
 const MenuAnuncio = createStackNavigator({
-    // PerfilAnuncio,
-    Loading,
-    SignUp,
-    Login,
-    Main
+  // PerfilAnuncio,
+  Loading,
+  SignUp,
+  Login,
+  Main
 });
 
 const MenuPrincipal = createBottomTabNavigator(
-    {
-        Home: { screen: MenuHome },
-        //Chat: { screen: MenuChat },
-        'Anuncie aqui': { screen: MenuAnuncio },
-        //Perfil: { screen: MenuTeste },      
-    },
-    {
-      defaultNavigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ focused, tintColor }) =>
-          IconeMenu(navigation, focused, tintColor),
-      }),
-      tabBarOptions: navigationOptions.tabBarOptions,
-    }
+  {
+    Home: { screen: MenuHome },
+    //Chat: { screen: MenuChat },
+    'Anuncie aqui': { screen: MenuAnuncio },
+    //Perfil: { screen: MenuTeste },      
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) =>
+        IconeMenu(navigation, focused, tintColor),
+    }),
+    tabBarOptions: navigationOptions.tabBarOptions,
+  }
 );
 
 const EscolhaLocalidade = createStackNavigator({
-    Localidade,
-    MenuPrincipal,
+  TermoServico,
+  Localidade,
+  MenuPrincipal,
 },
-{
-  headerMode: 'none',
-  navigationOptions: {
-    headerVisible: false,
-  }
- });
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  });
 
 const Routes = createAppContainer(EscolhaLocalidade);
 
