@@ -18,6 +18,11 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
+import com.google.android.gms.ads.MobileAds;
+
 
 //import java.util.Arrays;
 import java.util.List;
@@ -45,6 +50,9 @@ public class MainApplication extends Application implements ReactApplication {
       // packages.add(new MyReactNativePackage());
        packages.add(new RNFirebaseFirestorePackage());
        packages.add(new RNFirebaseAuthPackage());
+       packages.add(new RNFirebasePackage());
+       packages.add(new RNFirebaseAdMobPackage());
+       packages.add(new RNFirebaseAnalyticsPackage());
       //  packages.add(new FBSDKPackage());
       return packages;
     }
@@ -80,5 +88,9 @@ public class MainApplication extends Application implements ReactApplication {
     // AppEventsLogger.activateApp(this);
     // FacebookSdk.sdkInitialize(getApplicationContext());
     // AppEventsLogger.activateApp(this);
+    
+    //https://dev-yakuza.github.io/en/react-native/react-native-firebase-admob/
+    //set your App ID created in Google Admob to MobileAds.initialize(this, "ad app id");. if you don’t know how to create App ID in Google Admob, see Google Admob blog.
+    MobileAds.initialize(this, "????");
   }
 }
