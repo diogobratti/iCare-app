@@ -18,7 +18,7 @@ class Anuncio extends Component {
     this.props = props
   }
 
-    render() {
+  render() {
 
     const { anuncio, editavel } = this.props;
 
@@ -190,7 +190,8 @@ class Anuncio extends Component {
           </View>
       </ScrollView>
     )
-    }
+  }
+}
 
 export default withNavigation(Anuncio);
 
