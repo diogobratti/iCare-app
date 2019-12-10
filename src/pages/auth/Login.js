@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView } from "react-native";
-import { SocialIcon, ThemeProvider, Input } from "react-native-elements";
+import {
+  SocialIcon,
+  ThemeProvider,
+  Input,
+  Overlay
+} from "react-native-elements";
 import firebase from "react-native-firebase";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { GoogleSignin, statusCodes } from "react-native-google-signin";
@@ -12,7 +17,8 @@ export default class Login extends Component {
     email: "",
     password: "",
     errorMessage: null,
-    cadastroCompleto: false
+    cadastroCompleto: false,
+    isProcessing: false
   };
 
   static navigationOptions = {
@@ -44,13 +50,6 @@ export default class Login extends Component {
     console.log("handleSocialLoginFacebook");
 
     try {
-    //   LoginManager.logInWithPermissions([
-    //     "public_profile",
-    //     "email"
-    //   ])
-
-
-
       console.log("entrou");
       const result = await LoginManager.logInWithPermissions([
         "public_profile",
@@ -88,7 +87,8 @@ export default class Login extends Component {
         .auth()
         .signInWithCredential(credential);
 
-      console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
+      // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
+      console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
 
       await this.posAutenticacao(firebaseUserCredential);
     } catch (e) {
@@ -98,6 +98,8 @@ export default class Login extends Component {
 
   handleSocialLoginGoogle = async () => {
     console.log("handleSocialLoginGoogle");
+
+    this.setState({ isProcessing: true });
 
     try {
       // GoogleServices active
@@ -130,10 +132,14 @@ export default class Login extends Component {
         .auth()
         .signInWithCredential(credential);
 
+      console.log("usuario autenticado ");
+
       // console.log(firebaseUserCredential);
       // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
 
       console.log("entrando pos autenticacao");
+
+      this.setState({ isProcessing: false });
 
       await this.posAutenticacao(firebaseUserCredential, userData.user.id);
     } catch (error) {
@@ -157,40 +163,60 @@ export default class Login extends Component {
    * @param {UserCredential} firebaseCredential Credencial do Firebase
    */
   posAutenticacao = async (firebaseCredential, idAuthProvider) => {
+    let collection = firebase.firestore().collection("anuncios");
     //SE o usuário não tiver cadastro ainda, cria cadastro
-    await firebase
-      .firestore()
-      .collection("anuncios")
+    await collection
       .where("user_uid", "==", firebaseCredential.user.uid)
       .get()
       .then(data => {
         // this.dadosAnuncio = data;
         // console.log("entrando atualizaCadastro");
-        this.atualizaCadastro(data, firebaseCredential, idAuthProvider);
-        this.data = data;
+        if (data.empty) {
+          console.log("Dados vazios. criando novo cadastro");
+
+          data = collection
+            .add({
+              id: firebaseCredential.user.uid,
+              user_uid: firebaseCredential.user.uid,
+              provider_id: idAuthProvider,
+              nome: firebaseCredential.additionalUserInfo.profile.name,
+              email: firebaseCredential.additionalUserInfo.profile.email,
+              foto: firebaseCredential.additionalUserInfo.profile.picture
+            })
+            .then(newData => {
+              //atualiza referencia
+              console.log("cadastro criado " + newData);
+              // data = newData;
+            });
+        }
+
+        console.log(data);
+        console.log("redirecionando Loading");
+        this.props.navigation.push("Loading", { anuncio: data });
+
+        // data = this.atualizaCadastro(data, firebaseCredential, idAuthProvider);
+        // this.data = data;
         // console.log(data);
         // console.log(this.data);
       });
-
-    // console.log(this.data);
-    console.log("redirecionando Loading");
-    this.props.navigation.navigate("Loading", { anuncio: this.data });
   };
 
   atualizaCadastro = (querySnapshot, firebaseCredential, idAuthProvider) => {
+    console.log("atualizando cadastro");
+
+    // let result = querySnapshot.ref
+
     if (querySnapshot.empty) {
-      //cria anuncio com dados basicos, se já não existir
-      let api = new ApiDb("anuncios");
-      api.add({
-        id: firebaseCredential.user.uid,
-        user_uid: firebaseCredential.user.uid,
-        provider_id: idAuthProvider,
-        nome: firebaseCredential.additionalUserInfo.profile.name,
-        email: firebaseCredential.additionalUserInfo.profile.email,
-        foto: firebaseCredential.additionalUserInfo.profile.picture
-      });
+      firebase
+        .firestore()
+        .collection("anuncios")
+        .add({})
+        .then();
     }
-    console.log("cadastro atualizado");
+
+    console.log(resultado);
+
+    return resultado;
   };
 
   translateLoginErrors(error) {
@@ -219,6 +245,9 @@ export default class Login extends Component {
     return (
       <View style={styles.mainContainerStyle}>
         <ScrollView>
+          <Overlay isVisible={this.state.isProcessing}>
+            <Text>Efetuando autenticação... Aguarde...</Text>
+          </Overlay>
           <View style={styles.containerSocialLoginStyle}>
             <Text>Acesse com</Text>
             <View style={styles.containerSocialLoginButtonsStyle}>
