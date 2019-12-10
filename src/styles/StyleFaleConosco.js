@@ -19,6 +19,12 @@ const StyleFaleConosco = StyleSheet.create({
         flex: 5,
         justifyContent:"flex-start",
     },
+    corpoText:{
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
     botaoContainer:{
         flex: 1,
         justifyContent:"flex-start",
