@@ -29,6 +29,10 @@ export default class Login extends React.Component {
       );
   };
 
+  handleSocialLoginInstagram() {
+    console.log('handleSocialLoginInstagram');
+  }
+
   translateLoginErrors(error) {
     message = error.message;
 

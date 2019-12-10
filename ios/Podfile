@@ -18,6 +18,8 @@ target 'app' do
 
 #  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
 
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+
   target 'appTests' do
     inherit! :search_paths
     # Pods for testing
