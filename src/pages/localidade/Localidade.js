@@ -28,7 +28,7 @@ export default class Localidade extends Component {
 		const estado = await AsyncStorage.getItem('estado');
 		const municipio = await AsyncStorage.getItem('municipio');
 		const regiao = await AsyncStorage.getItem('microrregiao');
-		if(estado != "" && municipio != "" && regiao != ""){
+		if (estado != null && municipio != null && regiao != null) {
 			this.props.navigation.navigate("ListagemAnuncio", {});
 		}
 	  this.setState({

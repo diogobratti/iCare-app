@@ -1,12 +1,6 @@
-
-
-//ordernar menor distancia, melhor avaliacao e preco. 
-//filtrar por profissao preco e avaliacao
 import React, { Component } from "react";
 
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Picker } from "react-native";
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Slider, CheckBox } from 'react-native-elements';
 
 import { navigationOptions, definicoesBase, Cabecalho } from "../../styles/StyleBase";
 import StyleTermo from "../../styles/StyleTermo";
@@ -20,12 +14,13 @@ export default class TermoServico extends Component {
 	state = { erro: null, isLoading: true }
 
 	async componentDidMount() {
+		//await AsyncStorage.clear();
 		const termoservico = await AsyncStorage.getItem('termoservico');
 		const estado = await AsyncStorage.getItem('estado');
 		const municipio = await AsyncStorage.getItem('municipio');
 		const regiao = await AsyncStorage.getItem('microrregiao');
-		if (termoservico != "") {
-			if (estado != "" && municipio != "" && regiao != "") {
+		if (termoservico != null) {
+			if (estado != null && municipio != null && regiao != null) {
 				this.props.navigation.navigate("ListagemAnuncio", {});
 			} else {
 				this.props.navigation.navigate("Localidade", {});
