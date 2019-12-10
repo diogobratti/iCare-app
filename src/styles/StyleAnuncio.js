@@ -176,14 +176,13 @@ const StyleAnuncio = StyleSheet.create({
         lineHeight: definicoesBase.alturaLinhaTextoComum
     },
     aplicarFiltroButton: {
-        borderRadius: 5,
+        borderRadius: 10,
         borderWidth: 3,
         borderColor: definicoesBase.corFonteTextoCabecalho,
-        backgroundColor: "transparent",
+        backgroundColor: definicoesBase.backgroundCabecalho,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 5,
-        marginRight: 5,
+        margin: 5,
     },
     aplicarFiltroText: {
         fontFamily: definicoesBase.fontFamilyTextoComum,
@@ -193,6 +192,20 @@ const StyleAnuncio = StyleSheet.create({
         lineHeight: definicoesBase.alturaLinhaTextoComum,
         padding: 5,
     },
+    FiltrarContainer:{
+        flex: 6,
+        flexDirection: 'column',
+        backgroundColor: definicoesBase.backgroundGeral,
+        justifyContent:"flex-start",
+    },
+    scrollViewFiltrarContainer:{
+        flex: 5,
+        justifyContent:"flex-start",
+    },
+    aplicarFiltroContainer:{
+        flex: 1,
+        justifyContent:"flex-start",
+    }
 });
 
 export const anuncioIconeAvaliacao = {
