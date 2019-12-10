@@ -34,11 +34,12 @@ target 'app' do
 #  pod 'Firebase/Core'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Analytics'
 #  pod 'GoogleSignIn'
-#  pod 'FBSDKCoreKit'
-#  pod 'FBSDKLoginKit'
-#  pod 'FBSDKShareKit'
-#  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
+  pod 'FBSDKShareKit'
+  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
 
   target 'appTests' do
     inherit! :search_paths
