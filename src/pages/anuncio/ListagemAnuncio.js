@@ -1,4 +1,7 @@
 //antes pedir estado e cidade, se nao estiver logado
+const orderByPadrao = 'localidade';
+const precoMaximo = 2000;
+
 import React, { Component } from "react";
 //import api from "../../services/api";
 import firebase from 'react-native-firebase';
@@ -134,7 +137,14 @@ export default class ListagemAnuncio extends Component {
 
     render() {
         const { search } = this.state;
-        const orderByValor = this.props.navigation.getParam('orderByValor', '');
+        const orderByValor = this.props.navigation.getParam('orderByValor', orderByPadrao);
+        const filtroPreco = this.props.navigation.getParam('filtroPreco', precoMaximo);
+        const filtroProfissaoCuidador = this.props.navigation.getParam('filtroProfissaoCuidador', true);
+        const filtroProfissaoTecnicoEnfermagem = this.props.navigation.getParam('filtroProfissaoTecnicoEnfermagem', true);
+        const filtroProfissaoEnfermeiro = this.props.navigation.getParam('filtroProfissaoEnfermeiro', true);
+        const filtroProfissaoTerapeutaOcupacional = this.props.navigation.getParam('filtroProfissaoTerapeutaOcupacional', true);
+        const filtroProfissaoFisioterapeuta = this.props.navigation.getParam('filtroProfissaoFisioterapeuta', true);
+        const filtroProfissaoNutricionista = this.props.navigation.getParam('filtroProfissaoNutricionista', true);
         return (
             <View style={StyleAnuncio.container}>
                 <View style={StyleAnuncio.pesquisaContainer}>
@@ -155,10 +165,10 @@ export default class ListagemAnuncio extends Component {
                         <TouchableOpacity 
                             //style={styles.productButton} 
                             onPress={() => {
-                                this.props.navigation.navigate("ListagemAnuncioFiltro");
+                                this.props.navigation.navigate("ListagemAnuncioFiltro", {precoMaximo: precoMaximo, orderByPadrao: orderByPadrao});
                             }}
                         >
-                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar {orderByValor}</Text>
+                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
