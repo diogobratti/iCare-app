@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import StyleTermo from "../../styles/StyleTermo";
 import StyleCadastro from "../../styles/StyleCadastro";
 import SincronizadorBanco from "./AsyncStorageDadosBanco"
+import analytics from '@react-native-firebase/analytics';
 
 export default class Login extends Component {
 
@@ -25,6 +26,10 @@ export default class Login extends Component {
   static navigationOptions = {
     ...navigationOptions,
   };
+
+  async componentDidMount() {
+    await analytics().setCurrentScreen('LoginScreen', 'LoginScreen')
+  }
 
   handleSocialLoginFacebook = async () => {
     // console.log("handleSocialLoginFacebook");
@@ -79,6 +84,8 @@ export default class Login extends Component {
       const nome = firebaseUserCredential.additionalUserInfo.profile.name;
       const email = firebaseUserCredential.additionalUserInfo.profile.email;
       const foto = firebaseUserCredential.additionalUserInfo.profile.picture.data.url;
+
+      await analytics().logLogin({method: 'Facebook'})
 
       await this.posAutenticacao(
         firebaseUserCredential,
@@ -144,6 +151,8 @@ export default class Login extends Component {
       const nome = firebaseUserCredential.additionalUserInfo.profile.name;
       const email = firebaseUserCredential.additionalUserInfo.profile.email;
       const foto = firebaseUserCredential.additionalUserInfo.profile.picture;
+
+      await analytics().logLogin({metohd: 'Google'})
 
       await this.posAutenticacao(
         firebaseUserCredential,
@@ -228,6 +237,10 @@ export default class Login extends Component {
           // data = newData;
           return newData;
         });
+
+        analytics().logEvent('NovoCadastro', {
+          perfil: perfil
+        })
 
     } else {
       docReference = querySnapshot.docs[0].ref;

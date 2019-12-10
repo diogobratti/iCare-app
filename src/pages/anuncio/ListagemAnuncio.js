@@ -30,6 +30,8 @@ import StyleAnuncio, {
 } from "../../styles/StyleAnuncio";
 //import reactotron from "reactotron-react-native";
 
+import analytics from '@react-native-firebase/analytics';
+
 export default class ListagemAnuncio extends Component {
     static navigationOptions = navigationOptions;
 
@@ -86,6 +88,9 @@ export default class ListagemAnuncio extends Component {
     }
 
     async componentDidMount() {
+
+        await analytics().setCurrentScreen('ListagemAnuncio', 'ListagemAnuncio')
+
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
         const estado = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_ESTADO);
         const municipio = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_MUNICIPIO);

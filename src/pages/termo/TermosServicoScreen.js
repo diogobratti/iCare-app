@@ -4,6 +4,7 @@ import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, Picker, Ba
 
 import { navigationOptions, definicoesBase, Cabecalho } from "../../styles/StyleBase";
 import StyleTermo from "../../styles/StyleTermo";
+import analytics from '@react-native-firebase/analytics';
 
 export default class TermoServico extends Component {
   static navigationOptions = navigationOptions;
@@ -46,6 +47,10 @@ export default class TermoServico extends Component {
   // componentWillUnmount() {
   //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   // }
+
+  async componentDidMount() {
+    await analytics().setCurrentScreen('TermosServico', 'TermosServico')
+  }
 
   render() {
     // if (this.state.isLoading) {
