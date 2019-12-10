@@ -276,7 +276,7 @@ export default class ListagemAnuncio extends Component {
             filtroProfissaoTecnicoEnfermagem,
             filtroProfissaoTerapeutaOcupacional,
             filtroPerfilCliente
-            
+
         })
     }
 
@@ -414,25 +414,6 @@ export default class ListagemAnuncio extends Component {
                                             </View>
                             </View>
                                             */}
-                            <View style={StyleAnuncio.filtroContainer}>
-                                <View style={StyleAnuncio.filtroItemContainer}>
-                                    <Text style={StyleAnuncio.filtroItemTexto}>
-                                        Preço
-                            </Text>
-                                    <Text style={StyleAnuncio.filtroItemSliderTexto}>
-                                        Até R$ {this.state.filtroPreco},00
-                            </Text>
-                                    <Slider
-                                        maximumValue={CONSTANTES.LISTAGEM_ANUNCIO_PRECO_MAXIMO}
-                                        minimumValue={0}
-                                        minimumTrackTintColor={definicoesBase.corBarraSlider}
-                                        maximumTrackTintColor={definicoesBase.corBarraSlider}
-                                        thumbTintColor={definicoesBase.corBotaoSlider}
-                                        step={1}
-                                        value={this.state.filtroPreco}
-                                        onValueChange={(filtroPreco) => this.setState({ filtroPreco })}
-                                    />
-                                </View>
                                 {/*
                         <View style={StyleAnuncio.filtroItemContainer}>
                             <Text style={StyleAnuncio.filtroItemTexto}>
@@ -453,9 +434,30 @@ export default class ListagemAnuncio extends Component {
                             />
                                             </View>
                                             */}
+                                {/*
+                        <View style={StyleAnuncio.filtroItemContainer}>
+                            <Text style={StyleAnuncio.filtroItemTexto}>
+                                Localidade
+                            </Text>
+                            <CheckBox
+                                title='Procurar somente na minha região'
+                                checkedIcon='check-square-o'
+                                uncheckedIcon='square-o'
+                                                            checked={this.state.orderByValor === 'avaliacao'}
+                                                            onPress={() => this.setState({orderByValor: 'avaliacao'})}
+                            />
+                            <Text style={StyleAnuncio.filtroItemTexto}>
+                                Ver mais cidades
+                            </Text>
+                                            </View>
+                                            */}
+                            <View style={StyleAnuncio.filtroContainer}>
                                 <View style={StyleAnuncio.filtroItemContainer}>
                                     <Text style={StyleAnuncio.filtroItemTexto}>
                                         Cliente
+                                    </Text>
+                                    <Text style={StyleAnuncio.filtroItemDescricaoTexto}>
+                                        Exibe todos os clientes cadastrados em sua região.
                                     </Text>
                                     <CheckBox
                                         title='Cliente'
@@ -465,10 +467,37 @@ export default class ListagemAnuncio extends Component {
                                         onPress={() => this.setState({ filtroPerfilCliente: !this.state.filtroPerfilCliente })}
                                     />
                                 </View>
-                                <View style={StyleAnuncio.filtroItemContainer}>
+                            </View>
+                            <View style={StyleAnuncio.linhaHorizontal} />
+                            <View style={StyleAnuncio.filtroContainer}>
+                                <Text style={StyleAnuncio.filtroItemTexto}>
+                                    Prestador de Serviços
+                                </Text>
+                                <Text style={StyleAnuncio.filtroItemDescricaoTexto}>
+                                    Filtros relacionados aos prestadores de serviços cadastrados em sua região.
+                                </Text>
+                                <View style={StyleAnuncio.filtroItemSubContainer}>
+                                    <Text style={StyleAnuncio.filtroItemTexto}>
+                                        Preço
+                                    </Text>
+                                    <Text style={StyleAnuncio.filtroItemSliderTexto}>
+                                        Até R$ {this.state.filtroPreco},00
+                                    </Text>
+                                    <Slider
+                                        maximumValue={CONSTANTES.LISTAGEM_ANUNCIO_PRECO_MAXIMO}
+                                        minimumValue={0}
+                                        minimumTrackTintColor={definicoesBase.corBarraSlider}
+                                        maximumTrackTintColor={definicoesBase.corBarraSlider}
+                                        thumbTintColor={definicoesBase.corBotaoSlider}
+                                        step={1}
+                                        value={this.state.filtroPreco}
+                                        onValueChange={(filtroPreco) => this.setState({ filtroPreco })}
+                                    />
+                                </View>
+                                <View style={StyleAnuncio.filtroItemSubContainer}>
                                     <Text style={StyleAnuncio.filtroItemTexto}>
                                         Profissão
-                            </Text>
+                                    </Text>
                                     <CheckBox
                                         title='Cuidador'
                                         checkedIcon='check-square-o'
@@ -512,23 +541,6 @@ export default class ListagemAnuncio extends Component {
                                         onPress={() => this.setState({ filtroProfissaoNutricionista: !this.state.filtroProfissaoNutricionista })}
                                     />
                                 </View>
-                                {/*
-                        <View style={StyleAnuncio.filtroItemContainer}>
-                            <Text style={StyleAnuncio.filtroItemTexto}>
-                                Localidade
-                            </Text>
-                            <CheckBox
-                                title='Procurar somente na minha região'
-                                checkedIcon='check-square-o'
-                                uncheckedIcon='square-o'
-                                                            checked={this.state.orderByValor === 'avaliacao'}
-                                                            onPress={() => this.setState({orderByValor: 'avaliacao'})}
-                            />
-                            <Text style={StyleAnuncio.filtroItemTexto}>
-                                Ver mais cidades
-                            </Text>
-                                            </View>
-                                            */}
                             </View>
                         </ScrollView>
                     </View>
@@ -542,7 +554,7 @@ export default class ListagemAnuncio extends Component {
                         >
                             <Text style={StyleAnuncio.aplicarFiltroText}>
                                 Aplicar
-                        </Text>
+                            </Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -577,7 +589,7 @@ export default class ListagemAnuncio extends Component {
                                     _SCREEN: 'ListagemAnuncio',
                                     _CLASS: 'ListagemAnuncio',
                                     _BUTTON: 'Filtrar',
-                                    
+
                                 })
                             }}
                         >

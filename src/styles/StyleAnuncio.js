@@ -180,10 +180,24 @@ const StyleAnuncio = StyleSheet.create({
         marginTop: 20,
         marginBottom: 15,
     },
+    filtroItemSubContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginTop: 20,
+        marginBottom: 15,
+        marginLeft: 15,
+    },
     filtroItemTexto: {
         fontFamily: definicoesBase.fontFamilyTextoComum,
         fontSize: definicoesBase.tamanhoFonteTextoComum,
         fontWeight: "bold",
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
+    filtroItemDescricaoTexto: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        fontWeight: "normal",
         color: definicoesBase.corFonteTextoComum,
         lineHeight: definicoesBase.alturaLinhaTextoComum
     },
@@ -192,6 +206,12 @@ const StyleAnuncio = StyleSheet.create({
         fontSize: definicoesBase.tamanhoFonteTextoComum,
         color: definicoesBase.corFonteTextoComum,
         lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
+    linhaHorizontal: {
+      borderBottomColor: definicoesBase.corFonteTextoComum,
+      borderBottomWidth: 2,
+      width: '95%',
+      alignSelf: "center",
     },
     aplicarFiltroButton: {
         borderRadius: 10,
