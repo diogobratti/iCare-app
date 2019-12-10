@@ -6,7 +6,7 @@ buildscript {
         minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 28
-        supportLibVersion = "28.0.0"
+//        supportLibVersion = "28.0.0"
         googlePlayServicesAuthVersion = "15.0.1"
     }
     repositories {
@@ -14,7 +14,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:3.4.1")
+        classpath("com.android.tools.build:gradle:3.4.2")
 
         //Add by Jonathan - firebase
         classpath 'com.google.gms:google-services:4.2.0'
@@ -42,6 +42,7 @@ allprojects {
 
         google()
         jcenter()
+	maven { url 'https://jitpack.io' }
         //Add by Jonathan - site rocketseat - firebase
         maven {
             url "https://maven.google.com"
