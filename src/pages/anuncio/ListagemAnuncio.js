@@ -253,11 +253,23 @@ export default class ListagemAnuncio extends Component {
                 return (
                     <ActivityIndicator />
                 )
-            }
-            else if(this.state.anuncios === []){
-                return ( <View><Text>Sem anúncios nesta região. Cadastre o seu clicando em "Anuncie aqui".</Text></View> )
             } else {
-                return null;
+                if(this.state.anuncios.length == 0 && this.arrayholder.length == 0) {
+                    return ( 
+                        <View style={StyleAnuncio.FiltrarContainer}>
+                            <TouchableOpacity
+                                //style={styles.productButton} 
+                                onPress={() => {
+                                    this.props.navigation.navigate('Loading');
+                                }}
+                            >
+                                <Text style={StyleAnuncio.pesquisaFiltroTexto}>Sem anúncios nesta região. Seja o primeiro a se cadastrar! Anuncie aqui.</Text>
+                            </TouchableOpacity>
+                        </View> 
+                        )
+                } else {
+                    return null;
+                }
             }
         }
         catch (error) {

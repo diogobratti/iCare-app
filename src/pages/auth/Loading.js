@@ -17,6 +17,13 @@ class Loading extends Component {
   componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.isFocused) {
+      // Use the `this.props.isFocused` boolean
+      // Call any action
+      this._bootstrapAsync();
+    }
+  }
 
   constructor(props) {
     super(props);
