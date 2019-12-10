@@ -9,7 +9,7 @@ import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 // import reactotron from "reactotron-react-native";
 import {
   ROUTES_NEW_USER_NOME, ROUTES_NEW_USER_PROFISSAO, ROUTES_NEW_USER_ANUNCIO, ROUTES_NEW_USER_TELEFONE, ROUTES_NEW_USER_REDES_SOCIAIS, ROUTES_NEW_USER_LOCALIDADE, ROUTES_NEW_USER_FOTO,
-  ASYNC_ITEM_PERFIL, ASYNC_USER_PERFIL_CLIENTE, ASYNC_USER_PERFIL_FORNECEDOR, FIRESTORE_COLLECTION_ANUNCIOS
+  ASYNC_ITEM_PERFIL, ASYNC_USER_PERFIL_CLIENTE, ASYNC_USER_PERFIL_FORNECEDOR, FIRESTORE_COLLECTION_ANUNCIOS, ASYNC_ITEM_USUARIO_UID
 } from "../../data/Constantes";
 import { withNavigation } from 'react-navigation';
 import { definicoesBase } from "../../styles/StyleBase";
@@ -26,14 +26,18 @@ class Anuncio extends Component {
     this.state = {
       comentario: "",
       visualizarComentario: false,
-      perfil: ASYNC_USER_PERFIL_FORNECEDOR
+      perfil: ASYNC_USER_PERFIL_FORNECEDOR,
+      user_uid: "",
+      avaliacao: this.props.anuncio.avaliacao,
     }
   }
 
   async componentDidMount() {
     const perfil = await AsyncStorage.getItem(ASYNC_ITEM_PERFIL);
+    const user_uid = await AsyncStorage.getItem(ASYNC_ITEM_USUARIO_UID);
     this.setState({
       perfil: perfil,
+      user_uid: user_uid,
     })
   }
 
@@ -73,8 +77,17 @@ class Anuncio extends Component {
             if (this.objetoTemPropriedade(dadosBanco, 'avaliacao')) {
               comentariosAnuncio.push(...dadosBanco['avaliacao']);
             }
-            comentariosAnuncio.push(this.state.comentario);
-            this.props.anuncio.avaliacao = comentariosAnuncio;
+            let avaliacao = {
+              'descricao': this.state.comentario,
+              'timestamp': `${new Date()}`,
+              'user_uid': this.state.user_uid,
+            }
+            comentariosAnuncio.push(avaliacao);
+            //console.warn(JSON.stringify(avaliacao));
+            //console.warn(JSON.stringify(this.props.anuncio));
+            //nao funcionou do jeito abaixo, entao coloquei no state
+            //this.props.anuncio.avaliacao = comentariosAnuncio;
+            this.setState({avaliacao: comentariosAnuncio})
 
             //console.warn(JSON.stringify(dadosBanco['avaliacao']));
             //console.warn(JSON.stringify(comentariosAnuncio));
@@ -545,14 +558,14 @@ class Anuncio extends Component {
             </TouchableOpacity>
           </View>
         }
-        {(anuncio.avaliacao != '' && anuncio.avaliacao != undefined && anuncio.avaliacao != null) ? (
+        {(this.state.avaliacao != '' && this.state.avaliacao != undefined && this.state.avaliacao != null) ? (
           <View>
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}>
                 Avaliações
             </Text>
             </View>
-            {anuncio.avaliacao.map((avaliacao, index) =>
+            {this.state.avaliacao.map((avaliacao, index) =>
               <View style={StyleAnuncio.visualizarAnuncioTextosContainer} key={index}>
                 <View style={StyleAnuncio.visualizarAnuncioLinha}>
                   <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
