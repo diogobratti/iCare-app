@@ -10,6 +10,7 @@ const CollectionAnuncio = {
 	"uf":"",
 	"preco":"",
 	"anuncio":"",
+	"instagram":"",
 	"certificados":"",
 	"cartao_visita":"",
 	"foto":"",
