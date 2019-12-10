@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { navigationOptions, Cabecalho } from "../../styles/StyleBase";
 import StyleEscolhePerfil from "../../styles/StyleEscolhePerfil";
-import AsyncStorage from '@react-native-community/async-storage';
+import LocalStorage from '../../services/LocalStorage';
 import * as CONSTANTES from "../../data/Constantes";
 
 export default class EscolhePerfilScreen extends Component {
@@ -12,14 +12,14 @@ export default class EscolhePerfilScreen extends Component {
 
   async componentDidMount() {
     //await AsyncStorage.clear();
-    const perfil = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
+    const perfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
     this.setState({
       isLoading: false,
     });
   }
 
   guardarPerfil = async perfil => {
-    await AsyncStorage.setItem(CONSTANTES.ASYNC_ITEM_PERFIL, perfil);
+    await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_PERFIL, perfil);
   };
 
   render() {

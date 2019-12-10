@@ -5,6 +5,7 @@ import {
   View,
 } from 'react-native';
 import firebase from "react-native-firebase";
+import LocalStorage from '../../services/LocalStorage';
 import AsyncStorage from '@react-native-community/async-storage';
 import Reactotron from 'reactotron-react-native';
 import * as CONSTANTES from '../../data/Constantes';
@@ -19,12 +20,15 @@ export default class LoadingScreen extends React.Component {
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
 
-    const userPerfil = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
-    const userCadastroCompleto = await AsyncStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO);
+    const userPerfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
+    const userCadastroCompleto = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO);
 
+    // ============ DEBUG AREA ============
     // firebase.auth().signOut();
-    // await AsyncStorage.clear();
+    // await LocalStorage.clear();
+    // await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_PERFIL, CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR)
     this.logCurrentStorage();
+    // ========== FIM DEBUG AREA ==========
 
     if (userPerfil === null) {
       //Nao escolheu perfil, nao tem cadastro, escolhe perfil e depois login
@@ -42,8 +46,8 @@ export default class LoadingScreen extends React.Component {
     } else if (userCadastroCompleto === null) {
       //Ja usou app antes, fez login mas cadastro esta incompleto
       (userPerfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE) ?
-        this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_TELEFONE) :
-        this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER);
+        this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CLIENTE) :
+        this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_FORNECEDOR);
 
     } else {
       this.props.navigation.navigate(CONSTANTES.ROUTES_APP);
@@ -51,7 +55,7 @@ export default class LoadingScreen extends React.Component {
 
   };
 
-
+  // DEBUG ONLY
   logCurrentStorage() {
     AsyncStorage.getAllKeys().then((keyArray) => {
       AsyncStorage.multiGet(keyArray).then((keyValArray) => {

@@ -6,7 +6,7 @@ import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { GoogleSignin, statusCodes } from "react-native-google-signin";
 import { navigationOptions } from "../../styles/StyleBase";
 import Button from './components/Button';
-import AsyncStorage from '@react-native-community/async-storage';
+import LocalStorage from '../../services/LocalStorage';
 import * as CONSTANTES from '../../data/Constantes';
 
 export default class Login extends Component {
@@ -199,6 +199,8 @@ export default class Login extends Component {
     // const timestamp = new Date();
     let termoservico = `${new Date()}`;
 
+    const perfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
+
     if (querySnapshot.empty) {
       // console.log("Dados vazios. criando novo cadastro");
       docReference = await collection
@@ -209,7 +211,8 @@ export default class Login extends Component {
           nome: nome,
           email: email,
           foto: foto,
-          termoservico: termoservico
+          versaoTermosServico: termoservico,
+          perfil: perfil
         })
         .then(newData => {
           //atualiza referencia
@@ -224,7 +227,7 @@ export default class Login extends Component {
     // console.log(docReference);
     // console.log("redirecionando Loading");
 
-    await AsyncStorage.multiSet([
+    await LocalStorage.multiSet([
       [CONSTANTES.ASYNC_ITEM_USUARIO_TOKEN, JSON.stringify(firebaseCredential)],
       [CONSTANTES.ASYNC_ITEM_USUARIO_UID, firebaseCredential.user.uid],
       [CONSTANTES.ASYNC_ITEM_USUARIO_PROVIDER_ID, idAuthProvider],
@@ -303,7 +306,7 @@ export default class Login extends Component {
           </View>
 
           <View style={styles.containerActionsStyle}>
-            <Button onPress={() => this.props.navigation.navigate('TermoServico')}>
+            <Button onPress={() => this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO_TERMO_SERVICO)}>
               Termos de Serviço
             </Button>
           </View>

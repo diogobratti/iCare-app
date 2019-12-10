@@ -56,7 +56,7 @@ export const ASYNC_ITEM_USUARIO_EMAIL = 'userEmail';
 export const ASYNC_ITEM_USUARIO_FOTO = 'userFoto';
 export const ASYNC_ITEM_AUTH_PROVIDER_TOKEN = 'userAuthProviderToken';
 export const ASYNC_ITEM_AUTH_PROVIDER_NAME = 'userAuthProviderName';
-export const ASYNC_ITEM_TERMO_SERVICO = 'termoservico';
+export const ASYNC_ITEM_TERMO_SERVICO = 'versaoTermosServico';
 
 // Firestore Collections
 export const FIRESTORE_COLLECTION_ANUNCIOS = 'anuncios';

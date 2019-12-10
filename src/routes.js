@@ -15,7 +15,7 @@ import EscolhePerfilScreen from './pages/auth-v2/EscolhePerfilScreen';
 import LoginScreen from './pages/auth-v2/LoginScreen';
 import NewUserNomeScreen from './pages/auth-v2/NewUserNomeScreen';
 // // import NewUserCPF from './pages/auth/NewUserCPF';
-// import NewUserEmail from './pages/auth/NewUserEmail';
+import NewUserEmailScreen from './pages/auth-v2/NewUserEmailScreen';
 import NewUserTelefoneScreen from './pages/auth-v2/NewUserTelefoneScreen';
 // import NewUserAnuncio from './pages/auth/NewUserAnuncio';
 // import NewUserProfissao from './pages/auth/NewUserProfissao';
@@ -121,7 +121,7 @@ const NewUserFornecedorStack = createStackNavigator(
   {
     NewUserNome: NewUserNomeScreen,
     //     // NewUserCPF,
-    //     NewUserEmail,
+    NewUserEmail: NewUserEmailScreen,
     //     NewUserTelefone,
     //     NewUserAnuncio,
     //     NewUserCadastrar,
@@ -134,6 +134,7 @@ const NewUserClienteStack = createStackNavigator(
   {
     NewUserTelefone: NewUserTelefoneScreen,
     // NewUserCadastrar: NewUserCadastrarScreen,
+    // NewUserLocalidade: NewUserLocalidadeScreen,
   },
 );
 
