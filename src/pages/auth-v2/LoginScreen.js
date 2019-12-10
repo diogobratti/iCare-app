@@ -48,9 +48,9 @@ export default class Login extends Component {
       if (result.isCancelled) {
         // handle this however suites the flow of your app
         this.setState({ isProcessing: false });
-        this._alertErro("Autorização Cancelada");
+        //this._alertErro("Autorização Cancelada");
         // this.props.navigation.push("Loading");
-        throw new Error("User cancelled request");
+        throw new Error("Autorização Cancelada");
       }
 
       // console.log(
@@ -63,10 +63,11 @@ export default class Login extends Component {
       if (!data) {
         // handle this however suites the flow of your app
         this.setState({ isProcessing: false });
-        this._alertErro("Erro acessando os dados do token do usuário");
+        //this._alertErro("Erro acessando os dados do token do usuário");
         // this.props.navigation.push("Loading");
         throw new Error(
-          "Something went wrong obtaining the users access token"
+         // "Something went wrong obtaining the users access token"
+	"Erro acessando os dados do token do usuário"
         );
       }
 
@@ -98,7 +99,7 @@ export default class Login extends Component {
       );
     } catch (e) {
       this.setState({ isProcessing: false });
-      this._alertErro("Erro Interno:" + e);
+      this._alertErro(e.toString());
       // this.props.navigation.push("Loading");
       console.error(e);
     }
