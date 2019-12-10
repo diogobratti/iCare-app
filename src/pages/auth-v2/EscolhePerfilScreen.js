@@ -4,6 +4,7 @@ import { navigationOptions, Cabecalho } from "../../styles/StyleBase";
 import StyleEscolhePerfil from "../../styles/StyleEscolhePerfil";
 import LocalStorage from '../../services/LocalStorage';
 import * as CONSTANTES from "../../data/Constantes";
+import analytics from '@react-native-firebase/analytics';
 
 export default class EscolhePerfilScreen extends Component {
   static navigationOptions = navigationOptions;
@@ -18,8 +19,13 @@ export default class EscolhePerfilScreen extends Component {
   //   });
   // }
 
+  async componentDidMount() {
+    await analytics().setCurrentScreen('EscolhePerfilScreen', 'EscolhePerfilScreen')
+  }
+
   guardarPerfil = async perfil => {
     await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_PERFIL, perfil);
+    await analytics().logJoinGroup({group_id: perfil})
   };
 
   render() {
