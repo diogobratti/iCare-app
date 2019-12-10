@@ -1,9 +1,10 @@
 // SignUp.js
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { CheckBox, Button } from 'react-native-elements';
+import { StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
+import { CheckBox } from 'react-native-elements';
 import firebase from 'react-native-firebase';
 import apiDb from '../../services/apiDb';
+import Button from './components/Button';
 
 export default class SignUp extends React.Component {
   state = {
@@ -16,7 +17,7 @@ export default class SignUp extends React.Component {
     phoneNumber: '',
     address: '',
     serviceTermsVersion: '',
-    serviceTermsCheckbox: false,
+    serviceTermsCheckbox: true,
     uid: '',
   };
 
@@ -81,94 +82,107 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <TextInput
-          placeholder="CPF"
-          keyboardType="numeric"
-          style={styles.textInput}
-          onChangeText={(cpf) => this.setState({ cpf })}
-          value={this.state.cpf}
-          maxLength={11}
-        />
+      <ScrollView>
+        <View style={styles.container}>
+          <TextInput
+            placeholder="CPF"
+            keyboardType="numeric"
+            style={styles.textInput}
+            onChangeText={(cpf) => this.setState({ cpf })}
+            value={this.state.cpf}
+            maxLength={11}
+          />
 
-        <TextInput
-          placeholder="Email"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={(email) => this.setState({ email })}
-          value={this.state.email}
-        />
+          <TextInput
+            placeholder="Email"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(email) => this.setState({ email })}
+            value={this.state.email}
+          />
 
-        <TextInput
-          placeholder="Nome"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={(name) => this.setState({ name })}
-          value={this.state.name}
-        />
+          <TextInput
+            placeholder="Nome"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(name) => this.setState({ name })}
+            value={this.state.name}
+          />
 
-        <TextInput
-          placeholder="Data de Nascimento"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={(birthdate) => this.setState({ birthdate })}
-          value={this.state.birthdate}
-        />
+          <TextInput
+            placeholder="Data de Nascimento"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(birthdate) => this.setState({ birthdate })}
+            value={this.state.birthdate}
+          />
 
-        <TextInput
-          placeholder="Telefone"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={(phoneNumber) => this.setState({ phoneNumber })}
-          value={this.state.phoneNumber}
-        />
+          <TextInput
+            placeholder="Telefone"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(phoneNumber) => this.setState({ phoneNumber })}
+            value={this.state.phoneNumber}
+          />
 
-        <TextInput
-          placeholder="Endereço"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={(address) => this.setState({ address })}
-          value={this.state.address}
-        />
+          <TextInput
+            placeholder="Endereço"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(address) => this.setState({ address })}
+            value={this.state.address}
+          />
 
-        <TextInput
-          secureTextEntry
-          placeholder="Senha"
-          autoCapitalize="none"
-          style={styles.textInput}
-          onChangeText={(password) => this.setState({ password })}
-          value={this.state.password}
-        />
+          <TextInput
+            secureTextEntry
+            placeholder="Senha"
+            autoCapitalize="none"
+            style={styles.textInput}
+            onChangeText={(password) => this.setState({ password })}
+            value={this.state.password}
+          />
 
-        <TextInput
-          secureTextEntry
-          placeholder="Confirme a Senha"
-          autoCapitalize="none"
-          style={styles.textInput}
-          // onChangeText={password => this.setState({ password })}
-          // value={this.state.password}
-        />
+          <TextInput
+            secureTextEntry
+            placeholder="Confirme a Senha"
+            autoCapitalize="none"
+            style={styles.textInput}
+            // onChangeText={password => this.setState({ password })}
+            // value={this.state.password}
+          />
 
-        <CheckBox
-          title="Concordo com os Termos de Serviço"
-          onValueChange={(serviceTermsCheckbox) =>
-            this.setState({ serviceTermsCheckbox })
-          }
-          // itemCheckedKey="RNchecked"
-          // iconSize={16}
-          value={this.state.serviceTermsCheckbox}
-          checked={this.state.serviceTermsCheckbox}
-        />
+          <CheckBox
+            title="Concordo com os Termos de Serviço"
+            // value={this.state.serviceTermsCheckbox}
+            // onValueChange={() =>
+            //   this.setState({
+            //     serviceTermsCheckbox: !this.state.serviceTermsCheckbox,
+            //   })
+            // }
+            onPress={() =>
+              this.setState({
+                serviceTermsCheckbox: !this.state.serviceTermsCheckbox,
+              })
+            }
+            checked={this.state.serviceTermsCheckbox}
+          />
 
-        <Button title="Cadastre-se" onPress={this.handleSignUp} />
-        {this.state.errorMessage && (
-          <Text style={{ color: 'red' }}>{this.state.errorMessage}</Text>
-        )}
+          {/* <Button title="Cadastre-se" onPress={this.handleSignUp} /> */}
 
-        <Button
-          title="Já tem uma conta? Login"
-          onPress={() => this.props.navigation.navigate('Login')}
-        />
+          <Button onPress={this.handleSignUp}>Cadastre-se</Button>
+
+          {this.state.errorMessage && (
+            <Text style={{ color: 'red' }}>{this.state.errorMessage}</Text>
+          )}
+
+          {/* <Button
+            title="Já tem uma conta? Login"
+            onPress={() => this.props.navigation.navigate('Login')} */}
+
+          <Button onPress={() => this.props.navigation.navigate('Login')}>
+            Já tem uma conta? Login
+          </Button>
+        </View>
       </ScrollView>
     );
   }
@@ -176,12 +190,11 @@ export default class SignUp extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    marginLeft: 10,
+    marginHorizontal: 10,
   },
   textInput: {
     height: 40,
-    width: '90%',
     borderColor: 'gray',
     borderWidth: 1,
     marginTop: 8,
