@@ -21,6 +21,16 @@ import LocalStorage from "../../services/LocalStorage";
 
 const options = {
   title: 'Selecione a imagem',
+  cancelButtonTitle: 'Cancelar',
+  takePhotoButtonTitle: 'Tirar foto…',
+  chooseFromLibraryButtonTitle: 'Escolher da galeria…',
+  permissionDenied: {
+    title: 'Permissão negada',
+    text:
+      'Para tirar fotos com sua câmera e ter acesso à sua galeria de imagens.',
+    reTryTitle: 'Tentar novamente',
+    okTitle: "Confirmar",
+  },
   storageOptions: {
     skipBackup: true,
     path: 'images'
