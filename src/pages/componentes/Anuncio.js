@@ -243,7 +243,7 @@ class Anuncio extends Component {
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}
                 onPress={() => {
                   if (editavel)
-                    this.props.navigation.navigate(ROUTES_NEW_USER_REDES_SOCIAIS)
+                    this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
                 }}>
                 {anuncio.instagram}
               </Text>
@@ -252,7 +252,7 @@ class Anuncio extends Component {
               <View style={StyleAnuncio.visualizarAnuncioLinha}>
                 <Text style={StyleAnuncio.visualizarAnuncioAtributoEditarText}
                   onPress={() => {
-                    this.props.navigation.navigate(ROUTES_NEW_USER_REDES_SOCIAIS)
+                    this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
                   }}>
                   {">"}
                 </Text>
