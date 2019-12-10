@@ -44,7 +44,10 @@ export default class ListagemAnuncio extends Component {
             textInput: '',
             isLoading: true,
             anuncios: [],
-            lastVisible: 0,
+            lastVisible: {
+                orderBy: 0,
+                user_uid: 0,
+            },
             refreshing: false,
             search: '',
             mostraMenuFiltro: false,
@@ -89,7 +92,7 @@ export default class ListagemAnuncio extends Component {
         // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
         // for more information.
         this.unsubscribe = this.collection;
-        //this.unsubscribe = this.unsubscribe.where('microrregiao', '==', this.state.microrregiao);
+        this.unsubscribe = this.unsubscribe.where('microrregiao', '==', this.state.microrregiao);
         /*
         this.unsubscribe = this.unsubscribe.where('preco', '<=', this.state.filtroPreco);
         if(!filtroProfissaoCuidador) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Cuidador");
@@ -101,6 +104,7 @@ export default class ListagemAnuncio extends Component {
         */
         //console.warn(JSON.stringify(this.props));
         this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
+        //this.unsubscribe = this.unsubscribe.orderBy('user_uid', 'ASC');
         this.unsubscribe = this.unsubscribe.limit(this.state.limit);
         this.unsubscribe = this.unsubscribe.get(this.getOptions).then(this.onCollectionUpdate);
     }
@@ -109,6 +113,10 @@ export default class ListagemAnuncio extends Component {
         this.unsubscribe();
     }
     onCollectionUpdate = (querySnapshot) => {
+        var ultimo_item_pelo_orderBy = null;
+        var ultimo_item_pelo_user_uid = null;
+        var ultimo_item = null;
+        const campo_orderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         querySnapshot.forEach((doc) => {
             const {
                 ...CollectionAnuncio
@@ -120,11 +128,22 @@ export default class ListagemAnuncio extends Component {
                 //dados do firestore
                 ...CollectionAnuncio
             });
+            if (campo_orderBy == "cidade") {
+                ultimo_item_pelo_orderBy = doc.cidade;
+            } else {
+                ultimo_item_pelo_orderBy = doc.preco;
+            }
+            ultimo_item_pelo_user_uid = doc.user_uid;
+            ultimo_item = doc;
         });
         var ultima = this.state.lastVisible + this.state.limit;
         this.setState({
             anuncios: this.arrayholder,
-            lastVisible: ultima,
+            lastVisible: {
+                doc: ultimo_item,
+                orderBy: ultimo_item_pelo_orderBy,
+                user_uid: ultimo_item_pelo_user_uid,
+            }, ultima,
             isLoading: false,
         });
         this.SearchFilterFunction(this.state.search);
@@ -182,10 +201,12 @@ export default class ListagemAnuncio extends Component {
     };
 
     loadMore = () => {
-        //console.warn(this.state.lastVisible);
+        const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         this.unsubscribe = this.collection.
-            orderBy(this.state.orderByValor, 'ASC').
-            startAfter(this.state.lastVisible).
+            where('microrregiao', '==', this.state.microrregiao).
+            orderBy(collectionOrderBy, 'ASC').
+            //orderBy('user_uid', 'ASC').
+            startAfter(this.state.lastVisible.doc).
             limit(this.state.limit).
             //orderBy('nome','DESC').
             //where('nome', '==', 'dbratti').
@@ -236,6 +257,7 @@ export default class ListagemAnuncio extends Component {
                 <View style={StyleAnuncio.FiltrarContainer}>
                     <View style={StyleAnuncio.scrollViewFiltrarContainer}>
                         <ScrollView>
+                            {/* 
                             <View style={StyleAnuncio.orderByContainer}>
                                 <View style={StyleAnuncio.orderByCabecalhoContainer}>
                                     <Text style={StyleAnuncio.orderByTexto}>
@@ -244,23 +266,32 @@ export default class ListagemAnuncio extends Component {
                                 </View>
                                 <View style={StyleAnuncio.orderByItemContainer}>
                                     <CheckBox
-                                        title='Localidade'
-                                        checkedIcon='dot-circle-o'
-                                        uncheckedIcon='circle-o'
-                                        checked={this.state.orderByValor === 'localidade'}
-                                        onPress={() => this.setState({ orderByValor: 'localidade' })}
-                                    />
-                                </View>
-                                <View style={StyleAnuncio.orderByItemContainer}>
-                                    <CheckBox
                                         title='Preço'
                                         checkedIcon='dot-circle-o'
                                         uncheckedIcon='circle-o'
                                         checked={this.state.orderByValor === 'preco'}
-                                        onPress={() => this.setState({ orderByValor: 'preco' })}
+                                        onPress={() => {
+                                            this.setState({ orderByValor: 'preco', anuncios : null })
+                                            this.arrayholder = [];
+                                            this.loadMore();
+                                        }
+                                    }
                                     />
                                 </View>
-                                {/* 
+                                <View style={StyleAnuncio.orderByItemContainer}>
+                                    <CheckBox
+                                        title='Localidade'
+                                        checkedIcon='dot-circle-o'
+                                        uncheckedIcon='circle-o'
+                                        checked={this.state.orderByValor === 'localidade'}
+                                        onPress={() => {
+                                                this.setState({ orderByValor: 'localidade', anuncios : null })
+                                                this.arrayholder = [];
+                                                this.loadMore();
+                                            }
+                                        }
+                                    />
+                                </View>
                         <View style={StyleAnuncio.orderByItemContainer}>
                             <CheckBox
                                 title='Avaliação'
@@ -270,8 +301,8 @@ export default class ListagemAnuncio extends Component {
                                 onPress={() => this.setState({orderByValor: 'avaliacao'})}
                             />
                                             </View>
-                                            */}
                             </View>
+                                            */}
                             <View style={StyleAnuncio.filtroContainer}>
                                 <View style={StyleAnuncio.filtroItemContainer}>
                                     <Text style={StyleAnuncio.filtroItemTexto}>
@@ -395,47 +426,47 @@ export default class ListagemAnuncio extends Component {
             );
         }
         return (
-                <View style={StyleAnuncio.container}>
-                    <View style={StyleAnuncio.pesquisaContainer}>
-                        <View style={StyleAnuncio.pesquisaBarraContainer}>
-                            <SearchBar
-                                placeholder="Busque por nome, preço..."
-                                //onChangeText={this.updateSearch}
-                                value={this.state.search}
-                                searchIcon={searchBarSearchIcon}
-                                containerStyle={searchBarContainerStyle}
-                                inputStyle={searchBarInputStyle}
-                                onChangeText={text => this.SearchFilterFunction(text)}
-                                onClear={text => this.SearchFilterFunction('')}
-                                inputContainerStyle={searchBarInputContainerStyle}
-                                leftIconContainerStyle={searchBarleftIconContainerStyle}
-                                placeholderTextColor={searchBarPlaceholderTextColor}
-                            />
-                        </View>
-                        <View style={StyleAnuncio.pesquisaFiltroContainer}>
-                            <TouchableOpacity
-                                //style={styles.productButton} 
-                                onPress={() => {
-                                    this.setState({ mostraMenuFiltro: true });
-                                }}
-                            >
-                                <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
-                            </TouchableOpacity>
-                        </View>
+            <View style={StyleAnuncio.container}>
+                <View style={StyleAnuncio.pesquisaContainer}>
+                    <View style={StyleAnuncio.pesquisaBarraContainer}>
+                        <SearchBar
+                            placeholder="Busque por nome, preço..."
+                            //onChangeText={this.updateSearch}
+                            value={this.state.search}
+                            searchIcon={searchBarSearchIcon}
+                            containerStyle={searchBarContainerStyle}
+                            inputStyle={searchBarInputStyle}
+                            onChangeText={text => this.SearchFilterFunction(text)}
+                            onClear={text => this.SearchFilterFunction('')}
+                            inputContainerStyle={searchBarInputContainerStyle}
+                            leftIconContainerStyle={searchBarleftIconContainerStyle}
+                            placeholderTextColor={searchBarPlaceholderTextColor}
+                        />
                     </View>
-                    <FlatList
-                        contentContainerStyle={StyleAnuncio.list}
-                        data={this.state.anuncios}
-                        renderItem={({ item }) => this.renderItem(item)}
-                        //onEndReached={this.loadMore}
-                        onEndReachedThreshold={0.25}
-                        //ItemSeparatorComponent={this.ListViewItemSeparator}
-                        enableEmptySections={true}
-                        keyExtractor={(item, index) => index.toString()}
-                        // Footer (Activity Indicator)
-                        ListFooterComponent={this.renderFooter}
-                    />
+                    <View style={StyleAnuncio.pesquisaFiltroContainer}>
+                        <TouchableOpacity
+                            //style={styles.productButton} 
+                            onPress={() => {
+                                this.setState({ mostraMenuFiltro: true });
+                            }}
+                        >
+                            <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
+                <FlatList
+                    contentContainerStyle={StyleAnuncio.list}
+                    data={this.state.anuncios}
+                    renderItem={({ item }) => this.renderItem(item)}
+                    onEndReached={this.loadMore}
+                    onEndReachedThreshold={0.25}
+                    //ItemSeparatorComponent={this.ListViewItemSeparator}
+                    enableEmptySections={true}
+                    keyExtractor={(item, index) => index.toString()}
+                    // Footer (Activity Indicator)
+                    ListFooterComponent={this.renderFooter}
+                />
+            </View>
         )
     }
 }
