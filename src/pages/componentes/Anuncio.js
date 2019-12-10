@@ -235,7 +235,7 @@ class Anuncio extends Component {
           </View>
         }
 
-          <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
+          {/* <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
               <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
                 Instagram:{" "}
@@ -258,7 +258,7 @@ class Anuncio extends Component {
                 </Text>
               </View>
             }
-          </View>
+          </View> */}
 
           {(anuncio.preco != '' && anuncio.preco != undefined && anuncio.preco != null) ? (
             <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
