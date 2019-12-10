@@ -4,6 +4,9 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
@@ -20,26 +23,33 @@ import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
 
+// FBSdk
+  private static CallbackManager mCallbackManager = CallbackManager.Factory.create();
+// FBSdk
+  protected static CallbackManager getCallbackManager() {
+    return mCallbackManager;
+  }
+
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
       return BuildConfig.DEBUG;
-    }
+  }
 
-    @Override
-    protected List<ReactPackage> getPackages() {
-      return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new FBSDKPackage(),
-            new RNGoogleSigninPackage(),
-            new RNFirebasePackage(),
-            new VectorIconsPackage(),
-            new RNGestureHandlerPackage(),
-            //Add by Jonathan - Firebase - rnfirebase.io
-            new RNFirebaseAuthPackage(),
-            new RNFirebaseFirestorePackage()
-      );
-    }
+  @Override
+  protected List<ReactPackage> getPackages() {
+    return Arrays.<ReactPackage>asList(
+        new MainReactPackage(),
+          new FBSDKPackage(mCallbackManager),
+          new RNGoogleSigninPackage(),
+          new RNFirebasePackage(),
+          new VectorIconsPackage(),
+          new RNGestureHandlerPackage(),
+          //Add by Jonathan - Firebase - rnfirebase.io
+          new RNFirebaseAuthPackage(),
+          new RNFirebaseFirestorePackage()
+    );
+  }
 
     @Override
     protected String getJSMainModuleName() {
@@ -56,5 +66,7 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
+    //FacebookSDK
+    AppEventsLogger.activateApp(this);
   }
 }
