@@ -2,9 +2,8 @@
 import React from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { CheckBox, Button } from 'react-native-elements'
-
-
 import firebase from 'react-native-firebase'
+import apiDb from '../../services/apiDb'
 
 export default class SignUp extends React.Component {
     state = {
@@ -18,10 +17,13 @@ export default class SignUp extends React.Component {
         address: '',
         serviceTermsVersion: '',
         serviceTermsCheckbox: false,
+        uid: ''
     }
 
     handleSignUp = () => {
         console.log('handleSignUp')
+
+        //TODO: tratar se os termos de servico estao selecionados
 
         // firebase.auth()
         // .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -30,8 +32,20 @@ export default class SignUp extends React.Component {
 
         firebase.auth().
             createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(() => {
+            .then( (userCredentials) => {
                 //adiciona atributos "adicionais"
+                api = new apiDb('usuarios');
+                api.add({
+                    id: userCredentials.user.uid,
+                    cpf: this.state.cpf,
+                    name: this.state.name,
+                    birthdate: this.state.birthdate,
+                    phoneNumaber: this.state.phoneNumber,
+                    address: this.state.address,
+                    serviceTermsVersion: this.state.serviceTermsVersion
+                })
+
+                // this.props.navigation.navigate('Main');
 
             })
             .catch(error => this.setState({
