@@ -11,11 +11,11 @@ export default class FaleConosco extends Component {
   constructor(props) {
     super(props);
     this.handleBackButtonClick = (() => {
-    //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
-    //     this.navigator.pop();
-        return true; //avoid closing the app
-    //   }
-    //   return false; //close the app
+      //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+      //     this.navigator.pop();
+      return true; //avoid closing the app
+      //   }
+      //   return false; //close the app
     }).bind(this) //don't forget bind this, you will remember anyway.
   }
 
@@ -24,22 +24,24 @@ export default class FaleConosco extends Component {
     descricao: ""
   };
   async componentDidMount() {
-      BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
   render() {
     return (
       <View style={StyleFaleConosco.container}>
         <View style={StyleFaleConosco.corpoContainer}>
-          <ScrollView>
+          <ScrollView style={StyleFaleConosco.scrollView}>
+            <Text style={StyleFaleConosco.corpoText}>Título</Text>
             <Input
-              label="Título"
+              //label="Título"
               labelStyle={StyleFaleConosco.corpoText}
               onChangeText={titulo => this.setState({ titulo })}
             />
 
+            <Text style={StyleFaleConosco.corpoText}>Descreva o seu problema/sugestão</Text>
             <Input
-              label="Descreva o seu problema/sugestão"
+              //label="Descreva o seu problema/sugestão"
               onChangeText={descricao => this.setState({ descricao })}
               multiline={true}
               numberOfLines={4}
@@ -50,8 +52,8 @@ export default class FaleConosco extends Component {
                 borderRadius: 5,
               }}
             />
+            <Text style={StyleFaleConosco.corpoText}>Ou entre em contato diretamente conosco pelo email icare.contato@gmail.com e pelas nossas redes sociais.</Text>
           </ScrollView>
-          <Text style={StyleFaleConosco.corpoText}>Ou entre em contato diretamente conosco pelo email icare.contato@gmail.com e pelas nossas redes sociais.</Text>
         </View>
         <View style={StyleFaleConosco.botaoContainer}>
           <TouchableOpacity

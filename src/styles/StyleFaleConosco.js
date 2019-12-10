@@ -17,7 +17,9 @@ const StyleFaleConosco = StyleSheet.create({
     },
     corpoContainer:{
         flex: 5,
-        justifyContent:"flex-start",
+        justifyContent:"center",
+    },
+    scrollView:{
     },
     corpoText:{
         fontFamily: definicoesBase.fontFamilyTextoComum,
