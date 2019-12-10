@@ -108,6 +108,8 @@ export const FIRESTORE_FIELD_ANUNCIO_TERMO_SERVICO = 'versaoTermosServico';
 export const FIRESTORE_FIELD_ANUNCIO_TIMESTAMP = 'timestamp';
 export const FIRESTORE_FIELD_ANUNCIO_CADASTRO_COMPLETO = 'cadastroCompleto';
 
-export const FIRESTORE_ADMOB_HABLITADO = false;
+export const FIRESTORE_ADMOB_HABLITADO = true;
 export const FIRESTORE_ADMOB_BANNER_PROPAGANDA_ANUNCIO_ID = 'ca-app-pub-1344418698852447/5844363595';
-export const FIRESTORE_ADMOB_BANNER_PROPAGANDA_ANUNCIO_KEYWORDS = ['health', 'fitness'];
+export const FIRESTORE_ADMOB_BANNER_PROPAGANDA_ANUNCIO_KEYWORDS = ['caring','care','homecare','family','healing','caregiving','caregiver','health','healthcare','family','nurse',
+                                                                    'cuidador','cuidadores','fisioterapia','fisioterapeuta', 'enfermeiro','enfermagem','técnico de enfermagem',
+                                                                  'plantão','idoso','terceira idade', 'deficiente', 'necessidade especial'];
