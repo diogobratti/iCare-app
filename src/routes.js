@@ -15,6 +15,7 @@ import TermosServicoScreen from './pages/termo/TermosServicoScreen';
 import EscolhePerfilScreen from './pages/auth-v2/EscolhePerfilScreen';
 import LoginScreen from './pages/auth-v2/LoginScreen';
 import NewUserNomeScreen from './pages/auth-v2/NewUserNomeScreen';
+import NewUserFotoScreen from './pages/auth-v2/NewUserFotoScreen';
 import NewUserLocalidadeScreen from './pages/auth-v2/NewUserLocalidadeScreen';
 import NewUserEmailScreen from './pages/auth-v2/NewUserEmailScreen';
 import NewUserTelefoneScreen from './pages/auth-v2/NewUserTelefoneScreen';
@@ -96,6 +97,7 @@ const HomeStack = createStackNavigator(
 const AnuncioStack = createStackNavigator(
   {
     PerfilAnuncio: PerfilAnuncioScreen,
+    NewUserFoto: NewUserFotoScreen,
     NewUserNome: NewUserNomeScreen,
     NewUserEmail: NewUserEmailScreen,
     NewUserTelefone: NewUserTelefoneScreen,

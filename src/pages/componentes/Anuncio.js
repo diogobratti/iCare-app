@@ -7,7 +7,7 @@ import MensagemEmail from "../componentes/MensagemEmail";
 import MensagemInstagram from "../componentes/MensagemInstagram";
 import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 // import reactotron from "reactotron-react-native";
-import { ROUTES_NEW_USER_NOME, ROUTES_NEW_USER_PROFISSAO, ROUTES_NEW_USER_ANUNCIO, ROUTES_NEW_USER_TELEFONE, ROUTES_NEW_USER_REDES_SOCIAIS } from "../../data/Constantes";
+import { ROUTES_NEW_USER_NOME, ROUTES_NEW_USER_PROFISSAO, ROUTES_NEW_USER_ANUNCIO, ROUTES_NEW_USER_TELEFONE, ROUTES_NEW_USER_REDES_SOCIAIS, ROUTES_NEW_USER_FOTO } from "../../data/Constantes";
 import { withNavigation } from 'react-navigation';
 import { definicoesBase } from "../../styles/StyleBase";
 
@@ -25,10 +25,16 @@ class Anuncio extends Component {
     return (
       <ScrollView>
         <View style={StyleAnuncio.visualizarAnuncioFotoContainer}>
-          <Image
-            style={StyleAnuncio.visualizarAnuncioImagemUsuario}
-            source={{ uri: anuncio.foto }}
-          />
+          <TouchableOpacity
+            onPress={() => {
+              if (editavel)
+                this.props.navigation.navigate(ROUTES_NEW_USER_FOTO)
+            }}>
+            <Image
+              style={StyleAnuncio.visualizarAnuncioImagemUsuario}
+              source={{ uri: anuncio.foto }}
+            />
+          </TouchableOpacity>
         </View>
         <View style={StyleAnuncio.visualizarAnuncioNomeContainer}>
           <View style={StyleAnuncio.visualizarAnuncioLinhaEditavel}>
@@ -85,7 +91,7 @@ class Anuncio extends Component {
                   onPress={() => {
                     this.props.navigation.navigate(ROUTES_NEW_USER_TELEFONE)
                   }}>
-                    {">"}
+                  {">"}
                 </Text>
               </View>
             }

@@ -29,6 +29,7 @@ export const ROUTES_AUTENTICACAO_LOGIN = 'Login';
 export const ROUTES_AUTENTICACAO_TERMO_SERVICO = 'TermoServico';
 export const ROUTES_NEW_USER_CLIENTE = 'NewUserCliente';
 export const ROUTES_NEW_USER_FORNECEDOR = 'NewUserFornecedor';
+export const ROUTES_NEW_USER_FOTO = 'NewUserFoto';
 export const ROUTES_NEW_USER_NOME = 'NewUserNome';
 export const ROUTES_NEW_USER_EMAIL = 'NewUserEmail';
 export const ROUTES_NEW_USER_TELEFONE = 'NewUserTelefone';
