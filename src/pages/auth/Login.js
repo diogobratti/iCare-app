@@ -1,6 +1,8 @@
 // Login.js
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { SocialIcon } from 'react-native-elements'
+import { GoogleSigninButton } from 'react-native-google-signin';
 import firebase from 'react-native-firebase'
 
 export default class Login extends React.Component {
@@ -43,13 +45,26 @@ export default class Login extends React.Component {
                 />
                 <Button title="Login" onPress={this.handleLogin} />
 
-                <Text>Conecte-se com</Text>
 
-                <Text>Facebook</Text>
+                <SocialIcon
+                    title='Entrar com Facebook'
+                    button
+                    type='facebook'
+                />
 
-                <Text>Google</Text>
+                <GoogleSigninButton
+    style={{ width: 192, height: 48 }}
+    size={GoogleSigninButton.Size.Wide}
+    color={GoogleSigninButton.Color.Dark}
+    // onPress={this._signIn}
+    // disabled={this.state.isSigninInProgress}
+     />
 
-                <Text>Instagram</Text>
+                <SocialIcon
+                    title='Entrar com Instagram'
+                    button
+                    type='instagram'
+                />
 
                 <Button
                     title="Não tem uma conta? Cadastre-se"

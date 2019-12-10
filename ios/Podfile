@@ -8,11 +8,15 @@ target 'app' do
   # Pods for app
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Firestore'
+  pod 'GoogleSignIn'
 
 #  target 'app-tvOSTests' do
 #    inherit! :search_paths
 #    # Pods for testing
 #  end
+
+#  pod 'RNGoogleSignin', :path => '../node_modules/react-native-google-signin'
 
   target 'appTests' do
     inherit! :search_paths

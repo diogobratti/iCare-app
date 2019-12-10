@@ -107,6 +107,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true  // needed for firestore:
     }
     splits {
         abi {
@@ -145,7 +146,8 @@ dependencies {
     implementation "com.google.firebase:firebase-core:16.0.9"// site rnfirebase.io
     // Firebase Auth
     implementation "com.google.firebase:firebase-auth:17.0.0" // site rnfirebase.io
-
+    // Firebase Firestore
+    implementation "com.google.firebase:firebase-firestore:19.0.0"
     //----
     implementation project(':react-native-vector-icons')
     implementation project(':react-native-gesture-handler')
