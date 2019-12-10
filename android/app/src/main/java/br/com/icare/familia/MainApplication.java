@@ -78,5 +78,7 @@ public class MainApplication extends Application implements ReactApplication {
     SoLoader.init(this, /* native exopackage */ false);
     //FacebookSDK
     // AppEventsLogger.activateApp(this);
+    // FacebookSdk.sdkInitialize(getApplicationContext());
+    // AppEventsLogger.activateApp(this);
   }
 }
