@@ -30,17 +30,13 @@ import SelectCidades from "../componentes/SelectCidades";
 export default class Localidade extends Component {
   static navigationOptions = navigationOptions;
 
-  state = this.props.navigation.state.params.state;
-
-  constructor() {
-    this.setState({
-      uf: null,
-      selectedValueEstado: null,
-      selectedValueCidade: null,
-      erro: null,
-      isLoading: true
-    });
-  }
+  state = {
+    uf: null,
+    selectedValueEstado: null,
+    selectedValueCidade: null,
+    erro: null,
+    isLoading: true
+  };
 
   async componentDidMount() {
     const estado = await AsyncStorage.getItem("estado");
@@ -56,7 +52,8 @@ export default class Localidade extends Component {
       estado: estado,
       municipio: municipio,
       regiao: regiao,
-      isLoading: false
+      isLoading: false,
+      ...this.props.navigation.state.params.state
     });
   }
   renderValueChangeEstado = value => {
@@ -125,7 +122,7 @@ export default class Localidade extends Component {
             onPress={() => {
               var mensagem = "";
               if (selectedValueEstado != "" && selectedValueCidade != "") {
-                // this.guardarLocalidade();
+                this.guardarLocalidade();
                 this.props.navigation.navigate("NewUserAnuncio", {
                   state: this.state
                 });
