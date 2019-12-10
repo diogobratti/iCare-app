@@ -19,6 +19,7 @@ import NewUserCadastrar from './pages/auth/NewUserCadastrar';
 import FaleConosco from './pages/faleconosco/FaleConosco';
 //import Localidade from "./pages/localidade/Teste";
 //import Localidade from "./pages/localidade/Testando";
+import Imagem from "./pages/Imagem";
 
 import StyleBase, { navigationOptions } from "./styles/StyleBase";
 
