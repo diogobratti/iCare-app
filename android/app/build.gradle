@@ -139,6 +139,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-google-signin')
     implementation project(':react-native-firebase')
     //Add by Jonathan - Firebase
     // implementation 'com.google.firebase:firebase-core:17.0.0' //site firebase
