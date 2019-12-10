@@ -75,6 +75,7 @@ export default class ListagemAnuncio extends Component {
             filtroAvaliacao: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_AVALIACAO,
             orderByValor: CONSTANTES.LISTAGEM_ANUNCIO_ORDERBY_PADRAO,
             filtroPreco: CONSTANTES.LISTAGEM_ANUNCIO_PRECO_MAXIMO,
+            filtroPerfil: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_FORNECEDOR, // LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE
             filtroProfissaoCuidador: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_CUIDADOR,
             filtroProfissaoTecnicoEnfermagem: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_TECNICO_ENFERMAGEM,
             filtroProfissaoEnfermeiro: CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PROFISSAO_ENFERMEIRO,
@@ -112,6 +113,7 @@ export default class ListagemAnuncio extends Component {
             municipio: municipio,
             microrregiao: microrregiao,
             perfil: perfil,
+            filtroPerfil: (perfil == CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR ? CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_FORNECEDOR : CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE),
             primeiroAnuncio: {
                 id: 0,
                 doc: null,
@@ -124,7 +126,7 @@ export default class ListagemAnuncio extends Component {
         // for more information.
         this.unsubscribe = this.collection;
         this.unsubscribe = this.unsubscribe.where('microrregiao', '==', this.state.microrregiao);
-        this.unsubscribe = this.unsubscribe.where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR);
+        //this.unsubscribe = this.unsubscribe.where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR);
         /*
         this.unsubscribe = this.unsubscribe.where('preco', '<=', this.state.filtroPreco);
         if(!filtroProfissaoCuidador) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Cuidador");
@@ -216,18 +218,21 @@ export default class ListagemAnuncio extends Component {
             filtroProfissaoFisioterapeuta,
             filtroProfissaoNutricionista,
             filtroProfissaoTecnicoEnfermagem,
-            filtroProfissaoTerapeutaOcupacional } = this.state;
+            filtroProfissaoTerapeutaOcupacional,
+            filtroPerfil } = this.state;
         //passing the inserted text in textinput
         const newData = this.arrayholder.filter(function (item) {
             //applying filter for the inserted text in search bar
             const textData = text.toUpperCase();
             const itemDataNome = item.nome ? item.nome.toUpperCase() : ''.toUpperCase();
             const itemDataPreco = item.preco ? item.preco.replace('R$','').replace(',','.') : '0';
+            const itemDataPerfil = item.perfil ? item.perfil.toUpperCase() : ''.toUpperCase();
             const itemDataProfissao = item.profissao ? item.profissao.toUpperCase() : ''.toUpperCase();
             const itemDataTelefone = item.telefone ? item.telefone.toUpperCase() : ''.toUpperCase();
             //const itemDataCidade = item.cidade ? item.cidade.toUpperCase() : ''.toUpperCase();
             //const itemDataMicroregiao = item.microrregiao ? item.microrregiao.toUpperCase() : ''.toUpperCase();
             if (itemDataPreco > filtroPreco) return false;
+            if (filtroPerfil != CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE && itemDataPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE.toUpperCase()) return false;
             if (!filtroProfissaoCuidador && (itemDataProfissao == "Cuidador".toUpperCase() || itemDataProfissao == "Cuidadora".toUpperCase())) return false;
             if (!filtroProfissaoTecnicoEnfermagem && (itemDataProfissao == "Técnico em Enfermagem".toUpperCase() || itemDataProfissao == "Técnica em Enfermagem".toUpperCase())) return false;
             if (!filtroProfissaoEnfermeiro && (itemDataProfissao == "Enfermeiro".toUpperCase() || itemDataProfissao == "Enfermeira".toUpperCase())) return false;
@@ -238,6 +243,7 @@ export default class ListagemAnuncio extends Component {
                 itemDataNome.indexOf(textData) > -1
                 || itemDataPreco.indexOf(textData) > -1
                 || itemDataProfissao.indexOf(textData) > -1
+                || itemDataPerfil.indexOf(textData) > -1
                 || itemDataTelefone.indexOf(textData) > -1
                 //|| itemDataCidade.indexOf(textData) > -1
                 //|| itemDataMicroregiao.indexOf(textData) > -1
@@ -264,7 +270,7 @@ export default class ListagemAnuncio extends Component {
         const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         this.unsubscribe = this.collection.
             where('microrregiao', '==', this.state.microrregiao).
-            where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR).
+            //where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR).
             orderBy(collectionOrderBy, 'ASC').
             orderBy('id', 'ASC').
             startAfter(this.state.lastVisible.id).
@@ -424,6 +430,18 @@ export default class ListagemAnuncio extends Component {
                             />
                                             </View>
                                             */}
+                                <View style={StyleAnuncio.filtroItemContainer}>
+                                    <Text style={StyleAnuncio.filtroItemTexto}>
+                                        Cliente
+                                    </Text>
+                                    <CheckBox
+                                        title='Cliente'
+                                        checkedIcon='check-square-o'
+                                        uncheckedIcon='square-o'
+                                        checked={this.state.filtroPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE}
+                                        onPress={() => this.setState({ filtroPerfil: (this.state.filtroPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE ? CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_FORNECEDOR : CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE) })}
+                                    />
+                                </View>
                                 <View style={StyleAnuncio.filtroItemContainer}>
                                     <Text style={StyleAnuncio.filtroItemTexto}>
                                         Profissão

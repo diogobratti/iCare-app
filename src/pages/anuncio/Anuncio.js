@@ -1,15 +1,17 @@
 import React from 'react';
 
 import { View, Text, TouchableOpacity, Image, Linking } from "react-native";
+import { Icon, SocialIcon } from "react-native-elements";
+import * as CONSTANTES from "../../data/Constantes";
 //import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Icon } from 'react-native-elements';
-import MensagemTelefone from '../componentes/MensagemTelefone';
 
 
 import StyleAnuncio, { 
             anuncioIconeTelefone
         } from "../../styles/StyleAnuncio";
+import { definicoesBase } from "../../styles/StyleBase";
 
+const tamanhoIcone = 12;
 export default class Anuncio extends React.PureComponent {
 
     constructor() {
@@ -54,13 +56,78 @@ export default class Anuncio extends React.PureComponent {
                   <View style={StyleAnuncio.anuncioColunaDireitaLinha}>
                     <Text style={StyleAnuncio.anuncioCidade}>{this.props.cidade}</Text>
                   </View>
+                  {(this.props.preco != "" && this.props.preco != undefined && this.props.preco != null) ?
                   <View style={StyleAnuncio.anuncioColunaDireitaLinha}>
-                      <Text style={StyleAnuncio.anuncioProfissao}>{this.props.profissao}</Text>
+                      <Text style={StyleAnuncio.anuncioProfissao}>{this.props.perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE ? "Cliente" : this.props.profissao}</Text>
                       <Text style={StyleAnuncio.anuncioSeparador}> - </Text>
-                      <Text style={StyleAnuncio.anuncioPreco}>{(this.props.preco != "" && this.props.preco != undefined && this.props.preco != null) ? this.props.preco : "R$ -"}*</Text>
+                      <Text style={StyleAnuncio.anuncioPreco}>{this.props.preco}*</Text>
+                      
                       
                   </View>
-                  <Text style={StyleAnuncio.anuncioPrecoObservacao}>* Estimado para o turno de 12 horas</Text>
+                  :
+                  <View style={StyleAnuncio.anuncioColunaDireitaLinha}>
+                      <Text style={StyleAnuncio.anuncioProfissao}>{this.props.perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE ? "Cliente" : this.props.profissao}</Text>
+                      
+                      
+                  </View>
+                  }
+                  {(this.props.preco != "" && this.props.preco != undefined && this.props.preco != null) ?
+                    <Text style={StyleAnuncio.anuncioPrecoObservacao}>* Estimado para o turno de 12 horas</Text>
+                    :
+                    <View style={StyleAnuncio.anuncioColunaDireitaLinha}>
+                        {(this.props.email == null || this.props.email == undefined || this.props.email == '') ? (
+                            <Icon
+                            raised //circulo em volta
+                            name="envelope"
+                            type="font-awesome"
+                            size={28}
+                            color="#e0e0eb"
+                            />
+                        ) : (
+                            <Icon
+                              raised //circulo em volta
+                              name="envelope"
+                              type="font-awesome"
+                              size={tamanhoIcone}
+                              color={definicoesBase.backgroundCabecalho}
+                            />
+                        )}
+                        {(this.props.telefone == null || this.props.telefone == undefined || this.props.telefone == '') ? (
+                            <Icon
+                                raised //circulo em volta
+                                name="whatsapp"
+                                type="font-awesome"
+                                size={tamanhoIcone}
+                                color="#e0e0eb"
+                            />
+                        ) : (
+                            <Icon
+                                raised //circulo em volta
+                                name="whatsapp"
+                                type="font-awesome"
+                                size={tamanhoIcone}
+                                color="#4AC959"
+                            />
+                        )}
+                        {(this.props.instagram == null || this.props.instagram == undefined || this.props.instagram == '') ? (
+                            <Icon
+                                raised //circulo em volta
+                                name="instagram"
+                                type="font-awesome"
+                                size={tamanhoIcone}
+                                color="#e0e0eb"
+                            />
+                        ) : (
+                            <Icon
+                                raised //circulo em volta
+                                name="instagram"
+                                type="font-awesome"
+                                size={tamanhoIcone}
+                                color="#cc66ff"
+                            />
+                        )}
+                    </View>
+                  }
               </TouchableOpacity>
           </View>
       </View> 

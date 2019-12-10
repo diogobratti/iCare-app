@@ -6,7 +6,7 @@ import { Button } from "react-native-elements";
 import Anuncio from "../componentes/Anuncio";
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio from "../../styles/StyleAnuncio";
-import { ROUTES_LOADING, ASYNC_ITEM_USUARIO_ANUNCIO, ASYNC_ITEM_USUARIO_EMAIL, ASYNC_ITEM_USUARIO_FOTO, ASYNC_GRUPO_ITENS_ANUNCIO_COMPLETO, ASYNC_ITEM_USUARIO_NOME, ASYNC_ITEM_USUARIO_TELEFONE, ASYNC_ITEM_USUARIO_PROFISSAO, ASYNC_ITEM_USUARIO_PRECO, ASYNC_ITEM_USUARIO_INSTAGRAM } from "../../data/Constantes";
+import { ROUTES_LOADING, ASYNC_ITEM_USUARIO_ANUNCIO, ASYNC_ITEM_USUARIO_EMAIL, ASYNC_ITEM_USUARIO_FOTO, ASYNC_GRUPO_ITENS_ANUNCIO_COMPLETO, ASYNC_ITEM_USUARIO_NOME, ASYNC_ITEM_USUARIO_TELEFONE, ASYNC_ITEM_USUARIO_PROFISSAO, ASYNC_ITEM_USUARIO_PRECO, ASYNC_ITEM_USUARIO_INSTAGRAM, ASYNC_ITEM_USUARIO_MUNICIPIO } from "../../data/Constantes";
 import LocalStorage from "../../services/LocalStorage";
 import analytics from '@react-native-firebase/analytics';
 
@@ -42,6 +42,7 @@ export default class PerfilAnuncio extends Component {
       anuncio: values[ASYNC_ITEM_USUARIO_ANUNCIO],
       instagram: values[ASYNC_ITEM_USUARIO_INSTAGRAM],
       email: values[ASYNC_ITEM_USUARIO_EMAIL],
+      cidade: values[ASYNC_ITEM_USUARIO_MUNICIPIO],
     }
 
     this.setState({ anuncio:  anuncio });
