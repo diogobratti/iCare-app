@@ -153,7 +153,7 @@ export default class Login extends Component {
       const email = firebaseUserCredential.additionalUserInfo.profile.email;
       const foto = firebaseUserCredential.additionalUserInfo.profile.picture;
 
-      await analytics().logLogin({metohd: 'Google'})
+      await analytics().logLogin({method: 'Google'})
 
       await this.posAutenticacao(
         firebaseUserCredential,
