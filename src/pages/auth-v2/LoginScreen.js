@@ -1,30 +1,28 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator, BackHandler, Alert } from "react-native";
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Alert } from "react-native";
 import {
   SocialIcon,
-  ThemeProvider,
-  Input,
   Overlay
 } from "react-native-elements";
 import firebase from "react-native-firebase";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { GoogleSignin, statusCodes } from "react-native-google-signin";
 import { navigationOptions } from "../../styles/StyleBase";
-import ApiDb from "../../services/ApiDb";
+import Button from './components/Button';
 
 export default class Login extends Component {
 
 
-  constructor(props) {
-    super(props);
-    this.handleBackButtonClick = (() => {
-      //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
-      //     this.navigator.pop();
-      return true; //avoid closing the app
-      //   }
-      //   return false; //close the app
-    }).bind(this) //don't forget bind this, you will remember anyway.
-  }
+  // constructor(props) {
+  //   // super(props);
+  //   // this.handleBackButtonClick = (() => {
+  //   //   //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+  //   //   //     this.navigator.pop();
+  //   //   return true; //avoid closing the app
+  //   //   //   }
+  //   //   //   return false; //close the app
+  //   // }).bind(this) //don't forget bind this, you will remember anyway.
+  // }
 
   state = {
     email: "",
@@ -36,34 +34,13 @@ export default class Login extends Component {
 
   static navigationOptions = {
     ...navigationOptions,
-    headerLeft: <View />
   };
-  async componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-  }
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-  }
-
-  handleLogin = () => {
-    // console.log("handleLogin");
-
-    const { email, password } = this.state;
-
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .then(() => this.props.navigation.navigate("Main"))
-      .catch(error =>
-        this.setState({
-          errorMessage: this.translateLoginErrors(error)
-        })
-      );
-  };
-
-  handleSocialLoginInstagram() {
-    // console.log("handleSocialLoginInstagram");
-  }
+  // async componentDidMount() {
+  //   BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  // }
+  // componentWillUnmount() {
+  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  // }
 
   handleSocialLoginFacebook = async () => {
     // console.log("handleSocialLoginFacebook");
@@ -333,6 +310,12 @@ export default class Login extends Component {
                 onPress={this.handleSocialLoginGoogle}
               />
             </View>
+          </View>
+
+          <View style={styles.containerActionsStyle}>
+            <Button onPress={() => this.props.navigation.navigate('TermoServico')}>
+              Termos de Serviço
+            </Button>
           </View>
 
           {/* <View style={styles.containerLoginStyle}>

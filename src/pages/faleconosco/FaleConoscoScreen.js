@@ -8,24 +8,24 @@ export default class FaleConosco extends Component {
   static navigationOptions = {
     ...navigationOptions,
   };
-  constructor(props) {
-    super(props);
-    this.handleBackButtonClick = (() => {
-      //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
-      //     this.navigator.pop();
-      return true; //avoid closing the app
-      //   }
-      //   return false; //close the app
-    }).bind(this) //don't forget bind this, you will remember anyway.
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.handleBackButtonClick = (() => {
+  //     //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+  //     //     this.navigator.pop();
+  //     return true; //avoid closing the app
+  //     //   }
+  //     //   return false; //close the app
+  //   }).bind(this) //don't forget bind this, you will remember anyway.
+  // }
 
   state = {
     titulo: "",
     descricao: ""
   };
-  async componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-  }
+  // async componentDidMount() {
+  //   BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  // }
 
   render() {
     return (
