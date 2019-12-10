@@ -56,6 +56,13 @@ export default class ListagemAnuncio extends Component {
             lastVisible: {
                 orderBy: 0,
                 user_uid: 0,
+                id: 0,
+                doc: null,
+            },
+            primeiroAnuncio: {
+                id: 0,
+                doc: null,
+                deuAVolta: false,
             },
             refreshing: false,
             search: '',
@@ -96,6 +103,11 @@ export default class ListagemAnuncio extends Component {
             estado: estado,
             municipio: municipio,
             microrregiao: microrregiao,
+            primeiroAnuncio: {
+                id: 0,
+                doc: null,
+                deuAVolta: false,
+            },
         });
         const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         // Valid options for source are 'server', 'cache', or
@@ -114,7 +126,7 @@ export default class ListagemAnuncio extends Component {
         */
         //console.warn(JSON.stringify(this.props));
         this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
-        //this.unsubscribe = this.unsubscribe.orderBy('user_uid', 'ASC');
+        this.unsubscribe = this.unsubscribe.orderBy('id', 'ASC');
         this.unsubscribe = this.unsubscribe.limit(this.state.limit);
         this.unsubscribe = this.unsubscribe.get(this.getOptions).then(this.onCollectionUpdate);
     }
@@ -125,37 +137,59 @@ export default class ListagemAnuncio extends Component {
     }
 
     onCollectionUpdate = (querySnapshot) => {
-        var ultimo_item_pelo_orderBy = null;
-        var ultimo_item_pelo_user_uid = null;
-        var ultimo_item = null;
+        var ultimo_item_pelo_orderBy = this.state.lastVisible.orderBy;
+        var ultimo_item_pelo_user_uid = this.state.lastVisible.user_uid;
+        var ultimo_item_pelo_id = this.state.lastVisible.id;
+        var ultimo_item = this.state.lastVisible.doc;
+        var primeiro_anuncio_id = this.state.primeiroAnuncio.id;
+        var primeiro_anuncio_doc = this.state.primeiroAnuncio.doc;
+        var primeiro_anuncio_deuAVolta = this.state.primeiroAnuncio.deuAVolta;
         const campo_orderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         querySnapshot.forEach((doc) => {
-            const {
-                ...CollectionAnuncio
-            } = doc.data();
-
-            this.arrayholder.push({
-                key: doc.id,
-                doc, // DocumentSnapshot
-                //dados do firestore
-                ...CollectionAnuncio
-            });
-            if (campo_orderBy == "cidade") {
-                ultimo_item_pelo_orderBy = doc.cidade;
+            if (doc.id == primeiro_anuncio_id || primeiro_anuncio_deuAVolta){
+                primeiro_anuncio_deuAVolta = true;
             } else {
-                ultimo_item_pelo_orderBy = doc.preco;
+                const {
+                    ...CollectionAnuncio
+                } = doc.data();
+
+                this.arrayholder.push({
+                    key: doc.id,
+                    doc, // DocumentSnapshot
+                    //dados do firestore
+                    ...CollectionAnuncio
+                });
+                if (campo_orderBy == "cidade") {
+                    ultimo_item_pelo_orderBy = doc.cidade;
+                } else {
+                    ultimo_item_pelo_orderBy = doc.preco;
+                }
+                ultimo_item_pelo_user_uid = doc.user_uid;
+                ultimo_item_pelo_id = doc.id;
+                ultimo_item = doc;
+                if(primeiro_anuncio_id == 0){
+                    primeiro_anuncio_doc = doc;
+                    primeiro_anuncio_id = doc.id;
+                }
             }
-            ultimo_item_pelo_user_uid = doc.user_uid;
-            ultimo_item = doc;
         });
-        var ultima = this.state.lastVisible + this.state.limit;
+        if(primeiro_anuncio_deuAVolta){
+            this.setState({
+                primeiroAnuncio: {
+                    id : primeiro_anuncio_id,
+                    doc : primeiro_anuncio_doc,
+                    deuAVolta : primeiro_anuncio_deuAVolta,
+                },
+            });
+        }
         this.setState({
             anuncios: this.arrayholder,
             lastVisible: {
                 doc: ultimo_item,
                 orderBy: ultimo_item_pelo_orderBy,
                 user_uid: ultimo_item_pelo_user_uid,
-            }, ultima,
+                id: ultimo_item_pelo_id,
+            }, 
             isLoading: false,
         });
         this.SearchFilterFunction(this.state.search);
@@ -213,12 +247,15 @@ export default class ListagemAnuncio extends Component {
     };
 
     loadMore = () => {
+        if(this.state.primeiroAnuncio.deuAVolta){
+            return null;
+        }
         const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         this.unsubscribe = this.collection.
             where('microrregiao', '==', this.state.microrregiao).
             orderBy(collectionOrderBy, 'ASC').
-            //orderBy('user_uid', 'ASC').
-            startAfter(this.state.lastVisible.doc).
+            orderBy('id', 'ASC').
+            startAfter(this.state.lastVisible.id).
             limit(this.state.limit).
             //orderBy('nome','DESC').
             //where('nome', '==', 'dbratti').

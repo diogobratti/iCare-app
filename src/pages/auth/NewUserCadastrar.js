@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ActivityIndicator, StyleSheet, BackHandler } from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet, BackHandler, Alert } from "react-native";
 import firebase from "react-native-firebase";
 import { ScrollView } from "react-native";
 import { Icon, Input } from "react-native-elements";
@@ -58,6 +58,22 @@ export default class NewUserCadastrar extends Component {
         foto: this.state.foto,
         versaoTermosServico: versaoTermos
       });
+
+
+      Alert.alert(
+        'Sucesso',
+        'Parabéns, seu anúncio foi cadastrado com sucesso! Ele estará disponível para todos que acessarem o ICare a partir de agora.',
+        [
+          //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+          // {
+          //   text: 'Cancel',
+          //   onPress: () => console.log('Cancel Pressed'),
+          //   style: 'cancel',
+          // },
+          {text: 'OK', onPress: () => {}},
+        ],
+        {cancelable: false},
+        );
 
       //TODO: tratar para mostrar mensagem de erro quando não conseguiu salavar
 

@@ -195,7 +195,6 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-firebase')
     // Dependencias para o ADMOB
 //   -- Project 'app' depends onto com.google.firebase:firebase-analytics@{strictly 16.5.0}
 //   -- Project 'app' depends onto com.google.android.gms:play-services-ads@{strictly 18.1.1}

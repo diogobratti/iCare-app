@@ -18,7 +18,6 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
 
-import io.invertase.firebase.RNFirebasePackage;
 import io.invertase.firebase.admob.RNFirebaseAdMobPackage;
 import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 import com.google.android.gms.ads.MobileAds;
@@ -50,7 +49,7 @@ public class MainApplication extends Application implements ReactApplication {
       // packages.add(new MyReactNativePackage());
        packages.add(new RNFirebaseFirestorePackage());
        packages.add(new RNFirebaseAuthPackage());
-       packages.add(new RNFirebasePackage());
+       //packages.add(new RNFirebasePackage());
        packages.add(new RNFirebaseAdMobPackage());
        packages.add(new RNFirebaseAnalyticsPackage());
       //  packages.add(new FBSDKPackage());

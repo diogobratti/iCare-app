@@ -49,6 +49,7 @@ export default class FaleConosco extends Component {
               }}
             />
           </ScrollView>
+          <Text style={StyleFaleConosco.botaoText}>Ou entre em contato diretamente conosco pelo email icare.contato@gmail.com e pelas nossas redes sociais.</Text>
         </View>
         <View style={StyleFaleConosco.botaoContainer}>
           <TouchableOpacity
