@@ -5,33 +5,25 @@ import { Button } from "react-native-elements";
 import Anuncio from "../componentes/Anuncio";
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio from "../../styles/StyleAnuncio";
+import { ROUTES_LOADING } from "../../data/Constantes";
+import LocalStorage from "../../services/LocalStorage";
 
 export default class Main extends Component {
-  
-  constructor(props) {
-      super(props);
-      this.handleBackButtonClick = (() => {
-      //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
-      //     this.navigator.pop();
-          return true; //avoid closing the app
-      //   }
-      //   return false; //close the app
-      }).bind(this) //don't forget bind this, you will remember anyway.
-    this.handleBackButtonClick = (() => {
-    //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
-    //     this.navigator.pop();
-        return true; //avoid closing the app
-    //   }
-    //   return false; //close the app
-    }).bind(this) //don't forget bind this, you will remember anyway.
+
+  // state = {
+  //   anuncio: null
+  // }
+
+  constructor() {
+    super()
+    //TODO: pegar anuncio do LocalStorage
     this.state = {
-      anuncio: null
-    };
+      anuncio: 'arraycomDadosDoAnuncio'
+    }
   }
 
   static navigationOptions = {
-    ...navigationOptions,
-    headerLeft: <View />
+    ...navigationOptions
   };
 
   handleSignOut = () => {
@@ -39,34 +31,30 @@ export default class Main extends Component {
       .auth()
       .signOut()
       .then(() => {
-        this.props.navigation.push("Loading");
+        AsyncStorage.clear();
+        this.props.navigation.push(ROUTES_LOADING);
       });
   };
 
-  componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    // console.log("PerfilAnuncio componentDidMount");
-    // console.log(firebase.auth().currentUser);
+  // componentDidMount() {
+  //   console.log("PerfilAnuncio componentDidMount");
+  //   console.log(firebase.auth().currentUser);
 
-    const { currentUser } = firebase.auth();
-    // console.log("usuario atual:" + currentUser);
+  //   const { currentUser } = firebase.auth();
+  //   console.log("usuario atual:" + currentUser);
 
-    // console.log("anuncio: " + this.props.navigation.getParam("anuncio", false));
+  //   console.log("anuncio: " + this.props.navigation.getParam("anuncio", false));
 
-    let anuncio = this.props.navigation.getParam("anuncio", false);
-    if (anuncio == false) {
-      //estado inconsistente
-      this.props.navigation.push("Loading");
-    }
+  //   let anuncio = this.props.navigation.getParam("anuncio", false);
+  //   if (anuncio == false) {
+  //     estado inconsistente
+  //     this.props.navigation.push(ROUTES_LOADING);
+  //   }
 
-    anuncio.get().then(doc => {
-      this.setState({ anuncio: doc.data() });
-    });
-  }
-
-  componentWillUnmount() {
-      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
-  }
+  //   anuncio.get().then(doc => {
+  //     this.setState({ anuncio: doc.data() });
+  //   });
+  // }
 
   render() {
     const { anuncio } = this.state;

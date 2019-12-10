@@ -72,7 +72,7 @@ export default class NewUserCadastrar extends Component {
           cadastroCompleto: 'true',
         });
 
-        await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO, 'true');
+        await AsyncStorage.setItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO, 'true');
 
         //TODO: verificar se gravou corretamente
         this.props.navigation.navigate("PerfilAnuncio");

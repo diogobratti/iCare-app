@@ -97,7 +97,7 @@ const AnuncioStack = createStackNavigator(
 const AppTabNavigator = createBottomTabNavigator(
   {
     Home: HomeStack,
-    'Anuncie aqui': AnuncioStack,
+    'Anúncio': AnuncioStack,
     'Fale Conosco': FaleConoscoScreen,
   },
   {
