@@ -75,7 +75,7 @@ const Anuncio = props => {
               Preço:{" "}
             </Text>
             <Text style={StyleAnuncio.visualizarAnuncioAtributoText}>
-              R$ {anuncio.preco}*
+              {anuncio.preco}*
             </Text>
           </View>
           <View style={StyleAnuncio.visualizarAnuncioLinha}>
