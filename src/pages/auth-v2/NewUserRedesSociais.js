@@ -58,7 +58,7 @@ export default class NewUserRedesSociaisScreen extends Component {
                 this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
 
             } else {
-              this.setState({ erroInstagram: "Instagram inválido" });
+              this.setState({ erroInstagram: "Instagram inválido. ex: @icarecuidadores" });
             }
           }}
         >

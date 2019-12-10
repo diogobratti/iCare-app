@@ -124,7 +124,7 @@ export default class NewUserTelefone extends Component {
 
               instagramValido ?
                 this.setState({ erroInstagram: "" }) :
-                this.setState({ erroInstagram: "Instagram inválido" })
+                this.setState({ erroInstagram: "Instagram inválido. ex: @icarecuidadores" })
 
             }
 
