@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { ActivityIndicator, View, BackHandler } from "react-native";
-import firebase from "react-native-firebase";
+//import firebase from "react-native-firebase";
+import auth from "@react-native-firebase/auth";
 import { Button } from "react-native-elements";
 import Anuncio from "../componentes/Anuncio";
 import { navigationOptions } from "../../styles/StyleBase";
@@ -19,7 +20,7 @@ export default class PerfilAnuncio extends Component {
   };
 
   async handleSignOut() {
-    await firebase.auth().signOut()
+    await auth().signOut()
     LocalStorage.clear();
     this.props.navigation.push(ROUTES_LOADING);
   }

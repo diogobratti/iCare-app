@@ -38,9 +38,9 @@ target 'app' do
 
   # Pods for app
 #  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Firestore'
-  pod 'Firebase/Analytics'
+#  pod 'Firebase/Auth'
+#  pod 'Firebase/Firestore'
+#  pod 'Firebase/Analytics'
 #  pod 'GoogleSignIn'
   pod 'FBSDKCoreKit'
   pod 'FBSDKLoginKit'

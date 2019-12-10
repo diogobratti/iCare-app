@@ -11,7 +11,8 @@ import {
   ScrollView
 } from 'react-native';
 import ImagePicker from 'react-native-image-picker';
-import firebase from 'react-native-firebase';
+//import firebase from 'react-native-firebase';
+import firestore from '@react-native-firebase/firestore';
 import uuid from 'uuid/v4'; // Import UUID to generate UUID
 
 const options = {
@@ -84,18 +85,18 @@ export default class App extends Component {
     const filename = `${uuid()}.${ext}`; // Generate unique name
     this.setState({ uploading: true });
     const imgSource64 = this.state.imgSource64;
-    firebase.firestore().collection('testes').add({
+    firestore().collection('testes').add({
       nome: 'diogo',
       imagem: imgSource64,
       timestamp: Date.now(),
     });
-    firebase.firestore().collection("testes").where("nome", "==", "diogo")
+    firestore().collection("testes").where("nome", "==", "diogo")
       .get()
       .then(function(querySnapshot) {
           querySnapshot.forEach(function(doc) {
               console.log(doc.id, " => ", doc.data());
               // Build doc ref from doc.id
-              firebase.firestore().collection("testes").doc(doc.id).update({foo: "bar", nome: "bratti"});
+              firestore().collection("testes").doc(doc.id).update({foo: "bar", nome: "bratti"});
           });
     })
     // firebase

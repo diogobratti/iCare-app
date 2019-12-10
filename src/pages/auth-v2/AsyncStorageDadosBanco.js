@@ -1,8 +1,10 @@
 import React from 'react';
-import firebase from "react-native-firebase";
+//import firebase from "react-native-firebase";
+import firestore from "@react-native-firebase/firestore";
+import auth from "@react-native-firebase/auth";
 import LocalStorage from '../../services/LocalStorage';
 import * as CONSTANTES from '../../data/Constantes';
-import reactotron from 'reactotron-react-native';
+//import reactotron from 'reactotron-react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export default {
@@ -13,11 +15,11 @@ export default {
     const telefone = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE)
 
     // reactotron.log("telefone:" + telefone);
-    // reactotron.log(firebase.auth().currentUser);
-    const a = ((firebase.auth().currentUser !== null) && (telefone == null))
+    // reactotron.log(auth().currentUser);
+    const a = ((auth().currentUser !== null) && (telefone == null))
     // reactotron.log("resultado:" + a);
 
-    if ((firebase.auth().currentUser !== null) && (telefone == null)) {
+    if ((auth().currentUser !== null) && (telefone == null)) {
 
       // reactotron.log("entrou1")
 
@@ -29,7 +31,7 @@ export default {
 
         // reactotron.log(uid);
 
-        const getResult = await firebase.firestore()
+        const getResult = await firestore()
         .collection(CONSTANTES.FIRESTORE_COLLECTION_ANUNCIOS)
         .where("user_uid", "==", uid)
         .get();
@@ -130,14 +132,15 @@ export default {
 
           } else {
             //TODO: tratar adequadamente
-            reactotron.log("Erro interno: mais de um dado encontrado no banco")
+//            reactotron.log("Erro interno: mais de um dado encontrado no banco")
+		console.warn("Erro interno: mais de um dado encontrado no banco")
           }
         }
       }
       catch (error) {
         //TODO: tratar erros adequadamente
-        // console.log(error);
-        reactotron.log(error);
+        console.warn(error);
+//        reactotron.log(error);
       }
 
     }

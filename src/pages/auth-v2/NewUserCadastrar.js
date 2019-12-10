@@ -3,7 +3,8 @@ import { View, Text, ActivityIndicator, StyleSheet, Alert } from "react-native";
 import * as CONSTANTES from '../../data/Constantes';
 import { navigationOptions } from "../../styles/StyleBase";
 // import AsyncStorage from '@react-native-community/async-storage';
-import firebase from 'react-native-firebase';
+//import firebase from 'react-native-firebase';
+import firestore from '@react-native-firebase/firestore';
 // import Reactotron from 'reactotron-react-native';
 import LocalStorage from "../../services/LocalStorage";
 
@@ -44,7 +45,7 @@ export default class NewUserCadastrar extends Component {
 
       // Reactotron.log(asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_UID]);
 
-      const getResult = await firebase.firestore()
+      const getResult = await firestore()
         .collection(CONSTANTES.FIRESTORE_COLLECTION_ANUNCIOS)
         .where("user_uid", "==", asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_UID])
         .get()

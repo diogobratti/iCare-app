@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import firebase from 'react-native-firebase';
+//import firebase from 'react-native-firebase';
+import firestore from '@react-native-firebase/firestore';
 
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, Platform, Image, ScrollView, BackHandler } from "react-native";
 import { SearchBar, Slider, CheckBox } from 'react-native-elements';
@@ -27,7 +28,7 @@ import StyleAnuncio, {
     searchBarPlaceholderTextColor,
     //iconeFiltro,
 } from "../../styles/StyleAnuncio";
-import reactotron from "reactotron-react-native";
+//import reactotron from "reactotron-react-native";
 
 export default class ListagemAnuncio extends Component {
     static navigationOptions = navigationOptions;
@@ -47,7 +48,7 @@ export default class ListagemAnuncio extends Component {
             source: 'default',//'cache',
         }
         this.unsubscribe = null;
-        this.collection = firebase.firestore().collection('anuncios');
+        this.collection = firestore().collection('anuncios');
         this.qtdAnuncios = 0;
         this.arrayholder = [];
         this.state = {

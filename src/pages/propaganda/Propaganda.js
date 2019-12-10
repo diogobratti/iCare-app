@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Platform } from "react-native";
 import StylePropaganda from "../../styles/StylePropaganda";
 
-import firebase from 'react-native-firebase';
+//import { firebase } from '@react-native-firebase/admob';
 
 //https://github.com/sbugert/react-native-admob
 // import {
@@ -13,6 +13,7 @@ import firebase from 'react-native-firebase';
 //   AdMobRewarded,
 // } from 'react-native-admob';
 
+/*
 export default class Propaganda extends React.PureComponent {
 
   render() {
@@ -44,13 +45,15 @@ export default class Propaganda extends React.PureComponent {
             console.log('Advert loaded');
           }}
         />
-        {/* <AdMobBanner
+	
+        { <AdMobBanner
           adSize="banner"
           adUnitID="your-admob-unit-id"
           testDevices={[AdMobBanner.simulatorId]}
           onAdFailedToLoad={error => console.error(error)}
-        /> */}
+        /> }
       </View>
     );
   }
 }
+*/

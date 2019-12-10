@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 //import api from "../../services/api";
-import firebase from 'react-native-firebase';
+//import firebase from 'react-native-firebase';
+import firestore from '@react-native-firebase/firestore';
 
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, Platform, Image } from "react-native";
 import ExemploAnuncios from '../../data/ExemploAnuncios.json';
@@ -14,7 +15,7 @@ export default class IncluirExemplos extends Component {
       super();
       this.dados = ExemploAnuncios;
       this.unsubscribe = null;
-      this.collection = firebase.firestore().collection('anuncios');
+      this.collection = firestore().collection('anuncios');
     }
 
     componentDidMount(){

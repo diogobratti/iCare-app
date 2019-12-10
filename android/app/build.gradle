@@ -218,16 +218,16 @@ dependencies {
     
     //Add by Jonathan - Firebase
     // implementation 'com.google.firebase:firebase-core:17.0.0' //site firebase
-    implementation "com.google.android.gms:play-services-base:16.1.0" //site rnfirebase.io
-    implementation "com.google.firebase:firebase-core:16.0.9"// site rnfirebase.io
+//    implementation "com.google.android.gms:play-services-base:16.1.0" //site rnfirebase.io
+//    implementation "com.google.firebase:firebase-core:16.0.9"// site rnfirebase.io
     //implementation 'com.google.firebase:firebase-core:17.0.0'// site https://console.firebase.google.com/u/3/project/icare-10b26/settings/general/android:com.app
     // Firebase Auth
-    implementation "com.google.firebase:firebase-auth:17.0.0" // site rnfirebase.io
+//    implementation "com.google.firebase:firebase-auth:17.0.0" // site rnfirebase.io
     // Firebase Firestore
-    implementation "com.google.firebase:firebase-firestore:19.0.0"
+//    implementation "com.google.firebase:firebase-firestore:19.0.0"
     implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
     //https://dev-yakuza.github.io/en/react-native/react-native-firebase-admob/
-    implementation "com.google.firebase:firebase-ads:16.0.1"
+//    implementation "com.google.firebase:firebase-ads:16.0.1"
     //----
     implementation fileTree(dir: "libs", include: ["*.jar"])
 //    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"

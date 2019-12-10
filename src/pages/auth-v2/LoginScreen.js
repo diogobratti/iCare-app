@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Alert } from "react-native";
 import { SocialIcon, Overlay } from "react-native-elements";
-import firebase from "react-native-firebase";
+//import firebase from "react-native-firebase";
+import firestore from "@react-native-firebase/firestore";
+import auth, { firebase } from "@react-native-firebase/auth";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { GoogleSignin, statusCodes } from "react-native-google-signin";
 import StyleBase, { navigationOptions } from "../../styles/StyleBase";
@@ -69,9 +71,7 @@ export default class Login extends Component {
       );
 
       // login with credential
-      const firebaseUserCredential = await firebase
-        .auth()
-        .signInWithCredential(credential);
+      const firebaseUserCredential = await firebase.auth().signInWithCredential(credential);
 
       // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
       // console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
@@ -190,7 +190,7 @@ export default class Login extends Component {
    * @param {UserCredential} firebaseCredential Credencial do Firebase
    */
   posAutenticacao = async (firebaseCredential, idAuthProvider, nome, email, foto, token, providerName) => {
-    let collection = firebase.firestore().collection(CONSTANTES.FIRESTORE_COLLECTION_ANUNCIOS);
+    let collection = firestore().collection(CONSTANTES.FIRESTORE_COLLECTION_ANUNCIOS);
     //SE o usuário não tiver cadastro ainda, cria cadastro
     let querySnapshot = await collection
       .where("user_uid", "==", firebaseCredential.user.uid)

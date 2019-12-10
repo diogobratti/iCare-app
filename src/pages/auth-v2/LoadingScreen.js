@@ -4,7 +4,8 @@ import {
   StatusBar,
   View,
 } from 'react-native';
-import firebase from "react-native-firebase";
+//import firebase from "react-native-firebase";
+import auth from "@react-native-firebase/auth"
 import LocalStorage from '../../services/LocalStorage';
 import AsyncStorage from '@react-native-community/async-storage';
 // import Reactotron from 'reactotron-react-native';
@@ -29,7 +30,7 @@ export default class LoadingScreen extends React.Component {
     const userCadastroCompleto = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO);
 
     // ============ DEBUG AREA ============
-    // firebase.auth().signOut();
+    // auth().signOut();
     // await AsyncStorage.clear();
     // await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_PERFIL, CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR)
     if (__DEV__) LocalStorage.logCurrentStorage();
@@ -43,7 +44,7 @@ export default class LoadingScreen extends React.Component {
       //   //Ja usou app antes, escolheu perfil mas nao fez login
       //   this.props.navigation.navigate('Auth');
 
-    } else if (firebase.auth().currentUser === null) {
+    } else if (auth().currentUser === null) {
       //Ja usou app antes, escolheu perfil mas nao fez login
       //Ou nao está autenticado
       this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO);
