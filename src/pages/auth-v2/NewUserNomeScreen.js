@@ -5,7 +5,7 @@ import Button from "./components/Button";
 import { navigationOptions } from "../../styles/StyleBase";
 import * as CONSTANTES from '../../data/Constantes';
 import LocalStorage from "../../services/LocalStorage";
-import reactotron from "reactotron-react-native";
+// import reactotron from "reactotron-react-native";
 
 export default class NewUserNome extends Component {
   static navigationOptions = {

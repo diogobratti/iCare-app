@@ -4,7 +4,7 @@ import * as CONSTANTES from '../../data/Constantes';
 import { navigationOptions } from "../../styles/StyleBase";
 // import AsyncStorage from '@react-native-community/async-storage';
 import firebase from 'react-native-firebase';
-import Reactotron from 'reactotron-react-native';
+// import Reactotron from 'reactotron-react-native';
 import LocalStorage from "../../services/LocalStorage";
 
 
