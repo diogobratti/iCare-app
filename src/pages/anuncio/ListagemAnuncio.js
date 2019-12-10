@@ -232,7 +232,7 @@ export default class ListagemAnuncio extends Component {
             //const itemDataCidade = item.cidade ? item.cidade.toUpperCase() : ''.toUpperCase();
             //const itemDataMicroregiao = item.microrregiao ? item.microrregiao.toUpperCase() : ''.toUpperCase();
             if (itemDataPreco > filtroPreco) return false;
-            if (filtroPerfil != CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE && itemDataPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE.toUpperCase()) return false;
+            if (filtroPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE && itemDataPerfil == CONSTANTES.LISTAGEM_ANUNCIO_FILTRO_PERFIL_CLIENTE.toUpperCase()) return false;
             if (!filtroProfissaoCuidador && (itemDataProfissao == "Cuidador".toUpperCase() || itemDataProfissao == "Cuidadora".toUpperCase())) return false;
             if (!filtroProfissaoTecnicoEnfermagem && (itemDataProfissao == "Técnico em Enfermagem".toUpperCase() || itemDataProfissao == "Técnica em Enfermagem".toUpperCase())) return false;
             if (!filtroProfissaoEnfermeiro && (itemDataProfissao == "Enfermeiro".toUpperCase() || itemDataProfissao == "Enfermeira".toUpperCase())) return false;
