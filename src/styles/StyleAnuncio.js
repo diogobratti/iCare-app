@@ -3,11 +3,11 @@ import { StyleSheet } from "react-native";
 const tamanhoFonteTextoComum = 16;
 const alturaLinhaTextoComum = 22;
 export const fontFamilyTextoComum = 'Arciform';
-const corFonteTextoComum = "#999";
+const corFonteTextoComum = "#212121";
 const corFonteTextoAvaliacao = "#e7a74e";
-const backgroundGeral = "#fafafa";
+const backgroundGeral = "#fff";
 const backgroundAnuncio = "#FFF";
-const corBordaAnuncio = "#DDD";
+const corBordaAnuncio = "#bdbdbd";
 
 const StyleAnuncio = StyleSheet.create({
     //entre cabecalho e rodape

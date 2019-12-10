@@ -10,46 +10,18 @@ import StyleBase, { navigationOptions } from "./styles/StyleBase";
 
 const MenuHome = createStackNavigator({
     ListagemAnuncio,
-},{
-    navigationOptions: {
-        headerStyle: {
-            backgroundColor: StyleBase.headerStyle
-        },
-        headerTintColor: navigationOptions.headerTintColor.headerTintColor
-    },
 });
 
 const MenuChat = createStackNavigator({
     ListagemConversa,
-},{
-    navigationOptions: {
-        headerStyle: {
-            backgroundColor: StyleBase.headerStyle
-        },
-        headerTintColor: navigationOptions.headerTintColor.headerTintColor
-    },
 });
 
 const MenuAnuncio = createStackNavigator({
     PerfilAnuncio,
-},{
-    navigationOptions: {
-        headerStyle: {
-            backgroundColor: StyleBase.headerStyle
-        },
-        headerTintColor: navigationOptions.headerTintColor.headerTintColor
-    },
 });
 
 const MenuPerfil = createStackNavigator({
     Perfil,
-},{
-    navigationOptions: {
-        headerStyle: {
-            backgroundColor: StyleBase.headerStyle
-        },
-        headerTintColor: navigationOptions.headerTintColor.headerTintColor
-    },
 });
 
 const MenuPrincipal = createBottomTabNavigator(
