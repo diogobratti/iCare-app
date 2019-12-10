@@ -85,8 +85,8 @@ export default class NewUserTelefone extends Component {
         <Button
           onPress={() => {
             //telefone obrigatório, instagram opcional
-            const telefoneValido = this.state.telefone !== "" && this.telefoneField.isValid()
-            const instagramValido = this.state.instagram == "" || this.state.instagram == null || this.validate(this.state.instagram)
+            const telefoneValido = this.telefoneField.isValid() && this.state.telefone !== ""
+            const instagramValido = this.state.instagram == "" || this.state.instagram == null || this.validateInstagram(this.state.instagram)
 
             if (telefoneValido && instagramValido) {
               //Atualiza AsynStorage
@@ -118,13 +118,14 @@ export default class NewUserTelefone extends Component {
 
 
             } else {
-              if (!telefoneValido) {
-                this.setState({ erroTelefone: "Telefone inválido" });
-              }
+              telefoneValido ?
+                this.setState({ erroTelefone: "" }) :
+                this.setState({ erroTelefone: "Telefone inválido" })
 
-              if (!instagramValido) {
-                this.setState({ erroInstagram: "Instagram inválido" });
-              }
+              instagramValido ?
+                this.setState({ erroInstagram: "" }) :
+                this.setState({ erroInstagram: "Instagram inválido" })
+
             }
 
             // if (this.telefoneField.isValid() && this.state.telefone !== "") {
