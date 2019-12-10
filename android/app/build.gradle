@@ -129,8 +129,8 @@ android {
         applicationId "br.com.icare.familia"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 9
-        versionName "2.1"
+        versionCode 10
+        versionName "2.2"
         multiDexEnabled true  // needed for firestore:
     }
 
