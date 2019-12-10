@@ -12,6 +12,7 @@ import * as CONSTANTES from '../../data/Constantes';
 import AsyncStorage from "@react-native-community/async-storage";
 import StyleTermo from "../../styles/StyleTermo";
 import StyleCadastro from "../../styles/StyleCadastro";
+import SincronizadorBanco from "./AsyncStorageDadosBanco"
 
 export default class Login extends Component {
 
@@ -225,8 +226,12 @@ export default class Login extends Component {
           // data = newData;
           return newData;
         });
+
     } else {
       docReference = querySnapshot.docs[0].ref;
+
+      await SincronizadorBanco.atualizaAsyncStorageDadosBanco()
+
     }
     // console.log(docReference);
     // console.log("redirecionando Loading");

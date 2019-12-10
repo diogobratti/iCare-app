@@ -9,6 +9,8 @@ import LocalStorage from '../../services/LocalStorage';
 import AsyncStorage from '@react-native-community/async-storage';
 import Reactotron from 'reactotron-react-native';
 import * as CONSTANTES from '../../data/Constantes';
+import SincronizadorBanco from './AsyncStorageDadosBanco'
+import reactotron from 'reactotron-react-native';
 
 
 export default class LoadingScreen extends React.Component {
@@ -19,6 +21,9 @@ export default class LoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
+
+    //TODO: Adicionar atualizacao do cadastro da v1 pra v2 AsyncStorage
+    await SincronizadorBanco.atualizaAsyncStorageDadosBanco()
 
     const userPerfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
     const userCadastroCompleto = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO);

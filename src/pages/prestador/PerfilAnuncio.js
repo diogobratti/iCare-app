@@ -5,7 +5,7 @@ import { Button } from "react-native-elements";
 import Anuncio from "../componentes/Anuncio";
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio from "../../styles/StyleAnuncio";
-import { ROUTES_LOADING, ASYNC_ITEM_USUARIO_ANUNCIO, ASYNC_ITEM_USUARIO_EMAIL, ASYNC_ITEM_USUARIO_FOTO, ASYNC_GRUPO_ITENS_ANUNCIO_COMPLETO, ASYNC_ITEM_USUARIO_NOME, ASYNC_ITEM_USUARIO_TELEFONE, ASYNC_ITEM_USUARIO_PROFISSAO, ASYNC_ITEM_USUARIO_PRECO } from "../../data/Constantes";
+import { ROUTES_LOADING, ASYNC_ITEM_USUARIO_ANUNCIO, ASYNC_ITEM_USUARIO_EMAIL, ASYNC_ITEM_USUARIO_FOTO, ASYNC_GRUPO_ITENS_ANUNCIO_COMPLETO, ASYNC_ITEM_USUARIO_NOME, ASYNC_ITEM_USUARIO_TELEFONE, ASYNC_ITEM_USUARIO_PROFISSAO, ASYNC_ITEM_USUARIO_PRECO, ASYNC_ITEM_USUARIO_INSTAGRAM } from "../../data/Constantes";
 import LocalStorage from "../../services/LocalStorage";
 
 export default class PerfilAnuncio extends Component {
@@ -18,15 +18,12 @@ export default class PerfilAnuncio extends Component {
     ...navigationOptions
   };
 
-  handleSignOut = () => {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        LocalStorage.clear();
-        this.props.navigation.push(ROUTES_LOADING);
-      });
-  };
+  async handleSignOut() {
+    await firebase.auth().signOut()
+    LocalStorage.clear();
+    this.props.navigation.push(ROUTES_LOADING);
+  }
+
 
   async componentDidMount() {
 
@@ -38,7 +35,9 @@ export default class PerfilAnuncio extends Component {
       telefone: values[ASYNC_ITEM_USUARIO_TELEFONE],
       profissao: values[ASYNC_ITEM_USUARIO_PROFISSAO],
       preco: values[ASYNC_ITEM_USUARIO_PRECO],
-      anuncio: values[ASYNC_ITEM_USUARIO_ANUNCIO]
+      anuncio: values[ASYNC_ITEM_USUARIO_ANUNCIO],
+      instagram: values[ASYNC_ITEM_USUARIO_INSTAGRAM],
+      email: values[ASYNC_ITEM_USUARIO_EMAIL],
     }
 
     this.setState({ anuncio:  anuncio });
@@ -60,7 +59,7 @@ export default class PerfilAnuncio extends Component {
         {/* <View style={StyleAnuncio.visualizarAnuncioBotaoContainer}>
           <Button
             title="Sair"
-            onPress={this.handleSignOut}
+            onPress={() => {this.handleSignOut()}}
             style={StyleAnuncio.visualizarAnuncioBotaoButton}
           />
         </View> */}

@@ -8,26 +8,26 @@ import * as CONSTANTES from "../../data/Constantes";
 export default class EscolhePerfilScreen extends Component {
   static navigationOptions = navigationOptions;
 
-  state = { erro: null, isLoading: true }
+  // state = { erro: null, isLoading: true }
 
-  async componentDidMount() {
-    //await AsyncStorage.clear();
-    const perfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
-    this.setState({
-      isLoading: false,
-    });
-  }
+  // async componentDidMount() {
+  //   //await AsyncStorage.clear();
+  //   const perfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
+  //   this.setState({
+  //     isLoading: false,
+  //   });
+  // }
 
   guardarPerfil = async perfil => {
     await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_PERFIL, perfil);
   };
 
   render() {
-    if (this.state.isLoading) {
-      return (
-        <ActivityIndicator />
-      )
-    }
+    // if (this.state.isLoading) {
+    //   return (
+    //     <ActivityIndicator />
+    //   )
+    // }
     return (
       <View style={StyleEscolhePerfil.container}>
         <View style={StyleEscolhePerfil.cabecalhoContainer}>

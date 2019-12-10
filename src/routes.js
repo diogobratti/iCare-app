@@ -141,8 +141,8 @@ const NewUserFornecedorStack = createStackNavigator(
 const NewUserClienteStack = createStackNavigator(
   {
     NewUserTelefone: NewUserTelefoneScreen,
-    // NewUserCadastrar,
-    // NewUserLocalidade: NewUserLocalidadeScreen,
+    NewUserLocalidade: NewUserLocalidadeScreen,
+    NewUserCadastrar,
   },
 );
 

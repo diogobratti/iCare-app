@@ -70,10 +70,18 @@ export default class NewUserTelefone extends Component {
             if (this.telefoneField.isValid() && this.state.telefone !== "") {
               //Atualiza AsynStorage
               LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE, this.state.telefone)
-              //Cadastro ou alteracao?
-              this.isCadastro ?
-                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_REDES_SOCIAIS) :
-                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
+
+              LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL).then( (perfil) => {
+                if (perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE) {
+                  this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_LOCALIDADE)
+                } else {
+                  //Cadastro ou alteracao?
+                  this.isCadastro ?
+                    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_REDES_SOCIAIS) :
+                    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
+                }
+              });
+
             } else {
               this.setState({ erroTelefone: "Telefone inválido" });
             }

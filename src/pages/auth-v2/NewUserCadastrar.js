@@ -54,27 +54,45 @@ export default class NewUserCadastrar extends Component {
         .where("user_uid", "==", asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_UID])
         .get()
 
+      Reactotron.log(getResult);
+
       const docs = getResult.docs;
 
       Reactotron.log(docs);
 
       if (docs.length === 1) {
-        const result = await docs[0].ref.update({
-          nome: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_NOME],
-          email: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_EMAIL],
-          telefone: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE],
-          uf: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_ESTADO],
-          cidade: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_MUNICIPIO],
-          microrregiao: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_REGIAO],
-          anuncio: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_ANUNCIO],
-          preco: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_PRECO],
-          profissao: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_PROFISSAO],
-          foto: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_FOTO],
-          versaoTermosServico: asyncStorageValues[CONSTANTES.ASYNC_ITEM_TERMO_SERVICO],
-          //novos atributos auth-v2
-          cadastroCompleto: 'true',
-          instagram: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM]
-        });
+
+        let dados;
+
+        if (LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL) == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE) {
+          dados = {
+            telefone: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE],
+            uf: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_ESTADO],
+            cidade: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_MUNICIPIO],
+            microrregiao: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_REGIAO],
+            cadastroCompleto: 'true',
+          }
+
+        } else {
+          dados = {
+            nome: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_NOME],
+            email: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_EMAIL],
+            telefone: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE],
+            uf: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_ESTADO],
+            cidade: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_MUNICIPIO],
+            microrregiao: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_REGIAO],
+            anuncio: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_ANUNCIO],
+            preco: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_PRECO],
+            profissao: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_PROFISSAO],
+            foto: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_FOTO],
+            versaoTermosServico: asyncStorageValues[CONSTANTES.ASYNC_ITEM_TERMO_SERVICO],
+            //novos atributos auth-v2
+            instagram: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM],
+            cadastroCompleto: 'true',
+          }
+        }
+
+        const result = await docs[0].ref.update(dados)
 
         await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO, 'true');
 
