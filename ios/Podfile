@@ -32,7 +32,7 @@ target 'app' do
 
   # Pods for app
 #  pod 'Firebase/Core'
-#  pod 'Firebase/Auth'
+  pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
 #  pod 'GoogleSignIn'
 #  pod 'FBSDKCoreKit'

@@ -14,7 +14,6 @@ import Login from "./pages/auth/Login";
 import Main from "./pages/auth/Main";
 //import Localidade from "./pages/localidade/Teste";
 
-
 import StyleBase, { navigationOptions } from "./styles/StyleBase";
 
 const MenuHome = createStackNavigator({
@@ -23,24 +22,17 @@ const MenuHome = createStackNavigator({
     VisualizarAnuncio: { screen: VisualizarAnuncio },
 });
 
-const MenuChat = createStackNavigator({
-    ListagemConversa,
-});
+// const MenuChat = createStackNavigator({
+//     ListagemConversa,
+// });
 
 const MenuAnuncio = createStackNavigator({
-    PerfilAnuncio,
-});
-
-const MenuPerfil = createStackNavigator({
-    Perfil,
-});
-
-const MenuTeste = createStackNavigator({
+    // PerfilAnuncio,
     Loading,
     SignUp,
     Login,
     Main
-})
+});
 
 const MenuPrincipal = createBottomTabNavigator(
     {
