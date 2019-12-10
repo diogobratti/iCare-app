@@ -5,6 +5,7 @@ import { View, Text, TouchableOpacity, Image, Linking, ScrollView } from "react-
 import { Icon } from 'react-native-elements';
 import MensagemTelefone from '../componentes/MensagemTelefone';
 import { navigationOptions } from "../../styles/StyleBase";
+import Anuncio from "../componentes/Anuncio";
 
 import StyleAnuncio, {
     anuncioIconeTelefone
@@ -23,7 +24,8 @@ export default class VisualizarAnuncio extends React.Component {
         const anuncio = this.props.navigation.getParam('anuncio');
         return (
             <View style={StyleAnuncio.visualizarAnuncioContainer}>
-                <ScrollView>
+                <Anuncio anuncio={anuncio}/>
+                {/* <ScrollView>
                     <View style={StyleAnuncio.visualizarAnuncioFotoContainer}>
                         <Image
                             style={StyleAnuncio.visualizarAnuncioImagemUsuario}
@@ -75,7 +77,7 @@ export default class VisualizarAnuncio extends React.Component {
                             </View>
                         </View>
                     </TouchableOpacity>
-                </ScrollView>
+                </ScrollView> */}
                 <View style={StyleAnuncio.visualizarAnuncioBotaoContainer}>
                     <TouchableOpacity
                         style={StyleAnuncio.visualizarAnuncioBotaoButton}
