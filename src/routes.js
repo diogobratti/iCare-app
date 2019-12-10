@@ -138,7 +138,7 @@ const NewUserFornecedorStack = createStackNavigator(
     NewUserAnuncio: NewUserAnuncioScreen,
     NewUserLocalidade: NewUserLocalidadeScreen,
     NewUserProfissao: NewUserProfissaoScreen,
-    NewUserRedesSociais: NewUserRedesSociaisScreen,
+    // NewUserRedesSociais: NewUserRedesSociaisScreen,
     NewUserCadastrar,
   },
 );
@@ -146,6 +146,8 @@ const NewUserFornecedorStack = createStackNavigator(
 const NewUserClienteStack = createStackNavigator(
   {
     NewUserTelefone: NewUserTelefoneScreen,
+    // NewUserRedesSociais: NewUserRedesSociaisScreen,
+    NewUserAnuncio: NewUserAnuncioScreen,
     NewUserLocalidade: NewUserLocalidadeScreen,
     NewUserCadastrar,
   },
