@@ -30,36 +30,27 @@ const MenuHome = createStackNavigator({
   VisualizarAnuncio: { screen: VisualizarAnuncio },
 });
 
-const Anuncio = createSwitchNavigator({
-  PerfilAnuncio,
+const Anuncio = createStackNavigator({
+  PerfilAnuncio
 });
 
-const Cadastro = createStackNavigator(
-  {
-    NewUserNome,
-    NewUserCPF,
-    NewUserEmail,
-    NewUserTelefone,
-    NewUserEstadoCidade,
-    NewUserAnuncio,
-    NewUserCadastrar
-  },
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: '#ff0000',
-      }
-    }
-  }
-);
+const Cadastro = createStackNavigator({
+  NewUserNome,
+  NewUserCPF,
+  NewUserEmail,
+  NewUserTelefone,
+  NewUserEstadoCidade,
+  NewUserAnuncio,
+  NewUserCadastrar
+});
 
-const AuthStack = createStackNavigator({ screen: Login });
+const LoginStack = createStackNavigator({ screen: Login });
 
 const MenuAnuncio = createSwitchNavigator({
   AuthLoading: Loading,
   App: Anuncio,
   NewUser: Cadastro,
-  Auth: AuthStack
+  Login: LoginStack
 });
 
 const MenuPrincipal = createBottomTabNavigator(

@@ -15,10 +15,28 @@ export default class Loading extends React.Component {
     // const userToken = await AsyncStorage.getItem('userToken');
     const currentUser = firebase.auth().currentUser;
 
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
-    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
-    this.props.navigation.navigate(currentUser ? 'App' : 'Auth');
+    if (currentUser == null) {
+      this.props.navigation.navigate("Login");
+    } else {
+      await firebase
+        .firestore()
+        .collection("anuncios")
+        .where("uid", "==", currentUser.uid)
+        .get()
+        .then(data => {
+          this.setState({ cadastroCompleto: !data.empty });
+          // console.log(!data.empty);
+        });
+
+      this.props.navigation.navigate(
+        this.state.cadastroCompleto ? "App" : "NewUser"
+      );
+
+      // This will switch to the App screen or Auth screen and this loading
+      // screen will be unmounted and thrown away.
+      // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+      // this.props.navigation.navigate(currentUser ? 'App' : 'Auth');
+    }
   };
 
   render() {
