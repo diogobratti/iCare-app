@@ -80,7 +80,7 @@ export default class VisualizarAnuncio extends React.Component {
                         </View>
                     </TouchableOpacity>
                 </ScrollView> */}
-                <View style={StyleAnuncio.visualizarAnuncioBotaoContainer}>
+                {/* <View style={StyleAnuncio.visualizarAnuncioBotaoContainer}>
                     <TouchableOpacity
                         style={StyleAnuncio.visualizarAnuncioBotaoButton}
                         onPress={() => {
@@ -91,7 +91,7 @@ export default class VisualizarAnuncio extends React.Component {
                             Voltar
 		                    </Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
             </View>
         );
     }

@@ -81,7 +81,7 @@ export default class TermoServico extends Component {
             </View> */}
           </ScrollView>
         </View>
-        <View style={StyleTermo.botaoContainer}>
+        {/* <View style={StyleTermo.botaoContainer}>
           <TouchableOpacity
             style={StyleTermo.botaoButton}
             onPress={() => {
@@ -94,7 +94,7 @@ export default class TermoServico extends Component {
               Voltar
 		                    </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </View>
     )
   }
