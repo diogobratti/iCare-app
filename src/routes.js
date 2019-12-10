@@ -10,9 +10,15 @@ import IconeMenu from "./pages/IconeMenu";
 import Localidade from "./pages/localidade/Localidade";
 import TermoServico from "./pages/termo/TermoServico";
 import Loading from "./pages/auth/Loading";
-import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
-import Main from "./pages/auth/Main";
+import NewUserNome from './pages/auth/NewUserNome';
+import NewUserCPF from './pages/auth/NewUserCPF';
+import NewUserEmail from './pages/auth/NewUserEmail';
+import NewUserTelefone from './pages/auth/NewUserTelefone';
+import NewUserEstadoCidade from './pages/auth/NewUserEstadoCidade';
+import NewUserAnuncio from './pages/auth/NewUserAnuncio';
+import NewUserCadastrar from './pages/auth/NewUserCadastrar';
+// import {NewUserNome, NewUserCPF, NewUserEmail, NewUserTelefone, NewUserEstadoCidade, NewUserAnuncio, NewUserCadastrar} from "./pages/auth/";
 //import Localidade from "./pages/localidade/Teste";
 //import Localidade from "./pages/localidade/Testando";
 
@@ -24,16 +30,36 @@ const MenuHome = createStackNavigator({
   VisualizarAnuncio: { screen: VisualizarAnuncio },
 });
 
-// const MenuChat = createStackNavigator({
-//     ListagemConversa,
-// });
+const Anuncio = createSwitchNavigator({
+  PerfilAnuncio,
+});
 
-const MenuAnuncio = createStackNavigator({
-  // PerfilAnuncio,
-  Loading,
-  SignUp,
-  Login,
-  Main
+const Cadastro = createStackNavigator(
+  {
+    NewUserNome,
+    NewUserCPF,
+    NewUserEmail,
+    NewUserTelefone,
+    NewUserEstadoCidade,
+    NewUserAnuncio,
+    NewUserCadastrar
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#ff0000',
+      }
+    }
+  }
+);
+
+const AuthStack = createStackNavigator({ screen: Login });
+
+const MenuAnuncio = createSwitchNavigator({
+  AuthLoading: Loading,
+  App: Anuncio,
+  NewUser: Cadastro,
+  Auth: AuthStack
 });
 
 const MenuPrincipal = createBottomTabNavigator(
@@ -41,7 +67,6 @@ const MenuPrincipal = createBottomTabNavigator(
     Home: { screen: MenuHome },
     //Chat: { screen: MenuChat },
     'Anuncie aqui': { screen: MenuAnuncio },
-    //Perfil: { screen: MenuTeste },      
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({

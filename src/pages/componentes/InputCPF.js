@@ -2,7 +2,6 @@ import React from 'react';
 import {Input, Icon} from 'react-native-elements';
 
 const InputCPF = (props) => {
-  // const {iconStyle} = styles;
 
   return (
     <Input
