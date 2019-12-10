@@ -72,7 +72,7 @@ export default class NewUserTelefone extends Component {
               LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE, this.state.telefone)
               //Cadastro ou alteracao?
               this.isCadastro ?
-                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_PROFISSAO) :
+                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_REDES_SOCIAIS) :
                 this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
             } else {
               this.setState({ erroTelefone: "Telefone inválido" });

@@ -27,7 +27,7 @@ export default class LoadingScreen extends React.Component {
     // firebase.auth().signOut();
     // await AsyncStorage.clear();
     // await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_PERFIL, CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR)
-    this.logCurrentStorage();
+    if (__DEV__) LocalStorage.logCurrentStorage();
     // ========== FIM DEBUG AREA ==========
 
     if (userPerfil === null) {
@@ -54,20 +54,6 @@ export default class LoadingScreen extends React.Component {
     }
 
   };
-
-  // DEBUG ONLY
-  logCurrentStorage() {
-    AsyncStorage.getAllKeys().then((keyArray) => {
-      AsyncStorage.multiGet(keyArray).then((keyValArray) => {
-        let myStorage: any = {};
-        for (let keyVal of keyValArray) {
-          myStorage[keyVal[0]] = keyVal[1]
-        }
-
-        if (__DEV__) Reactotron.log(myStorage);
-      })
-    });
-  }
 
   // Render any loading content that you like here
   render() {

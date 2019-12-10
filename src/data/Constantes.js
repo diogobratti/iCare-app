@@ -35,6 +35,7 @@ export const ROUTES_NEW_USER_TELEFONE = 'NewUserTelefone';
 export const ROUTES_NEW_USER_ANUNCIO = 'NewUserAnuncio';
 export const ROUTES_NEW_USER_PROFISSAO = 'NewUserProfissao';
 export const ROUTES_NEW_USER_LOCALIDADE = 'NewUserLocalidade';
+export const ROUTES_NEW_USER_REDES_SOCIAIS = 'NewUserRedesSociais';
 export const ROUTES_NEW_USER_CADASTRAR = 'NewUserCadastrar';
 export const ROUTES_HOME_LISTAGEM_ANUNCIO = 'ListagemAnuncio';
 export const ROUTES_HOME_VISUALIZAR_ANUNCIO = 'VisualizarAnuncio';
@@ -53,6 +54,7 @@ export const ASYNC_ITEM_USUARIO_UID = 'userUID';
 export const ASYNC_ITEM_USUARIO_PROVIDER_ID = 'userProviderID';
 export const ASYNC_ITEM_USUARIO_NOME = 'userNome';
 export const ASYNC_ITEM_USUARIO_EMAIL = 'userEmail';
+export const ASYNC_ITEM_USUARIO_INSTAGRAM = 'userInstagram';
 export const ASYNC_ITEM_USUARIO_FOTO = 'userFoto';
 export const ASYNC_ITEM_USUARIO_TELEFONE = 'userTelefone';
 export const ASYNC_ITEM_USUARIO_PROFISSAO = 'userProfissao';
@@ -64,6 +66,15 @@ export const ASYNC_ITEM_USUARIO_REGIAO = 'microrregiao';
 export const ASYNC_ITEM_AUTH_PROVIDER_TOKEN = 'userAuthProviderToken';
 export const ASYNC_ITEM_AUTH_PROVIDER_NAME = 'userAuthProviderName';
 export const ASYNC_ITEM_TERMO_SERVICO = 'versaoTermosServico';
+
+export const ASYNC_GRUPO_ITENS_ANUNCIO_COMPLETO = [
+  ASYNC_ITEM_USUARIO_FOTO,
+  ASYNC_ITEM_USUARIO_NOME,
+  ASYNC_ITEM_USUARIO_TELEFONE,
+  ASYNC_ITEM_USUARIO_PROFISSAO,
+  ASYNC_ITEM_USUARIO_ANUNCIO,
+  ASYNC_ITEM_USUARIO_PRECO
+]
 
 // Firestore Collections
 export const FIRESTORE_COLLECTION_ANUNCIOS = 'anuncios';

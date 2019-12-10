@@ -5,21 +5,13 @@ import { Button } from "react-native-elements";
 import Anuncio from "../componentes/Anuncio";
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio from "../../styles/StyleAnuncio";
-import { ROUTES_LOADING } from "../../data/Constantes";
+import { ROUTES_LOADING, ASYNC_ITEM_USUARIO_ANUNCIO, ASYNC_ITEM_USUARIO_EMAIL, ASYNC_ITEM_USUARIO_FOTO, ASYNC_GRUPO_ITENS_ANUNCIO_COMPLETO, ASYNC_ITEM_USUARIO_NOME, ASYNC_ITEM_USUARIO_TELEFONE, ASYNC_ITEM_USUARIO_PROFISSAO, ASYNC_ITEM_USUARIO_PRECO } from "../../data/Constantes";
 import LocalStorage from "../../services/LocalStorage";
 
-export default class Main extends Component {
+export default class PerfilAnuncio extends Component {
 
-  // state = {
-  //   anuncio: null
-  // }
-
-  constructor() {
-    super()
-    //TODO: pegar anuncio do LocalStorage
-    this.state = {
-      anuncio: 'arraycomDadosDoAnuncio'
-    }
+  state = {
+    anuncio: null
   }
 
   static navigationOptions = {
@@ -31,30 +23,27 @@ export default class Main extends Component {
       .auth()
       .signOut()
       .then(() => {
-        AsyncStorage.clear();
+        LocalStorage.clear();
         this.props.navigation.push(ROUTES_LOADING);
       });
   };
 
-  // componentDidMount() {
-  //   console.log("PerfilAnuncio componentDidMount");
-  //   console.log(firebase.auth().currentUser);
+  async componentDidMount() {
 
-  //   const { currentUser } = firebase.auth();
-  //   console.log("usuario atual:" + currentUser);
+    const values = await LocalStorage.multiGet(ASYNC_GRUPO_ITENS_ANUNCIO_COMPLETO)
 
-  //   console.log("anuncio: " + this.props.navigation.getParam("anuncio", false));
+    const anuncio = {
+      foto: values[ASYNC_ITEM_USUARIO_FOTO],
+      nome: values[ASYNC_ITEM_USUARIO_NOME],
+      telefone: values[ASYNC_ITEM_USUARIO_TELEFONE],
+      profissao: values[ASYNC_ITEM_USUARIO_PROFISSAO],
+      preco: values[ASYNC_ITEM_USUARIO_PRECO],
+      anuncio: values[ASYNC_ITEM_USUARIO_ANUNCIO]
+    }
 
-  //   let anuncio = this.props.navigation.getParam("anuncio", false);
-  //   if (anuncio == false) {
-  //     estado inconsistente
-  //     this.props.navigation.push(ROUTES_LOADING);
-  //   }
+    this.setState({ anuncio:  anuncio });
 
-  //   anuncio.get().then(doc => {
-  //     this.setState({ anuncio: doc.data() });
-  //   });
-  // }
+  }
 
   render() {
     const { anuncio } = this.state;
@@ -62,8 +51,8 @@ export default class Main extends Component {
     return (
       // <View style={styles.container}>
       <View style={StyleAnuncio.visualizarAnuncioContainer}>
-        {this.state.anuncio != null ? (
-          <Anuncio anuncio={anuncio} />
+        {anuncio != null ? (
+          <Anuncio anuncio={anuncio} editavel={true} />
         ) : (
           <ActivityIndicator size="large" />
         )}

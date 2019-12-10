@@ -50,6 +50,9 @@ const StyleTermo = StyleSheet.create({
         flexShrink: 1,
         alignSelf: "center",
     },
+    linkTexto: {
+        textDecorationLine: 'underline',
+    },
     erroContainer: {
 
     },

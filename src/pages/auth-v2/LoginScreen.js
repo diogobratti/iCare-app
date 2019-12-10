@@ -4,12 +4,14 @@ import { SocialIcon, Overlay } from "react-native-elements";
 import firebase from "react-native-firebase";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
 import { GoogleSignin, statusCodes } from "react-native-google-signin";
-import { navigationOptions } from "../../styles/StyleBase";
+import StyleBase, { navigationOptions } from "../../styles/StyleBase";
 import StyleFaleConosco from "../../styles/StyleFaleConosco";
 import Button from './components/Button';
 import LocalStorage from '../../services/LocalStorage';
 import * as CONSTANTES from '../../data/Constantes';
 import AsyncStorage from "@react-native-community/async-storage";
+import StyleTermo from "../../styles/StyleTermo";
+import StyleCadastro from "../../styles/StyleCadastro";
 
 export default class Login extends Component {
 
@@ -290,7 +292,7 @@ export default class Login extends Component {
             </View>
           </Overlay>
           <View style={styles.containerSocialLoginStyle}>
-            <Text>Acesse com</Text>
+            <Text style={StyleTermo.descricaoTexto}>Acesse com</Text>
             <View style={styles.containerSocialLoginButtonsStyle}>
               <SocialIcon
                 type="facebook"
@@ -307,16 +309,21 @@ export default class Login extends Component {
             </View>
           </View>
 
-          <View style={styles.containerActionsStyle}>
-            <Text style={StyleFaleConosco.corpoText}>Ao entrar você confirma estar de acordo com os
-              <Text onPress={() => this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO_TERMO_SERVICO)}>
-                Termos e Condições
+          {/* <View style={styles.containerActionsStyle}> */}
+          <View style={StyleTermo.corpoContainer}>
+            <View style={StyleTermo.descricaoContainer}>
+              <Text style={StyleTermo.descricaoTexto}>Ao entrar você confirma estar de acordo com os {"\u00a0"}
+                <Text style={StyleTermo.descricaoTexto, StyleTermo.linkTexto}
+                      onPress={() => this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO_TERMO_SERVICO)}>
+                  Termos e Condições
+                </Text>
               </Text>
-            </Text>
-            {/* <Button onPress={() => this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO_TERMO_SERVICO)}>
-              Termos e Condições
-            </Button> */}
+              {/* <Button onPress={() => this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO_TERMO_SERVICO)}>
+                Termos e Condições
+              </Button> */}
+            </View>
           </View>
+          {/* </View> */}
 
           {/* <View style={styles.containerLoginStyle}>
             <Text>Ou com seu e-mail</Text>

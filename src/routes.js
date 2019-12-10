@@ -18,6 +18,7 @@ import NewUserTelefoneScreen from './pages/auth-v2/NewUserTelefoneScreen';
 import NewUserAnuncioScreen from './pages/auth-v2/NewUserAnuncioScreen';
 import NewUserProfissaoScreen from './pages/auth-v2/NewUserProfissaoScreen';
 import NewUserCadastrar from './pages/auth-v2/NewUserCadastrar';
+import NewUserRedesSociaisScreen from './pages/auth-v2/NewUserRedesSociais';
 import FaleConoscoScreen from './pages/faleconosco/FaleConoscoScreen';
 // //import Localidade from "./pages/localidade/Teste";
 // //import Localidade from "./pages/localidade/Testando";
@@ -91,6 +92,14 @@ const HomeStack = createStackNavigator(
 const AnuncioStack = createStackNavigator(
   {
     PerfilAnuncio: PerfilAnuncioScreen,
+    NewUserNome: NewUserNomeScreen,
+    NewUserEmail: NewUserEmailScreen,
+    NewUserTelefone: NewUserTelefoneScreen,
+    NewUserAnuncio: NewUserAnuncioScreen,
+    NewUserLocalidade: NewUserLocalidadeScreen,
+    NewUserProfissao: NewUserProfissaoScreen,
+    NewUserRedesSociais: NewUserRedesSociaisScreen,
+    // NewUserCadastrar,
   },
 );
 
@@ -123,6 +132,7 @@ const NewUserFornecedorStack = createStackNavigator(
     NewUserAnuncio: NewUserAnuncioScreen,
     NewUserLocalidade: NewUserLocalidadeScreen,
     NewUserProfissao: NewUserProfissaoScreen,
+    NewUserRedesSociais: NewUserRedesSociaisScreen,
     NewUserCadastrar,
   },
 );

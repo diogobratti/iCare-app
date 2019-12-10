@@ -40,7 +40,7 @@ export default class ListagemAnuncio extends Component {
         //   }
         //   return false; //close the app
         }).bind(this) //don't forget bind this, you will remember anyway.
-        
+
 
         this.getOptions = {
             source: 'default',//'cache',
@@ -134,7 +134,9 @@ export default class ListagemAnuncio extends Component {
     }
 
     componentWillUnmount() {
-        this.unsubscribe();
+        if (typeof this.unsubscribe === "function"){
+          this.unsubscribe();
+        }
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
 
@@ -191,7 +193,7 @@ export default class ListagemAnuncio extends Component {
                 orderBy: ultimo_item_pelo_orderBy,
                 user_uid: ultimo_item_pelo_user_uid,
                 id: ultimo_item_pelo_id,
-            }, 
+            },
             isLoading: false,
         });
         this.SearchFilterFunction(this.state.search);
@@ -229,7 +231,7 @@ export default class ListagemAnuncio extends Component {
                 || itemDataPreco.indexOf(textData) > -1
                 || itemDataProfissao.indexOf(textData) > -1
                 || itemDataTelefone.indexOf(textData) > -1
-                //|| itemDataCidade.indexOf(textData) > -1 
+                //|| itemDataCidade.indexOf(textData) > -1
                 //|| itemDataMicroregiao.indexOf(textData) > -1
             );
             return apareceNoFiltro;
@@ -293,17 +295,17 @@ export default class ListagemAnuncio extends Component {
                 )
             } else {
                 if(this.state.anuncios.length == 0 && this.arrayholder.length == 0) {
-                    return ( 
+                    return (
                         <View style={StyleAnuncio.FiltrarContainer}>
                             <TouchableOpacity
-                                //style={styles.productButton} 
+                                //style={styles.productButton}
                                 onPress={() => {
                                     this.props.navigation.navigate('Loading');
                                 }}
                             >
                                 <Text style={StyleAnuncio.pesquisaFiltroTexto}>Sem anúncios nesta região. Seja o primeiro a se cadastrar! Anuncie aqui.</Text>
                             </TouchableOpacity>
-                        </View> 
+                        </View>
                         )
                 } else {
                     return null;
@@ -321,7 +323,7 @@ export default class ListagemAnuncio extends Component {
                 <View style={StyleAnuncio.FiltrarContainer}>
                     <View style={StyleAnuncio.scrollViewFiltrarContainer}>
                         <ScrollView>
-                            {/* 
+                            {/*
                             <View style={StyleAnuncio.orderByContainer}>
                                 <View style={StyleAnuncio.orderByCabecalhoContainer}>
                                     <Text style={StyleAnuncio.orderByTexto}>
@@ -400,7 +402,7 @@ export default class ListagemAnuncio extends Component {
                                 minimumTrackTintColor={definicoesBase.corBarraSlider}
                                 maximumTrackTintColor={definicoesBase.corBarraSlider}
                                 thumbTintColor={definicoesBase.corBotaoSlider}
-                                step={0.5} 
+                                step={0.5}
                                 value={this.state.filtroAvaliacao}
                                 onValueChange={(filtroAvaliacao) => this.setState({ filtroAvaliacao })}
                             />
@@ -453,7 +455,7 @@ export default class ListagemAnuncio extends Component {
                                         onPress={() => this.setState({ filtroProfissaoNutricionista: !this.state.filtroProfissaoNutricionista })}
                                     />
                                 </View>
-                                {/* 
+                                {/*
                         <View style={StyleAnuncio.filtroItemContainer}>
                             <Text style={StyleAnuncio.filtroItemTexto}>
                                 Localidade
@@ -509,7 +511,7 @@ export default class ListagemAnuncio extends Component {
                     </View>
                     <View style={StyleAnuncio.pesquisaFiltroContainer}>
                         <TouchableOpacity
-                            //style={styles.productButton} 
+                            //style={styles.productButton}
                             onPress={() => {
                                 this.setState({ mostraMenuFiltro: true });
                             }}

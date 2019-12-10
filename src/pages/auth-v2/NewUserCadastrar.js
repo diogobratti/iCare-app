@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { View, Text, ActivityIndicator, StyleSheet, Alert } from "react-native";
 import * as CONSTANTES from '../../data/Constantes';
 import { navigationOptions } from "../../styles/StyleBase";
-import AsyncStorage from '@react-native-community/async-storage';
+// import AsyncStorage from '@react-native-community/async-storage';
 import firebase from 'react-native-firebase';
 import Reactotron from 'reactotron-react-native';
+import LocalStorage from "../../services/LocalStorage";
 
 
 export default class NewUserCadastrar extends Component {
@@ -33,14 +34,16 @@ export default class NewUserCadastrar extends Component {
         CONSTANTES.ASYNC_ITEM_AUTH_PROVIDER_TOKEN,
         CONSTANTES.ASYNC_ITEM_AUTH_PROVIDER_NAME,
         CONSTANTES.ASYNC_ITEM_TERMO_SERVICO,
-        CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO
+        CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO,
+        CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM
       ];
 
-      const result = await AsyncStorage.multiGet(keyArray)
-      const asyncStorageValues = result.reduce((map, obj) => {
-        map[obj[0]] = obj[1]
-        return map
-      }, {})
+      const asyncStorageValues = await LocalStorage.multiGet(keyArray);
+      // const result = await AsyncStorage.multiGet(keyArray)
+      // const asyncStorageValues = result.reduce((map, obj) => {
+      //   map[obj[0]] = obj[1]
+      //   return map
+      // }, {})
 
       Reactotron.log(asyncStorageValues);
 
@@ -70,12 +73,10 @@ export default class NewUserCadastrar extends Component {
           versaoTermosServico: asyncStorageValues[CONSTANTES.ASYNC_ITEM_TERMO_SERVICO],
           //novos atributos auth-v2
           cadastroCompleto: 'true',
+          instagram: asyncStorageValues[CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM]
         });
 
-        await AsyncStorage.setItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO, 'true');
-
-        //TODO: verificar se gravou corretamente
-        this.props.navigation.navigate("PerfilAnuncio");
+        await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO, 'true');
 
         Alert.alert(
           'Sucesso',
@@ -85,6 +86,9 @@ export default class NewUserCadastrar extends Component {
           ],
           { cancelable: false },
         );
+
+        //TODO: verificar se gravou corretamente
+        this.props.navigation.navigate("PerfilAnuncio");
 
       } else {
         console.warn ("Erro interno: user_uid cadastrado em mais de um documento");
