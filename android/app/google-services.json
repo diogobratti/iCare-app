@@ -1,50 +1,35 @@
 {
   "project_info": {
-    "project_number": "360196641821",
-    "firebase_url": "https://icare-prototipo-9ca2d.firebaseio.com",
-    "project_id": "icare-prototipo-9ca2d",
-    "storage_bucket": "icare-prototipo-9ca2d.appspot.com"
+    "project_number": "350947662004",
+    "firebase_url": "https://icare-10b26.firebaseio.com",
+    "project_id": "icare-10b26",
+    "storage_bucket": "icare-10b26.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:360196641821:android:6f9b857bd20411a1",
+        "mobilesdk_app_id": "1:350947662004:android:6f9b857bd20411a1",
         "android_client_info": {
           "package_name": "com.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "360196641821-24uqeel42j91oe2u9d8e733vbde0rplg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.app",
-            "certificate_hash": "b237be576c94a508d26ee8ef6ff7e75d90a61bc0"
-          }
-        },
-        {
-          "client_id": "360196641821-9gse0nnc45qp2nmn2alvc22nlmlbf2s6.apps.googleusercontent.com",
+          "client_id": "350947662004-ev0rn57273o1cqrpjvga3feh8h0t6fbg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBB3nL9bDrf-dpqRslbwyPiU4bU40v5Scs"
+          "current_key": "AIzaSyDuOOjabkjUjKZ_Zj1f3zWiHaz-riCvBVI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "360196641821-9gse0nnc45qp2nmn2alvc22nlmlbf2s6.apps.googleusercontent.com",
+              "client_id": "350947662004-ev0rn57273o1cqrpjvga3feh8h0t6fbg.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "360196641821-ap7j0al5al63g6fmqi2v6hkqalt6roc9.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.icare.app.prototipo"
-              }
             }
           ]
         }
