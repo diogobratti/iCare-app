@@ -9,7 +9,7 @@ import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 const Anuncio = props => {
   const { anuncio, editavel } = props;
 
-  console.log(anuncio);
+  // console.log(anuncio);
 
   return (
     <ScrollView>
@@ -75,7 +75,7 @@ const Anuncio = props => {
               Preço:{" "}
             </Text>
             <Text style={StyleAnuncio.visualizarAnuncioAtributoText}>
-              R$ {anuncio.preco}*
+              {anuncio.preco}*
             </Text>
           </View>
           <View style={StyleAnuncio.visualizarAnuncioLinha}>

@@ -45,13 +45,13 @@ export default class Main extends Component {
 
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    console.log("PerfilAnuncio componentDidMount");
-    console.log(firebase.auth().currentUser);
+    // console.log("PerfilAnuncio componentDidMount");
+    // console.log(firebase.auth().currentUser);
 
     const { currentUser } = firebase.auth();
-    console.log("usuario atual:" + currentUser);
+    // console.log("usuario atual:" + currentUser);
 
-    console.log("anuncio: " + this.props.navigation.getParam("anuncio", false));
+    // console.log("anuncio: " + this.props.navigation.getParam("anuncio", false));
 
     let anuncio = this.props.navigation.getParam("anuncio", false);
     if (anuncio == false) {

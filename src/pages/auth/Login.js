@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, ScrollView, ActivityIndicator, BackHandler } from "react-native";
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator, BackHandler, Alert } from "react-native";
 import {
   SocialIcon,
   ThemeProvider,
@@ -46,7 +46,7 @@ export default class Login extends Component {
   }
 
   handleLogin = () => {
-    console.log("handleLogin");
+    // console.log("handleLogin");
 
     const { email, password } = this.state;
 
@@ -62,35 +62,43 @@ export default class Login extends Component {
   };
 
   handleSocialLoginInstagram() {
-    console.log("handleSocialLoginInstagram");
+    // console.log("handleSocialLoginInstagram");
   }
 
   handleSocialLoginFacebook = async () => {
-    console.log("handleSocialLoginFacebook");
+    // console.log("handleSocialLoginFacebook");
+
+    this.setState({ isProcessing: true });
 
     try {
-      console.log("entrou");
+      // console.log("entrou");
       const result = await LoginManager.logInWithPermissions([
         "public_profile",
         "email"
       ]);
-      console.log(result);
-      console.log("mostrou login");
+      // console.log(result);
+      // console.log("mostrou login");
 
       if (result.isCancelled) {
         // handle this however suites the flow of your app
+        this.setState({ isProcessing: false });
+        this._alertErro("Autorização Cancelada");
+        // this.props.navigation.push("Loading");
         throw new Error("User cancelled request");
       }
 
-      console.log(
-        `Login success with permissions: ${result.grantedPermissions.toString()}`
-      );
+      // console.log(
+        // `Login success with permissions: ${result.grantedPermissions.toString()}`
+      // );
 
       // get the access token
       const data = await AccessToken.getCurrentAccessToken();
 
       if (!data) {
         // handle this however suites the flow of your app
+        this.setState({ isProcessing: false });
+        this._alertErro("Erro acessando os dados do token do usuário");
+        // this.props.navigation.push("Loading");
         throw new Error(
           "Something went wrong obtaining the users access token"
         );
@@ -107,7 +115,7 @@ export default class Login extends Component {
         .signInWithCredential(credential);
 
       // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
-      console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
+      // console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
 
       const nome = firebaseUserCredential.additionalUserInfo.profile.name;
       const email = firebaseUserCredential.additionalUserInfo.profile.email;
@@ -122,12 +130,17 @@ export default class Login extends Component {
         foto
       );
     } catch (e) {
-      console.error(e);
+      this.setState({ isProcessing: false });
+      // this._alertErro("Erro Interno:" + e);
+      // this.props.navigation.push("Loading");
+      // console.error(e);
     }
+    this.setState({ isProcessing: false });
+
   };
 
   handleSocialLoginGoogle = async () => {
-    console.log("handleSocialLoginGoogle");
+    // console.log("handleSocialLoginGoogle");
 
     this.setState({ isProcessing: true });
 
@@ -138,7 +151,7 @@ export default class Login extends Component {
       });
 
       // add any configuration settings here:
-      await GoogleSignin.configure({
+      GoogleSignin.configure({
         scopes: [
           "https://www.googleapis.com/auth/userinfo.profile",
           "https://www.googleapis.com/auth/userinfo.email"
@@ -150,8 +163,8 @@ export default class Login extends Component {
 
       const tokenData = await GoogleSignin.getTokens();
 
-      console.log(tokenData);
-      console.log(userData);
+      // console.log(tokenData);
+      // console.log(userData);
 
       // create a new firebase credential with the token
       const credential = await firebase.auth.GoogleAuthProvider.credential(
@@ -163,9 +176,9 @@ export default class Login extends Component {
         .auth()
         .signInWithCredential(credential);
 
-      console.log("usuario autenticado ");
+      // console.log("usuario autenticado ");
 
-      console.log("entrando pos autenticacao");
+      // console.log("entrando pos autenticacao");
 
       const nome = firebaseUserCredential.additionalUserInfo.profile.name;
       const email = firebaseUserCredential.additionalUserInfo.profile.email;
@@ -179,19 +192,32 @@ export default class Login extends Component {
         foto
       );
     } catch (error) {
+      this.setState({ isProcessing: false });
+
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // user cancelled the login flow
-        this.props.navigation.push("Loading");
+        this._alertErro("Autorização Cancelada");
+        // this.props.navigation.push("Loading");
+
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation (f.e. sign in) is in progress already
+        this._alertErro("Já existe uma solicitação de autenticação em andamento");
+        // this.props.navigation.push("Loading");
+
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        this.props.navigation.push("Loading");
+        this._alertErro("Google Play Services não instalado ou desatualizado. Não é possível efetuar login com o Google sem o Play Services instalado.");
+        // this.props.navigation.push("Loading");
         // play services not available or outdated
+
       } else {
         // some other error happened
+        this._alertErro("Erro Interno: " + error)
+
         console.error(error);
       }
     }
+    this.setState({ isProcessing: false });
+
   };
 
   /**
@@ -213,7 +239,7 @@ export default class Login extends Component {
     let docReference = null;
 
     if (querySnapshot.empty) {
-      console.log("Dados vazios. criando novo cadastro");
+      // console.log("Dados vazios. criando novo cadastro");
       docReference = await collection
         .add({
           id: firebaseCredential.user.uid,
@@ -225,16 +251,16 @@ export default class Login extends Component {
         })
         .then(newData => {
           //atualiza referencia
-          console.log("cadastro criado ");
-          console.log(newData);
+          // console.log("cadastro criado ");
+          // console.log(newData);
           // data = newData;
           return newData;
         });
     } else {
       docReference = querySnapshot.docs[0].ref;
     }
-    console.log(docReference);
-    console.log("redirecionando Loading");
+    // console.log(docReference);
+    // console.log("redirecionando Loading");
 
     this.setState({ isProcessing: false });
 
@@ -261,6 +287,23 @@ export default class Login extends Component {
     }
 
     return message;
+  }
+
+  _alertErro(errorMsg) {
+    Alert.alert(
+      'Erro',
+      errorMsg,
+      [
+        //{text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+        // {
+        //   text: 'Cancel',
+        //   onPress: () => console.log('Cancel Pressed'),
+        //   style: 'cancel',
+        // },
+        {text: 'OK', onPress: () => {}},
+      ],
+      {cancelable: false},
+      );
   }
 
   render() {

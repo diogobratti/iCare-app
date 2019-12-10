@@ -30,16 +30,16 @@ export default class NewUserNome extends Component {
 
 
   _bootstrapAsync = async () => {
-    console.log("NewUSerNome");
-    console.log(this.props.navigation.state.params);
-    console.log(this.props.navigation.state.params.anuncio);
+    // console.log("NewUSerNome");
+    // console.log(this.props.navigation.state.params);
+    // console.log(this.props.navigation.state.params.anuncio);
     const currentUser = firebase.auth().currentUser;
 
     await this.props.navigation.state.params.anuncio.get().then(anuncio => {
       // this.anuncio = anuncio;
-      console.log(anuncio.data());
+      // console.log(anuncio.data());
       this.anuncio = anuncio.data();
-      console.log(this.anuncio);
+      // console.log(this.anuncio);
     });
 
     this.setState({

@@ -35,7 +35,7 @@ export default class NewUserEmail extends Component {
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    console.log(this.state);
+    // console.log(this.state);
   }
   componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);

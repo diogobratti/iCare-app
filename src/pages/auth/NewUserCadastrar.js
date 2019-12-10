@@ -33,8 +33,8 @@ export default class NewUserCadastrar extends Component {
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    console.log(this.state);
-    console.log(this.state.user.uid);
+    // console.log(this.state);
+    // console.log(this.state.user.uid);
 
     try {
       let anuncioOriginal = this.state.anuncioOriginal;
