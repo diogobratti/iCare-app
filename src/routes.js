@@ -12,6 +12,7 @@ import Loading from "./pages/auth/Loading";
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
 import Main from "./pages/auth/Main";
+//import Localidade from "./pages/localidade/Teste";
 
 
 import StyleBase, { navigationOptions } from "./styles/StyleBase";

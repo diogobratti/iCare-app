@@ -13,61 +13,61 @@ import StyleLocalidade from "../../styles/StyleLocalidade";
 
 //import { AsyncStorage} from '@react-native-community/async-storage';
 
-import DataLocalidade from '../../data/DataLocalidade';
+import DataLocalidade from '../../data/DataLocalidade.json';
+import SelectEstados from '../componentes/SelectEstados';
+import SelectCidades from '../componentes/SelectCidades';
 
 
 export default class Localidade extends Component {
 	static navigationOptions = navigationOptions;
 
-	constructor() {
-		super();
-		this.lista_uf = DataLocalidade.UF;
-		this.lista_municipio = DataLocalidade.Municípios;
-		this.lista_municipio_reduzida = [];
-		this.state = {
-			lista_municipio_filtrado: [],
-			uf: '',
-			municipio: '',
-			uf_id: null,
-			municipio_id: null,
-		};
+	state = { uf: null, selectedValueEstado: null, selectedValueCidade: null }
+
+	componentDidMount() {
+	  this.setState({
+		uf: [
+		  {
+			"sigla": "AC",
+			"nome": "Acre",
+			"cidades": [
+			  "Acrelândia",
+			  "Assis Brasil",
+			  "Brasiléia",
+			  "Bujari",
+			]
+		  }, 
+		  {
+			"sigla": "AL",
+			"nome": "Alagoas",
+			"cidades": [
+			  "Água Branca",
+			  "Anadia",
+			  "Arapiraca",
+			  "Atalaia",
+			]
+		  }
+		],
+		selectedValueEstado: '',
+		selectedValueCidade: ''
+	  })
 	}
-	/*
-			storeData = async () => {
-				try {
-					await AsyncStorage.setItem('teste', "valor qualquer");
-					await AsyncStorage.setItem('uf', this.uf);
-					await AsyncStorage.setItem('municipio', this.municipio);
-				} catch (e) {
-					// saving error
-				}
-			}
-	*/
-	filtraMunicipio(uf){
 
-		municipios = [];
-		this.setState({lista_municipio_filtrado : municipios});
+	renderValueChangeEstado = (value) => {
+	  console.warn(value.sigla)
+	  this.setState({
+		selectedValueEstado: value
+	  })
+	}
 
-		this.lista_municipio.map((s, i) => {
-			if (s.Estado == uf
-				|| (s.Estado == "Brasília" && uf == "Distrito Federal"))
-				{
-					municipios= [...municipios, s];
-			}
-		});
-		this.setState({lista_municipio_filtrado : municipios});
-		this.lista_municipio_reduzida = municipios;
-		console.log(JSON.stringify(this.lista_municipio_reduzida));
-		console.log(JSON.stringify(municipios));
+
+	renderValueChangeCidade = (value) => {
+	  console.warn(value)
+	  this.setState({
+		selectedValueCidade: value
+	  })
 	}
 	render() {
-		let ufItens = this.lista_uf.map((s, i) => {
-			return <Picker.Item key={i} value={s} label={s} />
-		});
-		let municipioItens = this.lista_municipio_reduzida.map((s, i) => {
-			<Picker.Item key={s.Microrregião} value={s.Município} label={s.Município} />
-		});
-
+        const { selectedValueCidade, selectedValueEstado, uf } = this.state;
 		return (
 			<View style={StyleLocalidade.container}>
 				<View style={StyleLocalidade.cabecalhoContainer}>
@@ -79,20 +79,10 @@ export default class Localidade extends Component {
 							<Text style={StyleLocalidade.itemCamposTexto}>
 								Escolha o estado
 							</Text>
-							<Picker
-								selectedValue={this.state.uf}
-								mode="dialog"
-								style={StyleLocalidade.itemCamposPicker}
-								itemStyle={StyleLocalidade.itemCamposPickerItem}
-								onValueChange={(itemValue, itemIndex) => {
-									this.setState({ uf: itemValue });
-									this.setState({ uf_id: itemIndex });
-									this.filtraMunicipio(itemValue);
-								}
-								}>
-								<Picker.Item key={-1} value={''} label={'--- Selecione ---'} />
-								{ufItens}
-							</Picker>
+							<SelectEstados
+								selectedValue={selectedValueEstado}
+								data={uf}
+								onValueChange={this.renderValueChangeEstado} />
 						</View>
 						<View style={StyleLocalidade.itemCamposEspacoContainer}>
 							<Text></Text>
@@ -101,18 +91,9 @@ export default class Localidade extends Component {
 							<Text style={StyleLocalidade.itemCamposTexto}>
 								Escolha o município 
 							</Text>
-							<Picker
-								selectedValue={this.state.municipio}
-								mode="dialog"
-								style={StyleLocalidade.itemCamposPicker}
-								onValueChange={(itemValue, itemIndex) => {
-									this.setState({ municipio: itemValue });
-									this.setState({ municipio_id: itemIndex });
-								}
-								}>
-								<Picker.Item key={-1} value={''} label={'--- Selecione ---'} />
-								{municipioItens}
-							</Picker>
+							<SelectCidades selectedValue={selectedValueCidade}
+								data={selectedValueEstado}
+								onValueChange={this.renderValueChangeCidade} />
 						</View>
 					</View>
 				</View>
