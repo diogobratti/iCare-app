@@ -17,19 +17,6 @@ class Todos extends React.Component {
         todos: [],
     };
   }
-  updateTextInput(value) {
-      this.setState({ textInput: value });
-  }
-  addTodo() {
-    this.ref.add({
-      title: this.state.textInput,
-      complete: false,
-    });
-  
-    this.setState({
-      textInput: '',
-    });
-  }
   componentDidMount() {
       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate) 
   }
@@ -62,16 +49,6 @@ class Todos extends React.Component {
           <FlatList
             data={this.state.todos}
             renderItem={({ item }) => <Text>{item.title}</Text>}
-          />
-          <TextInput
-              placeholder={'Add TODO'}
-              value={this.state.textInput}
-              onChangeText={(text) => this.updateTextInput(text)}
-          />
-          <Button
-              title={'Add TODO'}
-              disabled={!this.state.textInput.length}
-              onPress={() => this.addTodo()}
           />
       </View>
     );
