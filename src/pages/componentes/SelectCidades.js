@@ -7,20 +7,23 @@ export default props => (
         {
             props.data ?
                 <Picker
+                    style={props.style}
+                    itemStyle={props.itemStyle}
                     selectedValue={props.selectedValue}
                     onValueChange={props.onValueChange}
                 >
-                    <Picker.Item  label={'--- Escolha ---'} />
                     {
                         props.data.cidades.map(cidade => <Picker.Item key={cidade} label={cidade["Município"]} value={cidade} />)
                     }
                 </Picker>
                 :
                 <Picker
+                    style={props.style}
+                    itemStyle={props.itemStyle}
                     selectedValue={props.selectedValue}
                     onValueChange={props.onValueChange}
                 >
-                    <Picker.Item  label={'--- Escolha o estado ---'} />
+                    <Picker.Item  label={' '} />
                 </Picker>
         }
     </View>
