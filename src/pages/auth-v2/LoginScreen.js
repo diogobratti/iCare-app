@@ -203,7 +203,7 @@ export default class Login extends Component {
 
     // const timestamp = new Date();
     let termoservico = `${new Date()}`;
-    let timestamp = new Date();
+    let timestamp = JSON.stringify(new Date());
 
     const perfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
 
