@@ -12,8 +12,7 @@ const MensagemEmail = (data) => {
   const currentUser = auth().currentUser;
   firestore().collection('transacoes').add({
     destino_user_uid: data.user_uid,
-    destino_uid: data.uid,
-    origem_uid: currentUser.uid,
+    origem_user_uid: currentUser.uid,
     email: data.email,
     timestamp: JSON.stringify(Date.now()),
     horario: `${new Date()}`,
