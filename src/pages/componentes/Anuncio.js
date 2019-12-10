@@ -125,6 +125,8 @@ class Anuncio extends Component {
           onPress={() => {this.salvarComentario()}}
           value={this.state.comentario}
           onChangeText={text => this.setState({ comentario: text })}
+          buttonStyle={StyleAnuncio.aplicarFiltroButton}
+          textButtonStyle={StyleAnuncio.aplicarFiltroText}
         />
 
         <View style={StyleAnuncio.visualizarAnuncioFotoContainer}>

@@ -5,7 +5,7 @@ import Button from "../auth-v2/components/Button"
 import PropTypes from 'prop-types'
 
 const Comentario = props => {
-  const { isVisible, onPress, value, errorMessage, onChangeText, width, height, buttonStyle } = props;
+  const { isVisible, onPress, value, errorMessage, onChangeText, width, height, buttonStyle, textButtonStyle, inputStyle } = props;
 
   return (
     <Overlay isVisible={isVisible} width={width} height={height}>
@@ -20,27 +20,28 @@ const Comentario = props => {
           numberOfLines={5}
           multiline={true}
           onChangeText={onChangeText}
+          style={inputStyle}
         />
 
-      <Button
-        onPress={onPress}
-        style={buttonStyle}
-        >Salvar</Button>
-
-      <Button
-        onPress={onPress}
-        style={buttonStyle}
-        >Cancelar</Button>
-
-        {/* <TouchableOpacity
+        <TouchableOpacity
+          style={buttonStyle}
           onPress={onPress}
         >
-          <Text
-            style={buttonStyle}
-          >
+          <Text style={textButtonStyle}>
             Salvar
           </Text>
-        </TouchableOpacity> */}
+        </TouchableOpacity>
+
+
+        <TouchableOpacity
+          style={buttonStyle}
+          onPress={onPress}
+        >
+          <Text style={textButtonStyle}>
+            Cancelar
+          </Text>
+        </TouchableOpacity>
+
       </View>
     </Overlay>
   )
@@ -54,7 +55,9 @@ Comentario.propTypes = {
   onChangeText: PropTypes.func.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,
-  buttonStyle: PropTypes.array
+  buttonStyle: PropTypes.object,
+  textButtonStyle: PropTypes.object,
+  inputStyle: PropTypes.object
 }
 
 export default Comentario
