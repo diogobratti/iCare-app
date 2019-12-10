@@ -41,12 +41,47 @@ export default class Login extends Component {
     console.log('handleSocialLoginInstagram');
   }
 
-  handleSocialLoginFacebook() {
+  handleSocialLoginFacebook = async () => {
     console.log('handleSocialLoginFacebook');
+
+    try {
+      const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
+  
+      if (result.isCancelled) {
+        // handle this however suites the flow of your app
+        throw new Error('User cancelled request'); 
+      }
+  
+      console.log(`Login success with permissions: ${result.grantedPermissions.toString()}`);
+  
+      // get the access token
+      const data = await AccessToken.getCurrentAccessToken();
+  
+      if (!data) {
+        // handle this however suites the flow of your app
+        throw new Error('Something went wrong obtaining the users access token');
+      }
+  
+      // create a new firebase credential with the token
+      const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+  
+      // login with credential
+      const firebaseUserCredential = await firebase
+        .auth()
+        .signInWithCredential(credential);
+  
+      console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()))
+
+      await this.posAutenticacao(firebaseUserCredential);
+
+    } catch (e) {
+      console.error(e);
+    }
+
 
   }
 
-  handleSocialLoginGoogle = async() => {
+  handleSocialLoginGoogle = async () => {
     console.log('handleSocialLoginGoogle');
 
     try {
@@ -144,6 +179,7 @@ export default class Login extends Component {
               <SocialIcon
                 type="facebook"
                 onPress={this.handleSocialLoginFacebook}
+                // onPress={facebookLogin}
               />
               <SocialIcon
                 type="instagram"
