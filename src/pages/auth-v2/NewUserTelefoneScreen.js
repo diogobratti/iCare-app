@@ -6,11 +6,14 @@ import { TextInputMask } from "react-native-masked-text";
 import styles from "../../styles/StyleCadastro";
 import * as CONSTANTES from '../../data/Constantes';
 import LocalStorage from '../../services/LocalStorage';
+import InputInstagram from "../componentes/InputInstagram";
 
 export default class NewUserTelefone extends Component {
 
   state = {
     erroTelefone: "",
+    instagram: "",
+    erroInstagram: "",
   }
 
   static navigationOptions = {
@@ -24,10 +27,16 @@ export default class NewUserTelefone extends Component {
   _bootstrapAsync = async () => {
     this.setState({
       telefone: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE),
+      instagram: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM),
     })
 
     this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
   };
+
+  validateInstagram = (instagram) => {
+    const expression = /(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/g;
+    return expression.test(String(instagram).toLowerCase())
+  }
 
   render() {
     const {
@@ -65,26 +74,77 @@ export default class NewUserTelefone extends Component {
           ) : null}
         </View>
 
+        <View>
+        <InputInstagram
+          onChangeText={instagram => this.setState({ instagram: instagram })}
+          value={this.state.instagram}
+          erro={this.state.erroInstagram}
+        />
+        </View>
+
         <Button
           onPress={() => {
-            if (this.telefoneField.isValid() && this.state.telefone !== "") {
+            //telefone obrigatório, instagram opcional
+            const telefoneValido = this.state.telefone !== "" && this.telefoneField.isValid()
+            const instagramValido = this.state.instagram == "" || this.state.instagram == null || this.validate(this.state.instagram)
+
+            if (telefoneValido && instagramValido) {
               //Atualiza AsynStorage
               LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE, this.state.telefone)
+              LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM, this.state.instagram)
 
-              LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL).then( (perfil) => {
-                if (perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE) {
-                  this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_LOCALIDADE)
-                } else {
-                  //Cadastro ou alteracao?
-                  this.isCadastro ?
-                    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_REDES_SOCIAIS) :
-                    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
-                }
-              });
+              if (this.isCadastro) {
+                //cadastro
+                LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL).then( (perfil) => {
+                  (perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE) ?
+                    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_LOCALIDADE) :
+                    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_PROFISSAO)
+                })
+              } else {
+                //alteracao
+                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
+              }
+
+
+
+              // if (perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE) {
+              //   this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_LOCALIDADE)
+              // } else {
+              //   //Cadastro ou alteracao?
+              //   this.isCadastro ?
+              //     this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_REDES_SOCIAIS) :
+              //     this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
+              // }
+
 
             } else {
-              this.setState({ erroTelefone: "Telefone inválido" });
+              if (!telefoneValido) {
+                this.setState({ erroTelefone: "Telefone inválido" });
+              }
+
+              if (!instagramValido) {
+                this.setState({ erroInstagram: "Instagram inválido" });
+              }
             }
+
+            // if (this.telefoneField.isValid() && this.state.telefone !== "") {
+            //   //Atualiza AsynStorage
+            //   LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE, this.state.telefone)
+
+            //   LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL).then( (perfil) => {
+            //     if (perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE) {
+            //       this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_LOCALIDADE)
+            //     } else {
+            //       //Cadastro ou alteracao?
+            //       this.isCadastro ?
+            //         this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_REDES_SOCIAIS) :
+            //         this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
+            //     }
+            //   });
+
+            // } else {
+            //   this.setState({ erroTelefone: "Telefone inválido" });
+            // }
           }}
         >
           Continuar

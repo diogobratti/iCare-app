@@ -10,29 +10,29 @@ import LocalStorage from '../../services/LocalStorage';
 
 export default class NewUserRedesSociaisScreen extends Component {
 
-  state = {
-    instagram: "",
-    erroInstagram: "",
-  };
+  // state = {
+  //   instagram: "",
+  //   erroInstagram: "",
+  // };
 
-  static navigationOptions = {
-    ...navigationOptions,
-  };
+  // static navigationOptions = {
+  //   ...navigationOptions,
+  // };
 
-  componentDidMount() {
-    this._bootstrapAsync();
-  }
+  // componentDidMount() {
+  //   this._bootstrapAsync();
+  // }
 
-  _bootstrapAsync = async () => {
+  // _bootstrapAsync = async () => {
 
-    // reactotron.log(await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM))
+  //   // reactotron.log(await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM))
 
-    this.setState({
-      instagram: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM),
-    });
+  //   this.setState({
+  //     instagram: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM),
+  //   });
 
-    this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
-  };
+  //   this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
+  // };
 
   validate = (instagram) => {
     const expression = /(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/g;
