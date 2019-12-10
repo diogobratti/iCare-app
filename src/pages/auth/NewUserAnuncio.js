@@ -30,7 +30,7 @@ export default class NewUserAnuncio extends Component {
     // this.setState({ preco: "R$0.000,00" });
     // this.setState({ profissao: "alguma profissao" });
     this.setState({ versaoTermosServico: "v0.1" });
-    console.log(this.state);
+    // console.log(this.state);
   }
   componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);

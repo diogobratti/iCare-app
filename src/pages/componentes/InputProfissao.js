@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Text, Picker, Platform } from "react-native";
 // import { Input, Icon } from "react-native-elements";
-import * as CONSTANTES from "../../data/Constantes";
+// import * as CONSTANTES from "../../data/Constantes";
+import PROFISSOES from "../../data/ConstantesProfissao";
 
 const InputProfissao = props => {
   const { onValueChange, selectedValue, children } = props;
@@ -29,29 +30,15 @@ const InputProfissao = props => {
         prompt="Selecione a sua Profissão"
       >
         <Picker.Item
-          label={CONSTANTES.PROFISSAO_CUIDADOR}
-          value={CONSTANTES.PROFISSAO_CUIDADOR}
+          label={"Selecione a sua Profissão"}
+          value={0}
         />
-        <Picker.Item
-          label={CONSTANTES.PROFISSAO_ENFERMEIRO}
-          value={CONSTANTES.PROFISSAO_ENFERMEIRO}
-        />
-        <Picker.Item
-          label={CONSTANTES.PROFISSAO_FISIOTERAPEUTA}
-          value={CONSTANTES.PROFISSAO_FISIOTERAPEUTA}
-        />
-        <Picker.Item
-          label={CONSTANTES.PROFISSAO_NUTRICIONISTA}
-          value={CONSTANTES.PROFISSAO_NUTRICIONISTA}
-        />
-        <Picker.Item
-          label={CONSTANTES.PROFISSAO_TECNICO_ENFERMAGEM}
-          value={CONSTANTES.PROFISSAO_TECNICO_ENFERMAGEM}
-        />
-        <Picker.Item
-          label={CONSTANTES.PROFISSAO_TERAPEUTA_OCUPACIONAL}
-          value={CONSTANTES.PROFISSAO_TERAPEUTA_OCUPACIONAL}
-        />
+
+        {/* {console.log(Object.entries(PROFISSOES))} */}
+        {Object.entries(PROFISSOES).map(([key,value]) => (
+          <Picker.Item label={value} value={value} key={key} />
+        ))}
+
       </Picker>
     </View>
   );

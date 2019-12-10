@@ -9,7 +9,7 @@ import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 const Anuncio = props => {
   const { anuncio, editavel } = props;
 
-  console.log(anuncio);
+  // console.log(anuncio);
 
   return (
     <ScrollView>

@@ -34,7 +34,7 @@ export default class NewUserTelefone extends Component {
       "hardwareBackPress",
       this.handleBackButtonClick
     );
-    console.log(this.state);
+    // console.log(this.state);
   }
   componentWillUnmount() {
     BackHandler.removeEventListener(

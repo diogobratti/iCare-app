@@ -46,7 +46,7 @@ export default class Login extends Component {
   }
 
   handleLogin = () => {
-    console.log("handleLogin");
+    // console.log("handleLogin");
 
     const { email, password } = this.state;
 
@@ -62,29 +62,29 @@ export default class Login extends Component {
   };
 
   handleSocialLoginInstagram() {
-    console.log("handleSocialLoginInstagram");
+    // console.log("handleSocialLoginInstagram");
   }
 
   handleSocialLoginFacebook = async () => {
-    console.log("handleSocialLoginFacebook");
+    // console.log("handleSocialLoginFacebook");
 
     try {
-      console.log("entrou");
+      // console.log("entrou");
       const result = await LoginManager.logInWithPermissions([
         "public_profile",
         "email"
       ]);
-      console.log(result);
-      console.log("mostrou login");
+      // console.log(result);
+      // console.log("mostrou login");
 
       if (result.isCancelled) {
         // handle this however suites the flow of your app
         throw new Error("User cancelled request");
       }
 
-      console.log(
-        `Login success with permissions: ${result.grantedPermissions.toString()}`
-      );
+      // console.log(
+        // `Login success with permissions: ${result.grantedPermissions.toString()}`
+      // );
 
       // get the access token
       const data = await AccessToken.getCurrentAccessToken();
@@ -107,7 +107,7 @@ export default class Login extends Component {
         .signInWithCredential(credential);
 
       // console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
-      console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
+      // console.log(JSON.stringify(firebaseUserCredential.user.toJSON()));
 
       const nome = firebaseUserCredential.additionalUserInfo.profile.name;
       const email = firebaseUserCredential.additionalUserInfo.profile.email;
@@ -127,7 +127,7 @@ export default class Login extends Component {
   };
 
   handleSocialLoginGoogle = async () => {
-    console.log("handleSocialLoginGoogle");
+    // console.log("handleSocialLoginGoogle");
 
     this.setState({ isProcessing: true });
 
@@ -150,8 +150,8 @@ export default class Login extends Component {
 
       const tokenData = await GoogleSignin.getTokens();
 
-      console.log(tokenData);
-      console.log(userData);
+      // console.log(tokenData);
+      // console.log(userData);
 
       // create a new firebase credential with the token
       const credential = await firebase.auth.GoogleAuthProvider.credential(
@@ -163,9 +163,9 @@ export default class Login extends Component {
         .auth()
         .signInWithCredential(credential);
 
-      console.log("usuario autenticado ");
+      // console.log("usuario autenticado ");
 
-      console.log("entrando pos autenticacao");
+      // console.log("entrando pos autenticacao");
 
       const nome = firebaseUserCredential.additionalUserInfo.profile.name;
       const email = firebaseUserCredential.additionalUserInfo.profile.email;
@@ -213,7 +213,7 @@ export default class Login extends Component {
     let docReference = null;
 
     if (querySnapshot.empty) {
-      console.log("Dados vazios. criando novo cadastro");
+      // console.log("Dados vazios. criando novo cadastro");
       docReference = await collection
         .add({
           id: firebaseCredential.user.uid,
@@ -225,16 +225,16 @@ export default class Login extends Component {
         })
         .then(newData => {
           //atualiza referencia
-          console.log("cadastro criado ");
-          console.log(newData);
+          // console.log("cadastro criado ");
+          // console.log(newData);
           // data = newData;
           return newData;
         });
     } else {
       docReference = querySnapshot.docs[0].ref;
     }
-    console.log(docReference);
-    console.log("redirecionando Loading");
+    // console.log(docReference);
+    // console.log("redirecionando Loading");
 
     this.setState({ isProcessing: false });
 

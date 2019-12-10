@@ -5,6 +5,7 @@ import Button from "./components/Button";
 import { navigationOptions } from "../../styles/StyleBase";
 import { TextInputMask } from "react-native-masked-text";
 import styles from "../../styles/StyleCadastro";
+import PROFISSOES from "../../data/ConstantesProfissao";
 
 export default class NewUserProfissao extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ export default class NewUserProfissao extends Component {
     profissao: 0,
     preco: "",
     erroPreco: "",
+    erroProfissao: "",
     ...this.props.navigation.state.params.state
   };
 
@@ -60,6 +62,11 @@ export default class NewUserProfissao extends Component {
             this.setState({ profissao: itemValue })
           }
         />
+        <View>
+          {this.state.erroProfissao !== "" ? (
+            <Text style={erroText}>{this.state.erroProfissao}</Text>
+          ) : null}
+        </View>
 
         <Text style={textStyle}>Quanto você cobra por turno (12 horas)?</Text>
         <View style={inputContainer}>
@@ -87,13 +94,42 @@ export default class NewUserProfissao extends Component {
 
         <Button
           onPress={() => {
-            if (this.precoField.isValid() && this.state.preco !== "") {
+            let isErroPreco = false;
+            let isErroProfissao = false;
+
+            if (this.state.preco === "" || !this.precoField.isValid()) {
+              isErroPreco = true;
+              this.setState({ erroPreco: "Digite um valor numérico válido" });
+            } else {
+              this.setState({ erroPreco: "" });
+            }
+
+            if (this.state.profissao === 0 || !(Object.values(PROFISSOES).includes(this.state.profissao))) {
+              isErroProfissao = true;
+              this.setState({ erroProfissao: "Selecione uma Profissão"})
+            } else {
+              this.setState({ erroProfissao: "" });
+            }
+
+            if (!isErroPreco && !isErroProfissao) {
               this.props.navigation.navigate("NewUserAnuncio", {
                 state: this.state
               });
-            } else {
-              this.setState({ erroPreco: "Digite um valor numérico válido" });
             }
+
+
+
+            // if (this.precoField.isValid() && this.state.preco !== "") {
+            //   if (this.state.erroProfissao !== 0 && this.state.erroProfissao (in "constantes profssao") ) {
+            //     this.props.navigation.navigate("NewUserAnuncio", {
+            //       state: this.state
+            //     });
+            //   } else {
+
+            //   }
+            // } else {
+            //   this.setState({ erroPreco: "Digite um valor numérico válido" });
+            // }
           }}
         >
           Continuar
