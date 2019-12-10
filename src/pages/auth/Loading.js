@@ -1,17 +1,40 @@
 import React, { Component } from "react";
-import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet, BackHandler } from "react-native";
 import { navigationOptions } from "../../styles/StyleBase";
+import { withNavigationFocus } from 'react-navigation';
 
 import firebase from "react-native-firebase";
 
-export default class Loading extends Component {
+class Loading extends Component {
   static navigationOptions = {
     ...navigationOptions,
     headerLeft: <View />
   };
+  componentDidUpdate(prevProps) {
+    if (prevProps.isFocused !== this.props.isFocused) {
+      // Use the `this.props.isFocused` boolean
+      // Call any action
+      this._bootstrapAsync();
+    }
+  }
+
+  async componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
 
   constructor(props) {
     super(props);
+    this.handleBackButtonClick = (() => {
+    //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+    //     this.navigator.pop();
+        return true; //avoid closing the app
+    //   }
+    //   return false; //close the app
+    }).bind(this) //don't forget bind this, you will remember anyway.
+
     this.collection = firebase.firestore().collection("anuncios");
     this._bootstrapAsync();
   }
@@ -105,3 +128,5 @@ const styles = StyleSheet.create({
     alignItems: "center"
   }
 });
+
+export default withNavigationFocus(Loading);

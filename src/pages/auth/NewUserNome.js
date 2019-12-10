@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, BackHandler } from "react-native";
 import InputNome from "../componentes/InputNome";
 import Button from "./components/Button";
 import firebase from "react-native-firebase";
@@ -14,16 +14,20 @@ export default class NewUserNome extends Component {
   };
 
   constructor(props) {
-    // console.log(this.props);
     super(props);
+    this.handleBackButtonClick = (() => {
+    //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+    //     this.navigator.pop();
+        return true; //avoid closing the app
+    //   }
+    //   return false; //close the app
+    }).bind(this) //don't forget bind this, you will remember anyway.
+    
     this.state = {
       nome: ""
     };
   }
 
-  componentDidMount() {
-    this._bootstrapAsync();
-  }
 
   _bootstrapAsync = async () => {
     console.log("NewUSerNome");
@@ -49,6 +53,12 @@ export default class NewUserNome extends Component {
       regiao: await AsyncStorage.getItem("microrregiao")
     });
   };
+  async componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
+  }
 
   render() {
     return (

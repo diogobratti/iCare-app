@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, ActivityIndicator, StyleSheet } from "react-native";
+import { View, Text, ActivityIndicator, StyleSheet, BackHandler } from "react-native";
 import firebase from "react-native-firebase";
 import { ScrollView } from "react-native";
 import { Icon, Input } from "react-native-elements";
@@ -10,11 +10,29 @@ import InputEmail from "../componentes/InputEmail";
 import Button from "./components/Button";
 import ApiDb from "../../services/ApiDb";
 import AsyncStorage from "@react-native-community/async-storage";
+import { navigationOptions } from "../../styles/StyleBase";
 
 export default class NewUserCadastrar extends Component {
+  static navigationOptions = {
+    ...navigationOptions,
+    headerLeft: <View />
+  };
+
+  constructor(props) {
+    super(props);
+    this.handleBackButtonClick = (() => {
+    //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+    //     this.navigator.pop();
+        return true; //avoid closing the app
+    //   }
+    //   return false; //close the app
+    }).bind(this) //don't forget bind this, you will remember anyway.
+  }
+  
   state = this.props.navigation.state.params.state;
 
   async componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
     console.log(this.state);
     console.log(this.state.user.uid);
 
@@ -49,6 +67,9 @@ export default class NewUserCadastrar extends Component {
     } catch (error) {
       console.error(error.code + error);
     }
+  }
+  componentWillUnmount() {
+      BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
 
   render() {
