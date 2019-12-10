@@ -39,8 +39,13 @@ export default class Localidade extends Component {
 		const estado = await AsyncStorage.getItem('estado');
 		const municipio = await AsyncStorage.getItem('municipio');
 		const regiao = await AsyncStorage.getItem('microrregiao');
+		const perfil = await AsyncStorage.getItem('perfil');
 		if (estado != null && municipio != null && regiao != null) {
-			this.props.navigation.navigate("ListagemAnuncio", {});
+			if(perfil != null){
+				this.props.navigation.navigate("ListagemAnuncio", {});
+			} else {
+				this.props.navigation.navigate("EscolhePerfil", {});
+			}
 		}
 		this.setState({
 			uf: DataLocalidade,

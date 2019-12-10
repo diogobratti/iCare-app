@@ -2,24 +2,21 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer, cre
 
 import ListagemAnuncio from "./pages/anuncio/ListagemAnuncio";
 import VisualizarAnuncio from "./pages/anuncio/VisualizarAnuncio";
-import ListagemConversa from "./pages/chat/ListagemConversa";
 import PerfilAnuncio from "./pages/prestador/PerfilAnuncio";
-import Perfil from "./pages/cliente/Perfil";
 import IconeMenu from "./pages/IconeMenu";
 import Localidade from "./pages/localidade/Localidade";
 import TermoServico from "./pages/termo/TermoServico";
+import EscolhePerfil from "./pages/auth/EscolhePerfil";
 import Loading from "./pages/auth/Loading";
 import Login from "./pages/auth/Login";
 import NewUserNome from './pages/auth/NewUserNome';
-import NewUserCPF from './pages/auth/NewUserCPF';
+// import NewUserCPF from './pages/auth/NewUserCPF';
 import NewUserEmail from './pages/auth/NewUserEmail';
 import NewUserTelefone from './pages/auth/NewUserTelefone';
-import NewUserEstadoCidade from './pages/auth/NewUserEstadoCidade';
 import NewUserAnuncio from './pages/auth/NewUserAnuncio';
 import NewUserProfissao from './pages/auth/NewUserProfissao';
 import NewUserCadastrar from './pages/auth/NewUserCadastrar';
 import FaleConosco from './pages/faleconosco/FaleConosco';
-// import {NewUserNome, NewUserCPF, NewUserEmail, NewUserTelefone, NewUserEstadoCidade, NewUserAnuncio, NewUserCadastrar} from "./pages/auth/";
 //import Localidade from "./pages/localidade/Teste";
 //import Localidade from "./pages/localidade/Testando";
 
@@ -35,10 +32,9 @@ const MenuAnuncio = createStackNavigator(
     Loading,
     Login,
     NewUserNome,
-    NewUserCPF,
+    // NewUserCPF,
     NewUserEmail,
     NewUserTelefone,
-    NewUserEstadoCidade,
     NewUserAnuncio,
     NewUserCadastrar,
     NewUserProfissao,
@@ -74,6 +70,7 @@ const MenuPrincipal = createBottomTabNavigator(
 const EscolhaLocalidade = createStackNavigator({
   TermoServico,
   Localidade,
+  EscolhePerfil,
   MenuPrincipal,
 },
   {

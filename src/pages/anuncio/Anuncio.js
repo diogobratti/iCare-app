@@ -65,7 +65,7 @@ export default class Anuncio extends React.PureComponent {
                   <View style={StyleAnuncio.anuncioColunaDireitaLinha}>
                       <Text style={StyleAnuncio.anuncioProfissao}>{this.props.profissao}</Text>
                       <Text style={StyleAnuncio.anuncioSeparador}> - </Text>
-                      <Text style={StyleAnuncio.anuncioPreco}>R$ {this.props.preco}*</Text>
+                      <Text style={StyleAnuncio.anuncioPreco}>{this.props.preco}*</Text>
                       
                   </View>
                   <Text style={StyleAnuncio.anuncioPrecoObservacao}>* Estimado para o turno de 12 horas</Text>

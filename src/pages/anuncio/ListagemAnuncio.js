@@ -88,6 +88,7 @@ export default class ListagemAnuncio extends Component {
         const estado = await AsyncStorage.getItem('estado');
         const municipio = await AsyncStorage.getItem('municipio');
         const microrregiao = await AsyncStorage.getItem('microrregiao');
+        const perfil = await AsyncStorage.getItem('perfil');
         //this.municipio = await AsyncStorage.getItem('municipio');
         this.setState({
             /*
@@ -103,6 +104,7 @@ export default class ListagemAnuncio extends Component {
             estado: estado,
             municipio: municipio,
             microrregiao: microrregiao,
+            perfil: perfil,
             primeiroAnuncio: {
                 id: 0,
                 doc: null,
@@ -173,7 +175,7 @@ export default class ListagemAnuncio extends Component {
                 }
             }
         });
-        if(primeiro_anuncio_deuAVolta){
+        if(primeiro_anuncio_id != 0){
             this.setState({
                 primeiroAnuncio: {
                     id : primeiro_anuncio_id,
@@ -210,7 +212,7 @@ export default class ListagemAnuncio extends Component {
             //applying filter for the inserted text in search bar
             const textData = text.toUpperCase();
             const itemDataNome = item.nome ? item.nome.toUpperCase() : ''.toUpperCase();
-            const itemDataPreco = item.preco ? item.preco.toUpperCase() : '0'.toUpperCase();
+            const itemDataPreco = item.preco ? item.preco.replace('R$','').replace(',','.') : '0';
             const itemDataProfissao = item.profissao ? item.profissao.toUpperCase() : ''.toUpperCase();
             const itemDataTelefone = item.telefone ? item.telefone.toUpperCase() : ''.toUpperCase();
             //const itemDataCidade = item.cidade ? item.cidade.toUpperCase() : ''.toUpperCase();
@@ -230,7 +232,6 @@ export default class ListagemAnuncio extends Component {
                 //|| itemDataCidade.indexOf(textData) > -1 
                 //|| itemDataMicroregiao.indexOf(textData) > -1
             );
-            //console.warn(itemDataPreco);
             return apareceNoFiltro;
         });
         this.setState({

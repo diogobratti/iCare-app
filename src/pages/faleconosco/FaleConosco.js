@@ -34,6 +34,7 @@ export default class FaleConosco extends Component {
           <ScrollView>
             <Input
               label="Título"
+              labelStyle={StyleFaleConosco.corpoText}
               onChangeText={titulo => this.setState({ titulo })}
             />
 
@@ -43,6 +44,7 @@ export default class FaleConosco extends Component {
               multiline={true}
               numberOfLines={4}
               containerStyle={{ width: '90%', }}
+              labelStyle={StyleFaleConosco.corpoText}
               inputContainerStyle={{
                 borderWidth: 1,
                 borderRadius: 5,
