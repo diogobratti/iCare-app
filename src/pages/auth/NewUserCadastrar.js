@@ -21,11 +21,14 @@ export default class NewUserCadastrar extends Component {
     try {
       let anuncioOriginal = this.state.anuncioOriginal;
 
-      let versaoTermos = await AsyncStorage.getItem("termoservico");
+      const versaoTermos = await AsyncStorage.getItem("termoservico");
+      const estado = await AsyncStorage.getItem("estado");
+      const municipio = await AsyncStorage.getItem("municipio");
+      const regiao = await AsyncStorage.getItem("microrregiao");
 
       anuncioOriginal.update({
         nome: this.state.nome,
-        cpf: this.state.cpf,
+        // cpf: this.state.cpf,
         email: this.state.email,
         telefone: this.state.telefone,
         uf: this.state.estado,

@@ -7,34 +7,38 @@ import InputPreco from "../componentes/InputPreco";
 import Button from "./components/Button";
 import { navigationOptions } from "../../styles/StyleBase";
 
-export default class NewUserAnuncio extends Component {
-  state = this.props.navigation.state.params.state;
+export default class NewUserProfissao extends Component {
+  state = {
+    profissao: 0,
+    ...this.props.navigation.state.params.state
+  };
 
   static navigationOptions = {
-    ...navigationOptions,
+    ...navigationOptions
   };
 
   componentDidMount() {
-    // this.setState({ anuncio: "bla bla bla" });
-    // this.setState({ preco: "R$0.000,00" });
-    // this.setState({ profissao: "alguma profissao" });
-    this.setState({ versaoTermosServico: "v0.1" });
     console.log(this.state);
   }
 
   render() {
     return (
       <ScrollView>
-       
-        <InputAnuncio onChangeText={anuncio => this.setState({ anuncio })} />
+        <InputProfissao
+          selectedValue={this.state.profissao}
+          onValueChange={(itemValue, itemIndex) =>
+            this.setState({ profissao: itemValue })
+          }
+        />
+        <InputPreco onChangeText={preco => this.setState({ preco })} />
         <Button
           onPress={() =>
-            this.props.navigation.navigate("NewUserCadastrar", {
+            this.props.navigation.navigate("NewUserAnuncio", {
               state: this.state
             })
           }
         >
-          Cadastrar Anúncio
+          Continuar
         </Button>
       </ScrollView>
     );

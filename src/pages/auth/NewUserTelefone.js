@@ -23,7 +23,7 @@ export default class NewUserTelefone extends Component {
         />
         <Button
           onPress={() =>
-            this.props.navigation.navigate("NewUserEstadoCidade", {
+            this.props.navigation.navigate("NewUserProfissao", {
               state: this.state
             })
           }

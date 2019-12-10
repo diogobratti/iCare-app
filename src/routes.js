@@ -16,6 +16,7 @@ import NewUserEmail from './pages/auth/NewUserEmail';
 import NewUserTelefone from './pages/auth/NewUserTelefone';
 import NewUserEstadoCidade from './pages/auth/NewUserEstadoCidade';
 import NewUserAnuncio from './pages/auth/NewUserAnuncio';
+import NewUserProfissao from './pages/auth/NewUserProfissao';
 import NewUserCadastrar from './pages/auth/NewUserCadastrar';
 import FaleConosco from './pages/faleconosco/FaleConosco';
 // import {NewUserNome, NewUserCPF, NewUserEmail, NewUserTelefone, NewUserEstadoCidade, NewUserAnuncio, NewUserCadastrar} from "./pages/auth/";
@@ -40,6 +41,7 @@ const MenuAnuncio = createStackNavigator(
     NewUserEstadoCidade,
     NewUserAnuncio,
     NewUserCadastrar,
+    NewUserProfissao,
     PerfilAnuncio
   },
   {
