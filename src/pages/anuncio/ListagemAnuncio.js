@@ -4,7 +4,7 @@ import api from "../../services/api";
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import StyleAnuncio, { anuncioIconeAvaliacao } from "../../styles/StyleAnuncio";
+import StyleAnuncio, { anuncioIconeAvaliacao, fontFamilyTextoComum } from "../../styles/StyleAnuncio";
 
 export default class ListagemAnuncio extends Component {
     static navigationOptions = {
@@ -68,14 +68,15 @@ export default class ListagemAnuncio extends Component {
                         this.props.navigation.navigate("Chat");
                     }}
                 >
-                    <Text style={StyleAnuncio.anuncioDistancia}>nome</Text>
+                    <Text style={StyleAnuncio.anuncioNome}>nome perfil</Text>
                     <View style={StyleAnuncio.anuncioColunaDireitaLinha}>
                         <Ionicons name="ios-star" size={anuncioIconeAvaliacao.size} color={anuncioIconeAvaliacao.color} />
                         <Text style={StyleAnuncio.anuncioAvaliacao}>0,5</Text>
                         <Text style={StyleAnuncio.anuncioSeparador}> - </Text>
                         <Text style={StyleAnuncio.anuncioPerfil}>perfil</Text>
+                        
                     </View>
-                    <Text style={StyleAnuncio.AnuncioPreco}>R$ 1 bi</Text>
+                    <Text style={StyleAnuncio.anuncioPreco}>R$ 1 bi</Text>
                 </TouchableOpacity>
             </View>
         </View> 

@@ -58,6 +58,9 @@
 		39EB6A5A633A43408AF86076 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40A679F779434A0E817EA329 /* Octicons.ttf */; };
 		5BF30E5DB2BD497FAC5F2633 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEE68C52229C4611A2736B2E /* SimpleLineIcons.ttf */; };
 		668657EA0B2C41AFA18A373A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD4B064DB7CA453BB229F633 /* Zocial.ttf */; };
+		BC5144FB21E447EDAD7DB5E9 /* Helvetica.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A3981BE06F324FEF883CD1AB /* Helvetica.ttf */; };
+		619E3742495B4C52ABCE224A /* Sans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A37F4BE3B9F4B97AAED6938 /* Sans.ttf */; };
+		CEFF6B729F564E70BB618C38 /* Arciform.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2D858B922C4D4F16A50AD3B7 /* Arciform.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -386,6 +389,9 @@
 		40A679F779434A0E817EA329 /* Octicons.ttf */ = {isa = PBXFileReference; name = "Octicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		CEE68C52229C4611A2736B2E /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		DD4B064DB7CA453BB229F633 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A3981BE06F324FEF883CD1AB /* Helvetica.ttf */ = {isa = PBXFileReference; name = "Helvetica.ttf"; path = "../src/assets/fonts/Helvetica.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0A37F4BE3B9F4B97AAED6938 /* Sans.ttf */ = {isa = PBXFileReference; name = "Sans.ttf"; path = "../src/assets/fonts/Sans.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2D858B922C4D4F16A50AD3B7 /* Arciform.otf */ = {isa = PBXFileReference; name = "Arciform.otf"; path = "../src/assets/fonts/Arciform.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -675,6 +681,9 @@
 				40A679F779434A0E817EA329 /* Octicons.ttf */,
 				CEE68C52229C4611A2736B2E /* SimpleLineIcons.ttf */,
 				DD4B064DB7CA453BB229F633 /* Zocial.ttf */,
+				A3981BE06F324FEF883CD1AB /* Helvetica.ttf */,
+				0A37F4BE3B9F4B97AAED6938 /* Sans.ttf */,
+				2D858B922C4D4F16A50AD3B7 /* Arciform.otf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1141,6 +1150,9 @@
 				39EB6A5A633A43408AF86076 /* Octicons.ttf in Resources */,
 				5BF30E5DB2BD497FAC5F2633 /* SimpleLineIcons.ttf in Resources */,
 				668657EA0B2C41AFA18A373A /* Zocial.ttf in Resources */,
+				BC5144FB21E447EDAD7DB5E9 /* Helvetica.ttf in Resources */,
+				619E3742495B4C52ABCE224A /* Sans.ttf in Resources */,
+				CEFF6B729F564E70BB618C38 /* Arciform.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
