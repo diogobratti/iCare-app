@@ -53,6 +53,7 @@
 									onPress={() => this.setState({orderByValor: 'preco'})}
 		                        />
 		                    </View>
+												{/* 
 		                    <View style={StyleAnuncio.orderByItemContainer}>
 		                        <CheckBox
 		                            title='Avaliação'
@@ -61,7 +62,8 @@
 									checked={this.state.orderByValor === 'avaliacao'}
 									onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
-		                    </View>
+												</View>
+												*/}
 		                </View>
 		                <View style={StyleAnuncio.filtroContainer}>
 		                    <View style={StyleAnuncio.filtroItemContainer}>
@@ -82,6 +84,7 @@
 		                            onValueChange={(precoFiltro) => this.setState({ precoFiltro })}
 		                        />
 		                    </View>
+												{/*
 		                    <View style={StyleAnuncio.filtroItemContainer}>
 		                        <Text style={StyleAnuncio.filtroItemTexto}>
 		                            Avaliação
@@ -99,7 +102,8 @@
 		                            value={this.state.avaliacaoFiltro}
 		                            onValueChange={(avaliacaoFiltro) => this.setState({ avaliacaoFiltro })}
 		                        />
-		                    </View>
+												</View>
+												*/}
 		                    <View style={StyleAnuncio.filtroItemContainer}>
 		                        <Text style={StyleAnuncio.filtroItemTexto}>
 		                            Profissão
