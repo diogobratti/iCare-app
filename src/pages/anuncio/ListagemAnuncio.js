@@ -1,6 +1,9 @@
 //antes pedir estado e cidade, se nao estiver logado
 const orderByPadrao = 'preco'; //'localidade';
 const precoMaximo = 2000;
+const propagandaAposAnuncios = 5;
+const temPropagandaAposAnuncios = false;
+const qtdAnunciosCarregadosPorVezPadrao = 10;
 
 import React, { Component } from "react";
 import firebase from 'react-native-firebase';
@@ -38,14 +41,12 @@ export default class ListagemAnuncio extends Component {
         this.unsubscribe = null;
         this.collection = firebase.firestore().collection('anuncios');
         this.qtdAnuncios = 0;
-        this.propagandaAposAnuncios = 5;
-        this.temPropagandaAposAnuncios = false;
         this.arrayholder = [];
         this.state = {
             textInput: '',
             isLoading: true,
             anuncios: [],
-            limit: 9,
+            limit: qtdAnunciosCarregadosPorVezPadrao,
             lastVisible: 0,
             refreshing: false,
             search: '',
@@ -81,38 +82,24 @@ export default class ListagemAnuncio extends Component {
             municipio: municipio,
             microrregiao: microrregiao,
         });
+        const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         // Valid options for source are 'server', 'cache', or
         // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
         // for more information.
-        this.unsubscribe = this.collection.
-            orderBy(this.state.orderByValor, 'ASC').
-            limit(this.state.limit).
-            //orderBy('nome','DESC').
-            //where('nome', '==', 'dbratti').
-            //https://firebase.google.com/docs/firestore/query-data/query-cursors
-            //startAfter(last.data().population).
-            //onSnapshot(this.onCollectionUpdate);
-            get(this.getOptions).then(this.onCollectionUpdate);
-        //this.loadAnuncios();
+        this.unsubscribe = this.collection;
+        //this.unsubscribe = this.unsubscribe.where('microrregiao', '==', this.state.microrregiao);
         /*
-        ExemploAnuncios.forEach(function(obj) {
-            firebase.firestore().collection('anuncios').add({
-                nome: obj.nome,
-                foto: obj.foto,
-                preco: obj.preco,
-                profissao: obj.profissao,
-                uf: obj.uf,
-                telefone: obj.telefone,
-                cidade: obj.cidade,
-                anuncio: obj.anuncio
-            }).then(function(docRef) {
-                console.log("Document written with ID: ", docRef.id);
-            })
-            .catch(function(error) {
-                console.error("Error adding document: ", error);
-            });
-        });
+        this.unsubscribe = this.unsubscribe.where('preco', '<=', this.state.filtroPreco);
+        if(!filtroProfissaoCuidador) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Cuidador");
+        if(!filtroProfissaoTecnicoEnfermagem) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Técnico em Enfermagem");
+        if(!filtroProfissaoEnfermeiro) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Enfermeiro");
+        if(!filtroProfissaoTerapeutaOcupacional) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Terapeuta Ocupacional");
+        if(!filtroProfissaoFisioterapeuta) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Fisioterapeuta");
+        if(!filtroProfissaoNutricionista) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Nutricionista");
         */
+        this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
+        this.unsubscribe = this.unsubscribe.limit(this.state.limit);
+        this.unsubscribe = this.unsubscribe.get(this.getOptions).then(this.onCollectionUpdate);
     }
 
     componentWillUnmount() {
@@ -143,16 +130,30 @@ export default class ListagemAnuncio extends Component {
         this.search.clear();
     };
     SearchFilterFunction(text) {
+        const {filtroPreco, 
+            filtroProfissaoCuidador, 
+            filtroProfissaoEnfermeiro, 
+            filtroProfissaoFisioterapeuta, 
+            filtroProfissaoNutricionista, 
+            filtroProfissaoTecnicoEnfermagem, 
+            filtroProfissaoTerapeutaOcupacional} = this.state;
         //passing the inserted text in textinput
         const newData = this.arrayholder.filter(function (item) {
             //applying filter for the inserted text in search bar
+            const textData = text.toUpperCase();
             const itemDataNome = item.nome ? item.nome.toUpperCase() : ''.toUpperCase();
-            const itemDataPreco = item.preco ? item.preco.toUpperCase() : ''.toUpperCase();
+            const itemDataPreco = item.preco ? item.preco.toUpperCase() : '0'.toUpperCase();
             const itemDataProfissao = item.profissao ? item.profissao.toUpperCase() : ''.toUpperCase();
             const itemDataTelefone = item.telefone ? item.telefone.toUpperCase() : ''.toUpperCase();
             //const itemDataCidade = item.cidade ? item.cidade.toUpperCase() : ''.toUpperCase();
             //const itemDataMicroregiao = item.microrregiao ? item.microrregiao.toUpperCase() : ''.toUpperCase();
-            const textData = text.toUpperCase();
+            if(itemDataPreco > filtroPreco) return false;
+            if(!filtroProfissaoCuidador && itemDataProfissao == "Cuidador".toUpperCase()) return false;
+            if(!filtroProfissaoTecnicoEnfermagem && itemDataProfissao == "Técnico em Enfermagem".toUpperCase()) return false;
+            if(!filtroProfissaoEnfermeiro && itemDataProfissao == "Enfermeiro".toUpperCase()) return false;
+            if(!filtroProfissaoTerapeutaOcupacional && itemDataProfissao == "Terapeuta Ocupacional".toUpperCase()) return false;
+            if(!filtroProfissaoFisioterapeuta && itemDataProfissao == "Fisioterapeuta".toUpperCase()) return false;
+            if(!filtroProfissaoNutricionista && itemDataProfissao == "Nutricionista".toUpperCase()) return false;
             const apareceNoFiltro = (
                 itemDataNome.indexOf(textData) > -1 
                 || itemDataPreco.indexOf(textData) > -1 
@@ -191,7 +192,7 @@ export default class ListagemAnuncio extends Component {
         get(this.getOptions).then(this.onCollectionUpdate);
     }
     renderItem = (item) => {
-        if (this.qtdAnuncios % this.propagandaAposAnuncios == 4 && this.temPropagandaAposAnuncios) {
+        if (this.qtdAnuncios % propagandaAposAnuncios == propagandaAposAnuncios-1 && temPropagandaAposAnuncios) {
             this.qtdAnuncios++;
             return (
                 <View>
