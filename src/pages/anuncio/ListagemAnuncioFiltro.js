@@ -14,13 +14,15 @@
 
 
 	export default class ListagemAnuncioFiltro extends Component {
-	    static navigationOptions = navigationOptions;
+	    static navigationOptions = navigationOptions;constructor(props){
+			super(props);
 
-	    state = {
-        orderByvalor: "localidade",    
-		precoFiltro: precoMaximo,
-		avaliacaoFiltro: 5,
-	    };
+			this.state = {
+				orderByValor: "localidade",    
+				precoFiltro: precoMaximo,
+				avaliacaoFiltro: 5,
+			};
+		}
 
 	    render() {
 		return (
@@ -38,7 +40,8 @@
 		                            title='Localidade'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-		                            checked={this.state.checked}
+									checked={this.state.orderByValor === 'localidade'}
+									onPress={() => this.setState({orderByValor: 'localidade'})}
 		                        />
 		                    </View>
 		                    <View style={StyleAnuncio.orderByItemContainer}>
@@ -46,7 +49,8 @@
 		                            title='Preço'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-		                            checked={this.state.checked}
+									checked={this.state.orderByValor === 'preco'}
+									onPress={() => this.setState({orderByValor: 'preco'})}
 		                        />
 		                    </View>
 		                    <View style={StyleAnuncio.orderByItemContainer}>
@@ -54,7 +58,8 @@
 		                            title='Avaliação'
 		                            checkedIcon='dot-circle-o'
 		                            uncheckedIcon='circle-o'
-		                            checked={this.state.checked}
+									checked={this.state.orderByValor === 'avaliacao'}
+									onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
 		                    </View>
 		                </View>
@@ -99,10 +104,55 @@
 		                        <Text style={StyleAnuncio.filtroItemTexto}>
 		                            Profissão
 		                        </Text>
+		                        <CheckBox
+		                            title='Cuidador'
+		                            checkedIcon='dot-circle-o'
+		                            uncheckedIcon='circle-o'
+									checked={this.state.orderByValor === 'avaliacao'}
+									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+		                        />
+		                        <CheckBox
+		                            title='Técnico em enfermagem'
+		                            checkedIcon='dot-circle-o'
+		                            uncheckedIcon='circle-o'
+									checked={this.state.orderByValor === 'avaliacao'}
+									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+		                        />
+		                        <CheckBox
+		                            title='Enfermeiro'
+		                            checkedIcon='dot-circle-o'
+		                            uncheckedIcon='circle-o'
+									checked={this.state.orderByValor === 'avaliacao'}
+									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+		                        />
+		                        <CheckBox
+		                            title='Terapeuta Ocupacional'
+		                            checkedIcon='dot-circle-o'
+		                            uncheckedIcon='circle-o'
+									checked={this.state.orderByValor === 'avaliacao'}
+									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+		                        />
+		                        <CheckBox
+		                            title='Fisioterapeuta'
+		                            checkedIcon='dot-circle-o'
+		                            uncheckedIcon='circle-o'
+									checked={this.state.orderByValor === 'avaliacao'}
+									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+		                        />
 		                    </View>
 		                    <View style={StyleAnuncio.filtroItemContainer}>
 		                        <Text style={StyleAnuncio.filtroItemTexto}>
 		                            Localidade
+		                        </Text>
+		                        <CheckBox
+		                            title='Procurar somente na minha região'
+		                            checkedIcon='dot-circle-o'
+		                            uncheckedIcon='circle-o'
+									checked={this.state.orderByValor === 'avaliacao'}
+									onPress={() => this.setState({orderByValor: 'avaliacao'})}
+		                        />
+		                        <Text style={StyleAnuncio.filtroItemTexto}>
+		                            Ver mais cidades
 		                        </Text>
 		                    </View>
 		                </View>
