@@ -123,6 +123,76 @@ const StyleAnuncio = StyleSheet.create({
         width: 60, 
         height: 80
     },
+    orderByContainer:{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginBottom: 15,
+        padding: 10,
+    },
+    orderByCabecalhoContainer:{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginBottom:10,
+    },
+    orderByItemContainer:{
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    orderByTexto: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        fontWeight: "bold",
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
+    orderByItemTexto: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
+    filtroContainer:{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: 10,
+    },
+    filtroItemContainer:{
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginTop: 20,
+        marginBottom: 15,
+    },
+    filtroItemTexto: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        fontWeight: "bold",
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
+    filtroItemSliderTexto: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
+    aplicarFiltroButton: {
+        borderRadius: 5,
+        borderWidth: 3,
+        borderColor: definicoesBase.corFonteTextoCabecalho,
+        backgroundColor: "transparent",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 5,
+        marginRight: 5,
+    },
+    aplicarFiltroText: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        fontWeight: definicoesBase.fontWeightCabecalho,
+        color: definicoesBase.corFonteTextoCabecalho,
+        lineHeight: definicoesBase.alturaLinhaTextoComum,
+        padding: 5,
+    },
 });
 
 export const anuncioIconeAvaliacao = {

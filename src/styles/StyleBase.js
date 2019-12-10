@@ -2,6 +2,24 @@ import React from "react";
 import { StyleSheet, Image, View, Text } from "react-native";
 
 
+
+export const definicoesBase = {
+    tamanhoFonteTextoComum : 16,
+    alturaLinhaTextoComum : 22,
+    fontFamilyTextoComum : 'Arciform',
+    corFonteTextoCabecalho : "#fff",
+    tamanhoFonteTextoCabelho: 20,
+    corFonteTextoComum : "#212121",
+    corFonteTextoAvaliacao : "#e7a74e",
+    fontWeightCabecalho:"bold",
+    backgroundGeral : "#fff",
+    backgroundAnuncio : "#FFF",
+    corBordaAnuncio : "#bdbdbd",
+    corBarraSlider : "#bdbdbd",
+    corBotaoSlider : "#0288d1",
+};
+
+
 class LogoTitle extends React.Component {
     render() {
       return (
@@ -40,10 +58,10 @@ export const navigationOptions = {
                     <LogoTitle />
                     <Text 
                         style={{
-                            fontFamily: "Arciform",
-                            fontWeight:"bold",
-                            color:"#fff",
-                            fontSize:20
+                            fontFamily: definicoesBase.fontFamilyTextoComum,
+                            fontWeight:definicoesBase.fontWeightCabecalho,
+                            color:definicoesBase.corFonteTextoCabecalho,
+                            fontSize:definicoesBase.tamanhoFonteTextoCabelho,
                         }}
                     >
                         iCare
@@ -66,16 +84,4 @@ export const navigationOptions = {
         inactiveTintColor: '#b3e5fc',
     }
 };
-
-export const definicoesBase = {
-    tamanhoFonteTextoComum : 16,
-    alturaLinhaTextoComum : 22,
-    fontFamilyTextoComum : 'Arciform',
-    corFonteTextoComum : "#212121",
-    corFonteTextoAvaliacao : "#e7a74e",
-    backgroundGeral : "#fff",
-    backgroundAnuncio : "#FFF",
-    corBordaAnuncio : "#bdbdbd",
-};
-
 export default StyleBase;
