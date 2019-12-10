@@ -3,7 +3,7 @@ import api from "../../services/api";
 
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Icon } from 'react-native-elements';
 
 import { navigationOptions } from "../../styles/StyleBase";
 import StyleAnuncio, { 
@@ -13,7 +13,8 @@ import StyleAnuncio, {
             searchBarInputStyle, 
             searchBarInputContainerStyle,
             searchBarleftIconContainerStyle,
-            searchBarPlaceholderTextColor
+            searchBarPlaceholderTextColor,
+            iconeFiltro
         } from "../../styles/StyleAnuncio";
 
 export default class ListagemAnuncio extends Component {
@@ -110,6 +111,15 @@ export default class ListagemAnuncio extends Component {
                 leftIconContainerStyle={searchBarleftIconContainerStyle}
                 placeholderTextColor = {searchBarPlaceholderTextColor}
                 /> 
+                <Icon
+                    raised //circulo em volta
+                    name='filter'
+                    type='font-awesome'
+                    color={iconeFiltro}
+                    //size={30}
+                    containerStyle={StyleAnuncio.iconeFiltro}
+                    onPress={() => console.log('hello')} 
+                />
                 <FlatList
                     contentContainerStyle={StyleAnuncio.list}
                     data={this.state.docs}
