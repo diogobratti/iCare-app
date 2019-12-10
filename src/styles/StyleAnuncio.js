@@ -117,6 +117,12 @@ const StyleAnuncio = StyleSheet.create({
         color: definicoesBase.corFonteTextoComum,
         lineHeight: definicoesBase.alturaLinhaTextoComum
     },
+    anuncioCidade: {
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
+    },
     anuncioTelefone: {
         fontFamily: definicoesBase.fontFamilyTextoComum,
         fontSize: definicoesBase.tamanhoFonteTextoComum,

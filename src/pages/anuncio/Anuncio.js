@@ -52,21 +52,12 @@ export default class Anuncio extends React.PureComponent {
                   <Text style={StyleAnuncio.anuncioNome}>{this.truncaNome(this.props.nome)}</Text>
 
                   <View style={StyleAnuncio.anuncioColunaDireitaLinha}>
-                    <Icon
-                    //raised //circulo em volta
-                    name='whatsapp'
-                    type='font-awesome'
-                    //color={anuncioIconeTelefone.color}
-                    size={anuncioIconeTelefone.size}
-                    containerStyle={StyleAnuncio.iconeFiltro}
-                    //onPress={() => console.log('hello')} 
-                    />
-                    <Text style={StyleAnuncio.anuncioTelefone}>{this.props.telefone}</Text>
+                    <Text style={StyleAnuncio.anuncioCidade}>{this.props.cidade}</Text>
                   </View>
                   <View style={StyleAnuncio.anuncioColunaDireitaLinha}>
                       <Text style={StyleAnuncio.anuncioProfissao}>{this.props.profissao}</Text>
                       <Text style={StyleAnuncio.anuncioSeparador}> - </Text>
-                      <Text style={StyleAnuncio.anuncioPreco}>{this.props.preco}*</Text>
+                      <Text style={StyleAnuncio.anuncioPreco}>{(this.props.preco != "" && this.props.preco != undefined && this.props.preco != null) ? this.props.preco : "R$ -"}*</Text>
                       
                   </View>
                   <Text style={StyleAnuncio.anuncioPrecoObservacao}>* Estimado para o turno de 12 horas</Text>
