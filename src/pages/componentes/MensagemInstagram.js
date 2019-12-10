@@ -10,6 +10,6 @@ const MensagemInstagram = (data) => {
     instagram: data.telefone,
     timestamp: Date.now(),
   });
-  Linking.openURL('instagram://user?username=' + data.instagram);
+  Linking.openURL('instagram://user?username=' + data.instagram.substr(1));
 };
 export default MensagemInstagram;
