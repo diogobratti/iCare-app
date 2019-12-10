@@ -45,11 +45,6 @@ export default class EscolhePerfilScreen extends Component {
         </View>
         <View style={StyleEscolhePerfil.corpoContainer}>
           <View style={StyleEscolhePerfil.conteudoContainer}>
-            <View style={StyleEscolhePerfil.tituloContainer}>
-              <Text style={StyleEscolhePerfil.tituloTexto}>
-                Busco
-							</Text>
-            </View>
             <View style={StyleEscolhePerfil.botaoContainer}>
               <TouchableOpacity
                 style={StyleEscolhePerfil.botaoButton}
@@ -59,7 +54,7 @@ export default class EscolhePerfilScreen extends Component {
                 }}
               >
                 <Text style={StyleEscolhePerfil.botaoText}>
-                  Oferecer meus serviços
+                  QUERO TRABALHAR
 		                    </Text>
               </TouchableOpacity>
               <View style={StyleEscolhePerfil.botaoContainer}>
@@ -71,7 +66,7 @@ export default class EscolhePerfilScreen extends Component {
                   }}
                 >
                   <Text style={StyleEscolhePerfil.botaoText}>
-                    Encontrar um profissional
+                    QUERO CONTRATAR
 		                    </Text>
                 </TouchableOpacity>
               </View>

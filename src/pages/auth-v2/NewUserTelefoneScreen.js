@@ -97,7 +97,7 @@ export default class NewUserTelefone extends Component {
                 //cadastro
                 LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL).then( (perfil) => {
                   (perfil == CONSTANTES.ASYNC_USER_PERFIL_CLIENTE) ?
-                    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_LOCALIDADE) :
+                    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_ANUNCIO) :
                     this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_PROFISSAO)
                 })
               } else {
