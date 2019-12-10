@@ -10,13 +10,6 @@ class Loading extends Component {
     ...navigationOptions,
     headerLeft: <View />
   };
-  componentDidUpdate(prevProps) {
-    if (prevProps.isFocused !== this.props.isFocused) {
-      // Use the `this.props.isFocused` boolean
-      // Call any action
-      this._bootstrapAsync();
-    }
-  }
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
