@@ -17,7 +17,7 @@ import NewUserTelefone from './pages/auth/NewUserTelefone';
 import NewUserEstadoCidade from './pages/auth/NewUserEstadoCidade';
 import NewUserAnuncio from './pages/auth/NewUserAnuncio';
 import NewUserCadastrar from './pages/auth/NewUserCadastrar';
-import FaleConosco from './pages/auth/FaleConosco';
+import FaleConosco from './pages/faleconosco/FaleConosco';
 // import {NewUserNome, NewUserCPF, NewUserEmail, NewUserTelefone, NewUserEstadoCidade, NewUserAnuncio, NewUserCadastrar} from "./pages/auth/";
 //import Localidade from "./pages/localidade/Teste";
 //import Localidade from "./pages/localidade/Testando";

@@ -43,6 +43,8 @@ class IconWithBadge extends React.Component {
       iconName = `ios-megaphone${focused ? '' : ''}`;
     } else if (routeName === 'Perfil') {
       iconName = `ios-person${focused ? '' : ''}`;
+    } else if (routeName === 'Fale Conosco') {
+    iconName = `ios-mail${focused ? '' : ''}`;
     }
   
     // You can return any component that you like here!
