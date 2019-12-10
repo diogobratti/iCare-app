@@ -4,9 +4,7 @@ import ListagemAnuncio from "./pages/anuncio/ListagemAnuncio";
 import ListagemConversa from "./pages/chat/ListagemConversa";
 import PerfilAnuncio from "./pages/prestador/PerfilAnuncio";
 import Perfil from "./pages/cliente/Perfil";
-import Cadastro from "./pages/auth/Cadastro";
 import IconeMenu from "./pages/IconeMenu";
-// import MenuLogin from "./pages/auth/App";
 import Loading from "./pages/auth/Loading";
 import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
@@ -29,10 +27,6 @@ const MenuAnuncio = createStackNavigator({
 
 const MenuPerfil = createStackNavigator({
     Perfil,
-});
-
-const MenuCadastro = createStackNavigator({
-    Cadastro,
 });
 
 const MenuTeste = createSwitchNavigator({
