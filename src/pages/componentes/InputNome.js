@@ -9,7 +9,7 @@ const InputNome = (props) => {
       label="Qual é o seu nome completo?"
       placeholder="ex: Fulano da Silva"
       leftIcon={<Icon name="user" type="antdesign" size={24} color="#007aff" />}
-      errorMessage="Digite o nome completo"
+      // errorMessage="Digite o nome completo"
       onChangeText={onChangeText}
       value={value}
     />

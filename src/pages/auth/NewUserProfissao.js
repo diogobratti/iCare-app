@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { ScrollView, BackHandler } from "react-native";
+import { ScrollView, BackHandler, View, Text } from "react-native";
 import { Input } from "react-native-elements";
 import InputAnuncio from "../componentes/InputAnuncio";
 import InputProfissao from "../componentes/InputProfissao";
 import InputPreco from "../componentes/InputPreco";
 import Button from "./components/Button";
 import { navigationOptions } from "../../styles/StyleBase";
+import { TextInputMask } from 'react-native-masked-text'
 
 export default class NewUserProfissao extends Component {
-
 
   constructor(props) {
     super(props);
@@ -23,6 +23,8 @@ export default class NewUserProfissao extends Component {
 
   state = {
     profissao: 0,
+    preco: "",
+    erroPreco: "",
     ...this.props.navigation.state.params.state
   };
 
@@ -32,7 +34,7 @@ export default class NewUserProfissao extends Component {
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    console.log(this.state);
+    console.warn(this.state);
   }
   componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
@@ -41,19 +43,43 @@ export default class NewUserProfissao extends Component {
   render() {
     return (
       <ScrollView>
+
         <InputProfissao
           selectedValue={this.state.profissao}
           onValueChange={(itemValue, itemIndex) =>
             this.setState({ profissao: itemValue })
           }
         />
-        <InputPreco onChangeText={preco => this.setState({ preco })} />
+
+        <Text>Quanto você cobra por turno (12 horas)?</Text>
+        <TextInputMask
+          type={"money"}
+          options={{
+            precision: 2,
+            separator: ',',
+            delimiter: '.',
+            unit: 'R$',
+            suffixUnit: ''
+          }}
+          value={this.state.preco}
+          ref={(ref) => this.precoField = ref}
+          onChangeText={preco => this.setState({ preco })} 
+          placeholder="ex: R$120,00"
+        />
+        <View>
+            <Text>{this.state.erroPreco}</Text>
+        </View>
+
         <Button
-          onPress={() =>
-            this.props.navigation.navigate("NewUserAnuncio", {
-              state: this.state
-            })
-          }
+          onPress={() =>{
+            if(this.precoField.isValid() && this.state.preco !== "") {
+              this.props.navigation.navigate("NewUserAnuncio", {
+                state: this.state
+                })
+            } else {
+              this.setState({ erroPreco: "Digite um valor numérico válido" });
+            }
+          }}
         >
           Continuar
         </Button>
