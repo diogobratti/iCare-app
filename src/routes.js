@@ -2,6 +2,7 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer, cre
 
 import ListagemAnuncio from "./pages/anuncio/ListagemAnuncio";
 import ListagemAnuncioFiltro from "./pages/anuncio/ListagemAnuncioFiltro";
+import VisualizarAnuncio from "./pages/anuncio/VisualizarAnuncio";
 import ListagemConversa from "./pages/chat/ListagemConversa";
 import PerfilAnuncio from "./pages/prestador/PerfilAnuncio";
 import Perfil from "./pages/cliente/Perfil";
@@ -17,6 +18,7 @@ import StyleBase, { navigationOptions } from "./styles/StyleBase";
 const MenuHome = createStackNavigator({
     ListagemAnuncio: { screen: ListagemAnuncio },
     ListagemAnuncioFiltro: { screen: ListagemAnuncioFiltro },
+    VisualizarAnuncio: { screen: VisualizarAnuncio },
 });
 
 const MenuChat = createStackNavigator({
@@ -41,9 +43,9 @@ const MenuTeste = createStackNavigator({
 const MenuPrincipal = createBottomTabNavigator(
     {
         Home: { screen: MenuHome },
-        Chat: { screen: MenuChat },
-        Anúncio: { screen: MenuAnuncio },
-        Perfil: { screen: MenuTeste },      
+        //Chat: { screen: MenuChat },
+        'Anuncie aqui': { screen: MenuAnuncio },
+        //Perfil: { screen: MenuTeste },      
     },
     {
       defaultNavigationOptions: ({ navigation }) => ({
