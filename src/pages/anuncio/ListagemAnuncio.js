@@ -457,7 +457,7 @@ export default class ListagemAnuncio extends Component {
                                     />
                                 </View>
                             </View>
-                            <View style={StyleAnuncio.linhaHorizontal} />
+                            {/* <View style={StyleAnuncio.linhaHorizontal} /> */}
                             <View style={StyleAnuncio.filtroContainer}>
                                 <Text style={StyleAnuncio.filtroItemTexto}>
                                     Prestador de Serviços
