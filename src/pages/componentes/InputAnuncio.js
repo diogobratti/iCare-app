@@ -9,7 +9,7 @@ const InputAnuncio = props => {
       label="Descreva o seu anúncio"
       placeholder="ex: Experiência com acamados e procedimentos cirúrgicos"
       leftIcon={<Icon name="user" type="antdesign" size={24} color="#007aff" />}
-      errorMessage="O seu anúncio deve conter apenas texto"
+      // errorMessage="O seu anúncio deve conter apenas texto"
       onChangeText={onChangeText}
       multiline={true}
       numberOfLines={5}
