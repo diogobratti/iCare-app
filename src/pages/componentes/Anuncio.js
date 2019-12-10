@@ -9,11 +9,12 @@ import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 // import reactotron from "reactotron-react-native";
 import {
   ROUTES_NEW_USER_NOME, ROUTES_NEW_USER_PROFISSAO, ROUTES_NEW_USER_ANUNCIO, ROUTES_NEW_USER_TELEFONE, ROUTES_NEW_USER_REDES_SOCIAIS, ROUTES_NEW_USER_LOCALIDADE, ROUTES_NEW_USER_FOTO,
-  ASYNC_ITEM_PERFIL, ASYNC_USER_PERFIL_CLIENTE, ASYNC_USER_PERFIL_FORNECEDOR
+  ASYNC_ITEM_PERFIL, ASYNC_USER_PERFIL_CLIENTE, ASYNC_USER_PERFIL_FORNECEDOR, FIRESTORE_COLLECTION_ANUNCIOS
 } from "../../data/Constantes";
 import { withNavigation } from 'react-navigation';
 import { definicoesBase } from "../../styles/StyleBase";
 import AsyncStorage from '@react-native-community/async-storage';
+import firestore from '@react-native-firebase/firestore';
 import analytics from '@react-native-firebase/analytics';
 
 class Anuncio extends Component {
@@ -21,7 +22,8 @@ class Anuncio extends Component {
   constructor(props) {
     super(props);
     this.props = props
-    this.comentario = "";
+    this.comentario = null;
+    //this.comentario = {descricao: 'lala'};
     this.state = {
       visualizarComentario: false,
       perfil: ASYNC_USER_PERFIL_FORNECEDOR
@@ -35,7 +37,63 @@ class Anuncio extends Component {
     })
   }
 
-  salvarComentario(){
+  objetoTemPropriedade(obj, prop) {
+    // return Object.prototype.hasOwnProperty.call(obj, prop)
+    return (prop in obj && obj[prop] != null)
+  }
+
+
+  async salvarComentario() {
+    if (this.comentario != null) {
+
+      try {
+
+        const getResult = await firestore()
+          .collection(FIRESTORE_COLLECTION_ANUNCIOS)
+          .where("id", "==", this.props.anuncio.id)
+          .get();
+
+        // reactotron.log("entrou")
+        // reactotron.log(getResult);
+
+        //existe cadastro no banco
+        if (!getResult.empty) {
+          const docs = getResult.docs;
+
+          // reactotron.log("nao vazio")
+
+          if (docs.length === 1) {
+
+            // reactotron.log("tamanho 1")
+
+
+            const dadosBanco = docs[0].data();
+            let comentariosAnuncio = [];
+            //if(dadosBanco['avaliacao'] != "" && dadosBanco['avaliacao'] != null && dadosBanco['avaliacao'] != undefined) {
+            if (this.objetoTemPropriedade(dadosBanco, 'avaliacao')) {
+              comentariosAnuncio.push(...dadosBanco['avaliacao']);
+            }
+            comentariosAnuncio.push(this.comentario);
+            this.props.anuncio.avaliacao = comentariosAnuncio;
+
+            //console.warn(JSON.stringify(dadosBanco['avaliacao']));
+            //console.warn(JSON.stringify(comentariosAnuncio));
+
+            const result = await docs[0].ref.update({ avaliacao: comentariosAnuncio })
+
+          } else {
+            //TODO: tratar adequadamente
+            console.warn("Erro interno: mais de um dado encontrado no banco")
+          }
+        }
+      }
+      catch (error) {
+        //TODO: tratar erros adequadamente
+        console.warn(error);
+      }
+
+    }
+
 
   }
 
@@ -487,15 +545,15 @@ class Anuncio extends Component {
                 Avaliações
             </Text>
             </View>
-            {anuncio.avaliacao.map((avaliacao, index) => {
-              <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
+            {anuncio.avaliacao.map((avaliacao, index) =>
+              <View style={StyleAnuncio.visualizarAnuncioTextosContainer} key={index}>
                 <View style={StyleAnuncio.visualizarAnuncioLinha}>
                   <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-                    {avaliacao[index].descricao}
+                    {avaliacao.descricao}
                   </Text>
                 </View>
               </View>
-            })}
+            )}
           </View>
         ) : null}
       </ScrollView>
