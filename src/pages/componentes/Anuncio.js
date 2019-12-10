@@ -21,7 +21,9 @@ class Anuncio extends Component {
   constructor(props) {
     super(props);
     this.props = props
+    this.comentario = "";
     this.state = {
+      visualizarComentario: false,
       perfil: ASYNC_USER_PERFIL_FORNECEDOR
     }
   }
@@ -33,6 +35,10 @@ class Anuncio extends Component {
     })
   }
 
+  salvarComentario(){
+
+  }
+
 
   render() {
 
@@ -40,6 +46,9 @@ class Anuncio extends Component {
 
     return (
       <ScrollView>
+
+        <Comentario isVisible={this.state.visualizarComentario} onPress={this.salvarComentario()} value={this.comentario}>
+        </Comentario>
         <View style={StyleAnuncio.visualizarAnuncioFotoContainer}>
           <TouchableOpacity
             onPress={() => {
@@ -462,6 +471,7 @@ class Anuncio extends Component {
                   //_ANUNCIO: anuncio.id,
 
                 });
+                this.setState({visualizarComentario: true})
               }}
             >
               <Text style={StyleAnuncio.aplicarFiltroText}>
@@ -470,20 +480,22 @@ class Anuncio extends Component {
             </TouchableOpacity>
           </View>
         }
-        {(anuncio.preco != '' && anuncio.preco != undefined && anuncio.preco != null) ? (
+        {(anuncio.avaliacao != '' && anuncio.avaliacao != undefined && anuncio.avaliacao != null) ? (
           <View>
             <View style={StyleAnuncio.visualizarAnuncioLinha}>
               <Text style={StyleAnuncio.visualizarAnuncioAtributoText}>
                 Avaliações
             </Text>
             </View>
-            <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
-              <View style={StyleAnuncio.visualizarAnuncioLinha}>
-                <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
-                  xyz
-                </Text>
+            {anuncio.avaliacao.map((avaliacao, index) => {
+              <View style={StyleAnuncio.visualizarAnuncioTextosContainer}>
+                <View style={StyleAnuncio.visualizarAnuncioLinha}>
+                  <Text style={StyleAnuncio.visualizarAnuncioDescricaoText}>
+                    {avaliacao[index].descricao}
+                  </Text>
+                </View>
               </View>
-            </View>
+            })}
           </View>
         ) : null}
       </ScrollView>
