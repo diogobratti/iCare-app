@@ -16,6 +16,7 @@ import { definicoesBase } from "../../styles/StyleBase";
 import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import analytics from '@react-native-firebase/analytics';
+import Comentario from '../componentes/Comentario';
 
 class Anuncio extends Component {
 
@@ -25,6 +26,7 @@ class Anuncio extends Component {
     this.comentario = null;
     //this.comentario = {descricao: 'lala'};
     this.state = {
+      comentario: "",
       visualizarComentario: false,
       perfil: ASYNC_USER_PERFIL_FORNECEDOR
     }
@@ -105,8 +107,13 @@ class Anuncio extends Component {
     return (
       <ScrollView>
 
-        <Comentario isVisible={this.state.visualizarComentario} onPress={this.salvarComentario()} value={this.comentario}>
-        </Comentario>
+        <Comentario
+          isVisible={this.state.visualizarComentario}
+          onPress={() => {this.salvarComentario()}}
+          value={this.state.comentario}
+          onChangeText={text => this.setState({ comentario: text })}
+        />
+
         <View style={StyleAnuncio.visualizarAnuncioFotoContainer}>
           <TouchableOpacity
             onPress={() => {
