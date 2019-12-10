@@ -12,6 +12,7 @@ const MensagemEmail = (data) => {
     UID: data.UID,
     email: data.email,
     timestamp: Date.now(),
+    horario: `${new Date()}`,
   });
   const titulo = (data.titulo == undefined ? tituloPadrao : data.titulo);
   const mensagem = (data.mensagem == undefined ? mensagemPadrao : data.mensagem);

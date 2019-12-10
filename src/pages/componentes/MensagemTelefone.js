@@ -11,6 +11,7 @@ const MensagemTelefone = (data) => {
     UID: data.UID,
     telefone: data.telefone,
     timestamp: Date.now(),
+    horario: `${new Date()}`,
   });
   const mensagem = (data.mensagem == undefined ? mensagemPadrao : data.mensagem);
   Linking.openURL('whatsapp://send?text=' + mensagem + '&phone=+55' + data.telefone);

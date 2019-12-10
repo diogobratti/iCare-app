@@ -10,6 +10,7 @@ const MensagemInstagram = (data) => {
     UID: data.UID,
     instagram: data.telefone,
     timestamp: Date.now(),
+    horario: `${new Date()}`,
   });
   Linking.openURL('instagram://user?username=' + data.instagram.replace("@",""));
 };
