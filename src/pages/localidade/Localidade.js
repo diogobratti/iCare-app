@@ -136,7 +136,7 @@ export default class Localidade extends Component {
 							var mensagem = "";
 							if (selectedValueEstado != "" && selectedValueCidade != "") {
 								this.guardarLocalidade();
-								this.props.navigation.navigate("ListagemAnuncio", {});
+								this.props.navigation.navigate("EscolhePerfil", {});
 							} else {
 								mensagem = "Por favor, escolha o estado e o município.";
 								this.setState({ erro: mensagem });
