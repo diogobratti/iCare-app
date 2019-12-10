@@ -55,6 +55,11 @@ export default class Login extends React.Component {
                     title="Não tem uma conta? Cadastre-se"
                     onPress={() => this.props.navigation.navigate('SignUp')}
                 />
+
+                <Button
+                    title="Esqueci minha senha"
+                />
+
             </View>
         )
     }

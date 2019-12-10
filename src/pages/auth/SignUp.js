@@ -41,6 +41,8 @@ export default class SignUp extends React.Component {
 
     translateSignUpErrors(error) {
 
+        message = error.message;
+
         switch (error.code) {
             case 'auth/email-already-in-use':
                 message = "Endereço de email já cadastrado";
@@ -55,7 +57,7 @@ export default class SignUp extends React.Component {
                 message = "A senha digitada é muito fraca";
                 break;
             default:
-                message: "Erro desconhecido" + error.code;
+                message: "Erro desconhecido: " + error.code + error.message;
                 break;
         }
 
