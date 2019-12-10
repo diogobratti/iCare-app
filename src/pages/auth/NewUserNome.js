@@ -54,6 +54,7 @@ export default class NewUserNome extends Component {
     });
   };
   async componentDidMount() {
+    this._bootstrapAsync();
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
   }
   componentWillUnmount() {

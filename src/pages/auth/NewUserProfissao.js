@@ -34,7 +34,7 @@ export default class NewUserProfissao extends Component {
 
   async componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-    console.warn(this.state);
+    console.log(this.state);
   }
   componentWillUnmount() {
       BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
