@@ -7,5 +7,9 @@
     "firestore": {
       "port": 8025
     }
+  },
+  "react-native": {
+    "admob_android_app_id": "ca-app-pub-1344418698852447~1234695433",
+    "admob_ios_app_id": "ca-app-pub-xxxxxxxx~xxxxxxxx"
   }
 }

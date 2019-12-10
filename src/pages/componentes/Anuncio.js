@@ -9,7 +9,8 @@ import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 // import reactotron from "reactotron-react-native";
 import {
   ROUTES_NEW_USER_NOME, ROUTES_NEW_USER_PROFISSAO, ROUTES_NEW_USER_ANUNCIO, ROUTES_NEW_USER_TELEFONE, ROUTES_NEW_USER_REDES_SOCIAIS, ROUTES_NEW_USER_LOCALIDADE, ROUTES_NEW_USER_FOTO,
-  ASYNC_ITEM_PERFIL, ASYNC_USER_PERFIL_CLIENTE, ASYNC_USER_PERFIL_FORNECEDOR, FIRESTORE_COLLECTION_ANUNCIOS, ASYNC_ITEM_USUARIO_UID
+  ASYNC_ITEM_PERFIL, ASYNC_USER_PERFIL_CLIENTE, ASYNC_USER_PERFIL_FORNECEDOR, FIRESTORE_COLLECTION_ANUNCIOS, ASYNC_ITEM_USUARIO_UID, 
+  FIRESTORE_ADMOB_BANNER_PROPAGANDA_ANUNCIO_KEYWORDS, FIRESTORE_ADMOB_BANNER_PROPAGANDA_ANUNCIO_ID, FIRESTORE_ADMOB_HABLITADO
 } from "../../data/Constantes";
 import { withNavigation } from 'react-navigation';
 import { definicoesBase } from "../../styles/StyleBase";
@@ -17,6 +18,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import firestore from '@react-native-firebase/firestore';
 import analytics from '@react-native-firebase/analytics';
 import Comentario from '../componentes/Comentario';
+import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
 
 class Anuncio extends Component {
 
@@ -126,6 +128,22 @@ class Anuncio extends Component {
 
     return (
       <ScrollView>
+        {FIRESTORE_ADMOB_HABLITADO && 
+          <BannerAd
+            unitId={FIRESTORE_ADMOB_BANNER_PROPAGANDA_ANUNCIO_ID}
+            size={BannerAdSize.FULL_BANNER}
+            requestOptions={{
+              //requestNonPersonalizedAdsOnly: true,
+              keywords: FIRESTORE_ADMOB_BANNER_PROPAGANDA_ANUNCIO_KEYWORDS
+            }}
+            onAdLoaded={() => {
+              console.log('Advert loaded');
+            }}
+            onAdFailedToLoad={(error) => {
+              console.error('Advert failed to load: ', error);
+            }}
+          />
+        }
 
         <Comentario
           isVisible={this.state.visualizarComentario}
