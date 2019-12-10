@@ -1,19 +1,12 @@
 import { StyleSheet } from "react-native";
 
-const tamanhoFonteTextoComum = 16;
-const alturaLinhaTextoComum = 22;
-export const fontFamilyTextoComum = 'Arciform';
-const corFonteTextoComum = "#212121";
-const corFonteTextoAvaliacao = "#e7a74e";
-const backgroundGeral = "#fff";
-const backgroundAnuncio = "#FFF";
-const corBordaAnuncio = "#bdbdbd";
+import StyleBase, { navigationOptions, definicoesBase } from "./StyleBase";
 
 const StyleAnuncio = StyleSheet.create({
     //entre cabecalho e rodape
     container: {
         flex: 1,
-        backgroundColor: backgroundGeral,
+        backgroundColor: definicoesBase.backgroundGeral,
     },
     list: {
         padding: 10
@@ -22,9 +15,9 @@ const StyleAnuncio = StyleSheet.create({
     anuncioContainer: {
         flex: 1,
         flexDirection: 'row',
-        backgroundColor: backgroundAnuncio,
+        backgroundColor: definicoesBase.backgroundAnuncio,
         borderWidth: 1,
-        borderColor: corBordaAnuncio,
+        borderColor: definicoesBase.corBordaAnuncio,
         borderRadius: 5, //deixa a borda redonda
         padding: 0,
         marginBottom: 10
@@ -32,7 +25,7 @@ const StyleAnuncio = StyleSheet.create({
     anuncioColunaEsquerdaContainer: {
         //flex: 1,
         borderRightWidth: 1,
-        borderRightColor: corBordaAnuncio,
+        borderRightColor: definicoesBase.corBordaAnuncio,
         borderRadius: 0,
         padding: 10,
         justifyContent: 'center',
@@ -42,12 +35,12 @@ const StyleAnuncio = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         borderRightWidth: 1,
-        borderRightColor: corBordaAnuncio,
+        borderRightColor: definicoesBase.corBordaAnuncio,
         borderRadius: 0,
         padding: 10,
         justifyContent: 'flex-start',
         alignItems: 'stretch',
-        fontFamily: fontFamilyTextoComum,
+        fontFamily: definicoesBase.fontFamilyTextoComum,
     },
     anuncioColunaDireitaLinha: {
         flex: 1,
@@ -56,44 +49,44 @@ const StyleAnuncio = StyleSheet.create({
     
 
     anuncioNome: {
-        fontFamily: fontFamilyTextoComum,
-        fontSize: tamanhoFonteTextoComum,
-        color: corFonteTextoComum,
-        lineHeight: alturaLinhaTextoComum,
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum,
     },
 
     anuncioDistancia: {
-        fontFamily: fontFamilyTextoComum,
-        fontSize: tamanhoFonteTextoComum,
-        color: corFonteTextoComum,
-        lineHeight: alturaLinhaTextoComum
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
     },
     anuncioAvaliacao: {
-        fontFamily: fontFamilyTextoComum,
-        fontSize: tamanhoFonteTextoComum,
-        color: corFonteTextoAvaliacao,
-        lineHeight: alturaLinhaTextoComum
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoAvaliacao,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
     },
 
     anuncioSeparador: {
-        fontFamily: fontFamilyTextoComum,
-        fontSize: tamanhoFonteTextoComum,
-        color: corFonteTextoComum,
-        lineHeight: alturaLinhaTextoComum
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
     },
 
     anuncioPerfil: {
-        fontFamily: fontFamilyTextoComum,
-        fontSize: tamanhoFonteTextoComum,
-        color: corFonteTextoComum,
-        lineHeight: alturaLinhaTextoComum
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
     },
 
     anuncioPreco: {
-        fontFamily: fontFamilyTextoComum,
-        fontSize: tamanhoFonteTextoComum,
-        color: corFonteTextoComum,
-        lineHeight: alturaLinhaTextoComum
+        fontFamily: definicoesBase.fontFamilyTextoComum,
+        fontSize: definicoesBase.tamanhoFonteTextoComum,
+        color: definicoesBase.corFonteTextoComum,
+        lineHeight: definicoesBase.alturaLinhaTextoComum
     },
     anuncioImagemUsuario: {
         width: 60, 
@@ -103,7 +96,27 @@ const StyleAnuncio = StyleSheet.create({
 
 export const anuncioIconeAvaliacao = {
     size: 18, 
-    color: corFonteTextoAvaliacao
+    color: definicoesBase.corFonteTextoAvaliacao
+};
+
+export const searchBarContainerStyle= {
+    backgroundColor: definicoesBase.backgroundAnuncio
+};
+export const searchBarInputStyle = {
+    fontFamily: definicoesBase.fontFamilyTextoComum,
+    backgroundColor: definicoesBase.corBordaAnuncio,
+    color: definicoesBase.corFonteTextoComum,
+};
+export const searchBarInputContainerStyle = {
+    backgroundColor: definicoesBase.corBordaAnuncio
+};
+export const searchBarleftIconContainerStyle = {
+    backgroundColor: definicoesBase.corBordaAnuncio
+};
+export const searchBarPlaceholderTextColor = "#86939e";
+
+export const searchBarSearchIcon = {
+    color: definicoesBase.corFonteTextoComum,
 };
 
 export default StyleAnuncio;
