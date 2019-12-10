@@ -9,6 +9,7 @@ import MensagemInstagram from "../componentes/MensagemInstagram";
 import StyleAnuncio, { anuncioIconeTelefone } from "../../styles/StyleAnuncio";
 
 import { definicoesBase, navigationOptions } from "../../styles/StyleBase";
+import analytics from '@react-native-firebase/analytics';
 
 export default class FaleConosco extends Component {
   static navigationOptions = {
@@ -99,6 +100,11 @@ export default class FaleConosco extends Component {
                   <TouchableOpacity
                     //style={styles.productButton}
                     onPress={() => {
+                      analytics().logEvent('button_press', {
+                        _SCREEN: 'FaleConosco',
+                        _CLASS: 'FaleConosco',
+                        _BUTTON: 'Mandar_Email',
+                      });
                       MensagemEmail(anuncio);
                     }}
                   >
@@ -127,6 +133,11 @@ export default class FaleConosco extends Component {
                   <TouchableOpacity
                     //style={styles.productButton}
                     onPress={() => {
+                      analytics().logEvent('button_press', {
+                        _SCREEN: 'FaleConosco',
+                        _CLASS: 'FaleConosco',
+                        _BUTTON: 'Mandar_WhatsApp',
+                      });
                       MensagemTelefone(anuncio);
                     }}
                   >
@@ -151,6 +162,11 @@ export default class FaleConosco extends Component {
                   <TouchableOpacity
                     //style={styles.productButton}
                     onPress={() => {
+                      analytics().logEvent('button_press', {
+                        _SCREEN: 'FaleConosco',
+                        _CLASS: 'FaleConosco',
+                        _BUTTON: 'Mandar_Instagram',
+                      });
                       MensagemInstagram(anuncio);
                     }}
                   >

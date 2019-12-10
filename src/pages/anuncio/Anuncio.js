@@ -10,6 +10,7 @@ import StyleAnuncio, {
             anuncioIconeTelefone
         } from "../../styles/StyleAnuncio";
 import { definicoesBase } from "../../styles/StyleBase";
+import analytics from '@react-native-firebase/analytics';
 
 const tamanhoIcone = 12;
 export default class Anuncio extends React.PureComponent {
@@ -32,6 +33,12 @@ export default class Anuncio extends React.PureComponent {
                   //style={styles.productButton} 
                   onPress={() => {
                       //this.props.navigation.navigate("Product", { product: item });
+                    analytics().logEvent('button_press', {
+                        _SCREEN: 'ListagemAnuncio',
+                        _CLASS: 'ListagemAnuncio',
+                        _BUTTON: 'Visualizar_Anuncio',
+                        _ANUNCIO: this.props.id,
+                    });
                       this.props.navigation.navigate("VisualizarAnuncio", { anuncio: this.props });
                   }}
               >
@@ -48,6 +55,13 @@ export default class Anuncio extends React.PureComponent {
                   //style={styles.productButton} 
                   onPress={() => {
                     //MensagemTelefone(this.props);
+
+                    analytics().logEvent('button_press', {
+                        _SCREEN: 'ListagemAnuncio',
+                        _CLASS: 'ListagemAnuncio',
+                        _BUTTON: 'Visualizar_Anuncio',
+                        _ANUNCIO: this.props.id,
+                    });
                     this.props.navigation.navigate("VisualizarAnuncio", { anuncio: this.props });
                   }}
               >
