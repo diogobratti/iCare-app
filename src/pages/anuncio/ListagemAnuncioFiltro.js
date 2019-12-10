@@ -151,6 +151,7 @@
 																onPress={() => this.setState({orderByValor: 'avaliacao'})}
 		                        />
 		                    </View>
+												{/* 
 		                    <View style={StyleAnuncio.filtroItemContainer}>
 		                        <Text style={StyleAnuncio.filtroItemTexto}>
 		                            Localidade
@@ -165,7 +166,8 @@
 		                        <Text style={StyleAnuncio.filtroItemTexto}>
 		                            Ver mais cidades
 		                        </Text>
-		                    </View>
+												</View>
+												*/}
 		                </View>
 		            </ScrollView>
 		        </View>
@@ -173,7 +175,7 @@
 		            <TouchableOpacity 
 		                    style={StyleAnuncio.aplicarFiltroButton} 
 		                    onPress={() => {
-		                        this.props.navigation.navigate("Chat");
+		                        this.props.navigation.navigate("ListagemAnuncio",{ orderByValor: this.state.orderByValor });
 		                    }}
 		                >
 		                    <Text style={StyleAnuncio.aplicarFiltroText}>
