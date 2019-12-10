@@ -93,8 +93,10 @@ export default class NewUserFoto extends Component {
    * Upload image method
    */
   uploadImage = () => {
-    LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_FOTO, this.state.imgSource64);
-    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR);
+    LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_FOTO, this.state.imgSource64).then( () => {
+	    this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR);
+	    }
+    );
   };
   render() {
     const { uploading, imgSource64 } = this.state;
