@@ -1,6 +1,7 @@
 import { createStackNavigator, createBottomTabNavigator, createAppContainer, createSwitchNavigator } from "react-navigation";
 
 import ListagemAnuncio from "./pages/anuncio/ListagemAnuncio";
+import ListagemAnuncioFiltro from "./pages/anuncio/ListagemAnuncioFiltro";
 import ListagemConversa from "./pages/chat/ListagemConversa";
 import PerfilAnuncio from "./pages/prestador/PerfilAnuncio";
 import Perfil from "./pages/cliente/Perfil";
@@ -14,7 +15,8 @@ import Main from "./pages/auth/Main";
 import StyleBase, { navigationOptions } from "./styles/StyleBase";
 
 const MenuHome = createStackNavigator({
-    ListagemAnuncio,
+    ListagemAnuncio: { screen: ListagemAnuncio },
+    ListagemAnuncioFiltro: { screen: ListagemAnuncioFiltro },
 });
 
 const MenuChat = createStackNavigator({
