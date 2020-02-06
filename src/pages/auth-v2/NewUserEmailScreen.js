@@ -44,7 +44,7 @@ export default class NewUserEmailScreen extends Component {
           erro={this.state.erroEmail}
         />
         <Button
-          onPress={() => {
+          onPress={async () => {
             if (this.state.telefone !== "" && this.validate(this.state.email)) {
               //Atualiza AsynStorage
               LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_EMAIL, this.state.email)

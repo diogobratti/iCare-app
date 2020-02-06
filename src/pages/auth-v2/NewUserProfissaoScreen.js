@@ -34,6 +34,36 @@ export default class NewUserProfissaoScreen extends Component {
     this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
   };
 
+  onPress = async () => {
+
+    let isErroPreco = false;
+    let isErroProfissao = false;
+
+    if (this.state.preco === "" || !this.precoField.isValid() || this.state.preco == null) {
+      isErroPreco = true;
+      this.setState({ erroPreco: "Digite um valor numérico válido" });
+    } else {
+      this.setState({ erroPreco: "" });
+    }
+
+    if (this.state.profissao === 0 || !(Object.values(PROFISSOES).includes(this.state.profissao))) {
+      isErroProfissao = true;
+      this.setState({ erroProfissao: "Selecione uma Profissão" })
+    } else {
+      this.setState({ erroProfissao: "" });
+    }
+
+    if (!isErroPreco && !isErroProfissao) {
+      //Atualiza AsynStorage
+      await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_PROFISSAO, this.state.profissao)
+      await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_PRECO, this.state.preco)
+      //Cadastro ou alteracao?
+      this.isCadastro ?
+        this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_ANUNCIO) :
+        this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
+    }
+  }
+
   render() {
     const {
       container,
@@ -82,34 +112,7 @@ export default class NewUserProfissaoScreen extends Component {
         </View>
 
         <Button
-          onPress={() => {
-            let isErroPreco = false;
-            let isErroProfissao = false;
-
-            if (this.state.preco === "" || !this.precoField.isValid() || this.state.preco == null) {
-              isErroPreco = true;
-              this.setState({ erroPreco: "Digite um valor numérico válido" });
-            } else {
-              this.setState({ erroPreco: "" });
-            }
-
-            if (this.state.profissao === 0 || !(Object.values(PROFISSOES).includes(this.state.profissao))) {
-              isErroProfissao = true;
-              this.setState({ erroProfissao: "Selecione uma Profissão" })
-            } else {
-              this.setState({ erroProfissao: "" });
-            }
-
-            if (!isErroPreco && !isErroProfissao) {
-              //Atualiza AsynStorage
-              LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_PROFISSAO, this.state.profissao)
-              LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_PRECO, this.state.preco)
-              //Cadastro ou alteracao?
-              this.isCadastro ?
-                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_ANUNCIO) :
-                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
-            }
-          }}
+          onPress={this.onPress}
         >
           Continuar
         </Button>

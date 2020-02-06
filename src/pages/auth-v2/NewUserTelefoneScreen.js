@@ -83,7 +83,7 @@ export default class NewUserTelefone extends Component {
         </View>
 
         <Button
-          onPress={() => {
+          onPress={async () => {
             //telefone obrigatório, instagram opcional
             const telefoneValido = this.telefoneField.isValid() && this.state.telefone !== ""
             const instagramValido = this.state.instagram == "" || this.state.instagram == null || this.validateInstagram(this.state.instagram)

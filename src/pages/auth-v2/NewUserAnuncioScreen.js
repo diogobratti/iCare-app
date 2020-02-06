@@ -59,7 +59,7 @@ export default class NewUserAnuncioScreen extends Component {
             }
           />
           <Button
-            onPress={() => {
+            onPress={async () => {
               //Atualiza AsynStorage
               LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_ANUNCIO, this.state.anuncio)
               //Cadastro ou alteracao?

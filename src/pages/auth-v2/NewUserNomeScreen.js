@@ -38,7 +38,7 @@ export default class NewUserNome extends Component {
           value={this.state.nome}
         />
         <Button
-          onPress={() => {
+          onPress={async () => {
             LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_NOME, this.state.nome);
             if (!this.isCadastro) {
               //Alterar
