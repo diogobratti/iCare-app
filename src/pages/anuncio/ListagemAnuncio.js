@@ -38,11 +38,11 @@ export default class ListagemAnuncio extends Component {
     constructor(props) {
         super(props);
         this.handleBackButtonClick = (() => {
-        //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
-        //     this.navigator.pop();
+            //   if (this.navigator && this.navigator.getCurrentRoutes().length > 1){
+            //     this.navigator.pop();
             return true; //avoid closing the app
-        //   }
-        //   return false; //close the app
+            //   }
+            //   return false; //close the app
         }).bind(this) //don't forget bind this, you will remember anyway.
 
 
@@ -60,6 +60,7 @@ export default class ListagemAnuncio extends Component {
             lastVisible: {
                 id: 0,
                 user_uid: 0,
+                doc: null,
             },
             primeiroAnuncio: {
                 id: 0,
@@ -120,34 +121,37 @@ export default class ListagemAnuncio extends Component {
             filtroProfissaoNutricionista: (perfil != CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR),
         });
 
-        if(!this.state.primeiroAnuncio.deuAVolta){
-          const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
-          // Valid options for source are 'server', 'cache', or
-          // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
-          // for more information.
-          this.unsubscribe = this.collection;
-          this.unsubscribe = this.unsubscribe.where('microrregiao', '==', this.state.microrregiao);
-          //this.unsubscribe = this.unsubscribe.where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR);
-          /*
-          this.unsubscribe = this.unsubscribe.where('preco', '<=', this.state.filtroPreco);
-          if(!filtroProfissaoCuidador) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Cuidador");
-          if(!filtroProfissaoTecnicoEnfermagem) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Técnico em Enfermagem");
-          if(!filtroProfissaoEnfermeiro) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Enfermeiro");
-          if(!filtroProfissaoTerapeutaOcupacional) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Terapeuta Ocupacional");
-          if(!filtroProfissaoFisioterapeuta) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Fisioterapeuta");
-          if(!filtroProfissaoNutricionista) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Nutricionista");
-          */
-          //console.warn(JSON.stringify(this.props));
-          this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
-          this.unsubscribe = this.unsubscribe.orderBy('id', 'ASC');
-          this.unsubscribe = this.unsubscribe.limit(this.state.limit);
-          this.unsubscribe = this.unsubscribe.get(this.getOptions).then(this.onCollectionUpdate);
+        if (!this.state.primeiroAnuncio.deuAVolta) {
+            const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
+            // Valid options for source are 'server', 'cache', or
+            // 'default'. See https://firebase.google.com/docs/reference/js/firebase.firestore.GetOptions
+            // for more information.
+            this.unsubscribe = this.collection;
+            this.unsubscribe = this.unsubscribe.where('microrregiao', '==', this.state.microrregiao);
+            this.unsubscribe = this.unsubscribe.where('perfil', '==', (this.state.perfil == 'Cliente' ? 'Fornecedor' : 'Cliente'));
+            //this.unsubscribe = this.unsubscribe.where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR);
+            /*
+            this.unsubscribe = this.unsubscribe.where('preco', '<=', this.state.filtroPreco);
+            if(!filtroProfissaoCuidador) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Cuidador");
+            if(!filtroProfissaoTecnicoEnfermagem) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Técnico em Enfermagem");
+            if(!filtroProfissaoEnfermeiro) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Enfermeiro");
+            if(!filtroProfissaoTerapeutaOcupacional) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Terapeuta Ocupacional");
+            if(!filtroProfissaoFisioterapeuta) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Fisioterapeuta");
+            if(!filtroProfissaoNutricionista) this.unsubscribe = this.unsubscribe.where('profissao', '!=', "Nutricionista");
+            */
+            //console.warn(JSON.stringify(this.props));
+            //By default, a query retrieves all documents that satisfy the query in ascending order by document ID. 
+            //You can specify the sort order for your data using orderBy(), and you can limit the number of documents retrieved using limit().
+            //this.unsubscribe = this.unsubscribe.orderBy(collectionOrderBy, 'ASC');
+            this.unsubscribe = this.unsubscribe.orderBy('id', 'ASC');
+            this.unsubscribe = this.unsubscribe.limit(this.state.limit);
+            this.unsubscribe = this.unsubscribe.get(this.getOptions).then(this.onCollectionUpdate);
         }
     }
 
     componentWillUnmount() {
-        if (typeof this.unsubscribe === "function"){
-          this.unsubscribe();
+        if (typeof this.unsubscribe === "function") {
+            this.unsubscribe();
         }
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
@@ -155,16 +159,17 @@ export default class ListagemAnuncio extends Component {
     onCollectionUpdate = (querySnapshot) => {
         var ultimo_item_pelo_id = this.state.lastVisible.id;
         var ultimo_item_pelo_user_uid = this.state.lastVisible.user_uid;
+        var ultimo_item = this.state.lastVisible.doc;
         var primeiro_anuncio_id = this.state.primeiroAnuncio.id;
         var primeiro_anuncio_user_uid = this.state.primeiroAnuncio.user_uid;
         var primeiro_anuncio_deuAVolta = this.state.primeiroAnuncio.deuAVolta;
         querySnapshot.forEach((doc) => {
             //console.warn("Diogo " + doc.data().user_uid + " - primeiro " + primeiro_anuncio_user_uid + " - ultimo " + ultimo_item_pelo_user_uid + " - boolean " + JSON.stringify(primeiro_anuncio_deuAVolta))
             this.arrayholder.map((item) => {
-              //console.warn("Diogo map " + item.user_uid + " - " + doc.data().user_uid)
-              if (item.user_uid == doc.data().user_uid && primeiro_anuncio_user_uid != 0){
-                primeiro_anuncio_deuAVolta = true;
-              }
+                //console.warn("Diogo map " + item.user_uid + " - " + doc.data().user_uid)
+                if (item.user_uid == doc.data().user_uid && primeiro_anuncio_user_uid != 0) {
+                    primeiro_anuncio_deuAVolta = true;
+                }
             });
             if (!primeiro_anuncio_deuAVolta) {
                 const {
@@ -178,18 +183,19 @@ export default class ListagemAnuncio extends Component {
                     ...CollectionAnuncio
                 });
                 ultimo_item_pelo_user_uid = doc.data().user_uid;
-                if(primeiro_anuncio_user_uid == 0){
+                ultimo_item = doc;
+                if (primeiro_anuncio_user_uid == 0) {
                     primeiro_anuncio_id = doc.id;
                     primeiro_anuncio_user_uid = doc.data().user_uid;
                 }
             }
         });
-        if(primeiro_anuncio_user_uid != 0){
+        if (primeiro_anuncio_user_uid != 0) {
             this.setState({
                 primeiroAnuncio: {
-                    id : primeiro_anuncio_id,
-                    user_uid : primeiro_anuncio_user_uid,
-                    deuAVolta : primeiro_anuncio_deuAVolta,
+                    id: primeiro_anuncio_id,
+                    user_uid: primeiro_anuncio_user_uid,
+                    deuAVolta: primeiro_anuncio_deuAVolta,
                 },
             });
         }
@@ -198,6 +204,7 @@ export default class ListagemAnuncio extends Component {
             lastVisible: {
                 id: ultimo_item_pelo_id,
                 user_uid: ultimo_item_pelo_user_uid,
+                doc: ultimo_item,
             },
             isLoading: false,
         });
@@ -220,7 +227,7 @@ export default class ListagemAnuncio extends Component {
             //applying filter for the inserted text in search bar
             const textData = text.toUpperCase();
             const itemDataNome = item.nome ? item.nome.toUpperCase() : ''.toUpperCase();
-            const itemDataPreco = item.preco ? item.preco.replace('R$','').replace(',','.') : '0';
+            const itemDataPreco = item.preco ? item.preco.replace('R$', '').replace(',', '.') : '0';
             const itemDataPerfil = item.perfil ? item.perfil.toUpperCase() : ''.toUpperCase();
             const itemDataProfissao = item.profissao ? item.profissao.toUpperCase() : ''.toUpperCase();
             const itemDataTelefone = item.telefone ? item.telefone.toUpperCase() : ''.toUpperCase();
@@ -275,23 +282,28 @@ export default class ListagemAnuncio extends Component {
     };
 
     loadMore = () => {
-        if(this.state.primeiroAnuncio.deuAVolta){
+        if (this.state.primeiroAnuncio.deuAVolta) {
             return null;
         }
         const collectionOrderBy = this.state.orderByValor == "localidade" ? "cidade" : this.state.orderByValor;
         this.unsubscribe = this.collection.
             where('microrregiao', '==', this.state.microrregiao).
+            where('perfil', '==', (this.state.perfil == 'Cliente' ? 'Fornecedor' : 'Cliente')).
             //where('perfil', '==', CONSTANTES.ASYNC_USER_PERFIL_FORNECEDOR).
-            orderBy(collectionOrderBy, 'ASC').
+            // orderBy(collectionOrderBy, 'ASC').
             orderBy('id', 'ASC').
-            startAfter(this.state.lastVisible.id).
+            startAfter(this.state.lastVisible.doc).
             limit(this.state.limit).
+            //By default, a query retrieves all documents that satisfy the query in ascending order by document ID. 
+            //You can specify the sort order for your data using orderBy(), and you can limit the number of documents retrieved using limit().
             //orderBy('nome','DESC').
             //where('nome', '==', 'dbratti').
             //https://firebase.google.com/docs/firestore/query-data/query-cursors
             //startAfter(last.data().population).
             //onSnapshot(this.onCollectionUpdate);
             get(this.getOptions).then(this.onCollectionUpdate);
+
+        let qtdAnuncios = this.state.anuncios.length;
     }
     renderItem = (item) => {
         if (this.qtdAnuncios % CONSTANTES.LISTAGEM_ANUNCIO_PROPAGANDA_APOS_ANUNCIO == CONSTANTES.LISTAGEM_ANUNCIO_PROPAGANDA_APOS_ANUNCIO - 1
@@ -320,14 +332,14 @@ export default class ListagemAnuncio extends Component {
                     <ActivityIndicator />
                 )
             } else {
-                if(this.state.anuncios.length == 0 && this.arrayholder.length == 0) {
+                if (this.state.anuncios.length == 0 && this.arrayholder.length == 0) {
                     return (
                         <View style={StyleAnuncio.FiltrarContainer}>
                             <TouchableOpacity
-                                //style={styles.productButton}
-                                // onPress={() => {
-                                //     this.props.navigation.navigate('Loading');
-                                // }}
+                            //style={styles.productButton}
+                            // onPress={() => {
+                            //     this.props.navigation.navigate('Loading');
+                            // }}
                             >
                                 <Text style={StyleAnuncio.pesquisaFiltroTexto}>Sem anúncios nesta região.
                                   {/* {
@@ -339,7 +351,7 @@ export default class ListagemAnuncio extends Component {
                                 </Text>
                             </TouchableOpacity>
                         </View>
-                        )
+                    )
                 } else {
                     return null;
                 }
@@ -403,7 +415,7 @@ export default class ListagemAnuncio extends Component {
                                             </View>
                             </View>
                                             */}
-                                {/*
+                            {/*
                         <View style={StyleAnuncio.filtroItemContainer}>
                             <Text style={StyleAnuncio.filtroItemTexto}>
                                 Avaliação
@@ -423,7 +435,7 @@ export default class ListagemAnuncio extends Component {
                             />
                                             </View>
                                             */}
-                                {/*
+                            {/*
                         <View style={StyleAnuncio.filtroItemContainer}>
                             <Text style={StyleAnuncio.filtroItemTexto}>
                                 Localidade
@@ -452,7 +464,7 @@ export default class ListagemAnuncio extends Component {
                                         title='Cliente'
                                         checkedIcon='check-square-o'
                                         uncheckedIcon='square-o'
-                                        checked={this.state.filtroPerfilCliente }
+                                        checked={this.state.filtroPerfilCliente}
                                         onPress={() => this.setState({ filtroPerfilCliente: !this.state.filtroPerfilCliente })}
                                     />
                                 </View>
@@ -568,6 +580,7 @@ export default class ListagemAnuncio extends Component {
                             placeholderTextColor={searchBarPlaceholderTextColor}
                         />
                     </View>
+                    {/* 
                     <View style={StyleAnuncio.pesquisaFiltroContainer}>
                         <TouchableOpacity
                             //style={styles.productButton}
@@ -585,6 +598,7 @@ export default class ListagemAnuncio extends Component {
                             <Text style={StyleAnuncio.pesquisaFiltroTexto}>Filtrar</Text>
                         </TouchableOpacity>
                     </View>
+                    */}
                 </View>
                 <FlatList
                     contentContainerStyle={StyleAnuncio.list}
