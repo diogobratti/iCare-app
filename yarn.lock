@@ -5667,6 +5667,11 @@ react-native-clean-project@^3.2.4:
   resolved "https://registry.yarnpkg.com/react-native-clean-project/-/react-native-clean-project-3.2.4.tgz#55a71006eb4336dff91d0ca5ab3564d8f0db45cc"
   integrity sha512-VF5angZrFIxFILH4NxFsJk5QCjGdPam/Ti4ht2Wd25RbwAyDMPjVNLD2NYf3jZPUCbVtl3TR+uN9uAt1RBnb8g==
 
+react-native-device-info@^5.5.3:
+  version "5.5.3"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.5.3.tgz#6652fb46c4602a1dd3a5d6a18d2266ecdf97fec7"
+  integrity sha512-bzUVTPHca+FfNco1qaOM1+idoeII8zdpGRsR+RK+DWhwp9utHZWfbkonZZ9XFm/U+i3mirNxt6oaKV+vUMjMzg==
+
 react-native-elements@^1.1.0:
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.2.6.tgz#fda0f49ddf87abdb287de1ec9bc057c103430455"
