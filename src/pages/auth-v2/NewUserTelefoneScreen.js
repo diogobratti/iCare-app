@@ -7,6 +7,7 @@ import styles from "../../styles/StyleCadastro";
 import * as CONSTANTES from '../../data/Constantes';
 import LocalStorage from '../../services/LocalStorage';
 import InputInstagram from "../componentes/InputInstagram";
+import DeviceInfo from 'react-native-device-info';
 
 export default class NewUserTelefone extends Component {
 
@@ -20,8 +21,20 @@ export default class NewUserTelefone extends Component {
     ...navigationOptions
   }
 
-  componentDidMount() {
-    this._bootstrapAsync();
+  async componentDidMount() {
+    await this._bootstrapAsync();
+    //https://github.com/react-native-community/react-native-device-info#getphonenumber
+    DeviceInfo.getPhoneNumber().then(phoneNumber => {
+      //if there is no phone number yet try to find out the device's number
+      const patt = new RegExp(/\d{8}/g);
+      if(patt.test(phoneNumber) && patt.test(this.state.telefone)){
+        let phone = phoneNumber;
+        phone = phone.replace("+55","");
+        phone = "(" + phone.substr(0,2) + ") " + phone.substr(2,5) + "-" + phone.substr(7);
+        this.setState({telefone: phone});
+      }
+      // Android: null return: no permission, empty string: unprogrammed or empty SIM1, e.g. "+15555215558": normal return value
+    });
   }
 
   _bootstrapAsync = async () => {
