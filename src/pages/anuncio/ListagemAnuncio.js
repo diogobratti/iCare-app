@@ -32,6 +32,8 @@ import StyleAnuncio, {
 
 import analytics from '@react-native-firebase/analytics';
 
+import { BannerAd, BannerAdSize, TestIds } from '@react-native-firebase/admob';
+
 export default class ListagemAnuncio extends Component {
   static navigationOptions = navigationOptions;
 
@@ -599,6 +601,24 @@ export default class ListagemAnuncio extends Component {
                         </TouchableOpacity>
                     </View>
                     */}
+        </View>
+        <View>
+          {CONSTANTES.FIRESTORE_ADMOB_HABLITADO &&
+            <BannerAd
+              unitId={CONSTANTES.FIRESTORE_ADMOB_BANNER_PROPAGANDA_ANUNCIO_ID}
+              size={BannerAdSize.FULL_BANNER}
+              requestOptions={{
+                //requestNonPersonalizedAdsOnly: true,
+                keywords: CONSTANTES.FIRESTORE_ADMOB_BANNER_PROPAGANDA_ANUNCIO_KEYWORDS
+              }}
+              onAdLoaded={() => {
+                console.log('Advert loaded');
+              }}
+              onAdFailedToLoad={(error) => {
+                console.error('Advert failed to load: ', error);
+              }}
+            />
+          }
         </View>
         <FlatList
           contentContainerStyle={StyleAnuncio.list}
