@@ -129,8 +129,8 @@ android {
         applicationId "br.com.icare.familia"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 16
-        versionName "2.7"
+        versionCode 17
+        versionName "2.8"
         resConfigs 'BR'
         multiDexEnabled true  // needed for firestore:
     }
@@ -207,16 +207,16 @@ dependencies {
 //   -- Project 'app' depends onto com.google.android.gms:play-services-measurement-sdk@{strictly 17.0.0}
 //   -- Project 'app' depends onto com.google.firebase:firebase-core@{strictly 16.0.9}
 //   -- Project 'app' depends onto com.google.android.gms:play-services-measurement@{strictly 17.0.0}
-    // implementation "com.google.android.gms:play-services-base:16.5.0" 
-    // implementation "com.google.android.gms:play-services-ads:18.1.1" 
-    // implementation "com.google.android.gms:play-services-measurement-impl:17.0.0" 
-    // implementation "com.google.android.gms:play-services-ads-lite:18.1.1" 
-    // implementation "com.google.android.gms:play-services-measurement-api:16.5.0" 
-    // implementation "com.google.android.gms:play-services-measurement-sdk:17.0.0" 
-    // implementation "com.google.android.gms:play-services-measurement:17.0.0" 
-    // implementation "com.google.firebase:firebase-analytics:16.1.0" 
+    // implementation "com.google.android.gms:play-services-base:16.5.0"
+    // implementation "com.google.android.gms:play-services-ads:18.1.1"
+    // implementation "com.google.android.gms:play-services-measurement-impl:17.0.0"
+    // implementation "com.google.android.gms:play-services-ads-lite:18.1.1"
+    // implementation "com.google.android.gms:play-services-measurement-api:16.5.0"
+    // implementation "com.google.android.gms:play-services-measurement-sdk:17.0.0"
+    // implementation "com.google.android.gms:play-services-measurement:17.0.0"
+    // implementation "com.google.firebase:firebase-analytics:16.1.0"
 
-    
+
     //Add by Jonathan - Firebase
     // implementation 'com.google.firebase:firebase-core:17.0.0' //site firebase
 //    implementation "com.google.android.gms:play-services-base:16.1.0" //site rnfirebase.io
@@ -235,7 +235,7 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
 //    implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    
+
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermes-engine/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")
