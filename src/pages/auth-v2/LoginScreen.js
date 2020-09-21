@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator, Alert } from "react-native";
 import { SocialIcon, Overlay } from "react-native-elements";
-//import firebase from "react-native-firebase";
 import firestore from "@react-native-firebase/firestore";
 import auth, { firebase } from "@react-native-firebase/auth";
 import { AccessToken, LoginManager } from "react-native-fbsdk";
@@ -320,18 +319,12 @@ export default class Login extends Component {
                 type="facebook"
                 onPress={this.handleSocialLoginFacebook}
               />
-              {/* <SocialIcon
-                type="instagram"
-                onPress={this.handleSocialLoginInstagram}
-              /> */}
               <SocialIcon
                 type="google-plus-official"
                 onPress={this.handleSocialLoginGoogle}
               />
             </View>
           </View>
-
-          {/* <View style={styles.containerActionsStyle}> */}
           <View style={StyleTermo.corpoContainer}>
             <View style={StyleTermo.descricaoContainer}>
               <Text style={StyleTermo.descricaoTexto}>Ao entrar você confirma estar de acordo com os {"\u00a0"}
@@ -340,46 +333,8 @@ export default class Login extends Component {
                   Termos e Condições
                 </Text>
               </Text>
-              {/* <Button onPress={() => this.props.navigation.navigate(CONSTANTES.ROUTES_AUTENTICACAO_TERMO_SERVICO)}>
-                Termos e Condições
-              </Button> */}
             </View>
           </View>
-          {/* </View> */}
-
-          {/* <View style={styles.containerLoginStyle}>
-            <Text>Ou com seu e-mail</Text>
-            <Input
-              style={styles.textInput}
-              autoCapitalize="none"
-              placeholder="Email"
-              leftIcon={{ type: 'font-awesome', name: 'envelope' }}
-              onChangeText={(email) => this.setState({ email })}
-              value={this.state.email}
-            />
-            <Input
-              secureTextEntry
-              style={styles.textInput}
-              autoCapitalize="none"
-              placeholder="Senha"
-              leftIcon={{ type: 'font-awesome', name: 'lock' }}
-              onChangeText={(password) => this.setState({ password })}
-              value={this.state.password}
-            />
-
-            {this.state.errorMessage && (
-              <Text style={{ color: 'red' }}>{this.state.errorMessage}</Text>
-            )}
-
-            <Button onPress={this.handleLogin}>Login</Button>
-            <Text>Esqueci minha senha</Text>
-          </View> */}
-
-          {/* <View style={styles.containerActionsStyle}>
-            <Button onPress={() => this.props.navigation.navigate('Cadastro')}>
-              Não tem uma conta? Cadastre-se
-            </Button>
-          </View> */}
         </ScrollView>
       </View>
     );
@@ -451,88 +406,3 @@ const styles = StyleSheet.create({
     width: "70%"
   }
 });
-
-// <View style={styles.container}>
-//   <TextInput
-//     style={styles.textInput}
-//     autoCapitalize="none"
-//     placeholder="Email"
-//     onChangeText={(email) => this.setState({ email })}
-//     value={this.state.email}
-//   />
-//   <TextInput
-//     secureTextEntry
-//     style={styles.textInput}
-//     autoCapitalize="none"
-//     placeholder="Senha"
-//     onChangeText={(password) => this.setState({ password })}
-//     value={this.state.password}
-//   />
-
-//   {this.state.errorMessage && (
-//     <Text style={{ color: 'red' }}>{this.state.errorMessage}</Text>
-//   )}
-
-//   <Button
-//     title="Login"
-//     onPress={this.handleLogin}
-//     buttonStyle={{ height: 40, width: 150, borderRadius: 20 }}
-//   />
-
-//   <SocialIcon
-//     title="Entrar com Facebook"
-//     button
-//     type="facebook"
-//     style={styles.socialButton}
-//   />
-
-//   <SocialIcon
-//     title="Entrar com Google"
-//     button
-//     type="google-plus-official"
-//     style={styles.socialButton}
-//   />
-
-//   {/* <GoogleSigninButton
-//     style={{ width: 192, height: 48 }}
-//     // style={styles.socialButton}
-//     size={GoogleSigninButton.Size.Wide}
-//     color={GoogleSigninButton.Color.Light}
-//     // onPress={this._signIn}
-//     onPress={() => {}}
-//     // disabled={this.state.isSigninInProgress}
-//   /> */}
-
-//   <SocialIcon
-//     title="Entrar com Instagram"
-//     button
-//     type="instagram"
-//     style={styles.socialButton}
-//   />
-
-//   <Button
-//     title="Não tem uma conta? Cadastre-se"
-//     onPress={() => this.props.navigation.navigate('SignUp')}
-//   />
-
-//   <Button title="Esqueci minha senha" />
-// </View>
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     // justifyContent: 'center',
-//     // alignItems: 'center',
-
-//   },
-//   textInput: {
-//     height: 40,
-//     width: '90%',
-//     borderColor: 'gray',
-//     borderWidth: 1,
-//     marginTop: 8,
-//   },
-//   socialButton: {
-//     width: '70%',
-//   },
-// });

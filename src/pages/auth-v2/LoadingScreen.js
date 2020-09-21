@@ -5,14 +5,11 @@ import {
   View,
   Alert,
 } from 'react-native';
-//import firebase from "react-native-firebase";
 import auth from "@react-native-firebase/auth"
 import LocalStorage from '../../services/LocalStorage';
 import AsyncStorage from '@react-native-community/async-storage';
-// import Reactotron from 'reactotron-react-native';
 import * as CONSTANTES from '../../data/Constantes';
 import SincronizadorBanco from './AsyncStorageDadosBanco'
-// import reactotron from 'reactotron-react-native';
 import analytics from '@react-native-firebase/analytics';
 
 
@@ -27,7 +24,6 @@ export default class LoadingScreen extends React.Component {
 
     try {
 
-      //TODO: Adicionar atualizacao do cadastro da v1 pra v2 AsyncStorage
       await SincronizadorBanco.atualizaAsyncStorageDadosBanco()
 
       const userPerfil = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_PERFIL);
