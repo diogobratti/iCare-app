@@ -50,7 +50,7 @@ export default class NewUserEmailScreen extends Component {
               LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_EMAIL, this.state.email)
               //Cadastro ou alteracao?
               this.isCadastro ?
-                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_TELEFONE) :
+                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_LOCALIDADE) :
                 this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
 
             } else {

@@ -1,8 +1,9 @@
-import React, { Component } from 'react'
-import {View, Picker } from 'react-native'
+import React from 'react';
+import { View, Picker, StyleSheet } from 'react-native';
 
-export default  props => (
-    <View >
+
+export default props => (
+    <View  >
         {
             props.data ?
                 <Picker
@@ -12,12 +13,18 @@ export default  props => (
                     onValueChange={props.onValueChange}
                 >
                     {
-                        props.data.map(estado =>
-                            <Picker.Item key={estado} label={estado.nome} value={estado} />)
+                        props.data.estados.map(estado => <Picker.Item key={estado} label={estado["nome"]} value={estado} />)
                     }
                 </Picker>
                 :
-                null
+                <Picker
+                    style={props.style}
+                    itemStyle={props.itemStyle}
+                    selectedValue={props.selectedValue}
+                    onValueChange={props.onValueChange}
+                >
+                    <Picker.Item  label={' '} />
+                </Picker>
         }
     </View>
 )

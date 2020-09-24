@@ -24,68 +24,9 @@ import NewUserProfissaoScreen from './pages/auth-v2/NewUserProfissaoScreen';
 import NewUserCadastrar from './pages/auth-v2/NewUserCadastrar';
 import NewUserRedesSociaisScreen from './pages/auth-v2/NewUserRedesSociais';
 import FaleConoscoScreen from './pages/faleconosco/FaleConoscoScreen';
-// //import Localidade from "./pages/localidade/Teste";
-// //import Localidade from "./pages/localidade/Testando";
 import Imagem from "./pages/Imagem";
 
 import StyleBase, { navigationOptions } from "./styles/StyleBase";
-
-// const MenuHome = createStackNavigator({
-//   ListagemAnuncio: { screen: ListagemAnuncio },
-//   VisualizarAnuncio: { screen: VisualizarAnuncio }
-// });
-
-// const MenuAnuncio = createStackNavigator(
-//   {
-//     Loading,
-//     Login,
-//     NewUserNome,
-//     // NewUserCPF,
-//     NewUserEmail,
-//     NewUserTelefone,
-//     NewUserAnuncio,
-//     NewUserCadastrar,
-//     NewUserProfissao,
-//     PerfilAnuncio
-//   },
-//   {
-//     screenInterpolator: sceneProps => {
-//       return null;
-//     }
-//   }
-// );
-
-// const MenuFaleConosco = createStackNavigator({
-//   FaleConosco
-// });
-
-// const MenuPrincipal = createBottomTabNavigator(
-//   {
-//     Home: { screen: MenuHome },
-//     // Chat: { screen: MenuChat },
-//     'Anuncie aqui': { screen: MenuAnuncio },
-//     'Fale Conosco': { screen: MenuFaleConosco },
-//   },
-//   {
-//     defaultNavigationOptions: ({ navigation }) => ({
-//       tabBarIcon: ({ focused, tintColor }) => IconeMenu(navigation, focused, tintColor),
-//     }),
-//     tabBarOptions: navigationOptions.tabBarOptions,
-//   },
-// );
-
-// const EscolhaLocalidade = createStackNavigator({
-//   TermoServico,
-//   Localidade,
-//   EscolhePerfil,
-//   MenuPrincipal,
-// },
-//   {
-//     headerMode: 'none',
-//     navigationOptions: {
-//       headerVisible: false,
-//     }
-//   });
 
 const HomeStack = createStackNavigator(
   {
@@ -100,9 +41,9 @@ const AnuncioStack = createStackNavigator(
     NewUserFoto: NewUserFotoScreen,
     NewUserNome: NewUserNomeScreen,
     NewUserEmail: NewUserEmailScreen,
+    NewUserLocalidade: NewUserLocalidadeScreen,
     NewUserTelefone: NewUserTelefoneScreen,
     NewUserAnuncio: NewUserAnuncioScreen,
-    NewUserLocalidade: NewUserLocalidadeScreen,
     NewUserProfissao: NewUserProfissaoScreen,
     NewUserRedesSociais: NewUserRedesSociaisScreen,
     // NewUserCadastrar,
@@ -134,9 +75,9 @@ const NewUserFornecedorStack = createStackNavigator(
   {
     NewUserNome: NewUserNomeScreen,
     NewUserEmail: NewUserEmailScreen,
+    NewUserLocalidade: NewUserLocalidadeScreen,
     NewUserTelefone: NewUserTelefoneScreen,
     NewUserAnuncio: NewUserAnuncioScreen,
-    NewUserLocalidade: NewUserLocalidadeScreen,
     NewUserProfissao: NewUserProfissaoScreen,
     // NewUserRedesSociais: NewUserRedesSociaisScreen,
     NewUserCadastrar,
@@ -145,10 +86,10 @@ const NewUserFornecedorStack = createStackNavigator(
 
 const NewUserClienteStack = createStackNavigator(
   {
+    NewUserLocalidade: NewUserLocalidadeScreen,
     NewUserTelefone: NewUserTelefoneScreen,
     // NewUserRedesSociais: NewUserRedesSociaisScreen,
     NewUserAnuncio: NewUserAnuncioScreen,
-    NewUserLocalidade: NewUserLocalidadeScreen,
     NewUserCadastrar,
   },
 );

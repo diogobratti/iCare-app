@@ -1,3 +1,5 @@
+export const PAIS_BRASIL = 'Brasil';
+export const PAIS_PORTUGAL = 'Portugal';
 
 export const LISTAGEM_ANUNCIO_ORDERBY_PADRAO = 'preco';
 export const LISTAGEM_ANUNCIO_PRECO_MAXIMO = 2000;
@@ -64,6 +66,7 @@ export const ASYNC_ITEM_USUARIO_TELEFONE = 'userTelefone';
 export const ASYNC_ITEM_USUARIO_PROFISSAO = 'userProfissao';
 export const ASYNC_ITEM_USUARIO_PRECO = 'userPreco';
 export const ASYNC_ITEM_USUARIO_ANUNCIO = 'userAnuncio';
+export const ASYNC_ITEM_USUARIO_PAIS = 'pais';
 export const ASYNC_ITEM_USUARIO_ESTADO = 'estado';
 export const ASYNC_ITEM_USUARIO_MUNICIPIO = 'municipio';
 export const ASYNC_ITEM_USUARIO_REGIAO = 'microrregiao';

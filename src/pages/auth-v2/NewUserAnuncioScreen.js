@@ -62,10 +62,7 @@ export default class NewUserAnuncioScreen extends Component {
             onPress={async () => {
               //Atualiza AsynStorage
               LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_ANUNCIO, this.state.anuncio)
-              //Cadastro ou alteracao?
-              this.isCadastro ?
-                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_LOCALIDADE) :
-                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
+              this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
             }}
           >
             Continuar

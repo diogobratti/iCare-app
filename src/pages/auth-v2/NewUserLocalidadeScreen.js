@@ -7,6 +7,7 @@ import StyleLocalidade from "../../styles/StyleLocalidade";
 import LocalStorage from '../../services/LocalStorage';
 import * as CONSTANTES from '../../data/Constantes';
 import DataLocalidade from '../../data/DataLocalidade.json';
+import SelectPais from '../componentes/SelectPais';
 import SelectEstados from '../componentes/SelectEstados';
 import SelectCidades from '../componentes/SelectCidades';
 // import reactotron from "reactotron-react-native";
@@ -17,25 +18,36 @@ export default class NewUserLocalidadeScreen extends Component {
     ...navigationOptions,
   };
 
-  state = { uf: null, selectedValueEstado: null, selectedValueCidade: null, erro: null, isLoading: true }
+  state = { pais: null, uf: null, selectedValuePais: null, selectedValueEstado: null, selectedValueCidade: null, erro: null, isLoading: true }
 
   async componentDidMount() {
     this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
 
+		const pais = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_PAIS)
 		const estado = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_ESTADO)
 		const municipio = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_MUNICIPIO)
 		const regiao = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_REGIAO)
 
 		this.setState({
-			uf: DataLocalidade,
+      uf: DataLocalidade,
+      selectedValuePais: '',
 			selectedValueEstado: '',
 			selectedValueCidade: '',
+			pais: pais,
 			estado: estado,
 			municipio: municipio,
 			regiao: regiao,
 			isLoading: false,
 		});
 	}
+
+  renderValueChangePais = (value) => {
+//    reactotron.log(value);
+    this.setState({
+      selectedValuePais: value,
+      pais: value.nome,
+    })
+  }
 
   renderValueChangeEstado = (value) => {
 //    reactotron.log(value);
@@ -57,16 +69,22 @@ export default class NewUserLocalidadeScreen extends Component {
 
   guardarLocalidade = async () => {
 
-    let { estado, municipio, regiao } = this.state;
+    let { pais, estado, municipio, regiao } = this.state;
 
   //  reactotron.log({estado, municipio, regiao})
 
     if (__DEV__) {
+      pais = CONSTANTES.PAIS_BRASIL
       estado = "Acre"
       municipio = "Assis Brasil"
       regiao = "Brasiléia"
     }
 
+    if(pais === CONSTANTES.PAIS_PORTUGAL){
+      municipio = estado
+      regiao = estado
+    }
+    await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_PAIS, `${pais}`);
     await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_ESTADO, `${estado}`);
     await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_MUNICIPIO, `${municipio}`);
     await LocalStorage.setItem(CONSTANTES.ASYNC_ITEM_USUARIO_REGIAO, `${regiao}`);
@@ -77,7 +95,7 @@ export default class NewUserLocalidadeScreen extends Component {
         <ActivityIndicator />
       )
     }
-    const { selectedValueCidade, selectedValueEstado, uf } = this.state;
+    const { selectedValueCidade, selectedValueEstado, selectedValuePais, uf } = this.state;
     return (
       <View style={StyleLocalidade.container}>
         {/* <View style={StyleLocalidade.cabecalhoContainer}> */}
@@ -87,28 +105,59 @@ export default class NewUserLocalidadeScreen extends Component {
           <View style={StyleLocalidade.camposContainer}>
             <View style={StyleLocalidade.itemCamposContainer}>
               <Text style={StyleLocalidade.itemCamposTexto}>
-                Escolha o estado
+                Escolha o País
 							</Text>
-              <SelectEstados
-                selectedValue={selectedValueEstado}
+              <SelectPais
+                selectedValue={selectedValuePais}
                 data={uf}
                 style={StyleLocalidade.itemCamposPicker}
                 itemStyle={StyleLocalidade.itemCamposPickerItem}
-                onValueChange={this.renderValueChangeEstado} />
+                onValueChange={this.renderValueChangePais} />
             </View>
             <View style={StyleLocalidade.itemCamposEspacoContainer}>
               <Text></Text>
             </View>
-            <View style={StyleLocalidade.itemCamposContainer}>
-              <Text style={StyleLocalidade.itemCamposTexto}>
-                Escolha o município
-							</Text>
-              <SelectCidades selectedValue={selectedValueCidade}
-                data={selectedValueEstado}
-                style={StyleLocalidade.itemCamposPicker}
-                itemStyle={StyleLocalidade.itemCamposPickerItem}
-                onValueChange={this.renderValueChangeCidade} />
-            </View>
+
+            {(this.state.pais === CONSTANTES.PAIS_PORTUGAL ?
+                <View style={StyleLocalidade.itemCamposContainer}>
+                  <Text style={StyleLocalidade.itemCamposTexto}>
+                    Escolha o distrito
+                  </Text>
+                  <SelectEstados
+                    selectedValue={selectedValueEstado}
+                    data={selectedValuePais}
+                    style={StyleLocalidade.itemCamposPicker}
+                    itemStyle={StyleLocalidade.itemCamposPickerItem}
+                    onValueChange={this.renderValueChangeEstado} />
+                </View>
+            : (this.state.pais === CONSTANTES.PAIS_BRASIL ?
+              <View>
+                <View style={StyleLocalidade.itemCamposContainer}>
+                  <Text style={StyleLocalidade.itemCamposTexto}>
+                    Escolha o estado
+                  </Text>
+                  <SelectEstados
+                    selectedValue={selectedValueEstado}
+                    data={selectedValuePais}
+                    style={StyleLocalidade.itemCamposPicker}
+                    itemStyle={StyleLocalidade.itemCamposPickerItem}
+                    onValueChange={this.renderValueChangeEstado} />
+                </View>
+                <View style={StyleLocalidade.itemCamposEspacoContainer}>
+                  <Text></Text>
+                </View>
+                <View style={StyleLocalidade.itemCamposContainer}>
+                  <Text style={StyleLocalidade.itemCamposTexto}>
+                    Escolha o município
+                  </Text>
+                  <SelectCidades selectedValue={selectedValueCidade}
+                    data={selectedValueEstado}
+                    style={StyleLocalidade.itemCamposPicker}
+                    itemStyle={StyleLocalidade.itemCamposPickerItem}
+                    onValueChange={this.renderValueChangeCidade} />
+                </View>
+              </View>
+             : null))}
           </View>
           <View style={StyleLocalidade.erroContainer}>
             <Text style={StyleLocalidade.erroTexto}>{this.state.erro}</Text>
@@ -119,12 +168,15 @@ export default class NewUserLocalidadeScreen extends Component {
             style={StyleLocalidade.botaoButton}
             onPress={async () => {
               var mensagem = "";
-              if (selectedValueEstado != "" && selectedValueCidade != "") {
+              if (selectedValuePais != "" && selectedValueEstado != "" && selectedValueCidade != "") {
                 //Atualiza AsynStorage
                 await this.guardarLocalidade()
-                this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
+                //Cadastro ou alteracao?
+                this.isCadastro ?
+                  this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_TELEFONE) :
+                  this.props.navigation.navigate(CONSTANTES.ROUTES_NEW_USER_CADASTRAR)
               } else {
-                mensagem = "Por favor, escolha o estado e o município"
+                mensagem = "Por favor, preencha os campos acima"
                 this.setState({ erro: mensagem })
               }
             }}
