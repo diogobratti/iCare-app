@@ -168,7 +168,7 @@ export default class NewUserLocalidadeScreen extends Component {
             style={StyleLocalidade.botaoButton}
             onPress={async () => {
               var mensagem = "";
-              if (selectedValuePais != "" && selectedValueEstado != "" && selectedValueCidade != "") {
+              if ((selectedValuePais == CONSTANTES.PAIS_BRASIL && selectedValueEstado != "" && selectedValueCidade != "") || (selectedValuePais == CONSTANTES.PAIS_PORTUGAL && selectedValueEstado != "")) {
                 //Atualiza AsynStorage
                 await this.guardarLocalidade()
                 //Cadastro ou alteracao?
