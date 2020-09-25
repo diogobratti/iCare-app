@@ -12,9 +12,11 @@ import DeviceInfo from 'react-native-device-info';
 export default class NewUserTelefone extends Component {
 
   state = {
+    telefone: "",
     erroTelefone: "",
     instagram: "",
     erroInstagram: "",
+    pais: "",
   }
 
   static navigationOptions = {
@@ -30,7 +32,8 @@ export default class NewUserTelefone extends Component {
       if(patt.test(phoneNumber) && patt.test(this.state.telefone)){
         let phone = phoneNumber;
         phone = phone.replace("+55","");
-        phone = "(" + phone.substr(0,2) + ") " + phone.substr(2,5) + "-" + phone.substr(7);
+        phone = phone.replace("+351","");
+        //phone = "(" + phone.substr(0,2) + ") " + phone.substr(2,5) + "-" + phone.substr(7);
         this.setState({telefone: phone});
       }
       // Android: null return: no permission, empty string: unprogrammed or empty SIM1, e.g. "+15555215558": normal return value
@@ -41,6 +44,7 @@ export default class NewUserTelefone extends Component {
     this.setState({
       telefone: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_TELEFONE),
       instagram: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_INSTAGRAM),
+      pais: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_PAIS),
     })
 
     this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
@@ -65,21 +69,51 @@ export default class NewUserTelefone extends Component {
         <Text style={textStyle}>Qual é o seu telefone de contato?</Text>
 
         <View style={inputContainer}>
-          <TextInputMask
-            style={inputStyle}
-            type={"cel-phone"}
-            value={this.state.telefone}
-            ref={ref => (this.telefoneField = ref)}
-            onChangeText={telefone =>
-              this.setState({
-                telefone: telefone
-              })
-            }
-            placeholder="ex: (00) 00000-0000"
-          // leftIcon={
-          //   <Icon name="phone" type="antdesign" size={24} color="#007aff" />
-          // }
-          />
+          {(this.state.pais === CONSTANTES.PAIS_PORTUGAL ?
+            <TextInputMask
+              style={inputStyle}
+              type={'custom'}
+              options={{
+                /**
+                 * mask: (String | required | default '')
+                 * the mask pattern
+                 * 9 - accept digit.
+                 * A - accept alpha.
+                 * S - accept alphanumeric.
+                 * * - accept all, EXCEPT white space.
+                */
+                mask: '999 999 999',
+                /**
+                 * validator: (Function | optional | defaults returns true)
+                 * use this funcion to inform if the inputed value is a valid value (for invalid phone numbers, for example). The isValid method use this validator.
+                */
+                validator: function(value, settings) {
+                  return /^[0-9]+/g.test(value)
+                },
+              }}
+              value={this.state.telefone}
+              ref={ref => (this.telefoneField = ref)}
+              onChangeText={telefone =>
+                this.setState({
+                  telefone: telefone
+                })
+              }
+              placeholder="ex: 000 000 000"
+            />
+          : (this.state.pais === CONSTANTES.PAIS_BRASIL ?
+              <TextInputMask
+                style={inputStyle}
+                type={"cel-phone"}
+                value={this.state.telefone}
+                ref={ref => (this.telefoneField = ref)}
+                onChangeText={telefone =>
+                  this.setState({
+                    telefone: telefone
+                  })
+                }
+                placeholder="ex: (00) 00000-0000"
+              />
+          : null))}
         </View>
         <View>
           {this.state.erroTelefone !== "" ? (

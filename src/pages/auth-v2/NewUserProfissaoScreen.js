@@ -16,6 +16,7 @@ export default class NewUserProfissaoScreen extends Component {
     preco: "",
     erroPreco: "",
     erroProfissao: "",
+    pais: "",
   };
 
   static navigationOptions = {
@@ -30,6 +31,7 @@ export default class NewUserProfissaoScreen extends Component {
     this.setState({
       preco: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_PRECO),
       profissao: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_PROFISSAO),
+      pais: await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_USUARIO_PAIS),
     });
     this.isCadastro = await LocalStorage.getItem(CONSTANTES.ASYNC_ITEM_CADASTRO_COMPLETO) === null
   };
@@ -89,21 +91,39 @@ export default class NewUserProfissaoScreen extends Component {
 
         <Text style={textStyle}>Quanto você cobra por turno (12 horas)?</Text>
         <View style={inputContainer}>
-          <TextInputMask
-            style={inputStyle}
-            type={"money"}
-            options={{
-              precision: 2,
-              separator: ",",
-              delimiter: ".",
-              unit: "R$",
-              suffixUnit: ""
-            }}
-            value={this.state.preco}
-            ref={ref => (this.precoField = ref)}
-            onChangeText={preco => this.setState({ preco })}
-            placeholder="ex: R$120,00"
-          />
+          {(this.state.pais === CONSTANTES.PAIS_PORTUGAL ?
+            <TextInputMask
+              style={inputStyle}
+              type={"money"}
+              options={{
+                precision: 0,
+                separator: "",
+                delimiter: ".",
+                unit: "",
+                suffixUnit: "€"
+              }}
+              value={this.state.preco}
+              ref={ref => (this.precoField = ref)}
+              onChangeText={preco => this.setState({ preco })}
+              placeholder="ex: 40 €"
+            />
+          : (this.state.pais === CONSTANTES.PAIS_BRASIL ?
+              <TextInputMask
+                style={inputStyle}
+                type={"money"}
+                options={{
+                  precision: 0,
+                  separator: "",
+                  delimiter: ".",
+                  unit: "R$",
+                  suffixUnit: ""
+                }}
+                value={this.state.preco}
+                ref={ref => (this.precoField = ref)}
+                onChangeText={preco => this.setState({ preco })}
+                placeholder="ex: R$120"
+              />
+          : null))}
         </View>
         <View>
           {this.state.erroPreco !== "" ? (
